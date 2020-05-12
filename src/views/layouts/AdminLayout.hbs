@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Call Phone Soft</title>
+    {{!-- Ícono --}}
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/Logos/favicon.png">
+
+    {{!----------------------------------- CSS ----------------------------}}
+    {{!-- Bootstrap Core CSS --}}
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Mis estilos -->
+    <link rel="stylesheet" href="/css/MyStyle.css">
+    <!-- Custom CSS -->
+    <link href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
+    <!-- Tema de la plantilla -->
+    <link href="/css/colors/Tema_Blanco.css" id="Tema" rel="stylesheet">
+
+    {{>plugins-css}}
+
+</head>
+
+<body class="fix-header fix-sidebar card-no-border">
+
+    {{>preloader}}
+
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header (Menú Horizontal) - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar" id="Navegacion_Header">
+            <nav class="navbar top-navbar navbar-expand-md navbar-light">
+                <!-- ============================================================== -->
+                <!-- Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <!-- Logo icon --><b>
+                            <!-- You can put here icon as well // <i class="wi wi-sunset"></i> // -->
+                            <!-- Dark Logo icon -->
+                            <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <!-- Light Logo icon -->
+                            <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                        </b>
+                        <!--End Logo icon -->
+                        <!-- Logo text -->
+                        <span>CallPhone Soft.</span>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav mr-auto mt-md-0">
+                        <!-- ícono de menú  -->
+                        <li class="nav-item"> <a
+                                class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="mdi mdi-menu"></i></a>
+                        </li>
+                        <li class="nav-item m-l-10"> <a
+                                class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
+                                href="javascript:void(0)"><i class="ti-menu"></i></a>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- Notificaciones -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i
+                                    class="mdi mdi-message"></i>
+                                <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
+                            </a>
+                            <div class="dropdown-menu mailbox animated slideInUp">
+                                <ul>
+                                    <li>
+                                        <div class="drop-title">Notificaciones</div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center">
+                                            <a href="#">
+                                                <div class="btn btn-info btn-circle"><i class="fa fa-calendar"></i>
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h5> Carlos Castillo</h5><span class="mail-desc">
+                                                        Cita agendada para <strong
+                                                            class="font-weight-bold">movistar.</strong>
+                                                    </span> <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="btn btn-info btn-circle"><i class="fa fa-calendar"></i>
+                                                </div>
+                                                <div class="mail-contnet">
+                                                    <h5> Carlos Castillo</h5><span class="mail-desc">
+                                                        Cita agendada para <strong
+                                                            class="font-weight-bold">movistar.</strong>
+                                                    </span> <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center" href="../Notificaciones/Notificaciones.html">
+                                            <strong>
+                                                Ver registro de notificaciones
+                                            </strong> <i class="fa fa-angle-right"></i> </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Agenda -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted text-muted waves-effect waves-dark" href="#"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-calendar"></i>
+                                <div class="notify"> <span class="heartbit"></span><span class="point"></span> </div>
+                            </a>
+                        </li>
+
+                        <li class="nav-item dropdown mega-dropdown"> <a
+                                class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
+                                    class="fa  fa-phone"></i></a>
+                            <div class="dropdown-menu animated slideInUp">
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="container">
+                                            <div class="card">
+                                                <div class="face face1">
+                                                    <div class="content">
+                                                        <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
+                                                        <h3>Atención Telefónica</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="face face2">
+                                                    <div class="content">
+                                                        <a href="#" class="btn btn-outline-success">Continuar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="container">
+                                            <div class="card">
+                                                <div class="face face1">
+                                                    <div class="content">
+                                                        <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
+                                                        <h3>Llamada precargada</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="face face2">
+                                                    <div class="content">
+                                                        <a href="#" class="btn btn-outline-success">Continuar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="container">
+                                            <div class="card">
+                                                <div class="face face1">
+                                                    <div class="content">
+                                                        <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
+                                                        <h3>Llamada no precargada</h3>
+                                                    </div>
+                                                </div>
+                                                <div class="face face2">
+                                                    <div class="content">
+                                                        <a href="/App/Admin/Llamadas/RegistrarNP"
+                                                            class="btn btn-outline-success">Continuar</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- User profile and search -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav my-lg-0">
+                        <!-- ============================================================== -->
+                        <!-- Profile -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" 
+                                aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                                <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario" class="profile-pic">
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right scale-up">
+                                <ul class="dropdown-user">
+                                    <li>
+                                        <div class="dw-user-box">
+                                            <div class="u-img" id="ImgUsuarioHeader2">
+                                                <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario" class="profile-pic">
+                                            </div>
+                                            <div class="u-text">
+                                                <h4 id="txtNombre_Usuario_Header">{{session.Usuario}}</h4>
+                                                <p id="txtEmail_Header" class="text-muted">{{session.Email}}</p>
+                                                <a href="/App/Admin/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                                    Ver mi perfil
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <a href="../Panel Control/Panel.html">
+                                            <i class="ti-settings"></i> Configuración del sistema
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <div class="MyStyle_Tema_Switch">
+                                            <div>
+                                                <i class="fa fa-power-off"></i> Tema Oscuro
+                                            </div>
+                                            <div id="switch_input" class="switch" data-theme="Blanco">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    <span class="lever"></span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="../../Login/Login.html"><i class="fa fa-power-off"></i>
+                                            Cerrar Sesión</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar (Menú Vertical Izquierdo) - style you can find in sidebar.scss  -->
+        <aside class="left-sidebar" id="Navegacion_Aside">
+            <div class="scroll-sidebar">
+                <!-- User profile -->
+                <div class="user-profile">
+                    <!-- User profile image -->
+                    <div class="profile-img">
+                        <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario">
+                    </div>
+                    <!-- User profile text-->
+                    <div class="profile-text">
+                        <h5> {{session.Usuario}} </h5>
+                        <small> Administardor</small>
+                        <br>
+                        <a href="/Logout" class="" data-toggle="tooltip" title="Cerrar Sesión">
+                            <i class="mdi mdi-power"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- End User profile text-->
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-devider"></li>
+                        <li class="nav-small-cap">
+                            <h4>Menú</h4>
+                        </li>
+                        <li><a class="has-arrow waves-effect waves-dark"><i class="fa fa-home"></i><span
+                                    class="hide-menu">Inicio</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin">Estadísticas</a></li>
+                                <li><a href="/App/Admin/Noticias">Noticias</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="fa fa-book"></i><span class="hide-menu">Directorio</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/Directorio">Gestionar clientes </a></li>
+                            </ul>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/Directorio/Registrar">Registrar clientes </a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="fa  fa-phone"></i><span class="hide-menu">Llamadas</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/LLamadas">Gestionar llamadas</a></li>
+                                <li><a href="/App/Admin/Llamadas/Control">Control de llamadas</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="mdi mdi-calendar-clock"></i><span class="hide-menu">Citas</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/Citas">Gestionar citas</a></li>
+                                <li><a href="/App/Admin/Agenda">Agenda</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="fa fa-bell"></i><span class="hide-menu">Notificaciones</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/Notificaciones">Gestionar notificaciones</a></li>
+                            </ul>
+                        </li>
+                        <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                    class="fa fa-user"></i><span class="hide-menu">Usuarios y Empleados</span></a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="/App/Admin/Usuarios">Gestionar usuarios</a></li>
+                                <li><a href="/App/Admin/Usuarios/Registro">Registrar usuarios</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+
+            {{>titulo-eskatemp}}
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                {{{body}}}
+            </div>
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+    </div>
+
+    {{>plugins-scripts}}
+
+    {{!----------------------------- CONTROLADORES AJAX-------------------------}}
+    {{!-- Noticias --}}
+    {{#if Noticias}}
+    <script src="/controladores-ajax/Noticias/ListarNoticias.js"></script>
+    {{/if}}
+
+    {{!-- Directorio --}}
+    {{#if Directorio}}
+    <script src="/controladores-ajax/Clientes/ListarClientes.js"></script>
+    <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
+    <script src="/controladores-ajax/Clientes/EliminarCliente.js"></script>
+    <script src="/controladores-ajax/Clientes/ImportarClientes.js"></script>
+    {{/if}}
+    {{#if Directorio_Registro}}
+    <script src="/controladores-ajax/Clientes/RegistrarClientes.js"></script>
+    {{/if}}
+    {{#if Directorio_Editar}}
+    <script src="/controladores-ajax/Clientes/EditarCliente.js"></script>
+    {{/if}}
+
+
+    {{!-- Llamadas --}}
+    {{!-- {{#if Llamada_NP}}
+    <script src="/controladores-ajax/Llamadas/ListarLlamadas.js"></script>
+    {{/if}} --}}
+
+    {{#if Registrar_Llamada_NP}}
+    <!-- Cronómetro -->
+    <script src="/js/CronometroLlamada.js"></script>
+    <script src="/js/CronometroVerficar.js"></script>
+    <!-- Direccion -->
+    <script src="/js/Direccion.js"></script>
+    <script src="/controladores-ajax/Llamadas/RegistrarLlamadaNP.js"></script>
+    {{/if}}
+
+    {{!-- Usuarios --}}
+    {{#if Usuarios}}
+    <script src="/controladores-ajax/Usuarios/ListarUsuarios.js"></script>
+    <script src="/controladores-ajax/Usuarios/DetallesUsuario.js"></script>
+    <script src="/controladores-ajax/Usuarios/EditarUsuarios.js"></script>
+    <script src="/controladores-ajax/Usuarios/EliminarUsuario.js"></script>
+    {{/if}}
+    {{#if Registrar_Usuarios}}
+    <script src="/controladores-ajax/Usuarios/RegistrarUsuario.js"></script>
+    {{/if}}
+
+    {{#if Configuracion}}
+    <!-- Ajax Documentos -->
+    <script src="../../../Controllers/PanelControl/Documentos/RegistrarDocumento.js"></script>
+    <script src="../../../Controllers/PanelControl/Documentos/ListarDocumento.js"></script>
+    <script src="../../../Controllers/PanelControl/Documentos/ObtenerDocumento.js"></script>
+    <script src="../../../Controllers/PanelControl/Documentos/EditarDocumento.js"></script>
+    <script src="../../../Controllers/PanelControl/Documentos/EliminarDocumento.js"></script>
+
+    <!-- Ajax Sexo -->
+    <script src="../../../Controllers/PanelControl/Sexo/RegistrarSexo.js"></script>
+    <script src="../../../Controllers/PanelControl/Sexo/ListarSexo.js"></script>
+    <script src="../../../Controllers/PanelControl/Sexo/ObtenerSexo.js"></script>
+    <script src="../../../Controllers/PanelControl/Sexo/EditarSexo.js"></script>
+    
+    <!-- Ajax Pais -->
+    <script src="../../../Controllers/PanelControl/Pais/RegistrarPais.js"></script>
+    <script src="../../../Controllers/PanelControl/Pais/ListarPais.js"></script>
+    <script src="../../../Controllers/PanelControl/Pais/ObtenerPais.js"></script>
+    <script src="../../../Controllers/PanelControl/Pais/EditarPais.js"></script>
+
+    <!-- Ajax Departamentos -->
+    <script src="../../../Controllers/PanelControl/Departamentos/RegistrarDepartamento.js"></script>
+    <script src="../../../Controllers/PanelControl/Departamentos/ListarDepartamento.js"></script>
+    <script src="../../../Controllers/PanelControl/Departamentos/ObtenerDepartamento.js"></script>
+    <script src="../../../Controllers/PanelControl/Departamentos/EditarDepartamento.js"></script>
+
+     <!-- Ajax Municipios -->
+     <script src="../../../Controllers/PanelControl/Municipios/RegistrarMunicipio.js"></script>
+     <script src="../../../Controllers/PanelControl/Municipios/ListarMunicipio.js"></script>
+     <script src="../../../Controllers/PanelControl/Municipios/ObtenerMunicipio.js"></script>
+     <script src="../../../Controllers/PanelControl/Municipios/EditarMunicipio.js"></script>
+
+    <!-- Ajax SubTipo -->
+    <script src="../../../Controllers/PanelControl/SubTipo/RegistrarSubTipo.js"></script>
+    <script src="../../../Controllers/PanelControl/SubTipo//ListarSubTipo.js"></script>
+    <script src="../../../Controllers/PanelControl/SubTipo//ObtenerSubTipo.js"></script>
+    <script src="../../../Controllers/PanelControl/SubTipo//EditarSubTipo.js"></script>
+
+    <!-- Ajax Operadores -->
+    <script src="../../../Controllers/PanelControl/Operadores/RegistrarOperador.js"></script>
+    <script src="../../../Controllers/PanelControl/Operadores/ListarOperador.js"></script>
+    <script src="../../../Controllers/PanelControl/Operadores/ObtenerOperador.js"></script>
+    <script src="../../../Controllers/PanelControl/Operadores/EditarOperador.js"></script>
+
+    <!--Ajax roles-->
+    <script src="../../../Controllers/PanelControl/Roles/RegistrarRol.js"></script>
+    <script src="../../../Controllers/PanelControl/Roles/ListarRol.js"></script>
+    <script src="../../../Controllers/PanelControl/Roles/ObtenerRol.js"></script>
+    <script src="../../../Controllers/PanelControl/Roles/EditarRol.js"></script>
+
+
+     <!--Ajax Barrio Vereda-->
+    <script src="../../../Controllers/PanelControl/BarriosVeredas/RegistrarBarrioVereda.js"></script>
+    <script src="../../../Controllers/PanelControl/BarriosVeredas/ListarBarrioVereda.js"></script>
+    <script src="../../../Controllers/PanelControl/BarriosVeredas/ObtenerBarrioVereda.js"></script>
+    <script src="../../../Controllers/PanelControl/BarriosVeredas/EditarBarrioVereda.js"></script>
+
+     <!--Ajax Turno-->
+     <script src="../../../Controllers/PanelControl/Turnos/RegistrarTurnos.js"></script>
+     <script src="../../../Controllers/PanelControl/Turnos/ListarTurnos.js"></script>
+     <script src="../../../Controllers/PanelControl/Turnos/ObtenerTurnos.js"></script>
+     <script src="../../../Controllers/PanelControl/Turnos/EditarTurnos.js"></script>
+
+    <!--Ajax Calificacion-->
+    <script src="../../../Controllers/PanelControl/Calificaciones/RegistrarCalificacion.js"></script>
+    <script src="../../../Controllers/PanelControl/Calificaciones/ListarCalificacion.js"></script>
+    <script src="../../../Controllers/PanelControl/Calificaciones/ObtenerCalificacion.js"></script>
+    <script src="../../../Controllers/PanelControl/Calificaciones/EditarCalificacion.js"></script>
+    <script src="../../../Controllers/PanelControl/Calificaciones/EliminarCalificacion.js"></script>
+
+    <!--Ajax Razones-->
+    <script src="../../../Controllers/PanelControl/Razones/RegistrarRazones.js"></script>
+    <script src="../../../Controllers/PanelControl/Razones/ListarRazones.js"></script>
+    <script src="../../../Controllers/PanelControl/Razones/ObtenerRazones.js"></script>
+    <script src="../../../Controllers/PanelControl/Razones/EditarRazones.js"></script>
+    <script src="../../../Controllers/PanelControl/Razones/EliminarRazones.js"></script>
+
+    {{/if}}
+
+</body>
+
+</html>

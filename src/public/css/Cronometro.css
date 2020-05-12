@@ -1,0 +1,89 @@
+/* #screen {
+	font-family: Calibri,Arial;
+	font-weight: 300;
+	font-size: 45px;
+	width: 330px;
+	height: 50px;
+	color: gray;
+	letter-spacing: 3px;
+}
+.buttons {
+width: 330px;
+height: 50px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.emerald {
+	border-radius: 5px;
+	width: 80px;
+
+	height: 30px;
+	margin: 5px;
+	border: 1px solid #384049;
+  color: white;
+  cursor: pointer;
+  font-family: Calibri,Arial;
+  font-weight: 300;
+  outline: none;
+  text-shadow: 0px -1px 1px black;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.emerald{
+   background-image: linear-gradient(#3aad02,#2c6f05);
+}
+.emerald:active{
+   background-image: linear-gradient(#2c6f05,#3aad02);
+   text-shadow:      0px 1px 1px black;
+} */
+
+.titulo_RL{
+    text-align: center;
+    font-weight: bold;
+}
+
+.MyStyle_Contador{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.MyStyle_Contador div{
+    position: relative;
+    width: 100px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #333;
+    color: #fff;
+    margin: 0 15px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.MyStyle_Contador div::before{
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: #00897b;
+    color: #fff;
+    font-size: 0.8rem;
+    line-height: 15px;
+}
+
+.MyStyle_Contador > .Contador_Minutos::before{
+    content: 'Minutos';
+}
+
+.MyStyle_Contador > .Contador_Segundos::before{
+    content: 'Segundos';
+}
+
+.btns{
+    line-height: 80px;
+}

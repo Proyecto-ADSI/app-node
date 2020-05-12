@@ -1,0 +1,249 @@
+/* Login */
+.MyStyle_login_fondo{
+    background-color: #272c33;
+}
+
+.MyStyle_login_box{
+    color: #000 !important;
+    background: #eef5f9 !important;
+    width: 650px !important;
+    margin-top: 5% !important;
+    border: none;
+}
+/* td{
+    background-color: #434343;
+} */
+
+
+/* Card 1 */
+.MyStyle_Card1_Fondo{
+    height: 100%;
+    background: url(../assets/images/Logos/logo.png);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+
+.MyStyle_Box_Logo{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: -10%;
+    left: 30%;
+}
+
+
+/* Card 2 */
+.MyStyle_Logo_Empresa{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.MyStyle_Card2_box{
+    padding-top: 25%;
+}
+
+.MyStyle_Form_Control{
+    color: #000 !important;
+}
+
+.MyStyle_Form_Control:focus{
+    background-image: linear-gradient(#00897b, #00897b), linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13)) !important;
+}
+
+.MyStyle_Btn_Login{
+    color: #f3f3f3;
+    background: rgb(28, 231, 204); 
+    border: 2px solid rgb(28, 231, 204);
+}
+
+.MyStyle_Btn_Login:hover{
+    color: #f3f3f3;
+    background-color:rgb(28, 231, 204);
+    border: 2px solid #00897b;
+}
+
+/* Recuperar Contraseña */
+.MyStyle_btn_Regresar{
+    position: absolute;
+    top: 10%;
+}
+
+
+/* Registro */
+.MyStyle_Card_Header{
+    background: #00897b!important;
+    border-color:#00897b !important;
+}
+
+.MyStyle_File_Card{
+    padding-top: 0 !important;
+}
+
+/* .form-horizontal label {
+    padding-top: 7px !important;
+} */
+
+
+
+/* Panel de Control */
+.tabs-vertical > li > a > span > i{
+    margin-right: 10px;
+}
+
+.MyStyle_Tabs{
+    width: 800px !important;
+}
+
+/* Tabla Llamadas */
+.MyStyle_Color-Table thead tr th{
+    background-color: #00897b !important;
+    color: #ffffff !important;
+
+}
+
+.MyStyle_Table_num{
+    max-width: 10px !important;
+}
+.MyStyle_Table_Estado{
+    max-width: 10px !important;
+}
+.MyStyle_Table_Opciones{
+    min-width: 180px;
+}
+.MyStyle_Table_Fecha{
+    max-width: 10px !important;
+}
+
+.MyStyle_Table_Hora{
+    max-width: 40px !important;
+}
+
+.MyStyle_demo-checkbox{
+    min-width: 50px !important;
+}
+
+.MyStyle_Guion{
+    margin-top: 290%;
+}
+
+.MyStyle_Card_Detalle{
+    box-shadow: none !important;
+}
+
+.MyStyle_Modal_Dialog{
+    max-width: 600px !important;
+}
+
+.MyStyle_Calentar_List{
+    padding: 8px 10px;
+    border: 1px solid #ffffff;
+
+}
+
+/* Filtro */
+.MyStyle_Btn_Filtro > button{
+    color: #fff;
+}
+.MyStyle_Btn_Filtro > a{
+    background: #0c0c0c;
+    color: rgb(28, 231, 204);
+}
+
+.input-group-addon{
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: .375rem .75rem;
+    margin-bottom: 0;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #e9ecef;
+    border: 1px solid#ced4da;
+}
+
+/* Card (Atención telefónica, Llamada Pre, LLamada no pre*/
+
+/* Modal Detalles usuarios y empleados */
+.MyStyle_Detalles_Emp_Usu{
+
+    font-weight: bold;
+}
+
+/* Modal editar usuarios */
+
+.MyStyle_Id_Principal_Column{
+    display: none;
+}
+
+.MyStyle_Btn_Docs{
+    color: #000 !important;
+}
+/* .MyStyle_Modal_Editar_Usuarios{
+    max-height: 400px !important;
+} */
+
+
+.MyStyle_Checkbox{
+    display: none;
+}
+
+.select2-search__field{
+    width: 100% !important;
+}
+
+/* Switch Tema */
+.MyStyle_Tema_Switch{
+    padding: 9px 15px;
+}
+
+.MyStyle_Tema_Switch > div{
+    display: inline-block;
+}
+
+.MyStyle_Color_Comparativo  thead  th.op1{
+    background-color: #379b79;
+    color: #ffffff;
+}
+
+.MyStyle_Color_Comparativo  thead  th.op2{
+    background-color: #be3434;
+    color: #ffffff;
+}
+
+#Tabla_Detalle_Lineas tr td [type="radio"]:not(:checked) + label, [type="radio"]:checked + label{
+    font-size: 0.8rem !important;
+}
+.MyStyle_Cargo_Detalle_Linea{
+    width: 8rem !important;
+}
+
+.btn.disabled, .btn:disabled {
+    opacity: .3 !important;
+    cursor: not-allowed !important;
+}
+
+[type="checkbox"] + label.checkbox{
+    height: 10px !important;
+    margin-left: 10px !important;
+}
+
+.MyStyle_modalTamañoDireccion{
+    max-width: 1000px !important;
+}
+
+.MyStyle_DireccionFinal{
+    opacity: 1 !important;
+    /* background-color: #fff !important; */
+    font-weight: bold;
+}
+
+.clockpicker-popover {
+    z-index: 999999;
+}

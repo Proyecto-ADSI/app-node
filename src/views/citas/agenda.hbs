@@ -1,0 +1,151 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card ">
+            <div class="">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h4 class="card-title m-t-10">Asignación de citas </h4>
+                                </div>
+                                <div class="col-md-4">
+                                    <a href="#" data-toggle="modal" data-target="#add-new-event"
+                                        class="btn m-t-10 btn-info btn-block waves-effect waves-light">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <h6>Indicadores</h6>
+                                    <div class="MyStyle_Calentar_List"><i class="fa fa-circle text-danger"></i> Claro
+                                    </div>
+                                    <div class="MyStyle_Calentar_List"><i class="fa fa-circle text-success"></i>
+                                        Movistar
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="card-body b-l calender-sidebar">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- BEGIN MODAL -->
+<div class="modal none-border" id="my-event">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Add Agenda</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success save-event waves-effect waves-light">Create
+                    event</button>
+                <button type="button" class="btn btn-danger delete-event waves-effect waves-light"
+                    data-dismiss="modal">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Citas sin asignar -->
+<div class="modal fade none-border" id="add-new-event">
+    <div class="modal-dialog MyStyle_Modal_Dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Citas</strong> sin asignar</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <table class="table color-bordered-table danger-bordered-table ">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Empresa</th>
+                                    <th>Operador</th>
+                                    <th>Barrio</th>
+                                    <th>Líneas</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>12/12/2019</td>
+                                    <td>Tapitas S.A.S</td>
+                                    <td>Avantel</td>
+                                    <td>Laureles</td>
+                                    <td>4</td>
+                                    <td>
+                                        <button href="#" data-dismiss="modal" data-toggle="modal"
+                                            data-target="#AsignarAsesor"
+                                            class="btn  btn-outline-danger btn-block waves-effect waves-light">
+                                            <i class="ti-plus"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END MODAL TABLE Citas -->
+<!-- Modal Asignar Asesor a citas -->
+<div class="modal none-border" id="AsignarAsesor">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Asignar Asesor</strong></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="#">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label class="control-label">Empresa:</label>
+                            <p>Tapitas S.A.S</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Asesor:</label>
+
+                            <select class="form-control" name="Asesores">
+                                <option disabled value="">Seleccione...</option>
+                                <option>Juan Pérez</option>
+                                <option>Alicia Ortega</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white waves-effect" data-dismiss="modal">
+                    Cancelar
+                </button>
+                <button type="button" class="btn btn-success save-event waves-effect waves-light">
+                    Asignar
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
