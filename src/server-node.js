@@ -63,13 +63,13 @@ app.use(require("./routes/autenticacion"));
 // Rutas Admin
 app.use("/App/Admin", require("./routes/rutas-admin"));
 // Rutas Coordinador
-// app.use('/App/Coordinador',require('./routes/rutas-coordinador'));
+app.use('/App/Coordinador',require('./routes/rutas-coordinador'));
 // // Rutas Contact
-// app.use('/App/Contact',require('./routes/rutas-contact'));
+app.use('/App/Contact',require('./routes/rutas-contact'));
 // // Rutas AsesorI
-// app.use('/App/AsesorI',require('./routes/rutas-asesorI'));
+app.use('/App/AsesorI',require('./routes/rutas-asesorI'));
 // // Rutas AsesorE
-// app.use('/App/AsesorE',require('./routes/rutas-asesorE'));
+app.use('/App/AsesorE',require('./routes/rutas-asesorE'));
 // // Rutas GestionC
 // app.use('/App/GestionC',require('./routes/rutas-gestionC'));
 
