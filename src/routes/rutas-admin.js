@@ -5,7 +5,7 @@ const {usuarioLogeado} = require("../lib/validar-session");
 // Administrador
 // Inicio
 router.get('/', usuarioLogeado,(req,res)=>{
-    res.render('inicio/estadisticas',{layout:'AdminLayout.hbs', session: req.session.datos_usuario })
+    res.render('inicio/estadisticas',{layout:'AdminLayout.hbs', Estadisticas: true, session: req.session.datos_usuario })
 });
 
 router.get('/Noticias', usuarioLogeado, (req,res)=>{
