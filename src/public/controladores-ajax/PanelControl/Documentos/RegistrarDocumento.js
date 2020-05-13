@@ -1,5 +1,3 @@
-const URL = 'http://localhost:8081';
-
 let RegistrarDocumento = () => {
 
     let datos = {
