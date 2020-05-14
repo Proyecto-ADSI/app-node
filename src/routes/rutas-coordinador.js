@@ -8,6 +8,9 @@ router.get('/', usuarioLogeado,(req,res)=>{
     res.render('inicio/estadisticas',{layout:'CoordinadorLayout.hbs', session: req.session.datos_usuario })
 });
 
+router.get('/Noticias', usuarioLogeado, (req,res)=>{
+    res.render('inicio/listar-noticias',{layout:'CoordinadorLayout.hbs', Noticias: true , session: req.session.datos_usuario })
+});
 // Directorio
 router.get('/Directorio', usuarioLogeado,(req,res)=>{
     res.render('directorio/listar-clientes',{layout:'CoordinadorLayout.hbs', session: req.session.datos_usuario })

@@ -5,10 +5,13 @@ const {usuarioLogeado} = require("../lib/validar-session");
 // Administrador
 // Inicio
 
+router.get('/', usuarioLogeado, (req,res)=>{
+   res.redirect("/App/ContactCenter/Noticias")
+});
+
 router.get('/Noticias', usuarioLogeado, (req,res)=>{
     res.render('inicio/listar-noticias',{layout:'AdminLayout.hbs', Noticias: true , session: req.session.datos_usuario })
 });
-
 
 // Directorio
 router.get('/Directorio', usuarioLogeado, (req,res)=>{

@@ -1,6 +1,4 @@
 
-const URL = 'http://localhost:8081'
-
 function getParameterByName(name) {
   name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
   var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),

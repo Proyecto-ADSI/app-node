@@ -12,9 +12,4 @@ router.get('/Agenda',usuarioLogeado,(req,res)=>{
     res.render('citas/agenda',{layout:'AsesorInterno.hbs', Llamada_NP: true , session: req.session.datos_usuario })
 });
 
-
-
-
-
-
 module.exports = router;
