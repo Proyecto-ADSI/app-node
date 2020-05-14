@@ -20,7 +20,7 @@ let ListarTurnos = () =>{
             <td>${item.Fin}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10" id="EditarTurnos" data-toggle="modal" data-target="#ModificarTurno" onclick="ObtenerTurno(${item.Id_Turno})" style="cursor:pointer;"></i>
-                    <i class="fa fa-close text-danger" style="cursor:pointer;"></i>  
+                    <i class="fa fa-close text-danger" onclick="EliminarTurnos(${item.Id_Turno})" style="cursor:pointer;"></i>  
                     <input type="checkbox" class="js-switch" id='Turno${item.Id_Turno}'/>
             </td>
         </tr>

@@ -17,7 +17,7 @@ let ListarPais = () =>{
             <td>${item.Nombre_Pais}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10" id="EditarPais" data-toggle="modal" data-target="#ModificarPais" onclick="ObtenerPais(${item.Id_Pais})" style="cursor:pointer;"></i>
-                     <i class="fa fa-close text-danger" style="cursor:pointer;"></i>
+                     <i class="fa fa-close text-danger" onclick="EliminarPais(${item.Id_Pais})" style="cursor:pointer;"></i>
                      <input type="checkbox" class="js-switch" id='Pais${item.Id_Pais}'/>
             </td>
         </tr>

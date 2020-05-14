@@ -16,7 +16,7 @@ let ListarSexo = () =>{
             <td>${item.Nombre}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10" id="EditarSexo" data-toggle="modal" data-target="#ModificarSexo" onclick="ObtenerSexo(${item.Id_Sexo})" style="cursor:pointer;"></i>
-                     <i class="fa fa-close text-danger" style="cursor:pointer;"></i>
+                    <i class="fa fa-close text-danger" onclick="EliminarSexo(${item.Id_Sexo})" style="cursor:pointer;"></i>
                      <input type="checkbox" id='${item.Id_Sexo}' class="js-switch"/>
             </td>
         </tr>
