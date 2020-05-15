@@ -46,20 +46,19 @@ $(function () {
             { mData: 'Apellidos' },
             { mData: 'Rol'},
             { mData: 'Correo'},
-            { mData: 'Celular'},
             { defaultContent: 
                     `
                     <input type="checkbox" id="switch_cliente" class="js-switch" />
                     
-                    <button id="btnDetalles" class="btn btn-warning">
+                    <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles"">
                         <i class="fa fa-eye"></i>
                     </button>
 
-                    <button id="btnEditar" class="btn btn-info">
+                    <button id="btnEditar" class="btn btn-outline-info" title="Editar">
                         <i class="fa fa-pencil"></i>
                     </button>
                     
-                    <button id="btnEliminar" class="btn btn-danger">
+                    <button id="btnEliminar" class="btn btn-outline-danger"  title="Eliminar">
                         <i class="fa fa-close"></i> 
                     </button>
             `}
@@ -106,6 +105,8 @@ $(function () {
 
         }
     });
+    // Habilitar los tooltips
+    InicializarToltips();
 });
 
 // Cargar Modal

@@ -226,69 +226,69 @@ $(function () {
         CargarImagenRegistro();
       }
     },
-    // rules: {
-    //     txtTipoDocumento: "required",
-    //     txtDocumento: {
-    //         required: true,
-    //         number: true,
-    //         minlength: 5
-    //     },
-    //     txtNombre: {
-    //         required: true,
-    //         SoloLetras: true,
-    //         minlength: 2,
-    //         maxlength: 30
-    //     },
-    //     txtApellidos: {
-    //         required: true,
-    //         SoloLetras: true,
-    //         minlength: 2,
-    //         maxlength: 30
-    //     },
-    //     txtEmail: {
-    //         required: true,
-    //         ValidarCorreo: true
-    //     },
-    //     txtSexo: "required",
-    //     txtCelular: {
-    //         NumeroMovil: true,
-    //         minlength: 10,
-    //         maxlength: 10
-    //     },
-    //     txtTurno: "required",
-    //     txtUsuario: {
-    //         required: true,
-    //         minlength: 5,
-    //         remote: {
-    //             url: `${URL}/Usuarios/Validacion/Disponible`,
-    //             type: 'get',
-    //             dataType: 'json',
-    //             data: {
-    //                 txtUsuario: function () {
-    //                     return $("#txtUsuario").val();
-    //                 }
-    //             },
-    //             dataFilter: function (res) {
-    //                 var json = JSON.parse(res);
-    //                 if (json.data) {
-    //                     return '"true"';
-    //                 } else {
-    //                     return '"Usuario no disponible"';
-    //                 }
-    //             }
-    //         }
-    //     },
-    //     txtRol: "required",
-    //     txtContrasena: {
-    //         required: true,
-    //         minlength: 5
-    //     },
-    //     txtConfirmarContrasena: {
-    //         required: true,
-    //         equalTo: "#txtContrasena"
-    //     },
-    //     ListaEmpleados: "required"
-    // },
+    rules: {
+        txtTipoDocumento: "required",
+        txtDocumento: {
+            required: true,
+            number: true,
+            minlength: 5
+        },
+        txtNombre: {
+            required: true,
+            SoloLetras: true,
+            minlength: 2,
+            maxlength: 30
+        },
+        txtApellidos: {
+            required: true,
+            SoloLetras: true,
+            minlength: 2,
+            maxlength: 30
+        },
+        txtEmail: {
+            required: true,
+            ValidarCorreo: true
+        },
+        txtSexo: "required",
+        txtCelular: {
+            NumeroMovil: true,
+            minlength: 10,
+            maxlength: 10
+        },
+        txtTurno: "required",
+        txtUsuario: {
+            required: true,
+            minlength: 5,
+            remote: {
+                url: `${URL}/Usuarios/Validacion/Disponible`,
+                type: 'get',
+                dataType: 'json',
+                data: {
+                    txtUsuario: function () {
+                        return $("#txtUsuario").val();
+                    }
+                },
+                dataFilter: function (res) {
+                    var json = JSON.parse(res);
+                    if (json.data) {
+                        return '"true"';
+                    } else {
+                        return '"Usuario no disponible"';
+                    }
+                }
+            }
+        },
+        txtRol: "required",
+        txtContrasena: {
+            required: true,
+            minlength: 5
+        },
+        txtConfirmarContrasena: {
+            required: true,
+            equalTo: "#txtContrasena"
+        },
+        ListaEmpleados: "required"
+    },
     messages: {
       txtConfirmarContrasena: {
         equalTo: "Las contraseñas no coinciden",
