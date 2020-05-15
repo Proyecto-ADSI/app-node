@@ -40,7 +40,7 @@ $(function () {
         defaultContent: `
                     <input type="checkbox" id="switch_cliente" class="js-switch"/>
 
-                    <button id="btnDetalles" title="Detalles" class="btn btn-outline-primary">
+                    <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles">
                         <i class="fa  fa-eye"></i>
                     </button>
                     

@@ -1,6 +1,6 @@
 Eliminarusuario = (Id_usuario) => {
 
-    wal({
+    swal({
         title: "¿Desea eliminar este registro?",
         text: "El registro será eliminado y no se podrá recuperar!",
         type: "warning",

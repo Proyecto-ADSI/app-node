@@ -59,7 +59,7 @@ EliminarCliente = (Id_Cliente) => {
 }
 
 
-RecargarDataTable = () => {
+let RecargarDataTable = () => {
 
     DataTable.ajax.reload();
     swal("Registro eliminado!", "Se ha eliminado el cliente.", "success");   

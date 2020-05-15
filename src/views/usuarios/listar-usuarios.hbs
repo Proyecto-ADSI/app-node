@@ -5,25 +5,25 @@
     <div class="card-body" id="Card-Body-Gestion-Usuarios">
         <!-- Card Table -->
         <div class="card  card-outline-info">
-            <div class="card-header">
+            <div class="card-header MyStyle_Card_Header">
                 <div class="row">
                     <div class="col-md-9">
                         <h4 class="m-b-0 text-white">Lista de usuarios:</h4>
                     </div>
                     <div class="col-md-3">
                         <div class="m-l-50">
-                           {{#xif session.Id_Rol '==' 1 }}
+                            {{#xif session.Id_Rol '==' 1 }}
                             <a href="/App/Admin/Usuarios/Registro"
                                 class="btn waves-effect waves-light btn-block btn-secondary">
-                                <i class="fas fa-user-plus"></i> Agregar Usuario
+                                <i class="fa fa-user-plus"></i> Agregar Usuario
                             </a>
-                           {{/xif}}
-                           {{#xif session.Id_Rol '==' 2 }}
+                            {{/xif}}
+                            {{#xif session.Id_Rol '==' 2 }}
                             <a href="/App/Coordinador/Usuarios/Registro"
                                 class="btn waves-effect waves-light btn-block btn-secondary">
-                                <i class="fas fa-user-plus"></i> Agregar Usuario
+                                <i class="fa fa-user-plus"></i> Agregar Usuario
                             </a>
-                           {{/xif}}
+                            {{/xif}}
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,6 @@
                                 <th>Apellidos </th>
                                 <th>Rol</th>
                                 <th>Correo</th>
-                                <th>Celular</th>
                                 <th class="MyStyle_Table_Opciones">Opciones</th>
                             </tr>
                         </thead>
@@ -52,3 +51,404 @@
         </div>
     </div>
 </div>
+<!-- ============================================================== -->
+<!-- Detalles usuario y empleado -->
+<!-- ============================================================== -->
+<div class="modal fade ModalDetallesUsuarios" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                    Modificar información</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body p-t-0 p-b-0">
+                <div class="card m-b-0">
+                    <div class="card-body p-t-0 p-b-0 ">
+                        <div class="row">
+                            <div class="col-4">
+                                <h4 class="MyStyle_Detalles_Emp_Usu m-t-40 m-b-30">Fotografía:</h4>
+                                <div id="imgDetalleUsuario"></div>
+                            </div>
+                            <div class="col-8">
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"> <a id="FormularioEmpleado" class="nav-link active"
+                                            data-toggle="tab" href="#DetallesEmpleado" role="tab">
+                                            <span class="hidden-sm-up"><i class="ti-home"></i></span>
+                                            <span class="hidden-xs-down">Empleado</span></a>
+                                    </li>
+                                    <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#DetallesUsuario"
+                                            role="tab">
+                                            <span class="hidden-sm-up"><i class="ti-user"></i></span>
+                                            <span class="hidden-xs-down">Usuario</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active m-3" id="DetallesEmpleado" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Nombre:
+                                                    </label>
+                                                    <p id="txtNombreDetalle"></p>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Correo:
+                                                    </label>
+                                                    <p id="txtCorreoDetalle"></p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Tipo Documento:
+                                                    </label>
+                                                    <p id="txtTipoDocumentoDetalle"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Documento:
+                                                    </label>
+                                                    <p id="txtDocumentoDetalle"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Sexo:
+                                                    </label>
+                                                    <p id="txtSexoDetalle"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Celular:
+                                                    </label>
+                                                    <p id="txtCelularDetalle"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Turno:
+                                                    </label>
+                                                    <p id="txtTurnoDetalle"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane  p-20" id="DetallesUsuario" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Usuario:
+                                                    </label>
+                                                    <p id="txtUsuarioDetalle"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Rol:
+                                                    </label>
+                                                    <p id="txtRolDetalle"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Conexión:
+                                                    </label>
+                                                    <p id="txtConexionDetalle"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Estado:
+                                                    </label>
+                                                    <p id="txtEstadoDetalle"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" onclick="MostrarModalEditar()" class="btn btn-info">
+                            <i class="fa fa-pencil"></i> Modificar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /modal -->
+<!-- Editar usuario y empleado -->
+<div class="modal fade ModalEditarUsuarios" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog MyStyle_modalTamaño1000">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                   <i class="fa fa-pencil"></i>  Modificar información
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body p-t-0 p-b-0">
+                <div class="card m-b-0">
+                    <div class="card-body wizard-content p-t-0 p-b-0 ">
+                        <form id="FormEditarUsuario" class="wizard-circle">
+                            <!-- Step 1 -->
+                            <h6>Información empleado.</h6>
+                            <section>
+                                <hr class="m-t-0 m-b-20">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label text-right">Tipo de
+                                                        documento <span class="text-danger">*</span>
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <select class="custom-select col-12" id="txtTipoDocumento"
+                                                            name="txtTipoDocumento">
+                                                            <option selected disabled value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Documento
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-credit-card"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="number" class="form-control" id="txtDocumento"
+                                                            name="txtDocumento" placeholder="Número de documento">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="txtNombre"
+                                                            name="txtNombre" placeholder="Nombre Completo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/row-->
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Apellidos
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="txtApellidos"
+                                                            name="txtApellidos" placeholder="Apellidos">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Correo
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-email"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="email" class="form-control" id="txtCorreo"
+                                                            name="txtCorreo" placeholder="Ingresar correo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Sexo
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="icon-star"></i>
+                                                            </span>
+                                                        </div>
+                                                        <select class="form-control custom-select" id="txtSexo"
+                                                            name="txtSexo">
+                                                            <option selected disabled value="">Seleccione
+                                                                sexo</option>
+                                                            <option value="1">Masculino</option>
+                                                            <option value="2">Femenino</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Celular
+                                                    </label>
+                                                    <div class="input-group ">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-mobile"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="number" class="form-control" id="txtCelular"
+                                                            name="txtCelular" placeholder="Ingresar número">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Turno
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class=" icon-clock "></i>
+                                                            </span>
+                                                        </div>
+                                                        <select class="form-control custom-select" id="txtTurno"
+                                                            name="txtTurno">
+                                                            <option selected disabled value="">Seleccione
+                                                                turno</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body MyStyle_File_Card">
+                                                <h4 class="card-title">Fotografía</h4>
+                                                <div id="inputFotografiaEditar">
+                                                    <input type="file" id="fileFotografia" name="Fotografia" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                            <!-- Step 2 -->
+                            <h6>Información usuario.</h6>
+                            <section>
+                                <hr class="m-t-0 m-b-20">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Usuario
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <i class="ti-user"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control" id="txtUsuario"
+                                                    name="txtUsuario" placeholder="Nombre usuario">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Tipo de usuario
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="basic-addon1">
+                                                        <i class="icon-people "></i>
+                                                    </span>
+                                                </div>
+                                                <select class="form-control custom-select" id="txtRol" name="txtRol">
+                                                    <option selected disabled>Seleccione...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {{!-- <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-info">
+                            <i class="fa fa-pencil"></i> Modificar
+                        </button>
+                    </div>
+                </div>
+            </div> --}}
+        </div>
+    </div>
+</div>
+<!-- /modal-->
