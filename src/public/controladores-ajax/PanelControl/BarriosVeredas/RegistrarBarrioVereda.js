@@ -28,10 +28,6 @@ let RegistrarBarrioVereda = () => {
             confirmButtonText: "Ok",
           },
           function () {
-            $("#TxtCodigo").val("");
-            $("#TxtBarrioVereda").val("");
-            $("#SelectSubTipo1").val("");
-            $("#SelectMunicipio1").val("");
             ListarBarrioVereda();
           }
         );
@@ -95,6 +91,14 @@ $(function () {
   $("#FormBarrioVereda").validate({
     submitHandler: function () {
       RegistrarBarrioVereda();
+
+      $("#TxtCodigo").val("");
+      $("#TxtBarrioVereda").val("");
+      $("#SelectSubTipo1").val("");
+      $("#SelectMunicipio1").val("");
+
+      $("#FormBarrioVereda .form-group").removeClass("has-success")
+      $("#FormBarrioVereda .form-control").removeClass("form-control-sucess")
     },
     rules: {
       Codigo: {

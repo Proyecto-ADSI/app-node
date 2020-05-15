@@ -17,7 +17,7 @@ let ListarOperador = () =>{
             <td>${item.Nombre_Operador}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10 icon-edit" id="EditarOperador" data-toggle="modal" data-target="#ModificarOperador" onclick="ObtenerOperador(${item.Id_Operador})" style="cursor:pointer;"></i>
-                     <i class="fa fa-close text-danger" style="cursor:pointer;"></i>
+                     <i class="fa fa-close text-danger" onclick="EliminarOperador(${item.Id_Operador})" style="cursor:pointer;"></i>
                      <input type="checkbox" class="js-switch" id='Operador${item.Id_Operador}'/>
             </td>
         </tr>

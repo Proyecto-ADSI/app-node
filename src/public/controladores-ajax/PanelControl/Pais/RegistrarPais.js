@@ -57,6 +57,11 @@ $(function (){
     $("#FormPais").validate({
         submitHandler: function(){
                 RegistrarPais();
+
+                $("#TxtPais").val("")
+
+                $("#FormPais .form-group").removeClass("has-success")
+                $("#FormPais .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Pais: {

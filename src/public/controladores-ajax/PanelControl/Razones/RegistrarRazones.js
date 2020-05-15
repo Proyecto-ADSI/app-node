@@ -22,7 +22,6 @@ let RegistrarRazones = () => {
                 confirmButtonText: "Ok",
               },
               function(){
-                $("#txtRazones").val("");
                 ListarRazones();
               });
         }else{
@@ -55,6 +54,11 @@ $(function (){
     $("#FormRazones").validate({
         submitHandler: function(){
                 RegistrarRazones();
+
+                $("#txtRazones").val("");
+
+                $("#FormRazones .form-group").removeClass("has-success")
+                $("#FormRazones .form-control").removeClass("form-control-sucess")
         },
         rules:{
             txtRazones: {

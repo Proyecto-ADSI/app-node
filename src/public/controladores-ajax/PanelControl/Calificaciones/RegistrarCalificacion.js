@@ -21,7 +21,6 @@ let RegistrarCalificacion = () => {
                 confirmButtonText: "Ok",
               },
               function(){
-                $("#TxtCalificacion").val("");
                 ListarCalificacion();
               });
         }else{
@@ -54,6 +53,11 @@ $(function (){
     $("#FormCalificacion").validate({
         submitHandler: function(){
                 RegistrarCalificacion();
+
+                $("#TxtCalificacion").val("");
+
+                $("#FormCalificacion .form-group").removeClass("has-success")
+                $("#FormCalificacion .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Calificacion: {

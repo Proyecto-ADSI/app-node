@@ -23,6 +23,7 @@ let RegistrarSexo = () => {
                 confirmButtonText: "Ok",
               },
               function(){
+              
                   ListarSexo();
               });
         }else{
@@ -57,6 +58,11 @@ $(function (){
     $("#FormSexo").validate({
         submitHandler: function(){
                 RegistrarSexo();
+
+                $("#TxtSexo").val("")
+
+                $("#FormSexo .form-group").removeClass("has-success")
+                $("#FormSexo .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Sexo: {

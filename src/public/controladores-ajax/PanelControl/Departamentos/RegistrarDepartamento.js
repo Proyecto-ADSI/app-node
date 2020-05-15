@@ -25,8 +25,6 @@ let RegistrarDepartamento = () => {
               },
               function(){
                 ListarDepartamento();
-                $("#TxtDepartamento").val("")
-                $("#SelectPais").val("");
               });
         }else{
             swal({
@@ -63,6 +61,12 @@ $(function (){
     $("#FormDepartamento").validate({
         submitHandler: function(){
                 RegistrarDepartamento();
+
+                $("#TxtDepartamento").val("")
+                $("#SelectPais").val("");
+
+                $("#FormDepartamento .form-group").removeClass("has-success")
+                $("#FormDepartamento .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Departamento: {

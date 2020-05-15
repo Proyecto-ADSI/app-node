@@ -57,7 +57,11 @@ $(function (){
     $("#FormSubTipo").validate({
         submitHandler: function(){
                 RegistrarSubTipo();
-                console.clear();
+
+                $("#TxtSubTipo").val("")
+             
+                $("#FormSubTipo .form-group").removeClass("has-success")
+                $("#FormSubTipo .form-control").removeClass("form-control-sucess")
         },
         rules:{
             SubTipo: {

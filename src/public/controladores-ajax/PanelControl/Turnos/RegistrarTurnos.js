@@ -59,6 +59,13 @@ $(function (){
     $("#FormTurnos").validate({
         submitHandler: function(){
                 RegistrarTurnos();
+
+                $("#TxtTurno").val("")
+                $("#Inicio").val("")
+                $("#Fin").val("")
+
+                $("#FormTurnos .form-group").removeClass("has-success")
+                $("#FormTurnos .form-control").removeClass("form-control-sucess")
         },
         rules:{
             VaTurno: {
