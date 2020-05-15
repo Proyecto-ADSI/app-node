@@ -12,10 +12,18 @@
                     </div>
                     <div class="col-md-3">
                         <div class="m-l-50">
-                            <a href="../Usuarios/Registro.html"
+                           {{#xif session.Id_Rol '==' 1 }}
+                            <a href="/App/Admin/Usuarios/Registro"
                                 class="btn waves-effect waves-light btn-block btn-secondary">
                                 <i class="fas fa-user-plus"></i> Agregar Usuario
                             </a>
+                           {{/xif}}
+                           {{#xif session.Id_Rol '==' 2 }}
+                            <a href="/App/Coordinador/Usuarios/Registro"
+                                class="btn waves-effect waves-light btn-block btn-secondary">
+                                <i class="fas fa-user-plus"></i> Agregar Usuario
+                            </a>
+                           {{/xif}}
                         </div>
                     </div>
                 </div>

@@ -13,12 +13,14 @@ let Login = () => {
     processData: false,
   })
     .done((respuesta) => {
+      console.log(respuesta)
       if (respuesta.data.ok) {
         //  // Crear Sesión
         let session = {
           Usuario: respuesta.data.Usuario,
           Id_Usuario: respuesta.data.Id_Usuario,
           Id_Rol: respuesta.data.Id_Rol,
+          Rol: respuesta.data.Rol,
           Email: respuesta.data.Email,
           Usuario_Img: respuesta.data.Imagen,
         };
@@ -42,22 +44,22 @@ let Login = () => {
                       break;
                   case 2:
                       //Coordinador
-                      location.href = "../Coordinador/Inicio/Menu.html"
+                      location.href = "/App/Coordinador"
                       break;
                   case 3:
                       //Contac center
-                      location.href = "../Contact Center/Index.html"
+                      location.href = "/App/ContactCenter/Noticias"
                       break;
                   case 4:
                       //Gestor
-                      location.href = "../Gestor Cliente/Index.html"
+                      location.href = "/App/GestionCliente/Noticias"
                       break;
                   case 5:
                       //Asesor
-                      location.href = "../Asesor/Asesor interno/Form_ReporteVisita.html"
+                      location.href = "/App/AsesorInterno/Citas"
                       break;
                   case 6:
-                  location.href = "../Asesor/Asesor interno/.html"
+                  location.href = "/App/AsesorExterno/Visitas"
                       break;
               }
             }

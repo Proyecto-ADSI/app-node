@@ -1,0 +1,53 @@
+<aside class="left-sidebar" id="Navegacion_Aside">
+    <div class="scroll-sidebar">
+        <!-- User profile -->
+        <div class="user-profile">
+            <!-- User profile image -->
+            <div class="profile-img">
+                <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario">
+            </div>
+            <!-- User profile text-->
+            <div class="profile-text">
+                <h5> {{session.Usuario}} </h5>
+                <small>{{session.Rol}}</small>
+                <br>
+                {{#xif session.Id_Rol '==' 1}}
+                <a href="/App/Admin/Configuracion" title="Configuración del sistema"><i class="mdi mdi-settings"></i></a>
+                {{/xif}}
+                <a href="/Logout" title="Cerrar sesión"><i class="mdi mdi-power"></i></a>
+                
+            </div>
+        </div>
+        <!-- End User profile text-->
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav">
+                <li class="nav-devider"></li>
+                <li class="nav-small-cap">
+                    <h4>Menú</h4>
+                </li>
+
+                {{#xif session.Id_Rol '==' 1}}
+                {{>menu-admin}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 2}}
+                {{>menu-coordinador}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 3}}
+                {{>menu-contact}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 4}}
+                {{>menu-asesorInterno}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 5}}
+                {{>menu-asesorExterno}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 6}}
+                {{>menu-gestorCliente}}
+                {{/xif}}
+
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+</aside>

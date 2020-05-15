@@ -21,7 +21,7 @@ app.engine(
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
     extname: ".hbs",
-    // helpers: require('./lib/handlebars')
+    helpers: require('./lib/handlebars')
   })
 );
 app.set("view engine", ".hbs");
@@ -63,15 +63,15 @@ app.use(require("./routes/autenticacion"));
 // Rutas Admin
 app.use("/App/Admin", require("./routes/rutas-admin"));
 // Rutas Coordinador
-// app.use('/App/Coordinador',require('./routes/rutas-coordinador'));
+app.use('/App/Coordinador',require('./routes/rutas-coordinador'));
 // // Rutas Contact
-// app.use('/App/Contact',require('./routes/rutas-contact'));
+app.use('/App/ContactCenter',require('./routes/rutas-contact'));
 // // Rutas AsesorI
-// app.use('/App/AsesorI',require('./routes/rutas-asesorI'));
+app.use('/App/AsesorInterno',require('./routes/rutas-asesorI'));
 // // Rutas AsesorE
-// app.use('/App/AsesorE',require('./routes/rutas-asesorE'));
+app.use('/App/AsesorExterno',require('./routes/rutas-asesorE'));
 // // Rutas GestionC
-// app.use('/App/GestionC',require('./routes/rutas-gestionC'));
+app.use('/App/GestionCliente',require('./routes/rutas-gestionC'));
 
 // Código público (accesible para el navegador)
 app.use(express.static(path.join(__dirname, "public")));

@@ -97,5 +97,6 @@ $(document).on("click", ".SwitchTurno", function () {
 $(document).ready(function(){
     $('#TurnosTab').click(function(){
         ListarTurnos();
+        $('.clockpicker').clockpicker();
     });
 });

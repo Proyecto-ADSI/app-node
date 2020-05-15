@@ -1,0 +1,138 @@
+<header class="topbar" id="Navegacion_Header">
+    <nav class="navbar top-navbar navbar-expand-md navbar-light">
+        <!-- ============================================================== -->
+        <!-- Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/App">
+                <!-- Logo icon --><b>
+                    <!-- You can put here icon as well // <i class="wi wi-sunset"></i> // -->
+                    <!-- Dark Logo icon -->
+                    <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <!-- Light Logo icon -->
+                    <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                </b>
+                <!--End Logo icon -->
+                <!-- Logo text -->
+                <span>CallPhone Soft.</span>
+            </a>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Logo -->
+        <!-- ============================================================== -->
+        <div class="navbar-collapse">
+            <!-- ============================================================== -->
+            <!-- toggle and nav items -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav mr-auto mt-md-0">
+                {{!-- Menú --}}
+                <li class="nav-item m-l-10">
+                    <a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
+                        href="javascript:void(0)"><i class="ti-menu"></i>
+                    </a>
+                </li>
+                <!-- ============================================================== -->
+
+                {{#xif session.Id_Rol '==' 1}}
+                {{>menu-header-admin}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 2}}
+                {{>menu-header-coordinador}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 3}}
+                {{>menu-header-contact}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 4}}
+                {{>menu-header-asesorInterno}}
+                {{/xif}}
+                {{#xif session.Id_Rol '==' 6}}
+                {{>menu-header-gestorCliente}}
+                {{/xif}}
+
+            </ul>
+            <!-- ============================================================== -->
+            <!-- User profile and search -->
+            <!-- ============================================================== -->
+            <ul class="navbar-nav my-lg-0">
+                <!-- ============================================================== -->
+                <!-- Profile -->
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" aria-haspopup="true"
+                        aria-expanded="false" data-toggle="dropdown">
+                        <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario"
+                            class="profile-pic">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                        <ul class="dropdown-user">
+                            <li>
+                                <div class="dw-user-box">
+                                    <div class="u-img" id="ImgUsuarioHeader2">
+                                        <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario"
+                                            class="profile-pic">
+                                    </div>
+                                    <div class="u-text">
+                                        <h4 id="txtNombre_Usuario_Header">{{session.Usuario}}</h4>
+                                        <p id="txtEmail_Header" class="text-muted">{{session.Email}}</p>
+
+                                        {{#xif session.Id_Rol '==' 1 }}
+                                        <a href="/App/Admin/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                            Ver mi perfil
+                                        </a>
+                                        {{/xif}}
+                                        {{#xif session.Id_Rol '==' 2 }}
+                                        <a href="/App/Coordinador/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                            Ver mi perfil
+                                        </a>
+                                        {{/xif}}
+                                        {{#xif session.Id_Rol '==' 3 }}
+                                        <a href="/App/ContactCenter/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                            Ver mi perfil
+                                        </a>
+                                        {{/xif}}
+                                        {{#xif session.Id_Rol '==' 4 }}
+                                        <a href="/App/AsesorInterno/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                            Ver mi perfil
+                                        </a>
+                                        {{/xif}}
+                                        {{#xif session.Id_Rol '==' 6 }}
+                                        <a href="/App/GestionCliente/Perfil" class="btn btn-rounded btn-danger btn-sm">
+                                            Ver mi perfil
+                                        </a>
+                                        {{/xif}}
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            {{#xif session.Id_Rol '==' 1 }}
+                            <li>
+                                <a href="/App/Admin/Configuracion">
+                                    <i class="ti-settings"></i> Configuración del sistema
+                                </a>
+                            </li>
+                            {{/xif}}
+                            
+                            <li>
+                                <div class="MyStyle_Tema_Switch">
+                                    <div>
+                                        <i class="fa fa-power-off"></i> Tema Oscuro
+                                    </div>
+                                    <div id="switch_input" class="switch" data-theme="Blanco">
+                                        <label>
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/Logout"><i class="fa fa-power-off"></i>
+                                    Cerrar Sesión</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

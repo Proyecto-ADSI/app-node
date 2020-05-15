@@ -3,7 +3,7 @@ const router = express.Router();
 const {usuarioLogeado,redireccionarUsuario} = require("../lib/validar-session");
 
 router.get("/Login",redireccionarUsuario, (req, res) => {
-  res.render("home/login");
+  res.render("home/login",{layout: 'eskatemp.hbs'});
 });
 
 router.post("/Login", (req, res) => {
