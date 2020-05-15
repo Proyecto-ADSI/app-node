@@ -17,7 +17,7 @@ let ListarMunicipio = () =>{
             <td>${item.Nombre_Municipio}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10" id="EditarMunicipio" data-toggle="modal" data-target="#ModificarMunicipio" onclick="ObtenerMunicipio(${item.Id_Municipio})" style="cursor:pointer;"></i>
-                     <i class="fa fa-close text-danger" style="cursor:pointer;"></i>
+                     <i class="fa fa-close text-danger" onclick="EliminarMunicipio(${item.Id_Municipio})" style="cursor:pointer;"></i>
                      <input type="checkbox" class="js-switch" id='Municipio${item.Id_Municipio}'/>
             </td>
         </tr>

@@ -21,9 +21,9 @@ let RegistrarDocumento = () => {
                 confirmButtonClass: "btn-success",
                 confirmButtonText: "Ok",
               },
-              function(){
+              function () {
                 ListarDocumento();
-              });
+              })
         }else{
             swal({
                 title: "Error",
@@ -56,6 +56,11 @@ $(function (){
     $("#FormDocumento").validate({
         submitHandler: function(){
                 RegistrarDocumento();
+
+                $("#TxtDocumento").val("");
+
+                $("#FormDocumento .form-group").removeClass("has-success")
+                $("#FormDocumento .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Documento: {

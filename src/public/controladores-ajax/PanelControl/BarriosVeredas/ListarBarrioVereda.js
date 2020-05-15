@@ -18,7 +18,7 @@ let ListarBarrioVereda = () =>{
             <td>${item.SubTipo}</td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10" id="EditarBarriosVeredas" data-toggle="modal" data-target="#ModificarBarrioVereda" onclick="ObtenerBarriosVereda(${item.Id_Barrios_Veredas})" style="cursor:pointer;"></i>
-                     <i class="fa fa-close text-danger" style="cursor:pointer;"></i>
+                     <i class="fa fa-close text-danger" onclick="EliminarBarrioVereda(${item.Id_Barrios_Veredas})" style="cursor:pointer;"></i>
                      <input type="checkbox" class="js-switch" id='BarriosVeredas${item.Id_Barrios_Veredas}'/>
             </td>
         </tr>

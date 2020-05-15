@@ -25,8 +25,6 @@ let RegistrarMunicipio = () => {
               },
               function(){
                 ListarMunicipio();
-                $("#TxtMunicipio").val("")
-                $("#SelectDepartamento").val("");
               });
         }else{
             swal({
@@ -64,6 +62,13 @@ $(function (){
     $("#FormMunicipio").validate({
         submitHandler: function(){
                 RegistrarMunicipio();
+
+                $("#TxtMunicipio").val("")
+                $("#SelectDepartamento").val("");
+
+
+                $("#FormMunicipio .form-group").removeClass("has-success")
+                $("#FormMunicipio .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Municipio: {

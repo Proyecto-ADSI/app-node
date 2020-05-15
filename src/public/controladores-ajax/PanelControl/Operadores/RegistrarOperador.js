@@ -23,7 +23,6 @@ let RegistrarOperador = () => {
                 confirmButtonText: "Ok",
               },
               function(){
-                $("#TxtOperador").val("");
                 ListarOperador();
               });
         }else{
@@ -55,9 +54,12 @@ $(function (){
 
 
 
-    $("#FormOperador").validate({
+     $("#FormOperador").validate({
         submitHandler: function(){
                 RegistrarOperador();
+                $("#TxtOperador").val("");
+                $("#FormOperador .form-group").removeClass("has-success")
+                $("#FormOperador .form-control").removeClass("form-control-sucess")
         },
         rules:{
             Operador: {
@@ -84,4 +86,5 @@ $(function (){
         }
         
     });
+
 })
