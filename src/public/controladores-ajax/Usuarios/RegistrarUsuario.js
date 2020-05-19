@@ -1,37 +1,86 @@
-//API
+// Variables de control
+RegistrarAsesorExterno = false;
+SeleccionarEmpleado = false;
+RegistrarEmpleado = true;
+
 let RegistrarUsuario = (imagen) => {
-  if (localStorage.Id_Empleado) {
-    //Objeto JSON
-    var datos = {
-      // Empleado
-      Id_Empleado: parseInt(localStorage.getItem("Id_Empleado")),
+  let datos = {
+    // Usuario
+    Usuario: $("#txtUsuario").val(),
+    Contrasena: $("#txtContrasena").val(),
+    Rol: parseInt($("#txtRol").val()),
+    // Variables de control
+    RegistrarEmpleado: RegistrarEmpleado,
+    SeleccionarEmpleado: SeleccionarEmpleado,
+    RegistrarAsesorExterno: RegistrarAsesorExterno,
+  };
 
-      // Usuario
-      Usuario: $("#txtUsuario").val(),
-      Contrasena: $("#txtContrasena").val(),
-      Rol: parseInt($("#txtRol").val()),
-    };
-
-    localStorage.removeItem("Id_Empleado");
-  } else {
-    //Objeto JSON
-    var datos = {
-      // Empleado
-      Tipo_Documento: parseInt($("#txtTipoDocumento").val()),
-      Documento: $("#txtDocumento").val(),
-      Nombre: $("#txtNombre").val(),
-      Apellidos: $("#txtApellidos").val(),
-      Email: $("#txtEmail").val(),
-      Sexo: parseInt($("#txtSexo").val()),
-      Celular: $("#txtCelular").val(),
-      Imagen: imagen,
-      Turno: parseInt($("#txtTurno").val()),
-
-      // Usuario
-      Usuario: $("#txtUsuario").val(),
-      Contrasena: $("#txtContrasena").val(),
-      Rol: parseInt($("#txtRol").val()),
-    };
+  if (RegistrarEmpleado) {
+    datos.RegistrarEmpleado = true;
+    Object.defineProperties(datos, {
+      Tipo_Documento: {
+        value: parseInt($("#txtTipoDocumento").val()),
+        enumerable: true,
+      },
+      Documento: {
+        value: $("#txtDocumento").val(),
+        enumerable: true,
+      },
+      Nombre: {
+        value: $("#txtNombre").val(),
+        enumerable: true,
+      },
+      Apellidos: {
+        value: $("#txtApellidos").val(),
+        enumerable: true,
+      },
+      Email: {
+        value: $("#txtEmail").val(),
+        enumerable: true,
+      },
+      Sexo: {
+        value: parseInt($("#txtSexo").val()),
+        enumerable: true,
+      },
+      Celular: {
+        value: $("#txtCelular").val(),
+        enumerable: true,
+      },
+      Imagen: {
+        value: imagen,
+        enumerable: true,
+      },
+      Turno: {
+        value: parseInt($("#txtTurno").val()),
+        enumerable: true,
+      },
+    });
+  } else if (SeleccionarEmpleado) {
+    datos.SeleccionarEmpleado = true;
+    Object.defineProperty(datos, "Id_Empleado", {
+      value: parseInt(localStorage.getItem("Id_Empleado")),
+      enumerable: true,
+    });
+  } else if (RegistrarAsesorExterno) {
+    datos.RegistrarAsesorExterno = true;
+    Object.defineProperties(datos, {
+      Nombre: {
+        value: "Operador",
+        enumerable: true,
+      },
+      Apellidos: {
+        value: $("#txtNombreOperador").val(),
+        enumerable: true,
+      },
+      Email: {
+        value: $("#txtEmailOperador").val(),
+        enumerable: true,
+      },
+      Imagen: {
+        value: imagen,
+        enumerable: true,
+      },
+    });
   }
 
   $.ajax({
@@ -79,7 +128,12 @@ let RegistrarUsuario = (imagen) => {
 
 let CargarImagenRegistro = () => {
   let formData = new FormData();
-  let files = $("#fileFotografia")[0].files[0];
+  let files = null;
+  if (RegistrarEmpleado) {
+    files = $("#fileFotografia")[0].files[0];
+  } else {
+    files = $("#fileFotografiaOperador")[0].files[0];
+  }
   formData.append("Img_Usuario", files);
 
   $.ajax({
@@ -88,14 +142,14 @@ let CargarImagenRegistro = () => {
     data: formData,
     contentType: false,
     processData: false,
-  })
-    .done((res) => {
+    success: function(res){
       let imagen = res.data.pathArchivo;
       RegistrarUsuario(imagen);
-    })
-    .fail((error) => {
-      console.log(error);
-    });
+    },
+    error: function(err){
+      console.log(err)
+    }
+  })
 };
 
 CargarTiposDocumentos = () => {
@@ -181,9 +235,9 @@ ListarTurnos = (datos) => {
   }
 };
 
-CargarRoles = () => {
+CargarRoles = (Id_Rol) => {
   $.ajax({
-    url: `${URL}/Rol`,
+    url: `${URL}/Rol/ValUsuario/${Id_Rol}`,
     type: "get",
     datatype: "json",
     success: function (datos) {
@@ -208,86 +262,111 @@ ListarRoles = (datos) => {
 };
 
 $(function () {
+  
   // Inicializar selects del formulario
   CargarTiposDocumentos();
   CargarSexos();
   CargarTurnos();
-  CargarRoles();
+  ObtenerSession().then(data => {
+    let Id_Rol = data.session.Id_Rol;
+    CargarRoles(Id_Rol);
+  });
+  
 
   $("#FormRegistroUsuario").validate({
     submitHandler: function (form, event) {
       // Validar si se envía imagen.
 
-      let files = $("#fileFotografia")[0].files;
+      if (RegistrarEmpleado || RegistrarAsesorExterno) {
+        let files = null;
+        if (RegistrarAsesorExterno) {
+          files = $("#fileFotografiaOperador")[0].files;
+        }
+        if (RegistrarEmpleado) {
+          files = $("#fileFotografia")[0].files;
+        }
 
-      if (files.length == 0) {
-        RegistrarUsuario("defect.jpg");
+        if (files.length == 0) {
+          RegistrarUsuario("defect.jpg");
+        } else {
+          CargarImagenRegistro();
+        }
       } else {
-        CargarImagenRegistro();
+        RegistrarUsuario(null);
       }
     },
     rules: {
-        txtTipoDocumento: "required",
-        txtDocumento: {
-            required: true,
-            number: true,
-            minlength: 5
-        },
-        txtNombre: {
-            required: true,
-            SoloLetras: true,
-            minlength: 2,
-            maxlength: 30
-        },
-        txtApellidos: {
-            required: true,
-            SoloLetras: true,
-            minlength: 2,
-            maxlength: 30
-        },
-        txtEmail: {
-            required: true,
-            ValidarCorreo: true
-        },
-        txtSexo: "required",
-        txtCelular: {
-            NumeroMovil: true,
-            minlength: 10,
-            maxlength: 10
-        },
-        txtTurno: "required",
-        txtUsuario: {
-            required: true,
-            minlength: 5,
-            remote: {
-                url: `${URL}/Usuarios/Validacion/Disponible`,
-                type: 'get',
-                dataType: 'json',
-                data: {
-                    txtUsuario: function () {
-                        return $("#txtUsuario").val();
-                    }
-                },
-                dataFilter: function (res) {
-                    var json = JSON.parse(res);
-                    if (json.data) {
-                        return '"true"';
-                    } else {
-                        return '"Usuario no disponible"';
-                    }
-                }
+      txtTipoDocumento: "required",
+      txtDocumento: {
+        required: true,
+        number: true,
+        minlength: 5,
+      },
+      txtNombre: {
+        required: true,
+        SoloLetras: true,
+        minlength: 2,
+        maxlength: 30,
+      },
+      txtApellidos: {
+        required: true,
+        SoloLetras: true,
+        minlength: 2,
+        maxlength: 30,
+      },
+      txtEmail: {
+        required: true,
+        ValidarCorreo: true,
+      },
+      txtSexo: "required",
+      txtCelular: {
+        NumeroMovil: true,
+        minlength: 10,
+        maxlength: 10,
+      },
+      txtTurno: "required",
+      txtUsuario: {
+        required: true,
+        minlength: 5,
+        remote: {
+          url: `${URL}/Usuarios/Validacion/Disponible`,
+          type: "get",
+          dataType: "json",
+          data: {
+            txtUsuario: function () {
+              return $("#txtUsuario").val();
+            },
+          },
+          dataFilter: function (res) {
+            var json = JSON.parse(res);
+            if (json.data) {
+              return '"true"';
+            } else {
+              return '"Usuario no disponible"';
             }
+          },
         },
-        txtRol: "required",
-        txtContrasena: {
-            required: true,
-            minlength: 5
-        },
-        txtConfirmarContrasena: {
-            required: true,
-            equalTo: "#txtContrasena"
-        },
-        ListaEmpleados: "required"
+      },
+      txtRol: "required",
+      txtContrasena: {
+        required: true,
+        minlength: 5,
+      },
+      txtConfirmarContrasena: {
+        required: true,
+        equalTo: "#txtContrasena",
+      },
+      ListaEmpleados: "required",
+      txtEmailOperador: {
+        required: true,
+        ValidarCorreo: true,
+      },
+      txtNombreOperador: {
+        required: true,
+        SoloAlfanumericos: true,
+        minlength: 2,
+        maxlength: 20,
+      },
     },
     messages: {
       txtConfirmarContrasena: {
@@ -360,5 +439,48 @@ $(function () {
     if (localStorage.Id_Empleado) {
       localStorage.removeItem("Id_Empleado");
     }
+  });
+
+  $("#tabRegistarEmpleado").click(function () {
+    RegistrarAsesorExterno = false;
+    SeleccionarEmpleado = false;
+    RegistrarEmpleado = true;
+    let selRol = $("#txtRol option");
+    if (selRol.length == 1) {
+      ObtenerSession().then(data => {
+        let Id_Rol = data.session.Id_Rol;
+        CargarRoles(Id_Rol);
+      });
+    }
+  });
+
+  $("#tabSeleccionarEmpleado").click(function () {
+    RegistrarAsesorExterno = false;
+    SeleccionarEmpleado = true;
+    RegistrarEmpleado = false;
+    let selRol = $("#txtRol option");
+    if (selRol.length == 1) {
+      ObtenerSession().then(data => {
+        let Id_Rol = data.session.Id_Rol;
+        CargarRoles(Id_Rol);
+      });
+    }
+  });
+
+  $("#tabRegistarAE").click(function () {
+    RegistrarAsesorExterno = true;
+    SeleccionarEmpleado = false;
+    RegistrarEmpleado = false;
+    $("#txtRol").empty();
+    let opcion = $("<option />", {
+      text: "Asesor externo",
+      value: "6",
+      selected: true,
+    });
+    $("#txtRol").append(opcion);
+  });
+
+  $("#btnRegresar").click(function () {
+    Redireccionar("/Usuarios");
   });
 });

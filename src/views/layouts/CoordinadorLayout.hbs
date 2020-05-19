@@ -51,6 +51,31 @@
 
     {{>plugins-scripts}}
 
+    {{!-- Usuarios --}}
+    {{#if Usuarios}}
+    <script src="/controladores-ajax/Usuarios/ListarUsuarios.js"></script>
+    <script src="/controladores-ajax/Usuarios/DetallesUsuario.js"></script>
+    <script src="/controladores-ajax/Usuarios/EditarUsuarios.js"></script>
+    <script src="/controladores-ajax/Usuarios/EliminarUsuario.js"></script>
+    {{/if}}
+    {{#if Registrar_Usuarios}}
+    <script src="/controladores-ajax/Usuarios/RegistrarUsuario.js"></script>
+    <script src="/js/dropify.js"></script>
+    {{/if}}
+
+    {{!-- Directorio --}}
+    {{#if Directorio}}
+    <script src="/controladores-ajax/Clientes/ListarClientes-coordinador.js"></script>
+    <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
+    <script src="/controladores-ajax/Clientes/EliminarCliente.js"></script>
+    {{/if}}
+    {{#if Directorio_Registro}}
+    <script src="/controladores-ajax/Clientes/RegistrarClientes.js"></script>
+    {{/if}}
+    {{#if Directorio_Editar}}
+    <script src="/controladores-ajax/Clientes/EditarCliente.js"></script>
+    {{/if}}
+
 </body>
 
 </html>

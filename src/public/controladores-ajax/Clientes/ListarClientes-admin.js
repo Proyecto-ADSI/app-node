@@ -18,6 +18,7 @@ ObtenerCliente = (Id_Cliente, Modal) => {
 };
 
 $(function () {
+
   DataTable = $("#ClientesDataTable").DataTable({
     cache: true,
     ajax: {
@@ -36,8 +37,11 @@ $(function () {
       { mData: "Telefono" },
       { mData: "Operador" },
       { mData: "Corporativo" },
+      { mData: "Municipio" },
       {
         defaultContent: `
+
+                  
                     <input type="checkbox" id="switch_cliente" class="js-switch"/>
 
                     <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles">

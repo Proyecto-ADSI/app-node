@@ -27,7 +27,7 @@ ObtenerUsuario = (Id_Usuario, Modal) => {
 }
 
 $(function () {
-
+    
     DataTableUsuarios =  $('#UsuariosDataTable').DataTable({
         ajax: {
             url: `${URL}/Usuarios`,
@@ -145,8 +145,6 @@ $(document).on("click", ".switchery ", function () {
     let switchElem = fila.find('.js-switch')[0];
     let Id_Usuario_Estado = parseInt(fila.find('td:eq(0)').text());
 
-    
-
     // Cambiar Estado Usuario
     let Estado;
     if(switchElem.checked){
@@ -169,7 +167,7 @@ $(document).on("click", ".switchery ", function () {
     });
 });
 
-
+  
 // Eliminar usuarios y empleado
 $(document).on("click","#btnEliminar", function(){
 

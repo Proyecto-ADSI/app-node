@@ -217,8 +217,7 @@ $(function () {
   });
 
   // Fecha reprogramar llamada
-  $("#Fecha_LP")
-    .bootstrapMaterialDatePicker({
+  $("#Fecha_LP").bootstrapMaterialDatePicker({
       lang: "es",
       format: "dddd DD MMMM YYYY - HH:mm",
       minDate: new Date(),
@@ -305,13 +304,13 @@ $(function () {
 
       form.steps("insert", 2, stepPlanCorp);
 
-      // Rango Fecha corporativo
-      $("#Fecha_Corporativo").datepicker({
-        language: "es",
-        format: "yyyy/mm/dd",
-        autoclose: true,
-        todayHighlight: true,
-      });
+      // // Rango Fecha corporativo
+      // $("#Fecha_Corporativo").datepicker({
+      //   language: "es",
+      //   format: "yyyy/mm/dd",
+      //   autoclose: true,
+      //   todayHighlight: true,
+      // });
 
       $("#ValidacionCita").attr("style", "display: none");
       ValidarBtnTerminarLlamada();
@@ -1511,7 +1510,6 @@ let CargarBarrios_Veredas = (datos, Cita, Id_Barrios_Veredas) => {
   }
 
   $(selector).empty();
-
   if (Id_Barrios_Veredas) {
     for (let item of datos) {
       let opcion = null;

@@ -130,10 +130,14 @@ $(function () {
   };
 
   let AgregarDireccionInput = () => {
-    if (ValDireccionCita) {
-      $("#txtDireccion_Cita").val(Direccion);
-      $("#txtDireccion_Cita").trigger("change");
-    } else {
+    if (typeof ValDireccionCita != "undefined") {
+      if (ValDireccionCita) {
+        $("#txtDireccion_Cita").val(Direccion);
+        $("#txtDireccion_Cita").trigger("change");
+      } else {
+        $("#txtDireccion").val(Direccion);
+      }
+    }else {
       $("#txtDireccion").val(Direccion);
     }
 

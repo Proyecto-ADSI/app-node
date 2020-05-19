@@ -1,0 +1,159 @@
+--------------------Proyecto CallPhone Soft-----------------------
+
+1) Validar si existen sesiones
+2) Hacer sessiones en js
+3) Cambiar color de hover en seleccionar empleado y traducir (Registrar empleado)
+4) Crear usuario y contraseña por defecto.
+5) Poder restablecer formulario de registrar usuarios
+6) Envío de recuperacion de contraseña, estructura html ha cualquier correo, (código juan pablo)
+7) Corregir validaciónes de eliminar, en clientes y usuarios.
+8) Manejo de cadenas en los constructores, poner en mayúscula todo.
+9) Efecto de cargar en las peticiones que se hacen en la app.
+10) Modificar plugin de calendario, en el que se selecciona la fecha y hora de la cita, para mostrar al lado los horarios disponibles.
+11) Validar que solo se puedan cargar archivos excel en la importación de archivo.
+12) Quitar validaciones exitosas de formulario de detalle línea al guardar.
+13) formatear valores de dinero en tablas detalle líneas y en detalle factura.
+14) subir documentos soporte a carpeta y cargar nombre en bd.
+15) validar formulario detalle línea.
+16) programar select calificacion y razones en registro cliente y editar cliente.
+17) validar cada insersión con una variable booleana en el API.
+18) Revisar form-mask de la plantilla.
+19) Revisar Session time out para ver cuando está inactivo la persona. (ui-session-ideal-timeout.html)
+20) Corregisr validación de números de líneas, se enlazan multiplemente y se muestra error en varias estando válidas.
+21) Hacer validación para recargar página, para evitar perdida de datos.
+22) Poner scroll en lista de números registrados, en detalle líneas.
+23) corregir cambiar estado de  clientes o de algo que está por get y deber ser por patch.
+24) Corregir consulta de validación para eliminar clientes, debe validar en llamada y visita externa.
+25) Clausula de permanencia no debe ser interruptor en detalle cliente y no lista correctamente en editar.
+26) Eliminar el atributo style que le agrega dataTable a la tabla (clientes) ya que no deja funcionar el responsive.
+27) Aceptar tildes en nombre de encargado.
+28) Cuando el precio sea en total se debe dividir entre la cantidad de líneas, se está guardando el total para cada una.
+
+
+// Panel de control
+29) Limpiar formulario de registro en el panel de control luego de registrar.
+30) Solo funciona eliminar de documentos.
+31) Falta programr crud de presentación corporativa.
+32) Luego de guardar un bario o vereda no actualiza la tabla.
+33) Cambiar íconos de la navegación del panel de control.
+39) Poner el formulario de registro de razones en modal, debido a que la razón puede ser muy extensa.
+
+34) Descargar íconos de font awesome.
+35) Validar que no se registren clientes sin líneas.
+36) Cambiar a fixed tarjeta de empresa y cita en formulario de llamada.
+37) En aside de navegación cuando está contraido al poner el click en una opción (hover) se muestran las opciones un 
+poco separadas lo cual ocaciona que se oculten, menos en cita.
+38) Agregar método para eliminar empleado después de eliminar usuario, además de una validación para saber si el empleado tiene más usuarios,
+en ese caso no se puede eliminar el empleado solo el usuario.
+40)Eliminar cookie de session cuando se cierre la
+Llamadas no precargadas:
+1) Llenar observación.
+2) Validar disponibilidad de las horas para la cita.
+3) Validar que el cliente no se encuentre registrado.
+
+*********SOCKED*****
+ $this->logger->info("Info ". $Id_Cliente."  ".$Estado);
+ $this->logger->info(" Datos: ".json_encode($respuesta));
+
+
+
+
+
+
+function puntitos(donde, caracter) {
+	pat = /[\*,\+,\(,\),\?,\,$,\[,\],\^]/
+	valor = donde.value
+	largo = valor.length
+	crtr = true
+	if (isNaN(caracter) || pat.test(caracter) == true) {
+		if (pat.test(caracter) == true) {
+			caracter = "" + caracter
+		}
+		carcter = new RegExp(caracter, "g")
+		valor = valor.replace(carcter, "")
+		donde.value = valor
+		crtr = false
+	} else {
+		var nums = new Array()
+		cont = 0
+		for (m = 0; m < largo; m++) {
+			if (valor.charAt(m) == "." || valor.charAt(m) == " ") {
+				continue;
+			} else {
+				nums[cont] = valor.charAt(m)
+				cont++
+			}
+		}
+	}
+	var cad1 = "",
+		cad2 = "",
+		tres = 0
+	if (largo > 3 && crtr == true) {
+		for (k = nums.length - 1; k >= 0; k--) {
+			cad1 = nums[k]
+			cad2 = cad1 + cad2
+			tres++
+			if ((tres % 3) == 0) {
+				if (k != 0) {
+					cad2 = "." + cad2
+				}
+			}
+		}
+		donde.value = cad2
+	}
+}
+
+
+
+{
+ "Barrio_Vereda": 1,
+ "Calificacion": "1",
+ "Cantidad_Lineas": 10,
+ "DetalleLineas": [
+ 		{
+ 			"llamadas": false,
+			"mensajes": true,
+			"minutos": "Ilimitados,todo operador",
+			"navegacion": "5 GB",
+			"redes": true,
+			"roaming": false
+ 		},
+ 		{
+ 			"llamadas": true,
+			"mensajes": true,
+			"minutos": "Ilimitados,todo operador",
+			"navegacion": "4 GB",
+			"redes": true,
+			"roaming": false
+ 		}
+ 	],
+ "Direccion": "saygudvashdabsh",
+ "Encargado": "Juan Carlos",
+ "Ext_Tel_Contacto": "3214568574",
+ "Id_Operador": 1,
+ "NIT_CDV": "582488585-5",
+ "Razon_Social": "Tapitas S.A.S",
+ "Razones": [
+ 	{
+ 		"descripcion" :"1"
+ 	},
+ 	{
+ 		"descripcion": "2"
+ 		
+ 	}
+ ],
+ "Telefono": "4714575",
+ "Valor_Mensual": "180000",
+ "Camara_Comercio": "C:fakepathTareas Procrastinadas.txt",
+ "Cedula_RL": "C:akepathareas Procrastinadas.txt",
+ "Clausula": true,
+ "Descripcion": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta quaerat voluptate repellendus non natus in, aspernatur, officia quo maxime 		harum hic sit ipsa reiciendis culpa consectetur repudiandae dolorem et similique!",
+"Detalles_Plan_Corporativo": "C:akepathTareas Procrastinadas.txt",
+"Fecha_Fin": "2020/05/08",
+"Fecha_Inicio": "2020/04/05",
+"Soporte_Ingresos": "C:akepathTareas Procrastinadas.txt",
+"Validacion_Doc_S": true,
+"Validacion_PLan_C": true
+}
+
+

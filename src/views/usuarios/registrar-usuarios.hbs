@@ -7,24 +7,31 @@
             <div class="card-body">
                 <form id="FormRegistroUsuario" enctype="multipart/form-data">
                     <div class="form-body ml-5 mr-5">
-                        <h3 class="box-title">Empleado:</h3>
-                        <hr class="m-t-0 m-b-40">
-
                         <ul class="nav nav-tabs customtab" role="tablist">
-                            <li class="nav-item"> <a id="FormularioEmpleado" class="nav-link active" data-toggle="tab"
-                                    href="#formEmpleado" role="tab">
+                            <li id="tabRegistarEmpleado" class="nav-item"> 
+                                <a id="FormularioEmpleado" class="nav-link active" data-toggle="tab" href="#formEmpleado" role="tab">
                                     <span class="hidden-sm-up"><i class="ti-home"></i></span>
-                                    <span class="hidden-xs-down">Registrar empleado</span></a>
+                                    <span class="hidden-xs-down">Registrar empleado</span>
+                                </a>
                             </li>
-                            <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#selectEmpleado"
-                                    role="tab">
+                            <li id="tabSeleccionarEmpleado" class="nav-item">
+                                 <a class="nav-link" data-toggle="tab" href="#selectEmpleado" role="tab">
                                     <span class="hidden-sm-up"><i class="ti-user"></i></span>
-                                    <span class="hidden-xs-down">Seleccionar empleado </span></a>
+                                    <span class="hidden-xs-down">Seleccionar empleado </span>
+                                </a>
+                            </li>
+                            <li id="tabRegistarAE" class="nav-item">
+                                <a  class="nav-link" data-toggle="tab" href="#formAsesorExterno" role="tab">
+                                    <span class="hidden-sm-up"><i class="ti-user"></i></span>
+                                    <span   class="hidden-xs-down">Registrar asesor externo </span>
+                                </a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div class="tab-pane active m-3" id="formEmpleado" role="tabpanel">
+                            <div class="tab-pane active p-20" id="formEmpleado" role="tabpanel">
+                                <h3 class="box-title">Empleado:</h3>
+                                <hr class="m-t-0 m-b-40">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -121,9 +128,7 @@
                                                 <input type="email" class="form-control" id="txtEmail" name="txtEmail"
                                                     placeholder="Ingresar correo">
                                             </div>
-
                                         </div>
-
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -188,8 +193,8 @@
                                             <div class="card-body MyStyle_File_Card">
                                                 <h4 class="card-title">Fotografía</h4>
                                                 <input type="file" id="fileFotografia" name="Fotografia" class="dropify"
-                                                    data-height="100" />
-                                                <!-- data-default-file="../../assets/plugins/dropify/src/images/test-image-2.jpg" -->
+                                                    data-height="100" data-default-file="/assets/images/usuarios/defect.jpg"  />
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -198,6 +203,8 @@
                                 <!-- /row -->
                             </div>
                             <div class="tab-pane  p-20" id="selectEmpleado" role="tabpanel">
+                                <h3 class="box-title">Empleado:</h3>
+                                <hr class="m-t-0 m-b-40">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
@@ -215,9 +222,62 @@
 
                                 </div>
                             </div>
+                            <div class="tab-pane p-20" id="formAsesorExterno" role="tabpanel">
+                                <h3 class="box-title">Información operador:</h3>
+                                <hr class="m-t-0 m-b-40">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" id="Label-Form-Registro-Usuario">Nombre
+                                                        operador
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="txtNombreOperador"
+                                                            name="txtNombreOperador" placeholder="Nombre operador">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" id="Label-Form-Registro-Usuario">Correo
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-email"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="email" class="form-control" id="txtEmailOperador"
+                                                            name="txtEmailOperador" placeholder="Ingresar correo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card" id="Card-Fotografia">
+                                            <div class="card-body MyStyle_File_Card">
+                                                <h4 class="card-title">Fotografía</h4>
+                                                <input type="file" id="fileFotografiaOperador" name="Fotografia" class="dropify"
+                                                    data-height="100" data-default-file="/assets/images/usuarios/defect.jpg"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
-
                         <h3 class="box-title">Usuario:</h3>
                         <hr class="m-t-0 m-b-40">
                         <!--/row-->
@@ -251,11 +311,8 @@
                                                 <i class="icon-people "></i>
                                             </span>
                                         </div>
-                                        <select class="form-control custom-select" id="txtRol" name="txtRol">
-
-                                        </select>
+                                        <select class="form-control custom-select" id="txtRol" name="txtRol"></select>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -266,7 +323,6 @@
                                     <label class="control-label" id="Label-Form-Registro-Usuario">Contraseña
                                         <span class="text-danger">*</span>
                                     </label>
-
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">
@@ -284,7 +340,6 @@
                                     <label class="control-label" id="Label-Form-Registro-Usuario">Confirmar
                                         <span class="text-danger">*</span>
                                     </label>
-
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">
@@ -295,20 +350,19 @@
                                             name="txtConfirmarContrasena" autocomplete=""
                                             placeholder="Confirmar contraseña">
                                     </div>
-
                                 </div>
                             </div>
                             <!--/span-->
                         </div>
                         <!--/row-->
-                        <hr>
+                        <hr class=" m-b-40">
                         <div class="form-actions row">
                             <div class="col-md-6 MyStyle_Btn_Registro_Usuarios">
                                 <div class="row" style="margin-top: 0.5rem; position: relative; top: -2rem;">
                                     <div class="col-md-offset-3 col-md-9">
-                                        <button type="submit" class="btn btn-info">Guardar</button>
-                                        <a href="GestionarUsuarios.html" style="margin-left:1rem;"
-                                            class="btn btn-danger">Cancelar</a>
+                                        <button type="submit" class="btn btn-outline-info">Guardar</button>
+                                        <button type="button" id="btnRegresar" style="margin-left:1rem;"
+                                            class="btn btn-outline-danger">Cancelar</button>
                                     </div>
                                 </div>
                             </div>

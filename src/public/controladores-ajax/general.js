@@ -7,7 +7,6 @@ let Redireccionar = (URLRedirect) => {
     .then((res) => res.json())
     .catch((error) => console.log("Error:", error))
     .then((data) => {
-      console.log(data);
       let Id_Rol = parseInt(data.session.Id_Rol);
       switch (Id_Rol) {
         case 1:
@@ -38,5 +37,8 @@ let Redireccionar = (URLRedirect) => {
     });
 };
 
-
-
+async function ObtenerSession(){
+  const response = await fetch('/ObtenerSession');
+  const data = await response.json();
+  return data;
+}

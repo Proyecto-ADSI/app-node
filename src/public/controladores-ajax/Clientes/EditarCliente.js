@@ -7,7 +7,7 @@ var Id_Cliente;
 var Id_DBL;
 var Id_Plan_Corporativo;
 var Id_Documentos;
-
+var valDocSoporte = false;
 var id = 0;
 var form = null;
 
@@ -59,7 +59,12 @@ $(function () {
       if (sessionStorage.DatosUbicacion) {
         sessionStorage.removeItem("DatosUbicacion");
       }
-      EditarCliente();
+      if(valDocSoporte){
+        SubirDocumentos();
+      }else{
+        let docSoporte = ObtenerValInputDocumentos();
+        EditarCliente(docSoporte);
+      }
     },
   }),
     form.validate({
@@ -118,7 +123,7 @@ $(function () {
         },
         txtExt_Tel_Contacto: {
           SoloNumeros: true,
-          minlength: 5,
+          minlength: 2,
           maxlength: 10,
         },
         // txtPais: "required",
@@ -127,15 +132,7 @@ $(function () {
         // txtSubTipo: "required",
         // txtNombre_Lugar: "required",
         // txtDireccion: "required",
-
-        // txtCantidad_Total_Lineas: {
-        //     required: true,
-        //     SoloNumeros: true,
-        // },
         txtOperador: "required",
-        // txtValor_Total_Mensual: {
-        //     SoloNumeros: true
-        // },
         txtDetalle_Cantidad_Lineas: {
           required: true,
           SoloNumeros: true,
@@ -170,6 +167,18 @@ $(function () {
 
   // Enlazar eventos de escucha:
 
+  // Atajos formualrio
+
+  $("input:radio[name=Validacion_UbicacionEmpresa]").click(function () {
+    let estado = $("input:radio[name=Validacion_UbicacionEmpresa]").is(
+      ":checked"
+    );
+    console.log(estado);
+    if (estado) {
+      CargarDatosUbicacionRadio();
+    }
+  });
+
   // Estado del switch Plan corporativo
   $(".switch_corporativo").on("switchChange.bootstrapSwitch", function (
     event,
@@ -177,17 +186,19 @@ $(function () {
   ) {
     if (state) {
       form.steps("insert", 2, stepPlanCorp);
-      if (Id_Plan_Corporativo > 0) {
-        CargarInformacionPlan();
-      }
+      
 
       // Rango Fecha corporativo
       $("#Fecha_Corporativo").datepicker({
         language: "es",
         format: "yyyy/mm/dd",
         autoclose: true,
-        todayHighlight: true,
+        todayHighlight: true, 
       });
+
+      if (Id_Plan_Corporativo > 0) {
+        CargarInformacionPlan();
+      }
 
       $(".switch_doc").bootstrapSwitch({
         onText: "SI",
@@ -204,6 +215,21 @@ $(function () {
           form.steps("insert", 3, stepDoc);
           if (Id_Documentos > 0) {
             CargarInformacionDocumentos();
+            // Eventos de escucha
+            $("#txtCamara_Comercio").change(function(){
+                valDocSoporte = true;
+            });
+            $("#txtCedula").change(function(){
+                valDocSoporte = true;
+            });
+            $("#txtSoporte").change(function(){
+                valDocSoporte = true;
+            });
+            $("#txtDetalles").change(function(){
+                valDocSoporte = true;
+            });
+
+            
           }
         } else {
           form.steps("remove", 3);
@@ -275,40 +301,17 @@ $(function () {
   });
 
   $("#txtMunicipio").change(function () {
-    let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
-    let Barrios_Veredas = DatosUbicacion.Barrios_Veredas;
     let Id_Municipio = parseInt($("#txtMunicipio option:selected").val());
     let Id_SubTipo = parseInt($("#txtSubTipo option:selected").val());
 
-    let arrayBarrios_Veredas = [];
-
-    for (let item of Barrios_Veredas) {
-      if (parseInt(item.Id_Municipio) === Id_Municipio) {
-        if (parseInt(item.Id_SubTipo_Barrio_Vereda) === Id_SubTipo) {
-          arrayBarrios_Veredas.push(item);
-        }
-      }
-    }
-
-    CargarBarrios_Veredas(arrayBarrios_Veredas);
+    PonerBarrios_Veredas(Id_Municipio, Id_SubTipo);
   });
 
   $("#txtSubTipo").change(function () {
-    let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
-    let Barrios_Veredas = DatosUbicacion.Barrios_Veredas;
     let Id_Municipio = parseInt($("#txtMunicipio option:selected").val());
     let Id_SubTipo = parseInt($("#txtSubTipo option:selected").val());
 
-    let arrayBarrios_Veredas = [];
-
-    for (let item of Barrios_Veredas) {
-      if (parseInt(item.Id_Municipio) === Id_Municipio) {
-        if (parseInt(item.Id_SubTipo_Barrio_Vereda) === Id_SubTipo) {
-          arrayBarrios_Veredas.push(item);
-        }
-      }
-    }
-    CargarBarrios_Veredas(arrayBarrios_Veredas);
+    PonerBarrios_Veredas(Id_Municipio, Id_SubTipo);
   });
 
   $("#btnLimpiar").click(function () {
@@ -522,7 +525,6 @@ $(function () {
 
   Informacion = JSON.parse(sessionStorage.getItem("DatosEditarCliente"));
 
-  console.log(Informacion);
   // ************************************ Llenar formulario ********************************************************
   Id_Cliente = Informacion.Id_Cliente;
   Id_DBL = Informacion.Id_DBL;
@@ -609,25 +611,22 @@ $(function () {
   }
 
   let CargarInformacionPlan = () => {
-    let Fecha_Inicio = new Date(Informacion.Fecha_Inicio.replace(/-/g, "/"));
-    $("#Fecha_Corporativo")
-      .children("#txtFecha_inicio")
-      .datepicker("setUTCDate", Fecha_Inicio);
-    let Fecha_Fin = new Date(Informacion.Fecha_Fin.replace(/-/g, "/"));
-    $("#Fecha_Corporativo")
-      .children("#txtFecha_fin")
-      .datepicker("setUTCDate", Fecha_Fin);
-    $("#txtDescripcion").val(Informacion.Descripcion);
+    $("#Fecha_Corporativo #txtFecha_inicio").datepicker("setDate", Informacion.Fecha_Inicio);
+    $("#Fecha_Corporativo #txtFecha_fin").datepicker("setDate", Informacion.Fecha_Fin);
   };
 
   // Plan Corporativo
   if (parseInt(Informacion.Id_Plan_Corporativo) > 0) {
     $(".switch_corporativo").trigger("click");
-    CargarInformacionPlan();
   }
 
-  // Documentos
+  if(parseInt(Informacion.Clausula_Permanencia) == 1){
+    $("#switchClausula").children("label").children("span").trigger("click");
+  }
 
+  $("#txtDescripcion").val(Informacion.Descripcion)
+  
+  // Documentos
   let CargarInformacionDocumentos = () => {
     $("#txtCamara_Comercio")
       .closest(".fileinput")
@@ -657,9 +656,95 @@ $(function () {
   }
 });
 
-// FUNCIONES:
+let ObtenerValInputDocumentos = () =>{
+  
+  let objDocumentos = {
+    txtCamara_Comercio: $("#txtCamara_Comercio").closest(".fileinput").children(".form-control").children("span").text(),
+    txtCedula : $("#txtCedula").closest(".fileinput").children(".form-control").children("span").text(),
+    txtSoporte : $("#txtSoporte").closest(".fileinput").children(".form-control").children("span").text(),
+    txtDetalles : $("#txtDetalles").closest(".fileinput").children(".form-control").children("span").text()
+  };
+  
+  return objDocumentos;
+}
 
-let EditarCliente = () => {
+let ObtenerValInputDoc = (selector) =>{
+  let doc = $(selector).closest(".fileinput").children(".form-control").children("span").text();
+  return doc;
+}
+// FUNCIONES:
+let SubirDocumentos = () => {
+  let formData = new FormData();
+
+  let objDocumentos = {
+    txtCamara_Comercio: null,
+    txtCedula : null,
+    txtSoporte : null,
+    txtDetalles : null
+  };
+
+  let files = [];
+  let doc1 = $("#txtCamara_Comercio")[0].files[0];
+  let doc2 = $("#txtCedula")[0].files[0];
+  let doc3 = $("#txtSoporte")[0].files[0];
+  let doc4 = $("#txtDetalles")[0].files[0];
+  
+  if(typeof doc1 != "undefined"){
+    files.push(doc1);
+  }else{
+    objDocumentos.txtCamara_Comercio = ObtenerValInputDoc("#txtCamara_Comercio");
+  }
+
+  if(typeof doc2 != "undefined"){
+    files.push(doc2);
+  }else{
+    objDocumentos.txtCedula = ObtenerValInputDoc("#txtCedula");
+  }
+
+  if(typeof doc3 != "undefined"){
+    files.push(doc3);
+  }else{
+    objDocumentos.txtSoporte = ObtenerValInputDoc("#txtSoporte");
+  }
+
+  if(typeof doc4 != "undefined"){
+    files.push(doc4);
+  }else{
+    objDocumentos.txtDetalles = ObtenerValInputDoc("#txtDetalles");
+  }
+
+  files.forEach(function (file, i) {
+    formData.append("doc_" + i, file);
+  });
+  $.ajax({
+    url: `${URL}/Cliente/SubirDocSoporte`,
+    type: "post",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (res) {
+      let docSoporte = res.data.pathArchivo;
+
+      for(let doc of docSoporte){
+        if(objDocumentos.txtCamara_Comercio == null){
+          objDocumentos.txtCamara_Comercio = doc;
+        }else if(objDocumentos.txtCedula == null){
+          objDocumentos.txtCedula = doc;
+        }else if(objDocumentos.txtSoporte == null){
+          objDocumentos.txtSoporte = doc;
+        }else if(objDocumentos.txtDetalles == null){
+          objDocumentos.txtDetalles = doc;
+        }
+      }
+      EditarCliente(objDocumentos);
+    },
+    error: function (err) {
+      console.log(err);
+    },
+  });
+};
+
+let EditarCliente = (objDocumentos) => {
   // Array Lineas
   let arrayLineas = [];
 
@@ -810,26 +895,23 @@ let EditarCliente = () => {
 
     Object.defineProperties(datos, {
       Camara_Comercio: {
-        value: $("#txtCamara_Comercio").val(),
+        value:  objDocumentos.txtCamara_Comercio,
         enumerable: true,
       },
       Cedula_RL: {
-        value: $("#txtCedula").val(),
+        value: objDocumentos.txtCedula,
         enumerable: true,
       },
       Soporte_Ingresos: {
-        value: $("#txtSoporte").val(),
+        value: objDocumentos.txtSoporte,
         enumerable: true,
       },
       Detalles_Plan_Corporativo: {
-        value: $("#txtDetalles").val(),
+        value: objDocumentos.txtDetalles,
         enumerable: true,
       },
     });
   }
-
-  console.log(datos);
-
   $.ajax({
     url: `${URL}/Cliente`,
     type: "put",
@@ -854,7 +936,7 @@ let EditarCliente = () => {
           function (isConfirm) {
             if (isConfirm) {
               sessionStorage.removeItem("DetalleLineas");
-              location.href = "Directorio.html";
+              Redireccionar("/Directorio");
             }
           }
         );
@@ -1046,21 +1128,101 @@ let CargarSubTipos = (datos, Id_SubTipo_Barrio_Vereda) => {
 
 let CargarBarrios_Veredas = (datos, Id_Barrios_Veredas) => {
   $("#txtNombre_Lugar").empty();
-  for (let item of datos) {
-    if (item.Id_Barrios_Veredas == Id_Barrios_Veredas) {
-      var $opcion = $("<option />", {
-        text: `${item.Nombre_Barrio_Vereda}`,
-        value: `${item.Id_Barrios_Veredas}`,
-        selected: true,
-      });
-    } else {
-      var $opcion = $("<option />", {
-        text: `${item.Nombre_Barrio_Vereda}`,
-        value: `${item.Id_Barrios_Veredas}`,
-      });
+  if (Id_Barrios_Veredas) {
+    for (let item of datos) {
+      let opcion = null;
+      if (parseInt(item.Id_Barrios_Veredas) == Id_Barrios_Veredas) {
+        opcion = $("<option />", {
+          text: `${item.Nombre_Barrio_Vereda}`,
+          value: `${item.Id_Barrios_Veredas}`,
+          selected: true,
+        });
+        $("#txtNombre_Lugar").append(opcion);
+      } else {
+        let opcion = $("<option />", {
+          text: `${item.Nombre_Barrio_Vereda}`,
+          value: `${item.Id_Barrios_Veredas}`,
+        });
+        $("#txtNombre_Lugar").append(opcion);
+      }
     }
-    $("#txtNombre_Lugar").append($opcion);
+  } else {
+    $("#txtNombre_Lugar").prepend(
+      "<option selected disabled >Seleccione...</option>"
+    );
+    for (let item of datos) {
+      let $opcion = $("<option />", {
+        text: `${item.Nombre_Barrio_Vereda}`,
+        value: `${item.Id_Barrios_Veredas}`,
+      });
+
+      $("#txtNombre_Lugar").append($opcion);
+    }
   }
+};
+
+let PonerBarrios_Veredas = (Id_Municipio, Id_SubTipo, Id_Barrio_Veredas) => {
+  let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
+  let Barrios_Veredas = DatosUbicacion.Barrios_Veredas;
+
+  let arrayBarrios_Veredas = [];
+
+  for (let item of Barrios_Veredas) {
+    if (parseInt(item.Id_Municipio) === Id_Municipio) {
+      if (parseInt(item.Id_SubTipo_Barrio_Vereda) === Id_SubTipo) {
+        arrayBarrios_Veredas.push(item);
+      }
+    }
+  }
+  if (Id_Barrio_Veredas) {
+    CargarBarrios_Veredas(arrayBarrios_Veredas, Id_Barrio_Veredas);
+  } else {
+    CargarBarrios_Veredas(arrayBarrios_Veredas);
+  }
+};
+
+let CargarDatosUbicacionRadio = () => {
+  // Arrays
+  let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
+  let Paises = DatosUbicacion.Paises;
+  let Departamentos = DatosUbicacion.Departamentos;
+  let Municipios = DatosUbicacion.Municipios;
+  let Subtipos = DatosUbicacion.Subtipos;
+
+  // Id
+  let Id_Pais = null;
+  let Id_Departamento = null;
+  let Id_Municipio = null;
+  let Id_SubTipo = null;
+
+  for (let item of Paises) {
+    if (item.Nombre_Pais == "Colombia") {
+      Id_Pais = parseInt(item.Id_Pais);
+    }
+  }
+  for (let item of Departamentos) {
+    if (item.Nombre_Departamento == "Antioquia") {
+      Id_Departamento = parseInt(item.Id_Departamento);
+    }
+  }
+  for (let item of Municipios) {
+    if (item.Nombre_Municipio == "Medellín") {
+      Id_Municipio = parseInt(item.Id_Municipio);
+    }
+  }
+  for (let item of Subtipos) {
+    if (item.SubTipo == "Barrio") {
+      Id_SubTipo = parseInt(item.Id_SubTipo_Barrio_Vereda);
+    }
+  }
+
+  // Setear valores en el select
+
+  CargarPaises(Paises, Id_Pais);
+  CargarDepartamentos(Departamentos, Id_Departamento);
+  CargarMunicipios(Municipios, Id_Municipio);
+  CargarSubTipos(Subtipos, Id_SubTipo);
+  PonerBarrios_Veredas(Id_Municipio, Id_SubTipo);
 };
 
 let CargarOperadores = (Id_Operador) => {

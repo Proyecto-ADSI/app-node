@@ -52,18 +52,19 @@
                                 <div class="form-group">
                                     <label for="int1">Extensión o celular:</label>
                                     <input type="text" class="form-control" id="txtExt_Tel_Contacto"
-                                        name="txtExt_Tel_Contacto" placeholder="3123456789 | 4123456">
+                                        name="txtExt_Tel_Contacto" placeholder=" 101 | 3123456789">
                                 </div>
                             </div>
                         </div>
                         <h4 class="box-title d-inline-block">Ubicación:</h4>
-                        <input name="Validacion_Ubicacion" type="radio" class="with-gap" id="Validacion_Ubicacion2">
-                        <label for="Validacion_Ubicacion2">Colombia/Antioquia/Medellín/Barrio</label>
+                        <input name="Validacion_UbicacionEmpresa" type="radio" class="with-gap"
+                            id="Validacion_UbicacionEmpresa">
+                        <label for="Validacion_UbicacionEmpresa">Colombia/Antioquia/Medellín/Barrio</label>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">País:</label>
+                                    <label class="control-label">País: <span class="text-danger">*</span></label>
                                     <select name="txtPais" id="txtPais" class="select2 form-control custom-select"
                                         style="width: 100%; height:36px;">
                                         <option selected disabled>Seleccione...</option>
@@ -71,9 +72,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Departamento:</label>
+                                    <label class="control-label">Departamento: <span class="text-danger">*</span></label>
                                     <select name="txtDepartamento" id="txtDepartamento"
                                         class="select2 form-control custom-select" style="width: 100%; height:36px;">
                                         <option selected disabled>Seleccione...</option>
@@ -82,9 +83,9 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Municipio:</label>
+                                    <label class="control-label">Municipio: <span class="text-danger">*</span></label>
                                     <select name="txtMunicipio" id="txtMunicipio"
                                         class="select2 form-control custom-select" style="width: 100%; height:36px;">
                                         <option selected disabled>Seleccione...</option>
@@ -92,10 +93,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
-                        <!-- /Row -->
-                        <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="control-label">Barrio o Vereda</label>
                                     <select name="txtSubTipo" id="txtSubTipo" class="select2 form-control custom-select"
@@ -105,9 +103,12 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <!-- /Row -->
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Nombre Lugar</label>
+                                    <label class="control-label">Nombre barrio o vereda</label>
                                     <select name="txtNombre_Lugar" id="txtNombre_Lugar"
                                         class="select2 form-control custom-select" style="width: 100%; height:36px;">
                                         <option selected disabled>Seleccione...</option>
@@ -115,11 +116,13 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="emailAddress1"> Dirección:</label>
                                     <input type="text" class="form-control" id="txtDireccion" name="txtDireccion"
-                                        placeholder="Calle 1 # 1 - 1"> </div>
+                                        readonly data-toggle="modal" data-target="#modalDireccion"
+                                        placeholder="Dirección">
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -278,11 +281,11 @@
                                 <h4 class="box-title font-weight-bold">Información de líneas del cliente:</h4>
                             </div>
                             <div class="col-md-2">
-                                <button type="button" id="btnLimpiar" class="btn btn-outline-primary">Limpiar
+                                <button type="button" id="btnLimpiar" class="btn btn-primary">Limpiar
                                     formulario</button>
                             </div>
                             <div class="col-md-2">
-                                <button type="button" id="btnGuardarDetalleLineas" class="btn btn-outline-info">Guardar
+                                <button type="button" id="btnGuardarDetalleLineas" class="btn btn-info">Guardar
                                     líneas</button>
                             </div>
                         </div>
@@ -312,7 +315,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <!-- Modal líneas -->
                         <div class="modal fade" id="LineasModal" role="dialog">
                             <div class="modal-dialog " style="max-width: 800px">
@@ -453,7 +455,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Cámara de comercio</label>
+                                    <label>Cámara de comercio: <span class="text-danger">*</span></label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -472,7 +474,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Cédula de ciudadanía:</label>
+                                    <label>Cédula de ciudadanía: <span class="text-danger">*</span> </label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -491,7 +493,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Soporte de ingresos:</label>
+                                    <label>Soporte de ingresos: <span class="text-danger">*</span></label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -534,3 +536,5 @@
         </div>
     </div>
 </div>
+
+{{>direccion}}
