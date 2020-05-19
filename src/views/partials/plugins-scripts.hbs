@@ -83,6 +83,9 @@
 <script src="/assets/plugins/toast-master/js/jquery.toast.js"></script>
 
 {{!-- Funcionalidades --}}
+{{#xif session.Tema '==' 0}}
+<script src="/js/ActivarInputTema.js"></script>
+{{/xif}}
 <!-- Duplicar input -->
 <script src="/js/DuplicarHTML.js" type="text/javascript"></script>
 {{!-- Dirección --}}

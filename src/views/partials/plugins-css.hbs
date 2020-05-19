@@ -5,11 +5,19 @@
 <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Mis estilos -->
 <link rel="stylesheet" href="/css/MyStyle.css">
+
+{{#xif session.Tema '==' 1}}
 <!-- Custom CSS -->
 <link href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
 <!-- Tema de la plantilla -->
 <link href="/css/colors/Tema_Blanco.css" id="Tema" rel="stylesheet">
-
+{{/xif}}
+{{#xif session.Tema '==' 0}}
+<!-- Custom CSS -->
+<link href="/css/style_Oscuro.css" id="Style_Tema" rel="stylesheet">
+<!-- Tema de la plantilla -->
+<link href="/css/colors/Tema_Oscuro.css" id="Tema" rel="stylesheet">
+{{/xif}}
 <!-- Switchery -->
 <link href="/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
 <!-- DataTable -->

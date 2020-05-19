@@ -16,4 +16,13 @@ router.get('/ObtenerSession',usuarioLogeado,(req,res) =>{
     res.send({session});
 });
 
+router.get('/CambiarTema',usuarioLogeado,(req,res) =>{
+
+    if(req.session.datos_usuario.Tema == 0){
+        req.session.datos_usuario.Tema = 1;
+    }else{
+        req.session.datos_usuario.Tema = 0;
+    }
+    res.send({ok : true});
+});
 module.exports = router;

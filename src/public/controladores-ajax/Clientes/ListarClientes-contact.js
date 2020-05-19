@@ -36,7 +36,7 @@ ObtenerCliente = (Id_Cliente) => {
         {
           defaultContent: `
 
-                      <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles">
+                      <button id="btnDetalles" class="btn btn-primary" title="Detalles">
                           <i class="fa  fa-eye"></i>
                       </button>
                     

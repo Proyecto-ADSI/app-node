@@ -7,13 +7,11 @@ router.get("/Login",redireccionarUsuario, (req, res) => {
 });
 
 router.post("/Login", (req, res) => {
-  // app.locals.session = req.body;
   req.session.datos_usuario = req.body;
   res.send({ ok: true });
 });
 
 router.get("/Logout", usuarioLogeado, (req, res) => {
-  // delete app.locals.session
   res.clearCookie('user_sid');
   res.redirect("/Login");
 });
