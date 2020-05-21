@@ -76,9 +76,13 @@ $(function () {
           error.insertAfter(element.parent(".input-group"));
         } else if (element[0].name == "detalleLineasRadios") {
           error.insertAfter($("#lblDetalle_radio2"));
-        } else if(element[0].id == "txtCamara_Comercio" || element[0].id == "txtCedula"|| element[0].id == "txtSoporte") {
+        } else if (
+          element[0].id == "txtCamara_Comercio" ||
+          element[0].id == "txtCedula" ||
+          element[0].id == "txtSoporte"
+        ) {
           error.insertAfter(element.closest(".fileinput"));
-        }else{
+        } else {
           error.insertAfter(element);
         }
       },
@@ -497,11 +501,10 @@ let SubirDocumentos = () => {
 
   let objDocumentos = {
     txtCamara_Comercio: null,
-    txtCedula : null,
-    txtSoporte : null,
-    txtDetalles : null
+    txtCedula: null,
+    txtSoporte: null,
+    txtDetalles: null,
   };
-
 
   let files = [];
   let doc1 = $("#txtCamara_Comercio")[0].files[0];
@@ -511,7 +514,7 @@ let SubirDocumentos = () => {
 
   files.push(doc1, doc2, doc3);
 
-  if(typeof doc4 != "undefined"){
+  if (typeof doc4 != "undefined") {
     files.push(doc4);
   }
 
@@ -531,8 +534,8 @@ let SubirDocumentos = () => {
       objDocumentos.txtCedula = docSoporte[1];
       objDocumentos.txtSoporte = docSoporte[2];
 
-      if(docSoporte.length == 4){
-        objDocumentos.txtSoporte = docSoporte[3];
+      if (docSoporte.length == 4) {
+        objDocumentos.txtDetalles = docSoporte[3];
       }
 
       RegistrarCliente(objDocumentos);
@@ -544,175 +547,193 @@ let SubirDocumentos = () => {
 };
 
 let RegistrarCliente = (objDocumentos) => {
-  // Array Lineas
-  let arrayLineas = [];
 
-  let Cantidad_Total_Lineas = 0;
-  let Valor_Total_Mensual = 0;
+  ObtenerSession().then((data) => {
+    let Id_Usuario = parseInt(data.session.Id_Usuario);
+    // Array Lineas
+    let arrayLineas = [];
 
-  if (sessionStorage.DetalleLineas) {
-    let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
+    let Cantidad_Total_Lineas = 0;
+    let Valor_Total_Mensual = 0;
 
-    let GrupoLineas = 0;
-    for (let lineaItem of DetalleLineas) {
-      let minutos = "";
+    if (sessionStorage.DetalleLineas) {
+      let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
 
-      if (lineaItem.minIlimitados) {
-        minutos += "Ilimitados";
-      } else {
-        minutos += lineaItem.minutos;
-      }
+      let GrupoLineas = 0;
+      for (let lineaItem of DetalleLineas) {
+        let minutos = "";
 
-      if (lineaItem.todoOperador) {
-        minutos += ",todo operador";
-      }
-
-      if (lineaItem.minOtro != "") {
-        minutos += "," + lineaItem.minOtro;
-      }
-
-      // Establecer valor total mensual de las lineas.
-      if (lineaItem.valValorLineas == "1") {
-        Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
-      } else if (lineaItem.valValorLineas == "2") {
-        Valor_Total_Mensual +=
-          parseInt(lineaItem.valorMensual) * parseInt(lineaItem.cantidadLineas);
-      }
-
-      GrupoLineas++;
-      for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
-        let linea = {
-          minutos: minutos,
-          navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
-          mensajes: lineaItem.mensajes ? 1 : 0,
-          redes: lineaItem.redes ? 1 : 0,
-          llamadas: lineaItem.llamadas ? 1 : 0,
-          roaming: lineaItem.roaming ? 1 : 0,
-          cargo: lineaItem.valorMensual,
-          grupo: GrupoLineas,
-        };
-
-        if (typeof lineaItem.NumerosLineas !== "undefined") {
-          Object.defineProperty(linea, "numero", {
-            value: lineaItem.NumerosLineas[i],
-            enumerable: true,
-          });
+        if (lineaItem.minIlimitados) {
+          minutos += "Ilimitados";
+        } else {
+          minutos += lineaItem.minutos;
         }
 
-        arrayLineas.push(linea);
+        if (lineaItem.todoOperador) {
+          minutos += ",todo operador";
+        }
+
+        if (lineaItem.minOtro != "") {
+          minutos += "," + lineaItem.minOtro;
+        }
+
+        // Establecer valor total mensual de las lineas.
+        if (lineaItem.valValorLineas == "1") {
+          Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
+        } else if (lineaItem.valValorLineas == "2") {
+          Valor_Total_Mensual +=
+            parseInt(lineaItem.valorMensual) *
+            parseInt(lineaItem.cantidadLineas);
+        }
+
+        GrupoLineas++;
+        for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
+          let linea = {
+            minutos: minutos,
+            navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
+            mensajes: lineaItem.mensajes ? 1 : 0,
+            redes: lineaItem.redes ? 1 : 0,
+            llamadas: lineaItem.llamadas ? 1 : 0,
+            roaming: lineaItem.roaming ? 1 : 0,
+            cargo: lineaItem.valorMensual,
+            grupo: GrupoLineas,
+          };
+
+          if (typeof lineaItem.NumerosLineas !== "undefined") {
+            Object.defineProperty(linea, "numero", {
+              value: lineaItem.NumerosLineas[i],
+              enumerable: true,
+            });
+          }
+
+          arrayLineas.push(linea);
+        }
       }
+
+      Cantidad_Total_Lineas = arrayLineas.length;
     }
 
-    Cantidad_Total_Lineas = arrayLineas.length;
-  }
+    let arrayRazones = $("#txtRazones").val();
+    let stringRazones = "";
 
-  let arrayRazones = $("#txtRazones").val();
-  let stringRazones = "";
+    for (let razon of arrayRazones) {
+      stringRazones += razon + ", ";
+    }
 
-  for (let razon of arrayRazones) {
-    stringRazones += razon + ", ";
-  }
+    let datos = {
+      // Notificacion
+      Id_Usuario: Id_Usuario,
+      // Cliente
+      Razon_Social: $("#txtRazonSocial").val(),
+      Telefono: $("#txtTelefono").val(),
+      NIT_CDV: $("#txtNIT").val(),
+      Encargado: $("#txtEncargado").val(),
+      Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
+      Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
+      Direccion: $("#txtDireccion").val(),
+      //DBL
+      Id_Operador: parseInt($("#txtOperador").val()),
+      Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
+      Razones: stringRazones,
+      Cantidad_Lineas: Cantidad_Total_Lineas,
+      Valor_Mensual: Valor_Total_Mensual.toString(),
+      DetalleLineas: arrayLineas,
 
-  let datos = {
-    // Cliente
-    Razon_Social: $("#txtRazonSocial").val(),
-    Telefono: $("#txtTelefono").val(),
-    NIT_CDV: $("#txtNIT").val(),
-    Encargado: $("#txtEncargado").val(),
-    Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
-    Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
-    Direccion: $("#txtDireccion").val(),
-    //DBL
-    Id_Operador: parseInt($("#txtOperador").val()),
-    Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
-    Razones: stringRazones,
-    Cantidad_Lineas: Cantidad_Total_Lineas,
-    Valor_Mensual: Valor_Total_Mensual.toString(),
-    DetalleLineas: arrayLineas,
+      // Validacion
+      Validacion_PLan_C: false,
+      Validacion_Doc_S: false,
+    };
 
-    // Validacion
-    Validacion_PLan_C: false,
-    Validacion_Doc_S: false,
-  };
+    if($(".switch_corporativo").bootstrapSwitch("state")) {
+      let switchClausula = $("#switchClausula")
+        .children("label")
+        .children("input");
 
-  if ($(".switch_corporativo").bootstrapSwitch("state")) {
-    let switchClausula = $("#switchClausula")
-      .children("label")
-      .children("input");
+      datos.Validacion_PLan_C = true;
 
-    datos.Validacion_PLan_C = true;
+      Object.defineProperties(datos, {
+        Clausula: {
+          value: switchClausula[0].checked ? 1 : 0,
+          enumerable: true,
+        },
+        Fecha_Inicio: {
+          value: $("#txtFecha_inicio").val(),
+          enumerable: true,
+        },
+        Fecha_Fin: {
+          value: $("#txtFecha_fin").val(),
+          enumerable: true,
+        },
+        Descripcion: {
+          value: $("#txtDescripcion").val(),
+          enumerable: true,
+        },
+      });
+    }
 
-    Object.defineProperties(datos, {
-      Clausula: {
-        value: switchClausula[0].checked ? 1 : 0,
-        enumerable: true,
-      },
-      Fecha_Inicio: {
-        value: $("#txtFecha_inicio").val(),
-        enumerable: true,
-      },
-      Fecha_Fin: {
-        value: $("#txtFecha_fin").val(),
-        enumerable: true,
-      },
-      Descripcion: {
-        value: $("#txtDescripcion").val(),
-        enumerable: true,
-      },
-    });
-  }
+    if($(".switch_doc").bootstrapSwitch("state") === true) {
+      datos.Validacion_Doc_S = true;
 
-  if ($(".switch_doc").bootstrapSwitch("state")) {
-    datos.Validacion_Doc_S = true;
-
-    Object.defineProperties(datos, {
-      Camara_Comercio: {
-        value:  objDocumentos.txtCamara_Comercio,
-        enumerable: true,
-      },
-      Cedula_RL: {
-        value: objDocumentos.txtCedula,
-        enumerable: true,
-      },
-      Soporte_Ingresos: {
-        value: objDocumentos.txtSoporte,
-        enumerable: true,
-      },
-      Detalles_Plan_Corporativo: {
-        value: objDocumentos.txtDetalles,
-        enumerable: true,
-      },
-    });
-  }
-  $.ajax({
-    url: `${URL}/Cliente`,
-    dataType: "json",
-    type: "post",
-    contentType: "aplication/json",
-    data: JSON.stringify(datos),
-    processData: false,
-
-    // done -> capturar respuesta del servidor
-  })
-    .done((respuesta) => {
-      if (respuesta.data.ok) {
-        swal(
-          {
-            title: "Cliente registrado correctamente.",
-            type: "success",
+      Object.defineProperties(datos, {
+        Camara_Comercio: {
+          value: objDocumentos.txtCamara_Comercio,
+          enumerable: true,
+        },
+        Cedula_RL: {
+          value: objDocumentos.txtCedula,
+          enumerable: true,
+        },
+        Soporte_Ingresos: {
+          value: objDocumentos.txtSoporte,
+          enumerable: true,
+        },
+        Detalles_Plan_Corporativo: {
+          value: objDocumentos.txtDetalles,
+          enumerable: true,
+        },
+      });
+    }
+    $.ajax({
+      url: `${URL}/Cliente`,
+      dataType: "json",
+      type: "post",
+      contentType: "aplication/json",
+      data: JSON.stringify(datos),
+      processData: false,
+    })
+      .done((respuesta) => {
+        if (respuesta.data.ok) {
+          // Se envía notifiación a coordinadores y administrador
+          clientesSocket.emit("Notificar");
+          swal(
+            {
+              title: "Cliente registrado correctamente.",
+              type: "success",
+              showCancelButton: false,
+              confirmButtonColor: "#2F6885",
+              confirmButtonText: "Continuar",
+              closeOnConfirm: false,
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                sessionStorage.removeItem("DetalleLineas");
+                Redireccionar("/Directorio");
+              }
+            }
+          );
+        } else {
+          swal({
+            title: "Error al registrar.",
+            text: "Ha ocurrido un error al registrar, intenta de nuevo",
+            type: "error",
             showCancelButton: false,
             confirmButtonColor: "#2F6885",
             confirmButtonText: "Continuar",
-            closeOnConfirm: false,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              sessionStorage.removeItem("DetalleLineas");
-              Redireccionar("/Directorio");
-            }
-          }
-        );
-      } else {
+            closeOnConfirm: true,
+          });
+        }
+      })
+      .fail((error) => {
         swal({
           title: "Error al registrar.",
           text: "Ha ocurrido un error al registrar, intenta de nuevo",
@@ -722,19 +743,8 @@ let RegistrarCliente = (objDocumentos) => {
           confirmButtonText: "Continuar",
           closeOnConfirm: true,
         });
-      }
-    })
-    .fail((error) => {
-      swal({
-        title: "Error al registrar.",
-        text: "Ha ocurrido un error al registrar, intenta de nuevo",
-        type: "error",
-        showCancelButton: false,
-        confirmButtonColor: "#2F6885",
-        confirmButtonText: "Continuar",
-        closeOnConfirm: true,
       });
-    });
+  });
 };
 
 let CargarDatosUbicacion = () => {

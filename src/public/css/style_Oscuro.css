@@ -1788,7 +1788,7 @@ File: scss
     .topbar .top-navbar .navbar-nav > .nav-item > .nav-link {
       padding-left: .75rem;
       padding-right: .75rem;
-      font-size: 15px;
+      font-size: 20px;
       line-height: 40px; }
     .topbar .top-navbar .navbar-nav > .nav-item.show {
       background: rgba(0, 0, 0, 0.05); }
@@ -5729,7 +5729,8 @@ File: scss
     border-bottom: 1px solid rgba(120, 130, 140, 0.13);
     display: block;
     text-decoration: none;
-    padding: 9px 15px; }
+    padding: 9px 15px; 
+    color: #fff;}
     .mailbox .message-center a:hover {
       background: #323840; }
     .mailbox .message-center a div {
@@ -5761,7 +5762,8 @@ File: scss
     .mailbox .message-center a .mail-contnet {
       display: inline-block;
       width: 75%;
-      vertical-align: middle; }
+      vertical-align: middle;
+      margin-left: 5%; }
       .mailbox .message-center a .mail-contnet h5 {
         margin: 5px 0px 0; }
       .mailbox .message-center a .mail-contnet .mail-desc,

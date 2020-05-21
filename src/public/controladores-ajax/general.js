@@ -37,8 +37,11 @@ let Redireccionar = (URLRedirect) => {
     });
 };
 
-async function ObtenerSession(){
-  const response = await fetch('/ObtenerSession');
+async function ObtenerSession() {
+  const response = await fetch("/ObtenerSession");
   const data = await response.json();
   return data;
 }
+
+
+
