@@ -5574,8 +5574,7 @@ sidebar navigation
       vertical-align: middle;
       color: #99abb4; }
     .sidebar-nav > ul > li > a .label {
-      float: right;
-      margin-top: 6px; }
+      float: right; }
     .sidebar-nav > ul > li > a.active {
       font-weight: 400;
       background: #242933;

@@ -18,7 +18,13 @@ ObtenerCliente = (Id_Cliente, Modal) => {
 };
 
 $(function () {
-
+  if (sessionStorage.IdRegistroNotificacion) {
+    OcultarContador();
+    let Id_Cliente = parseInt(sessionStorage.getItem("IdRegistroNotificacion"));
+    ObtenerCliente(Id_Cliente, 1);
+    sessionStorage.removeItem("IdRegistroNotificacion");
+    CambiarEstadoVisitaNotificacion();
+  }
   DataTable = $("#ClientesDataTable").DataTable({
     cache: true,
     ajax: {

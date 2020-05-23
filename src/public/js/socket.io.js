@@ -4,14 +4,14 @@ ObtenerSession().then((data) => {
     case 1:
       clientesSocket = io("/Clientes");
       clientesSocket.on("Notificar", function () {
-        ListarNotificacionesNoLeidas();
+        GuardarNotificaciones(true,true);
       });
       //   citasSocket = io("/Citas");
       break;
     case 2:
       clientesSocket = io("/Clientes");
       clientesSocket.on("Notificar", function () {
-        ListarNotificacionesNoLeidas();
+        GuardarNotificaciones(true,true);
       });
       //   citasSocket = io("/Citas");
       break;

@@ -58,6 +58,13 @@
     <script src="/controladores-ajax/Usuarios/EditarUsuarios.js"></script>
     <script src="/controladores-ajax/Usuarios/EliminarUsuario.js"></script>
     {{/if}}
+
+    {{!-- Notificaciones --}}
+    {{#if Notificaciones}}
+    <script src="/controladores-ajax/Notificaciones/ListarNotificaciones.js"></script>
+    <script src="/controladores-ajax/Notificaciones/EliminarNotificaciones.js"></script>
+    {{/if}}
+    
     {{#if Registrar_Usuarios}}
     <script src="/controladores-ajax/Usuarios/RegistrarUsuario.js"></script>
     <script src="/js/dropify.js"></script>
