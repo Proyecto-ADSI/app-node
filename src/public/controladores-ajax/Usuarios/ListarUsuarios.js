@@ -25,7 +25,7 @@ ObtenerUsuario = (Id_Usuario, Modal) => {
         }
     })
 }
-
+var DataTableUsuarios = null;
 $(function () {
 
     DataTableUsuarios =  $('#UsuariosDataTable').DataTable({
@@ -38,6 +38,12 @@ $(function () {
             //     console.log(res)
             // }
         },
+        columnDefs:[{
+            searchPanes:{
+                show: true
+            },
+            targets: [4]
+        }],
         // data: datos,
         aoColumns: [
             { mData: 'Id_Usuario', sClass: "MyStyle_Id_Principal_Column"},
@@ -50,20 +56,24 @@ $(function () {
                     `
                     <input type="checkbox" id="switch_cliente" class="js-switch" />
                     
-                    <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles"">
+                    <button id="btnDetalles" class="btn btn-warning" title="Detalles"">
                         <i class="fa fa-eye"></i>
                     </button>
 
-                    <button id="btnEditar" class="btn btn-outline-info" title="Editar">
+                    <button id="btnEditar" class="btn btn-info" title="Editar">
                         <i class="fa fa-pencil"></i>
                     </button>
                     
-                    <button id="btnEliminar" class="btn btn-outline-danger"  title="Eliminar">
+                    <button id="btnEliminar" class="btn btn-danger"  title="Eliminar">
                         <i class="fa fa-close"></i> 
                     </button>
             `}
                 
         ],
+
+        // searchPanes: {
+        //     orthogonal:'sp'
+        // },
         
         language: {
             "lengthMenu": "Mostrar _MENU_ registros",
@@ -103,12 +113,16 @@ $(function () {
                 }
             });
 
-        }
+        },
+        // searchPanes: true,
+        // initComplete: function() {
+        //     this.api().searchPanes.rebuildPane();
+        // },
+
     });
     // Habilitar los tooltips
     InicializarToltips();
 });
-
 // Cargar Modal
 // 1 -> Detalles
 // 2 -> Editar
@@ -123,6 +137,10 @@ $(document).on("click","#btnDetalles", function(){
     ObtenerUsuario(Id_Usuario,1);
 
 });
+
+
+
+
 
 
 
@@ -180,3 +198,45 @@ $(document).on("click","#btnEliminar", function(){
     Eliminarusuario(Id_Usuario);
 });
 
+
+
+
+$("#Select-Rol").append(`
+<option value='Disabled' selected disabled>Seleccione una opción</option>
+<option value='Administrador'>Administrador</option>
+<option value='Coordinador'>Coordinador</option>
+<option value='Contact center'>Contact center</option>
+<option value='Asesor interno'>Asesor interno</option>
+<option value='Asesor externo'>Asesor externo</option>
+<option value='Gestion cliente'>Gestion cliente</option>
+`);
+
+$("#Filtro-Usuario").on('keyup', function(){
+    DataTableUsuarios.columns(1).search(this.value).draw();
+  })
+
+  $("#Filtro-Nombre").on('keyup', function(){
+    DataTableUsuarios.columns(2).search(this.value).draw();
+  })
+
+  $("#Filtro-Apellido").on('keyup', function(){
+    DataTableUsuarios.columns(3).search(this.value).draw();
+  })
+  
+  $("#Select-Rol").on('change', function(){
+    DataTableUsuarios.columns(4).search(this.value).draw();
+  })
+
+  $("#Filtro-Correo").on('keyup', function(){
+    DataTableUsuarios.columns(5).search(this.value).draw();
+  })
+  
+  let LimpiarFiltro = () =>{
+    $("#Filtro-Usuario").val('')
+    $("#Filtro-Nombre").val('')
+    $("#Filtro-Apellido").val('')
+    $("#Select-Rol").val('Disabled')
+    $("#Filtro-Correo").val('')
+    DataTableUsuarios.columns().search('').draw()
+  }
+  

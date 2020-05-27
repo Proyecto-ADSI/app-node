@@ -4,6 +4,57 @@
     </div>
     <div class="card-body" id="Card-Body-Gestion-Usuarios">
         <!-- Card Table -->
+          <div class="card MyStyle_Card_Filtro card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
+            </div>
+            <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
+                    <div class="row">
+                        <div class="col-md-4">
+                                <div class="example">
+                                    <label class="m-t-30">Usuario</label>
+                                    <input type="text" class="form-control" id="Filtro-Usuario" placeholder="Usuario">
+                                </div>
+                            </div>
+                        <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Nombres</label>
+                                <input class="form-control" type="text" id="Filtro-Nombre"
+                                 placeholder="Nombre">
+                            </div>
+                        </div>
+                          <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Apellidos</label>
+                                <input class="form-control" type="text" id="Filtro-Apellido"
+                                 placeholder="Apellido">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">  
+                    <div class="col-md-4">
+                      <label class="m-t-30">Rol</label>
+                        <select class="form-control" id="Select-Rol"> 
+                        </select>
+                      </div>   
+                       <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Correo</label>
+                                <input class="form-control" type="text" id="Filtro-Correo"
+                                 placeholder="Correo">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
+                                <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
+                                    Limpiar filtro avanzado</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
         <div class="card  card-outline-info">
             <div class="card-header MyStyle_Card_Header">
                 <div class="row">
@@ -30,7 +81,7 @@
             </div>
             <div class="card-body" id="Card-Body-Gestion-Usuarios2">
                 <div class="table-responsive">
-                    <table id="UsuariosDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
+                    <table id="UsuariosDataTable" class="table table-bordered  table-striped MyStyle_Color-Table">
                         <thead>
                             <tr>
                                 <th>Id_Usuario</th>
