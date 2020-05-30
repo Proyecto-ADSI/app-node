@@ -5,11 +5,23 @@
 <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <!-- Mis estilos -->
 <link rel="stylesheet" href="/css/MyStyle.css">
-<!-- Custom CSS -->
+
 <link href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
 <!-- Tema de la plantilla -->
 <link href="/css/colors/Tema_Blanco.css" id="Tema" rel="stylesheet">
 
+{{!-- {{#xif session.Tema '==' 1}}
+<!-- Custom CSS -->
+<link href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
+<!-- Tema de la plantilla -->
+<link href="/css/colors/Tema_Blanco.css" id="Tema" rel="stylesheet">
+{{/xif}}
+{{#xif session.Tema '==' 0}}
+<!-- Custom CSS -->
+<link href="/css/style_Oscuro.css" id="Style_Tema" rel="stylesheet">
+<!-- Tema de la plantilla -->
+<link href="/css/colors/Tema_Oscuro.css" id="Tema" rel="stylesheet">
+{{/xif}} --}}
 <!-- Switchery -->
 <link href="/assets/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
 <!-- DataTable -->
@@ -57,5 +69,7 @@
 <link rel="stylesheet" href="/assets/plugins/colortip-1.0/colortip-1.0-jquery.css">
 <!-- Clock Picker -->
 <link href="/assets/plugins/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
+<!--Color picker -->
+<link href="/assets/plugins/pickr-master/dist/themes/classic.min.css" rel="stylesheet">
 
 {{!-- <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> --}}

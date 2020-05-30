@@ -59,7 +59,7 @@
 
     {{!-- Directorio --}}
     {{#if Directorio}}
-    <script src="/controladores-ajax/Clientes/ListarClientes.js"></script>
+    <script src="/controladores-ajax/Clientes/ListarClientes-admin.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
     <script src="/controladores-ajax/Clientes/EliminarCliente.js"></script>
     <script src="/controladores-ajax/Clientes/ImportarClientes.js"></script>
@@ -97,6 +97,13 @@
     {{#if Registrar_Usuarios}}
     <script src="/controladores-ajax/Usuarios/RegistrarUsuario.js"></script>
     <script src="/js/dropify.js"></script>
+    {{/if}}
+
+    
+    {{!-- Notificaciones --}}
+    {{#if Notificaciones}}
+    <script src="/controladores-ajax/Notificaciones/ListarNotificaciones.js"></script>
+    <script src="/controladores-ajax/Notificaciones/EliminarNotificaciones.js"></script>
     {{/if}}
 
     {{#if Configuracion}}

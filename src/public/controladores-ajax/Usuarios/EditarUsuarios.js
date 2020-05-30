@@ -7,7 +7,6 @@ var Id_UsuarioEditar;
 var Id_EmpleadoEditar;
 var form = null;
 CargarDatosModalEditar = (Datos) => {
-  
   Informacion = Datos.data;
 
   // Llenar formulario de empleado
@@ -29,15 +28,35 @@ CargarDatosModalEditar = (Datos) => {
 
   $("#inputFotografiaEditar").empty();
   $("#inputFotografiaEditar").append(`
-    <input type="file" id="fileFotografia" name="Fotografia"/>
+    <input type="file" id="fileFotografia" name="Fotografia" data-default-file="/assets/images/usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
   `);
-  $("#fileFotografia").addClass("dropify");
-  $("#fileFotografia").attr(
-    "data-default-file",
-    `../../../assets/images/usuarios/${Informacion.Imagen}`
-  );
-  $("#fileFotografia").attr("imagen", `${Informacion.Imagen}`);
-  $("#fileFotografia").dropify();
+
+  let dropify = $("#fileFotografia").dropify({
+    messages: {
+      default: "Arrastre y suelte un archivo aquí o haz clic",
+      replace: "Arrastre y suelte un archivo o haga clic para reemplazar",
+      remove: "Eliminar",
+      error: "Lo sentimos, el archivo es demasiado grande",
+    },
+  });
+
+  // $(document).on("click",".dropify-clear",function(){
+  //   console.log("adssasad");
+  // })
+  // dropify.on("dropify.beforeClear", function (event, element) {
+  //   return confirm('Do you really want to delete "' + element.filename + '" ?');
+  // });
+  dropify.on("dropify.afterClear", function (event, element) {
+    $("#fileFotografia").removeAttr("imagen")
+  });
+
+  // $("#fileFotografia").addClass("dropify");
+  // $("#fileFotografia").attr(
+  //   "data-default-file",
+  //   `../../..`
+  // );
+  // $("#fileFotografia").attr("imagen", `${Informacion.Imagen}`);
+  // $("#fileFotografia").dropify();
 
   // Mostrar Modal con formulario para editar
   $(".ModalEditarUsuarios").modal("show");
@@ -319,12 +338,16 @@ $(function () {
       );
     },
     onFinished: function (event, currentIndex) {
+
       let files = $("#fileFotografia")[0].files;
-      if (typeof files != "undefined") {
-        CargarImagenEditar();
-      } else {
+      if (files.length == 0) {
         let imagen = $("#fileFotografia").attr("imagen");
+        if (typeof imagen == "undefined") {
+            imagen = "defect.jpg";
+        }
         EditarUsuario(imagen);
+      } else {
+        CargarImagenRegistro();
       }
     },
   }),

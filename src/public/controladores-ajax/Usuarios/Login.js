@@ -13,7 +13,7 @@ let Login = () => {
     processData: false,
   })
     .done((respuesta) => {
-      console.log(respuesta)
+
       if (respuesta.data.ok) {
         //  // Crear Sesión
         let session = {
@@ -23,6 +23,7 @@ let Login = () => {
           Rol: respuesta.data.Rol,
           Email: respuesta.data.Email,
           Usuario_Img: respuesta.data.Imagen,
+          Tema: 1,
         };
 
         fetch("/Login", {

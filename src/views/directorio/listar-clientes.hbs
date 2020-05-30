@@ -9,6 +9,7 @@
                         <h4 class="m-b-0 text-white">Lista de Clientes:</h4>
 
                     </div>
+                    
                     <div class="col-md-2">
                         <div class="m-l-50">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -16,19 +17,89 @@
                                 Opciones
                             </button>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a href="AgregarEmpresa.html" class="dropdown-item"> <i class=" fas fa-user-plus"></i>
+                                {{#xif session.Id_Rol '==' 1}}
+                                <a href="/App/Admin/Directorio/Registrar" class="dropdown-item"> <i
+                                        class=" fa fa-user-plus"></i>
                                     Agregar Cliente
                                 </a>
-                                <button class="dropdown-item" data-toggle="modal" data-target=".importarClientes"><i
-                                        class="fas fa-file-upload"></i>
-                                    Importar Clientes
+                                <button class="dropdown-item" data-toggle="modal" data-target=".importarClientes">
+                                    <i class="fa fa-cloud-upload"></i> Importar Clientes
                                 </button>
+                                {{/xif}}
+                                {{#xif session.Id_Rol '==' 2}}
+                                <a href="/App/Coordinador/Directorio/Registrar" class="dropdown-item"> <i
+                                        class=" fa fa-user-plus"></i>
+                                    Agregar Cliente
+                                </a>
+                                {{/xif}}
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="card-body" id="Card-Body-Directorio">
+
+                  <div class="card MyStyle_Card_Filtro card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
+            </div>
+            <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
+                    <div class="row">
+                        <div class="col-md-4">
+                                <div class="example">
+                                    <label class="m-t-30">Nit</label>
+                                    <input type="text" class="form-control" id="Filtro-DirectorioNit" placeholder="Nit">
+                                </div>
+                            </div>
+                        <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Razon social</label>
+                                <input class="form-control" type="text" id="Filtro-DirectorioRazon"
+                                 placeholder="Razon social">
+                            </div>
+                        </div>
+                          <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Teléfono</label>
+                                <input class="form-control" type="text" id="Filtro-DirectorioTele"
+                                 placeholder="Teléfono">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">  
+                        <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Operador</label>
+                                <input class="form-control" type="text" id="Filtro-DirectorioOp"
+                                 placeholder="Operador">
+                            </div>
+                        </div>
+                          <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Coporativo</label>
+                                <input class="form-control" type="text" id="Filtro-DirectorioCorpo"
+                                 placeholder="Corporativo">
+                            </div>
+                        </div>
+                          <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Municipio</label>
+                                <input class="form-control" type="text" id="Filtro-DirectorioMuni"
+                                 placeholder="Municipio">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
+                                <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-info">
+                                    Limpiar filtro avanzado</button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
 
                 <!-- Importar archivo de clientes-->
                 <div class="modal fade importarClientes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
@@ -78,6 +149,7 @@
                                 <th>Teléfono</th>
                                 <th>Operador</th>
                                 <th>Corporativo</th>
+                                <th>Municipio</th>
                                 <th class="MyStyle_Table_Opciones">Opciones</th>
                             </tr>
                         </thead>
@@ -122,12 +194,31 @@
                                     <span class="hidden-xs-down"> Plan Corporativo </span>
                                 </a>
                             </li>
+                            {{#xif session.Id_Rol '==' 1}}
                             <li class="nav-item">
                                 <a id="Menu_Doc" class="nav-link" data-toggle="tab" href="#Documentos" role="tab">
                                     <span class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">Documentos</span>
                                 </a>
                             </li>
+                            {{/xif}}
+                            {{#xif session.Id_Rol '==' 2}}
+                            <li class="nav-item">
+                                <a id="Menu_Doc" class="nav-link" data-toggle="tab" href="#Documentos" role="tab">
+                                    <span class="hidden-sm-up"><i class="ti-email"></i></span>
+                                    <span class="hidden-xs-down">Documentos</span>
+                                </a>
+                            </li>
+                            {{/xif}}
+                            {{#xif session.Id_Rol '==' 6}}
+                            <li class="nav-item">
+                                <a id="Menu_Doc" class="nav-link" data-toggle="tab" href="#Documentos" role="tab">
+                                    <span class="hidden-sm-up"><i class="ti-email"></i></span>
+                                    <span class="hidden-xs-down">Documentos</span>
+                                </a>
+                            </li>
+                            {{/xif}}
+
                             <li class="nav-item">
                                 <a id="Menu_Comp" class="nav-link" data-toggle="tab" href="#Comparativo" role="tab">
                                     <span class="hidden-sm-up"><i class="ti-email"></i></span>
@@ -381,34 +472,29 @@
                                             </h3>
                                             <hr class="m-t-0 m-b-40">
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label for="location1">¿Claúsula
+                                                        <label class="font-weight-bold">¿Claúsula
                                                             permanencia?</label>
-                                                        <div id="switch_input_clausula" class="switch">
-                                                            <label>
-                                                                <strong> NO</strong>
-                                                                <input type="checkbox">
-                                                                <span class="lever"></span>
-                                                                <strong>SI</strong>
-                                                            </label>
-                                                        </div>
+                                                        <p id="txtClausulaPermanencia" class="form-control-static">
+
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label text-right">
-                                                            Fecha Inicio:
+                                                        <label class="font-weight-bold text-right">
+                                                            Fecha inicio:
                                                         </label>
                                                         <p id="txtFecha_Inicio" class="form-control-static">
 
                                                         </p>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-5">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label text-right">
-                                                            Fecha Fin:
+                                                        <label class="font-weight-bold text-right">
+                                                            Fecha fin:
                                                         </label>
                                                         <p id="txtFecha_Fin" class="form-control-static">
 
@@ -419,7 +505,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label class="control-label text-right">
+                                                        <label class="font-weight-bold text-right">
                                                             Descripción del corporativo:
                                                         </label>
                                                         <p id="txtDescripcion" class="form-control-static">
@@ -442,65 +528,40 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label text-right">
+                                                        <label class="font-weight-bold text-right">
                                                             Cédula Ciudadanía
                                                         </label>
-                                                        <p class="form-control-static">
-                                                            <button class="btn btn-outline-primary">
-                                                                Descargar
-                                                            </button>
+                                                        <p id="linkCedula" class="form-control-static">
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label">
+                                                        <label class="font-weight-bold">
                                                             Cámara de comercio
                                                         </label>
-                                                        <p class="form-control-static">
-                                                            <button class="btn btn-outline-primary">
-                                                                Descargar
-                                                            </button>
+                                                        <p id="linkCamara" class="form-control-static">
+
                                                         </p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label text-right">
+                                                        <label class="font-weight-bold text-right">
                                                             Soporte de ingresos
                                                         </label>
-                                                        <p class="form-control-static">
-                                                            <button class="btn btn-outline-primary">
-                                                                Descargar
-                                                            </button>
+                                                        <p id="linkSoporte" class="form-control-static">
+
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label text-right">
-                                                            Anexos Corporativo
-                                                        </label>
-                                                        <p class="form-control-static">
-                                                            <button class="btn btn-outline-primary">
-                                                                Descargar
-                                                            </button>
-                                                        </p>
-                                                    </div>
+                                                <div id="ValidacionAnexos" class="col-md-4">
+
                                                 </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label text-right">
-                                                            Oferta
-                                                        </label>
-                                                        <p class="form-control-static">
-                                                            <button class="btn btn-outline-primary">
-                                                                Descargar
-                                                            </button>
-                                                        </p>
-                                                    </div>
+                                                <div id="ValidacionOferta" class="col-md-4">
+
                                                 </div>
                                             </div>
                                         </div>

@@ -57,8 +57,8 @@
                             </div>
                         </div>
                         <h4 class="box-title d-inline-block">Ubicación:</h4>
-                        <input name="Validacion_Ubicacion" type="radio" class="with-gap" id="Validacion_Ubicacion2">
-                        <label for="Validacion_Ubicacion2">Colombia/Antioquia/Medellín/Barrio</label>
+                        <input name="Validacion_UbicacionEmpresa" type="radio" class="with-gap" id="Validacion_UbicacionEmpresa">
+                        <label for="Validacion_UbicacionEmpresa">Colombia/Antioquia/Medellín/Barrio</label>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
                             <div class="col-md-4">
@@ -118,7 +118,8 @@
                                 <div class="form-group">
                                     <label for="emailAddress1"> Dirección:</label>
                                     <input type="text" class="form-control" id="txtDireccion" name="txtDireccion"
-                                        placeholder="Calle 1 # 1 - 1"> </div>
+                                        readonly data-toggle="modal" data-target="#modalDireccion"
+                                        placeholder="Dirección">
                             </div>
                         </div>
                     </section>
@@ -474,7 +475,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Cámara de comercio</label>
+                                    <label>Cámara de comercio: <span class="text-danger">*</span></label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -493,7 +494,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Cédula de ciudadanía:</label>
+                                    <label>Cédula de ciudadanía: <span class="text-danger">*</span></label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -512,7 +513,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Soporte de ingresos:</label>
+                                    <label>Soporte de ingresos: <span class="text-danger">*</span></label>
                                     <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                                         <div class="form-control" data-trigger="fileinput">
                                             <i class="fa fa-file fileinput-exists"></i>
@@ -555,3 +556,4 @@
         </div>
     </div>
 </div>
+{{>direccion}}

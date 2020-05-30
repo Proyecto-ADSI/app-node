@@ -217,8 +217,7 @@ $(function () {
   });
 
   // Fecha reprogramar llamada
-  $("#Fecha_LP")
-    .bootstrapMaterialDatePicker({
+  $("#Fecha_LP").bootstrapMaterialDatePicker({
       lang: "es",
       format: "dddd DD MMMM YYYY - HH:mm",
       minDate: new Date(),
@@ -305,7 +304,7 @@ $(function () {
 
       form.steps("insert", 2, stepPlanCorp);
 
-      // Rango Fecha corporativo
+      // // Rango Fecha corporativo
       $("#Fecha_Corporativo").datepicker({
         language: "es",
         format: "yyyy/mm/dd",
@@ -729,7 +728,10 @@ let ValidacionesCita = () => {
 };
 
 let RegistrarLlamadaNP = () => {
-  // Array Lineas
+  ObtenerSession().then(data => {
+    let Id_Usuario = parseInt(data.session.Id_Usuario);
+
+    // Array Lineas
   let arrayLineas = [];
 
   let Cantidad_Total_Lineas = 0;
@@ -809,7 +811,7 @@ let RegistrarLlamadaNP = () => {
     "00:" + $("#txtMinutosL").text() + ":" + $("#txtSegundosL").text();
   let datos = {
     // Llamada
-    Id_Usuario: parseInt(sessionStorage.getItem("Id_Usuario")),
+    Id_Usuario: Id_Usuario,
     Persona_Responde:
       $("#txtPersona_Responde").val() == ""
         ? null
@@ -966,43 +968,10 @@ let RegistrarLlamadaNP = () => {
       console.log(respuesta);
 
       if (respuesta.data.ok) {
+        
         // Si se registra cita se envía notifiación a coordinadores y administrador
-        if (respuesta.data.okCita) {
-          let datosNotificacion = respuesta.data.notificacion;
-
-          // Fecha
-          let fecha = new Date();
-          let horas = fecha.getHours();
-          let minutos = fecha.getMinutes();
-
-          horas < 10 ? (horas = "0" + horas) : (horas = horas);
-          minutos < 10 ? (minutos = "0" + minutos) : (minutos = minutos);
-          let dd = "AM";
-          let h = horas;
-          if (h >= 12) {
-            h = horas - 12;
-            dd = "PM";
-          }
-          if (h == 0) {
-            h = 12;
-          }
-          let tiempo = horas + ":" + minutos + " " + dd;
-
-          Object.defineProperties(datosNotificacion, {
-            Usuario: {
-              value: sessionStorage.getItem("Usuario"),
-              enumerable: true,
-            },
-            Hora: {
-              value: tiempo,
-              enumerable: true,
-            },
-          });
-
-          // Generar Notificacion.
-          console.log(datosNotificacion);
-        }
-
+        clientesSocket.emit("Notificar");
+        
         swal(
           {
             title: "Registro exitoso.",
@@ -1015,7 +984,7 @@ let RegistrarLlamadaNP = () => {
           function (isConfirm) {
             if (isConfirm) {
               sessionStorage.removeItem("DetalleLineas");
-              location.href = "Llamadas.html";
+              location.href = Redireccionar("/Llamadas");
             }
           }
         );
@@ -1059,6 +1028,7 @@ let RegistrarLlamadaNP = () => {
       );
     },
   });
+  })
 };
 
 let InicializarFormCitas = () => {
@@ -1511,7 +1481,6 @@ let CargarBarrios_Veredas = (datos, Cita, Id_Barrios_Veredas) => {
   }
 
   $(selector).empty();
-
   if (Id_Barrios_Veredas) {
     for (let item of datos) {
       let opcion = null;
@@ -1898,13 +1867,13 @@ let ListarDetalleLineas = () => {
 
                         <button type="button" id="DetallesLineasEditar" id_linea="${
                           item.id
-                        }" class="btn btn-outline-info btn-sm">
+                        }" class="btn btn-info btn-sm">
                             <i class="fa fa-pencil"></i>
                         </button>
                 
                         <button type="button" id="DetallesLineasEliminar" id_linea="${
                           item.id
-                        }" class="btn btn-outline-danger btn-sm">
+                        }" class="btn btn-danger btn-sm">
                             <i class="fa fa-close"></i>
                         </button>
                     </td>

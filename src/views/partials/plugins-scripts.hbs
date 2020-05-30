@@ -72,7 +72,7 @@
 <!-- uuid -->
 <script src="/assets/plugins/uuid/uuid.min.js"></script>
 <!-- Calendar JavaScript -->
-<script src="/assets/plugins/calendar/jquery-ui.min.js"></script>
+{{!-- <script src="/assets/plugins/calendar/jquery-ui.min.js"></script> --}}
 <script src='/assets/plugins/calendar/dist/fullcalendar.min.js'></script>
 <script src="/assets/plugins/calendar/dist/cal-init.js"></script>
 <!-- Dropify (Seleccionar archivos) -->
@@ -82,10 +82,24 @@
 <script src="/js/colortip.js"></script>
 <!-- Clock Picker -->
 <script src="/assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<!-- Toast -->
+<script src="/assets/plugins/toast-master/js/jquery.toast.js"></script>
+<!--Color picker -->
+<script src="/assets/plugins/pickr-master/dist/pickr.min.js"></script>
+
+{{!-- Funcionalidades --}}
+{{#xif session.Tema '==' 0}}
+<script src="/js/ActivarInputTema.js"></script>
+{{/xif}}
 <!-- Duplicar input -->
-<script src="../../../js/DuplicarHTML.js" type="text/javascript"></script>
+<script src="/js/DuplicarHTML.js" type="text/javascript"></script>
+{{!-- Dirección --}}
+<script src="/js/direccion.js"></script>
+{{!-- Api  Slim y Node js --}}
+<script src="/controladores-ajax/general.js"></script>
 {{!-- Socket.IO --}}
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/socket.io.js"></script>
-{{!-- Api-slim --}}
-<script src="/controladores-ajax/general.js"></script>
+{{!-- Notificaciones --}}
+<script src="/controladores-ajax/Notificaciones/NotificacionesHeader.js"></script>
+

@@ -3,6 +3,7 @@ let EditarOperador = () => {
     let datos = {
         Id_Operador: parseInt(Id_Operadorr),
         Nombre: $("#TxtOperadorEdit").val(),
+        Color: ColorSeleccionadoEdit
     };
     $.ajax({
         url: `${URL}/Operador`,
@@ -30,7 +31,6 @@ let EditarOperador = () => {
 $("#FormOperadorEdit").validate({
     submitHandler: function(){
             EditarOperador();
-            console.clear();
     },
     rules:{
         OperadorEdit: {

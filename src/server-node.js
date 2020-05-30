@@ -85,14 +85,22 @@ const server = app.listen(app.get("port"), () => {
 const io = socket(server);
 
 // Métodos Socket.io
-io.on("connection", (socket) => {
-  console.log("Socket conectado:", socket.id);
+// io.on("connection", (socket) => {
+//   // console.log("Socket conectado:", socket.id);
 
-  socket.on("chat:message", function (data) {
-    io.sockets.emit("chat:message", data);
-  });
+//   socket.on("chat:message", function (data) {
+//     io.sockets.emit("chat:message", data);
+//   });
 
-  socket.on("chat:typing", function (data) {
-    socket.broadcast.emit("chat:typing", data);
+//   socket.on("chat:typing", function (data) {
+//     socket.broadcast.emit("chat:typing", data);
+//   });
+// });  
+
+const clientesSocket = io.of('/Clientes');
+clientesSocket.on('connection', (socket) =>{
+  socket.on('Notificar', function(){
+    socket.broadcast.emit('Notificar');
   });
-});  
+})
+

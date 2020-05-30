@@ -13,13 +13,16 @@ router.get('/Noticias', usuarioLogeado, (req,res)=>{
 });
 // Directorio
 router.get('/Directorio', usuarioLogeado,(req,res)=>{
-    res.render('directorio/listar-clientes',{layout:'CoordinadorLayout.hbs', session: req.session.datos_usuario })
+    res.render('directorio/listar-clientes',{layout:'CoordinadorLayout.hbs',  Directorio: true, session: req.session.datos_usuario })
 });
 
 router.get('/Directorio/Registrar', usuarioLogeado,(req,res)=>{
     res.render('directorio/registrar-clientes',{layout:'CoordinadorLayout.hbs', Directorio_Registro: true , session: req.session.datos_usuario })
 });
 
+router.get('/Directorio/Editar', usuarioLogeado, (req,res)=>{
+    res.render('directorio/editar-clientes',{layout:'CoordinadorLayout.hbs', Directorio_Editar: true , session: req.session.datos_usuario })
+});
 
 // Llamadas
 router.get('/Llamadas',usuarioLogeado,(req,res)=>{

@@ -18,6 +18,13 @@ ObtenerCliente = (Id_Cliente, Modal) => {
 };
 
 $(function () {
+  if (sessionStorage.IdRegistroNotificacion) {
+    OcultarContador();
+    let Id_Cliente = parseInt(sessionStorage.getItem("IdRegistroNotificacion"));
+    ObtenerCliente(Id_Cliente, 1);
+    sessionStorage.removeItem("IdRegistroNotificacion");
+    CambiarEstadoVisitaNotificacion();
+  }
   DataTable = $("#ClientesDataTable").DataTable({
     cache: true,
     ajax: {
@@ -36,19 +43,22 @@ $(function () {
       { mData: "Telefono" },
       { mData: "Operador" },
       { mData: "Corporativo" },
+      { mData: "Municipio" },
       {
         defaultContent: `
+
+                  
                     <input type="checkbox" id="switch_cliente" class="js-switch"/>
 
-                    <button id="btnDetalles" class="btn btn-outline-primary" title="Detalles">
+                    <button id="btnDetalles" class="btn btn-primary" title="Detalles">
                         <i class="fa  fa-eye"></i>
                     </button>
                     
-                    <button id="btnEditar" class="btn btn-outline-info" title="Editar">
+                    <button id="btnEditar" class="btn btn-info" title="Editar">
                         <i class="fa fa-pencil"></i>
                     </button>
                     
-                    <button id="btnEliminar" class="btn btn-outline-danger"  title="Eliminar">
+                    <button id="btnEliminar" class="btn btn-danger"  title="Eliminar">
                         <i class="fa fa-close"></i> 
                     </button>
 
@@ -164,3 +174,39 @@ $(document).on("click", "#btnEliminar", function () {
 Recargar_CE_DataTable = () => {
   DataTable.ajax.reload();
 };
+
+$("#Filtro-DirectorioNit").on('keyup', function(){
+  DataTable.columns(1).search(this.value).draw();
+})
+
+$("#Filtro-DirectorioRazon").on('keyup', function(){
+  DataTable.columns(2).search(this.value).draw();
+})
+
+$("#Filtro-DirectorioTele").on('keyup', function(){
+  DataTable.columns(3).search(this.value).draw();
+})
+
+$("#Filtro-DirectorioOp").on('keyup', function(){
+  DataTable.columns(4).search(this.value).draw();
+})
+
+$("#Filtro-DirectorioCorpo").on('keyup', function(){
+  DataTable.columns(5).search(this.value).draw();
+})
+$("#Filtro-DirectorioMuni").on('keyup', function(){
+  DataTable.columns(6).search(this.value).draw();
+})
+
+
+let LimpiarFiltroDirec = () =>{
+  $("#Filtro-DirectorioRazon").val('')
+  $("#Filtro-DirectorioTele").val('')
+  $("#Filtro-DirectorioNit").val('')
+  $("#Filtro-DirectorioOp").val('')
+  $("#Filtro-DirectorioCorpo").val('')
+  $("#Filtro-DirectorioMuni").val('')
+  
+  DataTable.columns().search('').draw()
+}
+
