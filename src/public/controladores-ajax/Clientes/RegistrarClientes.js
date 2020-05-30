@@ -109,16 +109,70 @@ $(function () {
           required: true,
           minlength: 5,
           SoloAlfanumericos: true,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtRazonSocial").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                return '"true"';
+              } else {
+                return '"Cliente ya registrado."';
+              }
+            },
+          }
         },
         txtTelefono: {
           required: true,
           SoloNumeros: true,
           minlength: 5,
           maxlength: 10,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtTelefono").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                return '"true"';
+              } else {
+                return '"Teléfono ya registrado."';
+              }
+            },
+          }
         },
         txtNIT: {
           ValidarNIT: true,
           minlength: 5,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtNIT").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                return '"true"';
+              } else {
+                return '"NIT ya registrado."';
+              }
+            },
+          }
         },
         txtEncargado: {
           SoloLetras: true,
@@ -134,8 +188,6 @@ $(function () {
         // txtSubTipo: "required",
         // txtNombre_Lugar: "required",
         // txtDireccion: "required",
-        txtOperador: "required",
-        txtCalificacion: "required",
         txtValor_Total_Mensual: {
           SoloNumeros: true,
         },

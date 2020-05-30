@@ -26,8 +26,7 @@
                     </div>
                     <div class="col-md-2 btns">
                         <button type="button" id="btnVerificarDatos" data-toggle="tooltip"
-                            data-original-title="Verificar datos" class="btn btn-success d-inline-block"
-                            disabled>
+                            data-original-title="Verificar datos" class="btn btn-success d-inline-block" disabled>
                             <i class="mdi mdi-check-all"></i>
                         </button>
                         <button type="button" id="btnTerminarLlamada" data-toggle="tooltip"
@@ -735,39 +734,39 @@
         </div>
     </div>
     <div class="col-md-2">
-        <!-- <div class="card">
-                            <div class="card-body">
-                                <h4 class="d-inline-block m-t-10 m-r-10">Empresa:</h4>
-                                <button type="button" class="btn btn-info btn-circle">
-                                    <i class="fa fa-eye"></i>
-                                </button>
-                                <hr>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="content">
-                                            <i class="fa fa-check-circle-o"></i>
-                                            <span class="card-subtitle">Empresa S.A.S</span>
-                                        </div>
-                                        <div class="content">
-                                            <i class="fa fa-check-circle-o"></i>
-                                            <span class="card-subtitle">Teléfono</span>
-                                        </div>
-                                        <div class="content">
-                                            <i class="fa fa-check-circle-o"></i>
-                                            <span class="card-subtitle">Operador</span>
-                                        </div>
-                                        <div class="content">
-                                            <i class="fa fa-check-circle-o"></i>
-                                            <span class="card-subtitle">Corporativo: NO</span>
-                                        </div>
-                                        <div class="content">
-                                            <i class="fa fa-check-circle-o"></i>
-                                            <span class="card-subtitle"># Líneas</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
+        {{!-- <div class="card">
+            <div class="card-body">
+                <h4 class="d-inline-block m-t-10 m-r-10">Empresa:</h4>
+                <button type="button" class="btn btn-info btn-circle">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span class="card-subtitle">Empresa S.A.S</span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span class="card-subtitle">Teléfono</span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span class="card-subtitle">Operador</span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span class="card-subtitle">Corporativo: NO</span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span class="card-subtitle"># Líneas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> --}}
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><i class="fa fa-calendar"></i> Cita:</h4>
@@ -810,6 +809,9 @@
         </div>
     </div>
 </div>
+
+{{>direccion}}
+
 <!-- Horas disponibles para Cita-->
 <div id="modalHorasCitas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true" style="display: none;">
@@ -835,4 +837,34 @@
     </div>
 </div>
 
-{{>direccion}}
+<!-- Modal detalles cliente registrado-->
+<div class="modal fade ModalDetalles" role="dialog" style="display: none;">
+    <div class="modal-dialog modal-lg" style="max-width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-md-5">
+                    <h2 class="modal-title font-weight-bold">
+                        <i class="fa fa-warning"></i> ¡Cliente ya registrado!
+                    </h2>
+                </div>
+                <div id="MensajeLabel" class="col-md-5">
+                    
+                </div>
+                <div class="col-md-2">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                </div>
+            </div>
+
+            {{>detalles-clientes}}
+
+            <div id="ValidarBtnLlamar" class="modal-footer">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal  Factura-->
+{{!-- {{>modal-factura}} --}}
+<!-- /Modal  Factura-->
+

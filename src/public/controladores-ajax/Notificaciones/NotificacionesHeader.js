@@ -178,4 +178,10 @@ $("#iconNotificaciones").click(function () {
   }
 });
 
-GuardarNotificaciones(true, true);
+let notificaciones = JSON.parse(sessionStorage.getItem("Notificaciones"));
+if (notificaciones != null) {
+  GuardarNotificaciones(false, true);
+}else{
+  GuardarNotificaciones(true, true);
+}
+

@@ -15,6 +15,13 @@ ObtenerSession().then((data) => {
       });
       //   citasSocket = io("/Citas");
       break;
+    case 3:
+      clientesSocket = io("/Clientes");
+      clientesSocket.on("Notificar", function () {
+        GuardarNotificaciones(true,true);
+      });
+      //   citasSocket = io("/Citas");
+      break;
 
     default:
       break;

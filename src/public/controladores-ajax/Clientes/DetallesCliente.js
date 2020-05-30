@@ -1,43 +1,34 @@
 // Para editar
 var Id_Cliente;
 
-CargarDatosModalDetalles = (datos) => {
-  Informacion = datos.data;
+CargarDatosModalDetalles = (Informacion) => {
 
   // Llenar detalles cliente
   Id_Cliente = Informacion.Id_Cliente;
-  document.getElementById("txtRazon_Social").innerHTML =
-    Informacion.Razon_Social;
-  document.getElementById("txtTelefono").innerHTML = Informacion.Telefono;
-  document.getElementById("txtNIT").innerHTML = Informacion.NIT_CDV;
-  document.getElementById("txtEncargado").innerHTML = Informacion.Encargado;
-  document.getElementById("txtExtension_celular").innerHTML =
-    Informacion.Ext_Tel_Contacto;
+  $("#txtRazon_Social_D").text(Informacion.Razon_Social)
+  $("#txtTelefono_D").text(Informacion.Telefono)
+  $("#txtNIT_D").text(Informacion.NIT_CDV)
+  $("#txtEncargado_D").text(Informacion.Encargado)
+  $("#txtExtension_celular_D").text(Informacion.Ext_Tel_Contacto)
+  $("#txtPais_D").text(Informacion.Nombre_Pais)
+  $("#txtDepartamento_D").text(Informacion.Nombre_Departamento)
+  $("#txtMunicipio_D").text(Informacion.Nombre_Municipio)
+  $("#txtTipo_D").text(Informacion.SubTipo)
+  $("#txtBarrio_Vereda_D").text(Informacion.Nombre_Barrio_Vereda)
+  $("#txtDireccion_D").text(Informacion.Direccion)
+  $("#txtOperador_tbl_Lineas_D").text(Informacion.Nombre_Operador)
+  $("#txtCalificacion_D").text(Informacion.Calificacion)
+  $("#txtRazones_D").text(Informacion.Razones)
 
-  document.getElementById("txtPais").innerHTML = Informacion.Nombre_Pais;
-  document.getElementById("txtDepartamento").innerHTML =
-    Informacion.Nombre_Departamento;
-  document.getElementById("txtMunicipio").innerHTML =
-    Informacion.Nombre_Municipio;
-  document.getElementById("txtTipo").innerHTML = Informacion.SubTipo;
-  document.getElementById("txtBarrio_Vereda").innerHTML =
-    Informacion.Nombre_Barrio_Vereda;
-  document.getElementById("txtDireccion").innerHTML = Informacion.Direccion;
-
-  document.getElementById("txtOperador_tbl_Lineas").innerHTML =
-    Informacion.Nombre_Operador;
-  document.getElementById("txtCalificacion").innerHTML =
-    Informacion.Calificacion;
-  document.getElementById("txtRazones").innerHTML = Informacion.Razones;
-
+  // Crear tabla detalle líneas.
   if (Informacion.Detalle_Lineas) {
     $("#Datos_Validacion").css("display", "none");
-    $("#Tabla_Detalle_Lineas").removeAttr("style");
+    $("#Tabla_Detalle_Lineas_D").removeAttr("style");
 
     let detalleLineas = Informacion.Detalle_Lineas;
-    $("#Tbody_detalle_Lineas").empty();
+    $("#Tbody_detalle_Lineas_D").empty();
     for (let infoLinea of detalleLineas) {
-      $("#Tbody_detalle_Lineas").append(`
+      $("#Tbody_detalle_Lineas_D").append(`
 
                 <tr>
                     <td>${
@@ -81,17 +72,14 @@ CargarDatosModalDetalles = (datos) => {
                 </tr>
             `);
     }
-    document.getElementById("txtCantidad_Lineas1").innerHTML =
-      Informacion.Cantidad_Total_Lineas;
-    document.getElementById("txtValor_Mensual1").innerHTML =
-      Informacion.Valor_Total_Mensual;
+    $("#txtCantidad_Lineas1_D").text(Informacion.Cantidad_Total_Lineas)
+    $("#txtValor_Mensual1_D").text(Informacion.Valor_Total_Mensual)
+
   } else {
     $("#Tabla_Detalle_Lineas").css("display", "none");
     $("#Datos_Validacion").removeAttr("style");
-    document.getElementById("txtCantidad_Lineas2").innerHTML =
-      Informacion.Cantidad_Total_Lineas;
-    document.getElementById("txtValor_Mensual2").innerHTML =
-      Informacion.Valor_Total_Mensual;
+    $("#txtCantidad_Lineas2_D").text(Informacion.Cantidad_Total_Lineas)
+    $("#txtValor_Mensual2_D").text(Informacion.Valor_Total_Mensual)
   }
 
   let Id_Plan_Corporativo = parseInt(Informacion.Id_Plan_Corporativo);
@@ -103,35 +91,33 @@ CargarDatosModalDetalles = (datos) => {
     let clausula = parseInt(Informacion.Clausula_Permanencia);
 
     if (clausula == 1) {
-      $("#txtClausulaPermanencia").text("Si");
+      $("#txtClausulaPermanencia_D").text("Si");
     } else {
-      $("#txtClausulaPermanencia").text("No");
+      $("#txtClausulaPermanencia_D").text("No");
     }
 
-    document.getElementById("txtFecha_Inicio").innerHTML =
-      Informacion.Fecha_Inicio;
-    document.getElementById("txtFecha_Fin").innerHTML = Informacion.Fecha_Fin;
-    document.getElementById("txtDescripcion").innerHTML =
-      Informacion.Descripcion;
+    $("#txtFecha_Inicio_D").text(Informacion.Fecha_Inicio)
+    $("#txtFecha_Fin_D").text(Informacion.Fecha_Fin)
+    $("#txtDescripcion_D").text(Informacion.Descripcion)
 
     if (Id_Documentos > 0) {
       $("#Menu_Doc").removeAttr("style");
-      $("#linkCedula").empty();
-      $("#linkCedula").append(`
+      $("#linkCedula_D").empty();
+      $("#linkCedula_D").append(`
                 <a href="/documentos/${Informacion.Cedula_RL}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
-      $("#linkCamara").empty();
-      $("#linkCamara").append(`
+      $("#linkCamara_D").empty();
+      $("#linkCamara_D").append(`
                 <a href="/documentos/${Informacion.Camara_Comercio}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
-      $("#linkSoporte").empty();
-      $("#linkSoporte").append(`
+      $("#linkSoporte_D").empty();
+      $("#linkSoporte_D").append(`
                 <a href="/documentos/${Informacion.Soporte_Ingresos}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
 
       if (Informacion.Detalles_Plan_Corporativo != null) {
-        $("#ValidacionAnexos").empty();
-        $("#ValidacionAnexos").append(`
+        $("#ValidacionAnexos_D").empty();
+        $("#ValidacionAnexos_D").append(`
             <div class="form-group">
                     <label class="font-weight-bold text-right">
                     Anexos Corporativo
@@ -144,8 +130,8 @@ CargarDatosModalDetalles = (datos) => {
       }
 
       if (Informacion.Oferta != null) {
-        $("#ValidacionOferta").empty();
-        $("#ValidacionOferta").append(`
+        $("#ValidacionOferta_D").empty();
+        $("#ValidacionOferta_D").append(`
             <div class="form-group">
                     <label class="font-weight-bold text-right">
                     Oferta
@@ -174,4 +160,7 @@ CargarDatosModalDetalles = (datos) => {
 MostrarModalEditar = () => {
   $(".ModalDetalles").modal("hide");
   ObtenerCliente(Id_Cliente, 2);
+};
+LlamarClienteRegistrado = () => {
+  // Valid
 };

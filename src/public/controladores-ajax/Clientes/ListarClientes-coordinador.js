@@ -5,7 +5,7 @@ ObtenerCliente = (Id_Cliente, Modal) => {
     datatype: "json",
     success: function (datos) {
       if (Modal == 1) {
-        CargarDatosModalDetalles(datos);
+        CargarDatosModalDetalles(datos.data);
       } else if (Modal == 2) {
         sessionStorage.DatosEditarCliente = JSON.stringify(datos.data);
         location.href = "/App/Coordinador/Directorio/Editar";
