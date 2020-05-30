@@ -4,7 +4,7 @@ ObtenerCliente = (Id_Cliente) => {
     type: "get",
     datatype: "json",
     success: function (datos) {
-      CargarDatosModalDetalles(datos);
+      CargarDatosModalDetalles(datos.data);
     },
     error: function (error) {
       console.log(error);

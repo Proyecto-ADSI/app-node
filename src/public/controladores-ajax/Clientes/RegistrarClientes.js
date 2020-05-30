@@ -115,7 +115,6 @@ $(function () {
             dataType: "json",
             data: {
               texto: function () {
-                // let razonSocial = $("#txtRazonSocial").val().trim();
                 return $("#txtRazonSocial").val().trim();
               },
             },

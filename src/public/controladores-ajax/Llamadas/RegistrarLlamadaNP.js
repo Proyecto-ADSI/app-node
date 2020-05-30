@@ -11,6 +11,7 @@ var TerminarLlamada = false;
 var EnlazarUbicacionEmpresa = false;
 var ValDireccionCita = false;
 
+
 $(function () {
   iniciarCronometroLlamada();
   var stepPlanCorp;
@@ -120,20 +121,100 @@ $(function () {
           .removeClass("form-control-danger");
       },
       rules: {
-        // txtRazonSocial: {
-        //   required: true,
-        //   minlength: 5,
-        //   SoloAlfanumericos: true,
-        // },
-        // txtTelefono: {
-        //   required: true,
-        //   SoloNumeros: true,
-        //   minlength: 5,
-        //   maxlength: 10,
-        // },
+        txtRazonSocial: {
+          required: true,
+          minlength: 5,
+          SoloAlfanumericos: true,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                if (gifRazonSocial) {
+                  $("#txtRazonSocial").addClass("CargandoGif");
+                  gifRazonSocial = false;
+                }
+                return $("#txtRazonSocial").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              $("#txtRazonSocial").removeClass("CargandoGif");
+              if (json.data.ok) {
+                return '"true"';
+              } else {
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Cliente ya registrado."';
+              }
+            },
+          },
+        },
+        txtTelefono: {
+          required: true,
+          SoloNumeros: true,
+          minlength: 5,
+          maxlength: 10,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                if (gifTelefono) {
+                  $("#txtTelefono").addClass("CargandoGif");
+                  gifTelefono = false;
+                }
+                return $("#txtTelefono").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              $("#txtTelefono").removeClass("CargandoGif");
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                return '"true"';
+              } else {
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Teléfono ya registrado."';
+              }
+            },
+          },
+        },
         txtNIT: {
           ValidarNIT: true,
           minlength: 5,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                if (gifNIT) {
+                  $("#txtNIT").addClass("CargandoGif");
+                  gifNIT = false;
+                }
+                return $("#txtNIT").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              $("#txtNIT").removeClass("CargandoGif");
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                ValidarResumenNIT(true);
+                return '"true"';
+              } else {
+                ValidarResumenNIT(false);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"NIT ya registrado."';
+              }
+            },
+          },
         },
         // txtPersona_Responde: {
         //   SoloLetras: true,
@@ -217,7 +298,8 @@ $(function () {
   });
 
   // Fecha reprogramar llamada
-  $("#Fecha_LP").bootstrapMaterialDatePicker({
+  $("#Fecha_LP")
+    .bootstrapMaterialDatePicker({
       lang: "es",
       format: "dddd DD MMMM YYYY - HH:mm",
       minDate: new Date(),
@@ -253,6 +335,69 @@ $(function () {
     });
 
   // Enlazar eventos de escucha:
+
+  // Gif cargando
+  //
+  $("#txtRazonSocial").keyup(function (e) {
+    let code = e.keyCode || e.which;
+    if (code != "9") {
+      gifRazonSocial = true;
+    }
+  });
+  $("#txtRazonSocial").change(function () {
+    if ($(this).hasClass("form-control-danger")) {
+      gifRazonSocial = false;
+    }
+  });
+
+  $("#txtRazonSocial").focusout(function () {
+    if ($(this).hasClass("form-control-success")) {
+      gifRazonSocial = false;
+    }
+  });
+
+  // txtTelefono
+  $("#txtTelefono").keyup(function (e) {
+    let code = Number(e.keyCode || e.which);
+    if (!isNaN(code)) {
+      if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105 || code == 8)) {
+        gifTelefono = true;
+      }
+    }
+  });
+  $("#txtTelefono").change(function () {
+    if ($(this).hasClass("form-control-danger")) {
+      gifTelefono = false;
+    }
+  });
+
+  $("#txtTelefono").focusout(function () {
+    if ($(this).hasClass("form-control-success")) {
+      gifTelefono = false;
+    }
+  });
+
+  // txtNIT
+  $("#txtNIT").keyup(function (e) {
+    let code = Number(e.keyCode || e.which);
+    if (!isNaN(code)) {
+      if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105 || code == 8)) {
+        gifNIT = true;
+      }
+    }
+  });
+  $("#txtNIT").change(function () {
+    if ($(this).hasClass("form-control-danger")) {
+      gifNIT = false;
+     
+    }
+  });
+
+  $("#txtNIT").focusout(function () {
+    if ($(this).hasClass("form-control-success")) {
+      gifNIT = false;
+    }
+  });
 
   // Atajos del formulario
 
@@ -395,7 +540,6 @@ $(function () {
     let Id_SubTipo = parseInt($("#txtSubTipo option:selected").val());
 
     PonerBarrios_Veredas(Id_Municipio, Id_SubTipo, false);
-    
   });
 
   $("#txtSubTipo").change(function () {
@@ -655,15 +799,9 @@ $(function () {
 
   // Resumen Cita
   // NIT
-  $("#txtNIT").change(function(){
-    let nit = $("#txtNIT")
-    let validacion = form.validate().element(nit)
-    if(validacion){
-      $("#resumenCitaNIT").attr("checked", true);
-    }else{
-      $("#resumenCitaNIT").removeAttr("checked");
-    }
-  })
+  // $("#txtNIT").change(function () {
+
+  // });
 
   // Factura
   $(".switch_factura").on("switchChange.bootstrapSwitch", function (
@@ -728,271 +866,294 @@ let ValidacionesCita = () => {
 };
 
 let RegistrarLlamadaNP = () => {
-  ObtenerSession().then(data => {
+  ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
 
     // Array Lineas
-  let arrayLineas = [];
+    let arrayLineas = [];
 
-  let Cantidad_Total_Lineas = 0;
-  let Valor_Total_Mensual = 0;
+    let Cantidad_Total_Lineas = 0;
+    let Valor_Total_Mensual = 0;
 
-  if (sessionStorage.DetalleLineas) {
-    let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
+    if (sessionStorage.DetalleLineas) {
+      let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
 
-    let GrupoLineas = 0;
-    for (let lineaItem of DetalleLineas) {
-      let minutos = "";
+      let GrupoLineas = 0;
+      for (let lineaItem of DetalleLineas) {
+        let minutos = "";
 
-      if (lineaItem.minIlimitados) {
-        minutos += "Ilimitados";
-      } else {
-        minutos += lineaItem.minutos;
+        if (lineaItem.minIlimitados) {
+          minutos += "Ilimitados";
+        } else {
+          minutos += lineaItem.minutos;
+        }
+
+        if (lineaItem.todoOperador) {
+          minutos += ",todo operador";
+        }
+
+        if (lineaItem.minOtro != "") {
+          minutos += "," + lineaItem.minOtro;
+        }
+
+        // Establecer valor total mensual de las lineas.
+        if (lineaItem.valValorLineas == "1") {
+          Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
+        } else if (lineaItem.valValorLineas == "2") {
+          Valor_Total_Mensual +=
+            parseInt(lineaItem.valorMensual) *
+            parseInt(lineaItem.cantidadLineas);
+        }
+
+        GrupoLineas++;
+        for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
+          let linea = {
+            minutos: minutos,
+            navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
+            mensajes: lineaItem.mensajes ? 1 : 0,
+            redes: lineaItem.redes ? 1 : 0,
+            llamadas: lineaItem.llamadas ? 1 : 0,
+            roaming: lineaItem.roaming ? 1 : 0,
+            cargo: lineaItem.valorMensual,
+            grupo: GrupoLineas,
+          };
+
+          if (typeof lineaItem.NumerosLineas !== "undefined") {
+            Object.defineProperty(linea, "numero", {
+              value: lineaItem.NumerosLineas[i],
+              enumerable: true,
+            });
+          }
+
+          arrayLineas.push(linea);
+        }
       }
 
-      if (lineaItem.todoOperador) {
-        minutos += ",todo operador";
+      Cantidad_Total_Lineas = arrayLineas.length;
+    }
+
+    let arrayRazones = $("#txtRazones").val();
+    let stringRazones = "";
+
+    if (typeof arrayRazones !== "undefined") {
+      arrayRazones.forEach(function (razon, index, array) {
+        if (index == 0) {
+          stringRazones += razon;
+        } else {
+          stringRazones += ", " + razon;
+        }
+      });
+    }
+
+    let Id_Estado_Llamada = parseInt($("#txtConclusion").val());
+    let txtDuracion_Llamada =
+      "00:" + $("#txtMinutosL").text() + ":" + $("#txtSegundosL").text();
+    let datos = {
+      // Llamada
+      Id_Usuario: Id_Usuario,
+      Persona_Responde:
+        $("#txtPersona_Responde").val() == ""
+          ? null
+          : $("#txtPersona_Responde").val(),
+      Info_Habeas_Data: $(".switch_habeas_data").bootstrapSwitch("state")
+        ? 1
+        : 0,
+      Observacion: $("#txtObservacion").val(),
+      Tipo_Llamada: 1,
+      Id_Estado_Llamada: Id_Estado_Llamada,
+      Duracion_Llamada: txtDuracion_Llamada,
+      // Cliente
+      Razon_Social: $("#txtRazonSocial").val(),
+      Telefono: $("#txtTelefono").val(),
+      NIT_CDV: $("#txtNIT").val(),
+      Encargado: $("#txtEncargado").val(),
+      Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
+      Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
+      Direccion: $("#txtDireccion").val(),
+      //DBL
+      Id_Operador: parseInt($("#txtOperador").val()),
+      Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
+      Razones: stringRazones,
+      Cantidad_Lineas: Cantidad_Total_Lineas,
+      Valor_Mensual: Valor_Total_Mensual.toString(),
+      DetalleLineas: arrayLineas,
+
+      // Validación
+      Validacion_Registro_Cliente: Validacion_RegistrarCliente,
+      Validacion_PLan_C: false,
+      Validacion_Doc_S: false,
+      Validacion_Cita: false,
+    };
+
+    if (Id_Estado_Llamada == 3) {
+      Object.defineProperty(datos, "Fecha_LP", {
+        value: Fecha_LP,
+        enumerable: true,
+      });
+    }
+
+    // Validar si el cliente es válido
+    if (Validacion_RegistrarCliente) {
+      // Si tiene corporativo.
+      if ($(".switch_corporativo").bootstrapSwitch("state")) {
+        let switchClausula = $("#switchClausula")
+          .children("label")
+          .children("input");
+
+        datos.Validacion_PLan_C = true;
+
+        Object.defineProperties(datos, {
+          Clausula: {
+            value: switchClausula[0].checked ? 1 : 0,
+            enumerable: true,
+          },
+          Fecha_Inicio: {
+            value: $("#txtFecha_inicio").val(),
+            enumerable: true,
+          },
+          Fecha_Fin: {
+            value: $("#txtFecha_fin").val(),
+            enumerable: true,
+          },
+          Descripcion: {
+            value: $("#txtDescripcion").val(),
+            enumerable: true,
+          },
+        });
       }
 
-      if (lineaItem.minOtro != "") {
-        minutos += "," + lineaItem.minOtro;
-      }
+      // Si se agenda cita.
+      if (
+        $(".switch_cita1").bootstrapSwitch("state") === true ||
+        $(".switch_cita2").bootstrapSwitch("state") === true
+      ) {
+        let txtDuracion_Verificacion =
+          "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
+        let switchRL = $("#switchRL").children("label").children("input");
+        datos.Validacion_Cita = true;
+        // Hora cita
+        let horaCita = "11:00:00";
 
-      // Establecer valor total mensual de las lineas.
-      if (lineaItem.valValorLineas == "1") {
-        Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
-      } else if (lineaItem.valValorLineas == "2") {
-        Valor_Total_Mensual +=
-          parseInt(lineaItem.valorMensual) * parseInt(lineaItem.cantidadLineas);
-      }
+        // Fecha Cita
+        let fechaCita = Fecha_Cita + " " + horaCita;
 
-      GrupoLineas++;
-      for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
-        let linea = {
-          minutos: minutos,
-          navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
-          mensajes: lineaItem.mensajes ? 1 : 0,
-          redes: lineaItem.redes ? 1 : 0,
-          llamadas: lineaItem.llamadas ? 1 : 0,
-          roaming: lineaItem.roaming ? 1 : 0,
-          cargo: lineaItem.valorMensual,
-          grupo: GrupoLineas,
-        };
-
-        if (typeof lineaItem.NumerosLineas !== "undefined") {
-          Object.defineProperty(linea, "numero", {
-            value: lineaItem.NumerosLineas[i],
+        // Estado Cita
+        // 2 -> sin gestionar en BD
+        let Estado_Cita = 2;
+        if (Enviar_Cita_Despues) {
+          // 1 -> sin confirmar en BD
+          Estado_Cita = 1;
+          Object.defineProperty(datos, "Fecha_LP", {
+            value: Fecha_LP,
             enumerable: true,
           });
         }
 
-        arrayLineas.push(linea);
-      }
-    }
-
-    Cantidad_Total_Lineas = arrayLineas.length;
-  }
-
-  let arrayRazones = $("#txtRazones").val();
-  let stringRazones = "";
-
-  if (typeof arrayRazones !== "undefined") {
-    arrayRazones.forEach(function (razon, index, array) {
-      if (index == 0) {
-        stringRazones += razon;
-      } else {
-        stringRazones += ", " + razon;
-      }
-    });
-  }
-
-  let Id_Estado_Llamada = parseInt($("#txtConclusion").val());
-  let txtDuracion_Llamada =
-    "00:" + $("#txtMinutosL").text() + ":" + $("#txtSegundosL").text();
-  let datos = {
-    // Llamada
-    Id_Usuario: Id_Usuario,
-    Persona_Responde:
-      $("#txtPersona_Responde").val() == ""
-        ? null
-        : $("#txtPersona_Responde").val(),
-    Info_Habeas_Data: $(".switch_habeas_data").bootstrapSwitch("state") ? 1 : 0,
-    Observacion: $("#txtObservacion").val(),
-    Tipo_Llamada: 1,
-    Id_Estado_Llamada: Id_Estado_Llamada,
-    Duracion_Llamada: txtDuracion_Llamada,
-    // Cliente
-    Razon_Social: $("#txtRazonSocial").val(),
-    Telefono: $("#txtTelefono").val(),
-    NIT_CDV: $("#txtNIT").val(),
-    Encargado: $("#txtEncargado").val(),
-    Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
-    Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
-    Direccion: $("#txtDireccion").val(),
-    //DBL
-    Id_Operador: parseInt($("#txtOperador").val()),
-    Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
-    Razones: stringRazones,
-    Cantidad_Lineas: Cantidad_Total_Lineas,
-    Valor_Mensual: Valor_Total_Mensual.toString(),
-    DetalleLineas: arrayLineas,
-
-    // Validación
-    Validacion_Registro_Cliente: Validacion_RegistrarCliente,
-    Validacion_PLan_C: false,
-    Validacion_Doc_S: false,
-    Validacion_Cita: false,
-  };
-
-  if (Id_Estado_Llamada == 3) {
-    Object.defineProperty(datos, "Fecha_LP", {
-      value: Fecha_LP,
-      enumerable: true,
-    });
-  }
-
-  // Validar si el cliente es válido
-  if (Validacion_RegistrarCliente) {
-    // Si tiene corporativo.
-    if ($(".switch_corporativo").bootstrapSwitch("state")) {
-      let switchClausula = $("#switchClausula")
-        .children("label")
-        .children("input");
-
-      datos.Validacion_PLan_C = true;
-
-      Object.defineProperties(datos, {
-        Clausula: {
-          value: switchClausula[0].checked ? 1 : 0,
-          enumerable: true,
-        },
-        Fecha_Inicio: {
-          value: $("#txtFecha_inicio").val(),
-          enumerable: true,
-        },
-        Fecha_Fin: {
-          value: $("#txtFecha_fin").val(),
-          enumerable: true,
-        },
-        Descripcion: {
-          value: $("#txtDescripcion").val(),
-          enumerable: true,
-        },
-      });
-    }
-
-    // Si se agenda cita.
-    if (
-      $(".switch_cita1").bootstrapSwitch("state") === true ||
-      $(".switch_cita2").bootstrapSwitch("state") === true
-    ) {
-      let txtDuracion_Verificacion =
-        "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
-      let switchRL = $("#switchRL").children("label").children("input");
-      datos.Validacion_Cita = true;
-      // Hora cita
-      let horaCita = "11:00:00";
-
-      // Fecha Cita
-      let fechaCita = Fecha_Cita + " " + horaCita;
-
-      // Estado Cita
-      // 2 -> sin gestionar en BD
-      let Estado_Cita = 2;
-      if (Enviar_Cita_Despues) {
-        // 1 -> sin confirmar en BD
-        Estado_Cita = 1;
-        Object.defineProperty(datos, "Fecha_LP", {
-          value: Fecha_LP,
-          enumerable: true,
+        Object.defineProperties(datos, {
+          Encargado_Cita: {
+            value: $("#txtEncargado_Cita").val(),
+            enumerable: true,
+          },
+          Ext_Tel_ContactoEC: {
+            value: $("#txtExt_Tel_ContactoEC").val(),
+            enumerable: true,
+          },
+          Representante_Legal: {
+            value: switchRL[0].checked ? 1 : 0,
+            enumerable: true,
+          },
+          Fecha_Cita: {
+            value: fechaCita,
+            enumerable: true,
+          },
+          Duracion_Verificacion: {
+            value: txtDuracion_Verificacion,
+            enumerable: true,
+          },
+          Direccion_Cita: {
+            value: $("#txtDireccion_Cita").val(),
+            enumerable: true,
+          },
+          Barrios_Veredas_Cita: {
+            value: parseInt($("#txtNombre_LugarCita").val()),
+            enumerable: true,
+          },
+          Lugar_Referencia: {
+            value: $("#txtPuntoReferencia").val(),
+            enumerable: true,
+          },
+          Id_Operador_Cita: {
+            value: parseInt($("#txtOperadorCita").val()),
+            enumerable: true,
+          },
+          Id_Estado_Cita: {
+            value: Estado_Cita,
+            enumerable: true,
+          },
+          Id_Estado_Cita: {
+            value: Estado_Cita,
+            enumerable: true,
+          },
         });
       }
-
-      Object.defineProperties(datos, {
-        Encargado_Cita: {
-          value: $("#txtEncargado_Cita").val(),
-          enumerable: true,
-        },
-        Ext_Tel_ContactoEC: {
-          value: $("#txtExt_Tel_ContactoEC").val(),
-          enumerable: true,
-        },
-        Representante_Legal: {
-          value: switchRL[0].checked ? 1 : 0,
-          enumerable: true,
-        },
-        Fecha_Cita: {
-          value: fechaCita,
-          enumerable: true,
-        },
-        Duracion_Verificacion: {
-          value: txtDuracion_Verificacion,
-          enumerable: true,
-        },
-        Direccion_Cita: {
-          value: $("#txtDireccion_Cita").val(),
-          enumerable: true,
-        },
-        Barrios_Veredas_Cita: {
-          value: parseInt($("#txtNombre_LugarCita").val()),
-          enumerable: true,
-        },
-        Lugar_Referencia: {
-          value: $("#txtPuntoReferencia").val(),
-          enumerable: true,
-        },
-        Id_Operador_Cita: {
-          value: parseInt($("#txtOperadorCita").val()),
-          enumerable: true,
-        },
-        Id_Estado_Cita: {
-          value: Estado_Cita,
-          enumerable: true,
-        },
-        Id_Estado_Cita: {
-          value: Estado_Cita,
-          enumerable: true,
-        },
-      });
     }
-  }
 
-  $.ajax({
-    url: `${URL}/Llamadas/LlamadaNP`,
-    dataType: "json",
-    type: "post",
-    contentType: "aplication/json",
-    data: JSON.stringify(datos),
-    processData: false,
-    success: function (respuesta) {
-      console.log(respuesta);
+    $.ajax({
+      url: `${URL}/Llamadas/LlamadaNP`,
+      dataType: "json",
+      type: "post",
+      contentType: "aplication/json",
+      data: JSON.stringify(datos),
+      processData: false,
+      success: function (respuesta) {
+        console.log(respuesta);
 
-      if (respuesta.data.ok) {
-        
-        // Si se registra cita se envía notifiación a coordinadores y administrador
-        clientesSocket.emit("Notificar");
-        
-        swal(
-          {
-            title: "Registro exitoso.",
-            type: "success",
-            showCancelButton: false,
-            confirmButtonColor: "#2F6885",
-            confirmButtonText: "Continuar",
-            closeOnConfirm: false,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              sessionStorage.removeItem("DetalleLineas");
-              location.href = Redireccionar("/Llamadas");
+        if (respuesta.data.ok) {
+          // Si se registra cita se envía notifiación a coordinadores y administrador
+          clientesSocket.emit("Notificar");
+
+          swal(
+            {
+              title: "Registro exitoso.",
+              type: "success",
+              showCancelButton: false,
+              confirmButtonColor: "#2F6885",
+              confirmButtonText: "Continuar",
+              closeOnConfirm: false,
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                sessionStorage.removeItem("DetalleLineas");
+                location.href = Redireccionar("/Llamadas");
+              }
             }
-          }
-        );
-      } else {
+          );
+        } else {
+          swal(
+            {
+              title: "Error al registrar.",
+              text: "Ha ocurrido un error al registrar, intenta de nuevo",
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#2F6885",
+              confirmButtonText: "Continuar",
+              closeOnConfirm: false,
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                location.href = "Llamadas.html";
+                console.log(respuesta.data);
+              }
+            }
+          );
+        }
+      },
+      error: function (error) {
+        console.log(error);
         swal(
           {
             title: "Error al registrar.",
-            text: "Ha ocurrido un error al registrar, intenta de nuevo",
+            text: "Error en el servidor, contacta al administrador",
             type: "error",
             showCancelButton: false,
             confirmButtonColor: "#2F6885",
@@ -1001,34 +1162,13 @@ let RegistrarLlamadaNP = () => {
           },
           function (isConfirm) {
             if (isConfirm) {
-              location.href = "Llamadas.html";
-              console.log(respuesta.data);
+              location.href = "AgregarEmpresa.html";
             }
           }
         );
-      }
-    },
-    error: function (error) {
-      console.log(error);
-      swal(
-        {
-          title: "Error al registrar.",
-          text: "Error en el servidor, contacta al administrador",
-          type: "error",
-          showCancelButton: false,
-          confirmButtonColor: "#2F6885",
-          confirmButtonText: "Continuar",
-          closeOnConfirm: false,
-        },
-        function (isConfirm) {
-          if (isConfirm) {
-            location.href = "AgregarEmpresa.html";
-          }
-        }
-      );
-    },
+      },
+    });
   });
-  })
 };
 
 let InicializarFormCitas = () => {
@@ -1065,15 +1205,14 @@ let InicializarFormCitas = () => {
         Fecha_Cita = `${anio}-${mes}-${dia}`;
         // Resumen cita
         $("#resumenCitaFecha").attr("checked", true);
-      }else{
-        $("#resumenCitaFecha").removeAttr("checked")
+      } else {
+        $("#resumenCitaFecha").removeAttr("checked");
       }
     });
 
-  $("#btnHoraCita").change(function(){
+  $("#btnHoraCita").change(function () {
     $("#resumenCitaHora").attr("checked", true);
-  })
-
+  });
 
   // Ubicación cita
   let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
@@ -1165,18 +1304,16 @@ let InicializarFormCitas = () => {
     if (EnlazarUbicacionEmpresa) {
       $("#txtMunicipio").trigger("change");
     }
-    
   });
 
   $("#txtSubTipoCita").change(function () {
     let Id_Municipio = parseInt($("#txtMunicipioCita option:selected").val());
     let Id_SubTipo = parseInt($("#txtSubTipoCita option:selected").val());
     PonerBarrios_Veredas(Id_Municipio, Id_SubTipo, true);
-    
+
     if (EnlazarUbicacionEmpresa) {
       $("#txtSubTipo").trigger("change");
     }
-
   });
 
   $("#txtNombre_LugarCita").change(function () {
@@ -1967,4 +2104,45 @@ let LimpiarDetalleLinea = () => {
   $("input:checkbox[name=txtDetalle_Llamadas]").prop("checked", false);
   $("input:checkbox[name=txtDetalle_Redes]").prop("checked", false);
   $("input:checkbox[name=txtDetalle_Roaming]").prop("checked", false);
+};
+
+let ValidarLlamarCliente = (estadoCliente) => {
+  if (estadoCliente == 1) {
+    $("#MensajeLabel").empty();
+    $("#MensajeLabel").append(`
+      <div class="label label-table label-info">
+        <h4 class="text-white">
+          <i class="fa fa-unlock-alt"></i> Cliente disponible para llamar</div>
+        </h4>
+      </div>
+    `);
+
+    $("#ValidarBtnLlamar").empty();
+    $("#ValidarBtnLlamar").append(`
+      <div class="row">
+        <div class="col-md-6">
+          <button type="button" onclick="LlamarClienteRegistrado()" class="btn btn-info">
+              <i class="fa fa-phone"></i> Llamar
+          </button>
+        </div>
+      </div>
+    `);
+  } else {
+    $("#MensajeLabel").empty();
+    $("#MensajeLabel").append(`
+      <div class="label label-table label-danger">
+        <h4 class="text-white">
+          <i class="fa fa-lock"></i> Cliente <strong>NO</strong> disponible para llamar
+        </h4>
+      </div>
+    `);
+  }
+};
+
+let ValidarResumenNIT = (validacion) => {
+  if (validacion) {
+    $("#resumenCitaNIT").attr("checked", true);
+  } else {
+    $("#resumenCitaNIT").removeAttr("checked");
+  }
 };

@@ -276,3 +276,11 @@
   font-size: 1.3rem !important;
   line-height: 1 !important;
 }
+
+.CargandoGif{
+  background-image: url(/assets/images/icon/cargando.gif) !important;
+}
+
+/* .dtp.hidden{
+  z-index: -100 !important;
+} */
