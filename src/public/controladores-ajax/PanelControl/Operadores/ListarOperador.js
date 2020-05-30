@@ -9,12 +9,14 @@ let ListarOperador = () =>{
         $("#TablaOperador").empty();
         contador=0;
         for(let item of respuesta.data){
+
             contador++
             $("#TablaOperador").append(`
             <tr>
             <td class="MyStyle_Id_Principal_Column">${item.Id_Operador}</td>
             <td>${contador}</td>
             <td>${item.Nombre_Operador}</td>
+            <td> <i class="fa fa-spin fa-circle-o-notch" id="Circulo" style="color:${item.Color}; font-size:22px;"></i></td>
             <td class="text-nowrap">
                     <i class="fa fa-pencil text-inverse m-r-10 icon-edit" id="EditarOperador" data-toggle="modal" data-target="#ModificarOperador" onclick="ObtenerOperador(${item.Id_Operador})" style="cursor:pointer;"></i>
                      <i class="fa fa-close text-danger" onclick="EliminarOperador(${item.Id_Operador})" style="cursor:pointer;"></i>
@@ -23,7 +25,8 @@ let ListarOperador = () =>{
         </tr>
         <tr>
             `);
-            
+
+        
             let Estado_Operador = item.Estado_Operador;
 
             var element = Array.prototype.slice.call(
@@ -84,6 +87,7 @@ $(document).on("click", ".SwitchOperador", function () {
         }
     });
   });
+
   
 $(document).ready(function(){
     $('#OperadoresTab').click(function(){
