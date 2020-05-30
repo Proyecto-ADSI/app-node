@@ -51,10 +51,36 @@
 
     {{>plugins-scripts}}
 
+    {{!----------------------------- CONTROLADORES AJAX-------------------------}}
+    {{!-- Noticias --}}
+    {{#if Noticias}}
+    <script src="/controladores-ajax/Noticias/ListarNoticias.js"></script>
+    {{/if}}
+
     {{!-- Directorio --}}
     {{#if Directorio}}
     <script src="/controladores-ajax/Clientes/ListarClientes-contact.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
+    {{/if}}
+
+    {{!-- Llamadas --}}
+    {{!-- {{#if Llamada_NP}}
+    <script src="/controladores-ajax/Llamadas/ListarLlamadas.js"></script>
+    {{/if}} --}}
+
+    {{#if Registrar_Llamada_NP}}
+    <!-- Cronómetro -->
+    <script src="/js/CronometroLlamada.js"></script>
+    <script src="/js/CronometroVerficar.js"></script>
+    <!-- Direccion -->
+    <script src="/js/Direccion.js"></script>
+    <script src="/controladores-ajax/Llamadas/RegistrarLlamadaNP.js"></script>
+    {{/if}}
+
+    {{!-- Notificaciones --}}
+    {{#if Notificaciones}}
+    <script src="/controladores-ajax/Notificaciones/ListarNotificaciones.js"></script>
+    <script src="/controladores-ajax/Notificaciones/EliminarNotificaciones.js"></script>
     {{/if}}
 
 </body>

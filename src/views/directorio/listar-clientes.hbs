@@ -660,6 +660,7 @@
                     </div>
                 </div>
             </div>
+            {{#xif session.Id_Rol '==' 1}}
             <div class="modal-footer">
                 <div class="row">
                     <div class="col-md-6">
@@ -669,6 +670,18 @@
                     </div>
                 </div>
             </div>
+            {{/xif}}
+            {{#xif session.Id_Rol '==' 2}}
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-md-6">
+                        <button type="button" onclick="MostrarModalEditar()" class="btn btn-info">
+                            <i class="fa fa-pencil"></i> Modificar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{/xif}}
         </div>
     </div>
 </div>
