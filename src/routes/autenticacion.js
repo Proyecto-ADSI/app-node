@@ -1,9 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const {usuarioLogeado,redireccionarUsuario} = require("../lib/validar-session");
+const {
+  usuarioLogeado,
+  redireccionarUsuario,
+} = require("../lib/validar-session");
 
-router.get("/Login",redireccionarUsuario, (req, res) => {
-  res.render("home/login",{layout: 'eskatemp.hbs'});
+router.get("/Login", redireccionarUsuario, (req, res) => {
+  res.render("home/login", { layout: "eskatemp.hbs" });
+});
+
+router.get("/Restablecer", redireccionarUsuario, (req, res) => {
+  res.render("home/restablecer", { layout: "eskatemp.hbs" });
 });
 
 router.post("/Login", (req, res) => {
@@ -12,7 +19,7 @@ router.post("/Login", (req, res) => {
 });
 
 router.get("/Logout", usuarioLogeado, (req, res) => {
-  res.clearCookie('user_sid');
+  res.clearCookie("user_sid");
   res.redirect("/Login");
 });
 

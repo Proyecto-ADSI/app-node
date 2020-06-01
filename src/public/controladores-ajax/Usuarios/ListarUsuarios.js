@@ -55,6 +55,55 @@ $(function () {
         },
         {
           data: "Rol",
+          render: function (data, datatype, row) {
+            if (datatype == "display") {
+              // Colores
+              // Rojo
+              let admin = "#D3180F ";
+              // Azul
+              let coordinador = "#165CE9";
+              // Verde
+              let contact = "#08942C";
+              // Naranja
+              let asesorI = "#D2960D";
+              // Azul claro
+              let asesorE = "#096A89";
+              // Violeta
+              let gestion = "#6F12E5";
+
+              let Id_Rol = parseInt(row.Id_Rol);
+              let color = null;
+              switch (Id_Rol) {
+                case 1:
+                  color = admin;
+                  break;
+                case 2:
+                  color = coordinador;
+                  break;
+                case 3:
+                  color = contact;
+                  break;
+                case 4:
+                  color = asesorI;
+                  break;
+                case 5:
+                  color = asesorE;
+                  break;
+                case 6:
+                  color = gestion;
+                  break;
+              }
+              return `
+                            <div class="text-center">
+                                <div class="label label-table text-center" style="background-color:${color}">
+                                    ${data}
+                                </div>
+                            </div>
+                            `;
+            } else {
+              return data;
+            }
+          },
         },
         {
           data: "Nombre_Completo",
