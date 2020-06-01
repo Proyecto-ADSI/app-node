@@ -1,50 +1,56 @@
-
 // Para editar
 var Id_UsuarioDetalle;
 var Id_EmpleadoDetalle;
+var datos = null;
+CargarDatosModalDetalles = (Informacion) => {
+  datos = Informacion;
+  Id_EmpleadoEditar = Informacion.Id_Empleado;
+  // Imagen
+  let img = document.createElement("IMG");
+  img.setAttribute("class", "img-thumbnail");
+  img.setAttribute("width", "300");
+  img.src = `../../../assets/images/usuarios/${Informacion.Imagen}`;
+  $("#imgDetalleUsuario").html(img);
+  // Llenar detalles empleado
 
-
-CargarDatosModalDetalles = (datos) => {
-
-    Informacion = datos.data;
-
-    // Imagen
-    let img = document.createElement("IMG");
-    img.setAttribute("class","img-thumbnail");
-    img.setAttribute("width","300");
-    img.src = `../../../assets/images/usuarios/${Informacion.Imagen}`;
-    $('#imgDetalleUsuario').html(img); 
-
-    // Llenar detalles empleado
-    Id_EmpleadoEditar = Informacion.Id_Empleado;
-    document.getElementById("txtNombreDetalle").innerHTML = Informacion.Nombre + " " + Informacion.Apellidos;
-    document.getElementById("txtCorreoDetalle").innerHTML = Informacion.Correo;
-    document.getElementById("txtTipoDocumentoDetalle").innerHTML = Informacion.Tipo_Documento;
-    document.getElementById("txtDocumentoDetalle").innerHTML = Informacion.Documento;
-    document.getElementById("txtSexoDetalle").innerHTML = Informacion.Sexo;
-    document.getElementById("txtCelularDetalle").innerHTML = Informacion.Celular;
-    document.getElementById("txtTurnoDetalle").innerHTML = Informacion.Turno;
-
-    // Llenar detalles usuario
-    Id_UsuarioDetalle = Informacion.Id_Usuario;
-    document.getElementById("txtUsuarioDetalle").innerHTML = Informacion.Usuario;
-    document.getElementById("txtRolDetalle").innerHTML = Informacion.Rol;
-    document.getElementById("txtConexionDetalle").innerHTML = Informacion.Conexion;
-
-    if(Informacion.Estado_Usuario == 1){
-        document.getElementById("txtEstadoDetalle").innerHTML = 'Habilitado';
-    }else{
-        document.getElementById("txtEstadoDetalle").innerHTML = 'Inhabilitado';
+  if (Informacion.Id_Rol == "5") {
+    $("#DetalleNormal").attr("style", "display:none");
+    $("#DetalleOperador").removeAttr("style");
+    $("#txtNombreDetalle_O").text(Informacion.Nombre);
+    $("#txtCorreoDetalle_O").text(Informacion.Correo);
+    $("#txtUsuarioDetalle_O").text(Informacion.Usuario);
+    $("#txtRolDetalle_O").text(Informacion.Rol);
+    $("#txtConexionDetalle_O").text(Informacion.Conexion);
+    if (Informacion.Estado_Usuario == 1) {
+      $("#txtEstadoDetalle_O").text("Habilitado");
+    } else {
+      $("#txtEstadoDetalle_O").text("Inhabilitado");
     }
-    
+  } else {
+    $("#DetalleOperador").attr("style", "display:none");
+    $("#DetalleNormal").removeAttr("style");
+    $("#txtNombreDetalle").text(Informacion.Nombre_Completo);
+    $("#txtCorreoDetalle").text(Informacion.Correo);
+    $("#txtTipoDocumentoDetalle").text(Informacion.Tipo_Documento);
+    $("#txtDocumentoDetalle").text(Informacion.Documento);
+    $("#txtSexoDetalle").text(Informacion.Sexo);
+    $("#txtCelularDetalle").text(Informacion.Celular);
+    $("#txtTurnoDetalle").text(Informacion.Turno);
+    $("#txtUsuarioDetalle").text(Informacion.Usuario);
+    $("#txtRolDetalle").text(Informacion.Rol);
+    $("#txtConexionDetalle").text(Informacion.Conexion);
+    if (Informacion.Estado_Usuario == 1) {
+      $("#txtEstadoDetalle").text("Habilitado");
+    } else {
+      $("#txtEstadoDetalle").text("Inhabilitado");
+    }
+  }
 
-    // Mostrar Modal con formulario para editar
-    $('.ModalDetallesUsuarios').modal('show');
+  // Mostrar Modal con formulario para editar
+  $(".ModalDetallesUsuarios").modal("show");
+};
 
-}
-
-MostrarModalEditar = () =>{
-    
-    $('.ModalDetallesUsuarios').modal('hide');
-    ObtenerUsuario(Id_UsuarioDetalle,2);
-}
+MostrarModalEditar = () => {
+  $(".ModalDetallesUsuarios").modal("hide");
+  CargarDatosModalEditar(datos);
+};

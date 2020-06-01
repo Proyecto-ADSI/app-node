@@ -1,165 +1,161 @@
 <!-- ============================================================== -->
 <!-- Start Page Content -->
 <!-- ============================================================== -->
-        <!-- Card Table -->
-        <div class="card">
-            <div class="card-header MyStyle_Card_Header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="m-b-0 text-white">Lista de Clientes:</h4>
+<!-- Card Table -->
+<div class="card">
+    <div class="card-header MyStyle_Card_Header">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="m-b-0 text-white">Lista de Clientes:</h4>
 
-                    </div>
-                    
-                    <div class="col-md-2">
-                        <div class="m-l-50">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Opciones
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                {{#xif session.Id_Rol '==' 1}}
-                                <a href="/App/Admin/Directorio/Registrar" class="dropdown-item"> <i
-                                        class=" fa fa-user-plus"></i>
-                                    Agregar Cliente
-                                </a>
-                                <button class="dropdown-item" data-toggle="modal" data-target=".importarClientes">
-                                    <i class="fa fa-cloud-upload"></i> Importar Clientes
-                                </button>
-                                {{/xif}}
-                                {{#xif session.Id_Rol '==' 2}}
-                                <a href="/App/Coordinador/Directorio/Registrar" class="dropdown-item"> <i
-                                        class=" fa fa-user-plus"></i>
-                                    Agregar Cliente
-                                </a>
-                                {{/xif}}
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="card-body" id="Card-Body-Directorio">
 
-                  <div class="card MyStyle_Card_Filtro card-outline-info">
-            <div class="card-header">
-                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
-            </div>
-            <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
-                    <div class="row">
-                        <div class="col-md-4">
-                                <div class="example">
-                                    <label class="m-t-30">Nit</label>
-                                    <input type="text" class="form-control" id="Filtro-DirectorioNit" placeholder="Nit">
-                                </div>
-                            </div>
-                        <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Razon social</label>
-                                <input class="form-control" type="text" id="Filtro-DirectorioRazon"
-                                 placeholder="Razon social">
-                            </div>
-                        </div>
-                          <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Teléfono</label>
-                                <input class="form-control" type="text" id="Filtro-DirectorioTele"
-                                 placeholder="Teléfono">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">  
-                        <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Operador</label>
-                                <input class="form-control" type="text" id="Filtro-DirectorioOp"
-                                 placeholder="Operador">
-                            </div>
-                        </div>
-                          <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Coporativo</label>
-                                <input class="form-control" type="text" id="Filtro-DirectorioCorpo"
-                                 placeholder="Corporativo">
-                            </div>
-                        </div>
-                          <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Municipio</label>
-                                <input class="form-control" type="text" id="Filtro-DirectorioMuni"
-                                 placeholder="Municipio">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                                <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-info">
-                                    Limpiar filtro avanzado</button>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-        </div>
+            <div class="col-md-2">
+                <div class="m-l-50">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Opciones
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        {{#xif session.Id_Rol '==' 1}}
+                        <a href="/App/Admin/Directorio/Registrar" class="dropdown-item"> <i
+                                class=" fa fa-user-plus"></i>
+                            Agregar Cliente
+                        </a>
+                        <button class="dropdown-item" data-toggle="modal" data-target=".importarClientes">
+                            <i class="fa fa-cloud-upload"></i> Importar Clientes
+                        </button>
+                        {{/xif}}
+                        {{#xif session.Id_Rol '==' 2}}
+                        <a href="/App/Coordinador/Directorio/Registrar" class="dropdown-item"> <i
+                                class=" fa fa-user-plus"></i>
+                            Agregar Cliente
+                        </a>
+                        {{/xif}}
 
-                <!-- Importar archivo de clientes-->
-                <div class="modal fade importarClientes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title" id="myLargeModalLabel">Importar Archivo de
-                                    Clientes</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                            </div>
-                            <form id="formArchivo" enctype="multipart/form-data">
-                                <div class="modal-body">
-                                    <div class="card">
-                                        <div class="card-body MyStyle_File_Card">
-                                            <div class="form-group">
-                                                <h4 class="card-title">Archivo</h4>
-                                                <input type="file" id="archivoClientes" class="dropify"
-                                                    data-height="100" name="archivoClientes" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger waves-effect text-left"
-                                        data-dismiss="modal">Cerrar
-                                    </button>
-                                    <button type="submit" class="btn btn-success waves-effect text-left">
-                                        Importar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
                     </div>
-                </div>
-                <!-- /Modal Importar clientes -->
-
-                <!--************** DataTable ***************************** -->
-
-                <div class="table-responsive">
-                    <table id="ClientesDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
-                        <thead>
-                            <tr>
-                                <th>Id_Cliente</th>
-                                <th>NIT</th>
-                                <th>Razón Social </th>
-                                <th>Teléfono</th>
-                                <th>Operador</th>
-                                <th>Corporativo</th>
-                                <th>Municipio</th>
-                                <th class="MyStyle_Table_Opciones">Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
     </div>
+    <div class="card-body" id="Card-Body-Directorio">
+
+        <div class="card MyStyle_Card_Filtro card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
+            </div>
+            <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Nit</label>
+                            <input type="text" class="form-control" id="Filtro-DirectorioNit" placeholder="Nit">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Razon social</label>
+                            <input class="form-control" type="text" id="Filtro-DirectorioRazon"
+                                placeholder="Razon social">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Teléfono</label>
+                            <input class="form-control" type="text" id="Filtro-DirectorioTele" placeholder="Teléfono">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Operador</label>
+                            <input class="form-control" type="text" id="Filtro-DirectorioOp" placeholder="Operador">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Coporativo</label>
+                            <input class="form-control" type="text" id="Filtro-DirectorioCorpo"
+                                placeholder="Corporativo">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Municipio</label>
+                            <input class="form-control" type="text" id="Filtro-DirectorioMuni" placeholder="Municipio">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
+                            <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-info">
+                                Limpiar filtro avanzado</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Importar archivo de clientes-->
+        <div class="modal fade importarClientes" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            aria-hidden="true" style="display: none;">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="myLargeModalLabel">Importar Archivo de
+                            Clientes</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    </div>
+                    <form id="formArchivo" enctype="multipart/form-data">
+                        <div class="modal-body">
+                            <div class="card">
+                                <div class="card-body MyStyle_File_Card">
+                                    <div class="form-group">
+                                        <h4 class="card-title">Archivo</h4>
+                                        <input type="file" id="archivoClientes" class="dropify" data-height="100"
+                                            name="archivoClientes" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger waves-effect text-left"
+                                data-dismiss="modal">Cerrar
+                            </button>
+                            <button type="submit" class="btn btn-success waves-effect text-left">
+                                Importar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Modal Importar clientes -->
+
+        <!--************** DataTable ***************************** -->
+
+        <div class="table-responsive">
+            <table id="ClientesDataTable" class="table stylish-table MyStyle_Color-Table">
+                <thead>
+                    <tr>
+                        <th>NIT</th>
+                        <th>Razón Social </th>
+                        <th>Teléfono</th>
+                        <th>Operador</th>
+                        <th>Corporativo</th>
+                        <th>Municipio</th>
+                        <th class="MyStyle_Table_Opciones">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
 </div>
 
 <!-- Modal detalles-->

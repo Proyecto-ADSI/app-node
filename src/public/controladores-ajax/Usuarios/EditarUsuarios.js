@@ -6,60 +6,71 @@ var UsuarioValido = false;
 var Id_UsuarioEditar;
 var Id_EmpleadoEditar;
 var form = null;
-CargarDatosModalEditar = (Datos) => {
-  Informacion = Datos.data;
-
+var form2 = null;
+CargarDatosModalEditar = (Informacion) => {
   // Llenar formulario de empleado
   Id_EmpleadoEditar = Informacion.Id_Empleado;
-  CargarTiposDocumentos(Informacion.Id_Documento);
-  $("#txtDocumento").val(Informacion.Documento);
-  $("#txtNombre").val(Informacion.Nombre);
-  $("#txtApellidos").val(Informacion.Apellidos);
-  $("#txtCorreo").val(Informacion.Correo);
-  CargarSexos(Informacion.Id_Sexo);
-  $("#txtCelular").val(Informacion.Celular);
-  CargarTurnos(Informacion.Id_Turno);
-
-  // Llenar formulario de usuario
   Id_UsuarioEditar = Informacion.Id_Usuario;
-  UsuarioBD = Informacion.Usuario;
-  $("#txtUsuario").val(Informacion.Usuario);
-  CargarRoles(Informacion.Id_Rol);
 
-  $("#inputFotografiaEditar").empty();
-  $("#inputFotografiaEditar").append(`
+  if (Informacion.Id_Rol == "5") {
+    $("#txtNombreAE").val(Informacion.Nombre);
+    $("#txtCorreoAE").val(Informacion.Correo);
+    $("#txtUsuarioAE").val(Informacion.Usuario);
+
+    $("#inputFotografiaEditarAE").empty();
+    $("#inputFotografiaEditarAE").append(`
+    <input type="file" id="fileFotografiaAE" name="Fotografia" data-default-file="/assets/images/usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
+  `);
+
+    let dropify = $("#fileFotografiaAE").dropify({
+      messages: {
+        default: "Arrastre y suelte un archivo aquí o haz clic",
+        replace: "Arrastre y suelte un archivo o haga clic para reemplazar",
+        remove: "Eliminar",
+        error: "Lo sentimos, el archivo es demasiado grande",
+      },
+    });
+
+    dropify.on("dropify.afterClear", function (event, element) {
+      $("#fileFotografiaAE").removeAttr("imagen");
+    });
+    $(".ModalEditarUsuariosAE").modal("show");
+  } else {
+    CargarTiposDocumentos(Informacion.Id_Documento);
+    $("#txtDocumento").val(Informacion.Documento);
+    $("#txtNombre").val(Informacion.Nombre);
+    $("#txtApellidos").val(Informacion.Apellidos);
+    $("#txtCorreo").val(Informacion.Correo);
+    CargarSexos(Informacion.Id_Sexo);
+    $("#txtCelular").val(Informacion.Celular);
+    CargarTurnos(Informacion.Id_Turno);
+
+    // Llenar formulario de usuario
+    UsuarioBD = Informacion.Usuario;
+    $("#txtUsuario").val(Informacion.Usuario);
+    CargarRoles(Informacion.Id_Rol);
+
+    $("#inputFotografiaEditar").empty();
+    $("#inputFotografiaEditar").append(`
     <input type="file" id="fileFotografia" name="Fotografia" data-default-file="/assets/images/usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
   `);
 
-  let dropify = $("#fileFotografia").dropify({
-    messages: {
-      default: "Arrastre y suelte un archivo aquí o haz clic",
-      replace: "Arrastre y suelte un archivo o haga clic para reemplazar",
-      remove: "Eliminar",
-      error: "Lo sentimos, el archivo es demasiado grande",
-    },
-  });
+    let dropify = $("#fileFotografia").dropify({
+      messages: {
+        default: "Arrastre y suelte un archivo aquí o haz clic",
+        replace: "Arrastre y suelte un archivo o haga clic para reemplazar",
+        remove: "Eliminar",
+        error: "Lo sentimos, el archivo es demasiado grande",
+      },
+    });
 
-  // $(document).on("click",".dropify-clear",function(){
-  //   console.log("adssasad");
-  // })
-  // dropify.on("dropify.beforeClear", function (event, element) {
-  //   return confirm('Do you really want to delete "' + element.filename + '" ?');
-  // });
-  dropify.on("dropify.afterClear", function (event, element) {
-    $("#fileFotografia").removeAttr("imagen")
-  });
+    dropify.on("dropify.afterClear", function (event, element) {
+      $("#fileFotografia").removeAttr("imagen");
+    });
 
-  // $("#fileFotografia").addClass("dropify");
-  // $("#fileFotografia").attr(
-  //   "data-default-file",
-  //   `../../..`
-  // );
-  // $("#fileFotografia").attr("imagen", `${Informacion.Imagen}`);
-  // $("#fileFotografia").dropify();
-
-  // Mostrar Modal con formulario para editar
-  $(".ModalEditarUsuarios").modal("show");
+    // Mostrar Modal con formulario para editar
+    $(".ModalEditarUsuarios").modal("show");
+  }
 };
 
 CargarTiposDocumentos = (Id_Documento) => {
@@ -226,15 +237,35 @@ let CargarImagenEditar = () => {
       console.log(error);
     });
 };
+let CargarImagenEditarAE = () => {
+  let formData = new FormData();
+  let files = $("#fileFotografiaAE")[0].files[0];
+  formData.append("Img_Usuario", files);
+  $.ajax({
+    url: `${URL}/Usuarios/CargarImagenUsuario`,
+    type: "post",
+    data: formData,
+    contentType: false,
+    processData: false,
+  })
+    .done((respuesta) => {
+      let imagen = respuesta.data.pathArchivo;
+      EditarUsuarioAE(imagen);
+    })
+    .fail((error) => {
+      console.log(error);
+    });
+};
 
 let RecargarDataTableUsuarios = () => {
   DataTableUsuarios.ajax.reload();
   $(".ModalEditarUsuarios").modal("hide");
+  $(".ModalEditarUsuariosAE").modal("hide");
   swal({
     title: "Información modificada correctamente.",
     type: "success",
     showCancelButton: false,
-    confirmButtonColor: "#2F6885",
+    confirmButtonColor: "#00897b",
     confirmButtonText: "Continuar",
     closeOnConfirm: true,
   });
@@ -258,11 +289,8 @@ let EditarUsuario = (imagen) => {
     Id_Usuario: parseInt(Id_UsuarioEditar),
     Usuario: $("#txtUsuario").val(),
     Rol: parseInt($("#txtRol").val()),
+    EditarAE: false,
   };
-
-  if (datos.Id_Usuario == parseInt(sessionStorage.getItem("Id_Usuario"))) {
-    sessionStorage.Imagen = imagen;
-  }
 
   // console.log(datos);
 
@@ -316,7 +344,67 @@ let EditarUsuario = (imagen) => {
     });
 };
 
+let EditarUsuarioAE = (imagen) => {
+  var datos = {
+    // Empleado
+    Id_Empleado: parseInt(Id_EmpleadoEditar),
+    Nombre: $("#txtNombreAE").val(),
+    Correo: $("#txtCorreoAE").val(),
+    Imagen: imagen,
+    // Usuario
+    Id_Usuario: parseInt(Id_UsuarioEditar),
+    Usuario: $("#txtUsuarioAE").val(),
+    EditarAE: true,
+    CambiarContrasena: false,
+  };
+
+  if ($("#checkbox_contrasena").is(":checked")) {
+    datos.CambiarContrasena = true;
+    Object.defineProperty(datos, "Contrasena", {
+      value: $("#txtContrasenaAE").val(),
+      enumerable: true,
+    });
+  }
+  $.ajax({
+    url: `${URL}/Usuarios`,
+    type: "put",
+    dataType: "json",
+    data: JSON.stringify(datos),
+    contentType: "application/json",
+    processData: false,
+    success: function (res) {
+      console.log(res);
+      if (res.data.ok) {
+        RecargarDataTableUsuarios();
+      } else {
+        console.log(res.data);
+        swal({
+          title: "Error al modificar.",
+          text: "Ha ocurrido un error al modificar, intenta de nuevo",
+          type: "error",
+          showCancelButton: false,
+          confirmButtonColor: "#2F6885",
+          confirmButtonText: "Continuar",
+          closeOnConfirm: true,
+        });
+      }
+    },
+    error: function (error) {
+      console.log(error);
+      swal({
+        title: "Error en el servidor.",
+        text: "Ha ocurrido un error al modificar, intenta de nuevo",
+        type: "danger",
+        showCancelButton: false,
+        confirmButtonColor: "#2F6885",
+        confirmButtonText: "Continuar",
+        closeOnConfirm: true,
+      });
+    },
+  });
+};
 $(function () {
+  // Formulario normal
   form = $("#FormEditarUsuario").show();
   form.steps({
     headerTag: "h6",
@@ -332,22 +420,23 @@ $(function () {
             form
               .find(".body:eq(" + newIndex + ") .error")
               .removeClass("error")),
-          (form.validate().settings.ignore =
-            ":disabled,:hidden, .detalleLinea"),
+          (form.validate().settings.ignore = ":disabled,:hidden"),
           form.valid()))
       );
     },
+    onFinishing: function (event, currentIndex) {
+      return (form.validate().settings.ignore = ":disabled"), form.valid();
+    },
     onFinished: function (event, currentIndex) {
-
       let files = $("#fileFotografia")[0].files;
       if (files.length == 0) {
         let imagen = $("#fileFotografia").attr("imagen");
         if (typeof imagen == "undefined") {
-            imagen = "defect.jpg";
+          imagen = "defect.jpg";
         }
         EditarUsuario(imagen);
       } else {
-        CargarImagenRegistro();
+        CargarImagenEditar();
       }
     },
   }),
@@ -443,4 +532,127 @@ $(function () {
         txtRol: "required",
       },
     });
+
+  // Formulario asesor externo
+  form2 = $("#FormEditarUsuarioAE").show();
+  form2.steps({
+    headerTag: "h6",
+    bodyTag: "section",
+    transitionEffect: "fade",
+    titleTemplate: '<span class="step">#index#</span> #title#',
+    onStepChanging: function (event, currentIndex, newIndex) {
+      return (
+        currentIndex > newIndex ||
+        (!(3 === newIndex && Number($("#age-2").val()) < 18) &&
+          (currentIndex < newIndex &&
+            (form2.find(".body:eq(" + newIndex + ") label.error").remove(),
+            form2
+              .find(".body:eq(" + newIndex + ") .error")
+              .removeClass("error")),
+          (form2.validate().settings.ignore = ":disabled,:hidden"),
+          form2.valid()))
+      );
+    },
+    onFinishing: function (event, currentIndex) {
+      return (form2.validate().settings.ignore = ":disabled"), form2.valid();
+    },
+    onFinished: function (event, currentIndex) {
+      let files = $("#fileFotografiaAE")[0].files;
+      if (files.length == 0) {
+        let imagen = $("#fileFotografiaAE").attr("imagen");
+        if (typeof imagen == "undefined") {
+          imagen = "defect.jpg";
+        }
+        EditarUsuarioAE(imagen);
+      } else {
+        CargarImagenEditarAE();
+      }
+    },
+  }),
+    form2.validate({
+      ignore: "input[type=hidden]",
+      successClass: "text-success",
+      errorClass: "form-control-feedback",
+      errorElement: "div",
+      highlight: function (element) {
+        $(element)
+          .parents(".form-group")
+          .addClass("has-danger")
+          .removeClass("has-success");
+        $(element)
+          .addClass("form-control-danger")
+          .removeClass("form-control-success");
+      },
+      unhighlight: function (element) {
+        $(element)
+          .parents(".form-group")
+          .addClass("has-success")
+          .removeClass("has-danger");
+        $(element)
+          .addClass("form-control-success")
+          .removeClass("form-control-danger");
+      },
+      errorPlacement: function (error, element) {
+        error.insertAfter(element.parent(".input-group"));
+      },
+      rules: {
+        txtNombreAE: {
+          required: true,
+          SoloLetras: true,
+          minlength: 2,
+          maxlength: 30,
+        },
+        txtCorreoAE: {
+          required: true,
+          ValidarCorreo: true,
+        },
+        txtUsuarioAE: {
+          required: true,
+          minlength: 5,
+          remote: {
+            url: `${URL}/Usuarios/Validacion/Disponible`,
+            type: "get",
+            dataType: "json",
+            data: {
+              txtUsuario: function () {
+                UsuarioForm = $("#txtUsuario").val();
+
+                if (UsuarioBD == UsuarioForm) {
+                  UsuarioValido = true;
+                } else {
+                  UsuarioValido = false;
+                  return UsuarioForm;
+                }
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data == true || UsuarioValido == true) {
+                return '"true"';
+              } else {
+                return '"Usuario no disponible"';
+              }
+            },
+          },
+        },
+        txtContrasenaAE: {
+          required: true,
+          minlength: 5,
+        },
+        txtConfirmarContrasenaAE: {
+          required: true,
+          equalTo: "#txtContrasenaAE",
+        },
+      },
+    });
+
+  $("#checkbox_contrasena").click(function () {
+    if ($(this).is(":checked")) {
+      $("#txtContrasenaAE").removeAttr("disabled");
+      $("#txtConfirmarContrasenaAE").removeAttr("disabled");
+    } else {
+      $("#txtContrasenaAE").attr("disabled", true);
+      $("#txtConfirmarContrasenaAE").attr("disabled", true);
+    }
+  });
 });

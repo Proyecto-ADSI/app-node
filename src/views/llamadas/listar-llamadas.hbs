@@ -96,20 +96,20 @@
             </div>
         </div>
         <div class="table-responsive m-t-40">
-            <table id="LlamadasDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
+            <table id="LlamadasDataTable" class="table stylish-table MyStyle_Color-Table">
                 <thead>
                     <tr>
-                        <th>NIT</th>
-                        <th>Empresa</th>
-                        <th>Municipio</th>
-                        <th>Fecha </th>
-                        <th>Usuario</th>
-                        <th>Estado</th>
-                        <th>Opciones</th>
+                        <th><i class="fa fa-address-card"></i> NIT</th>
+                        <th><i class="fa fa-building-o"></i> Empresa</th>
+                        <th><i class="ti-location-pin"></i> Municipio</th>
+                        <th><i class="fa fa-clock-o"></i> Fecha </th>
+                        <th><i class="fa fa-user"></i> Usuario</th>
+                        <th><i class="fa fa-list-ul"></i> Estado</th>
+                        <th><i class="fa fa-sliders"></i> Opciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
+                    {{!-- <tr>
                         <td>123456789-8</td>
                         <td>Tapitas S.A.S</td>
                         <td>Medellín</td>
@@ -123,7 +123,7 @@
                                 <i class="fa  fa-eye"></i>
                             </a>
                         </td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>
@@ -137,7 +137,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                    Detalles Llamadas</h4>
+                    Detalle llamada</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -163,144 +163,131 @@
                             </li>
 
                         </ul>
-
-
                         <!-- Tab panes -->
                         <div class="tab-content tabcontent-border">
                             <!-- Tab Datos Básicos -->
                             <div class="tab-pane active" id="DatosBasicos" role="tabpanel">
-                                <!-- Card Datos Básicos  -->
                                 <div class="card MyStyle_Card_Detalle">
-                                    <div class="card-body" id="Card-Body-Llamadas2-Modal">
-                                        <!-- Formulario -->
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-body">
-                                                <h3 class="box-title">
-                                                    Información
-                                                    Empresa</h3>
-                                                <hr class="m-t-0 m-b-40">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                NIT:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                1213235113-8
-                                                            </p>
+                                    <div class="card-body p-b-0">
+                                        <div class="form-body">
+                                            <h3 class="box-title"> Información empresa</h3>
+                                            <hr class="m-t-0 m-b-40">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Razón Social:
+                                                        </label>
+                                                        <p id="txtRazon_Social_D" class="form-control-static">
 
-                                                        </div>
+                                                        </p>
                                                     </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Razón
-                                                                Social:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Tapitas
-                                                                S.A.S
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Teléfono:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
                                                 </div>
-                                                <!--/row-->
-                                                <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Teléfono:
+                                                        </label>
+                                                        <p id="txtTelefono_D" class="form-control-static">
 
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Departamento:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
+                                                        </p>
                                                     </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Municipio:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Tipo:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Barrio
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
                                                 </div>
-                                                <!--/row-->
-                                                <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            NIT:
+                                                        </label>
+                                                        <p id="txtNIT_D" class="form-control-static">
 
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Barrio/Vereda:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
+                                                        </p>
                                                     </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Dirección:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
                                                 </div>
-                                                <!-- /Row -->
                                             </div>
-                                            <!-- Form-Body -->
-                                        </form>
-                                        <!-- /Formulario -->
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Encargado:
+                                                        </label>
+                                                        <p id="txtEncargado_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Extensión o celular:
+                                                        </label>
+                                                        <p id="txtExtension_celular_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <h4 class="box-title d-inline-block">Ubicación:</h4>
+                                            <hr class="m-t-0 m-b-20">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            País:
+                                                        </label>
+                                                        <p id="txtPais_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Departamento:
+                                                        </label>
+                                                        <p id="txtDepartamento_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Municipio:
+                                                        </label>
+                                                        <p id="txtMunicipio_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Lugar:
+                                                        </label>
+                                                        <label class="text-muted" id="txtTipo_D"></label>
+                                                        <p id="txtBarrio_Vereda_D">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Dirección:
+                                                        </label>
+                                                        <p id="txtDireccion_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                             <!-- /Informaciòn Llamada -->
-
-                            <!-- Informaciòn llamada -->
                             <div class="tab-pane" id="Lineas" role="tabpanel">
                                 <div class="card MyStyle_Card_Detalle">
                                     <div class="card-body" id="Card-Body-Llamadas2-Modal">
@@ -313,124 +300,79 @@
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Contact
-                                                                center:
+                                                            <label class="font-weight-bold text-right">
+                                                                Usuario:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Juan
-                                                                Pérez
+                                                            <p id="txtUsuario_D" class="form-control-static">
+
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
+                                                            <label class="font-weight-bold text-right">
                                                                 Persona que responde:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Dueño empresa
-                                                            </p>
+                                                            <p id="txtPersonaResponde_D" class="form-control-static">
 
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
+                                                            <label class="font-weight-bold text-right">
                                                                 Fecha llamada:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                12/12/12
+                                                            <p id="txtFechaLlamada_D" class="form-control-static">
+
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
-
                                                 </div>
-                                                <!--/row-->
                                                 <div class="row">
-
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Hora llamada
-
-                                                                :
+                                                            <label class="font-weight-bold text-right">
+                                                                Duración llamada:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                8:00 PM
-                                                            </p>
+                                                            <p id="txtDuracionLlamada_D" class="form-control-static">
 
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                habeas data
-
-                                                                :
+                                                            <label class="font-weight-bold text-right">
+                                                                Habeas data:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                si
-                                                            </p>
+                                                            <p id="txtHabeasData_D" class="form-control-static">
 
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Estado
-                                                                :
+                                                            <label class="font-weight-bold text-right">
+                                                                Estado:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                efectiva
-                                                            </p>
+                                                            <p id="txtEstado_D" class="form-control-static">
 
+                                                            </p>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Observación
-                                                                :
+                                                            <label class="font-weight-bold text-right">
+                                                                Observación:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Lorem ipsum
-                                                                dolor sit
-                                                                amet
-                                                                consectetur
-                                                                adipisicing
-                                                                elit.
-                                                                Molestiae
-                                                                aut vel cum
-                                                                similique
-                                                                debitis quos
-                                                                dicta
-                                                                adipisci ab
-                                                                beatae
-                                                                quaerat?
-                                                                Provident
-                                                                aliquid eum
-                                                                facere quia
-                                                                dicta quis
-                                                                quasi culpa.
-                                                                Enim?
-                                                            </p>
+                                                            <p id="txtObservacion_D" class="form-control-static">
 
+                                                            </p>
                                                         </div>
                                                     </div>
-
-                                                    <!--/col-->
                                                 </div>
-                                                <!--/row-->
-
-                                                <!-- /Row -->
-
-                                                <!-- /Row -->
                                             </div>
                                             <!-- Form-Body -->
                                         </form>
@@ -438,23 +380,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Plan Corporativo -->
+
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="modal-footer">
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-info">
-                            <i class="fa fa-pencil"></i>
-                            Modificar</button>
-
-                    </div>
-                </div>
-
             </div>
         </div>
         <!-- /.modal-content -->

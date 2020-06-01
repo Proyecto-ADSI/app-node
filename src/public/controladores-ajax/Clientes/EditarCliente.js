@@ -59,9 +59,9 @@ $(function () {
       if (sessionStorage.DatosUbicacion) {
         sessionStorage.removeItem("DatosUbicacion");
       }
-      if(valDocSoporte){
+      if (valDocSoporte) {
         SubirDocumentos();
-      }else{
+      } else {
         let docSoporte = ObtenerValInputDocumentos();
         EditarCliente(docSoporte);
       }
@@ -186,14 +186,13 @@ $(function () {
   ) {
     if (state) {
       form.steps("insert", 2, stepPlanCorp);
-      
 
       // Rango Fecha corporativo
       $("#Fecha_Corporativo").datepicker({
         language: "es",
         format: "yyyy/mm/dd",
         autoclose: true,
-        todayHighlight: true, 
+        todayHighlight: true,
       });
 
       if (Id_Plan_Corporativo > 0) {
@@ -216,20 +215,18 @@ $(function () {
           if (Id_Documentos > 0) {
             CargarInformacionDocumentos();
             // Eventos de escucha
-            $("#txtCamara_Comercio").change(function(){
-                valDocSoporte = true;
+            $("#txtCamara_Comercio").change(function () {
+              valDocSoporte = true;
             });
-            $("#txtCedula").change(function(){
-                valDocSoporte = true;
+            $("#txtCedula").change(function () {
+              valDocSoporte = true;
             });
-            $("#txtSoporte").change(function(){
-                valDocSoporte = true;
+            $("#txtSoporte").change(function () {
+              valDocSoporte = true;
             });
-            $("#txtDetalles").change(function(){
-                valDocSoporte = true;
+            $("#txtDetalles").change(function () {
+              valDocSoporte = true;
             });
-
-            
           }
         } else {
           form.steps("remove", 3);
@@ -611,8 +608,14 @@ $(function () {
   }
 
   let CargarInformacionPlan = () => {
-    $("#Fecha_Corporativo #txtFecha_inicio").datepicker("setDate", Informacion.Fecha_Inicio);
-    $("#Fecha_Corporativo #txtFecha_fin").datepicker("setDate", Informacion.Fecha_Fin);
+    $("#Fecha_Corporativo #txtFecha_inicio").datepicker(
+      "setDate",
+      Informacion.Fecha_Inicio
+    );
+    $("#Fecha_Corporativo #txtFecha_fin").datepicker(
+      "setDate",
+      Informacion.Fecha_Fin
+    );
   };
 
   // Plan Corporativo
@@ -620,12 +623,12 @@ $(function () {
     $(".switch_corporativo").trigger("click");
   }
 
-  if(parseInt(Informacion.Clausula_Permanencia) == 1){
+  if (parseInt(Informacion.Clausula_Permanencia) == 1) {
     $("#switchClausula").children("label").children("span").trigger("click");
   }
 
-  $("#txtDescripcion").val(Informacion.Descripcion)
-  
+  $("#txtDescripcion").val(Informacion.Descripcion);
+
   // Documentos
   let CargarInformacionDocumentos = () => {
     $("#txtCamara_Comercio")
@@ -656,31 +659,50 @@ $(function () {
   }
 });
 
-let ObtenerValInputDocumentos = () =>{
-  
+let ObtenerValInputDocumentos = () => {
   let objDocumentos = {
-    txtCamara_Comercio: $("#txtCamara_Comercio").closest(".fileinput").children(".form-control").children("span").text(),
-    txtCedula : $("#txtCedula").closest(".fileinput").children(".form-control").children("span").text(),
-    txtSoporte : $("#txtSoporte").closest(".fileinput").children(".form-control").children("span").text(),
-    txtDetalles : $("#txtDetalles").closest(".fileinput").children(".form-control").children("span").text()
+    txtCamara_Comercio: $("#txtCamara_Comercio")
+      .closest(".fileinput")
+      .children(".form-control")
+      .children("span")
+      .text(),
+    txtCedula: $("#txtCedula")
+      .closest(".fileinput")
+      .children(".form-control")
+      .children("span")
+      .text(),
+    txtSoporte: $("#txtSoporte")
+      .closest(".fileinput")
+      .children(".form-control")
+      .children("span")
+      .text(),
+    txtDetalles: $("#txtDetalles")
+      .closest(".fileinput")
+      .children(".form-control")
+      .children("span")
+      .text(),
   };
-  
-  return objDocumentos;
-}
 
-let ObtenerValInputDoc = (selector) =>{
-  let doc = $(selector).closest(".fileinput").children(".form-control").children("span").text();
+  return objDocumentos;
+};
+
+let ObtenerValInputDoc = (selector) => {
+  let doc = $(selector)
+    .closest(".fileinput")
+    .children(".form-control")
+    .children("span")
+    .text();
   return doc;
-}
+};
 // FUNCIONES:
 let SubirDocumentos = () => {
   let formData = new FormData();
 
   let objDocumentos = {
     txtCamara_Comercio: null,
-    txtCedula : null,
-    txtSoporte : null,
-    txtDetalles : null
+    txtCedula: null,
+    txtSoporte: null,
+    txtDetalles: null,
   };
 
   let files = [];
@@ -688,28 +710,30 @@ let SubirDocumentos = () => {
   let doc2 = $("#txtCedula")[0].files[0];
   let doc3 = $("#txtSoporte")[0].files[0];
   let doc4 = $("#txtDetalles")[0].files[0];
-  
-  if(typeof doc1 != "undefined"){
+
+  if (typeof doc1 != "undefined") {
     files.push(doc1);
-  }else{
-    objDocumentos.txtCamara_Comercio = ObtenerValInputDoc("#txtCamara_Comercio");
+  } else {
+    objDocumentos.txtCamara_Comercio = ObtenerValInputDoc(
+      "#txtCamara_Comercio"
+    );
   }
 
-  if(typeof doc2 != "undefined"){
+  if (typeof doc2 != "undefined") {
     files.push(doc2);
-  }else{
+  } else {
     objDocumentos.txtCedula = ObtenerValInputDoc("#txtCedula");
   }
 
-  if(typeof doc3 != "undefined"){
+  if (typeof doc3 != "undefined") {
     files.push(doc3);
-  }else{
+  } else {
     objDocumentos.txtSoporte = ObtenerValInputDoc("#txtSoporte");
   }
 
-  if(typeof doc4 != "undefined"){
+  if (typeof doc4 != "undefined") {
     files.push(doc4);
-  }else{
+  } else {
     objDocumentos.txtDetalles = ObtenerValInputDoc("#txtDetalles");
   }
 
@@ -725,14 +749,14 @@ let SubirDocumentos = () => {
     success: function (res) {
       let docSoporte = res.data.pathArchivo;
 
-      for(let doc of docSoporte){
-        if(objDocumentos.txtCamara_Comercio == null){
+      for (let doc of docSoporte) {
+        if (objDocumentos.txtCamara_Comercio == null) {
           objDocumentos.txtCamara_Comercio = doc;
-        }else if(objDocumentos.txtCedula == null){
+        } else if (objDocumentos.txtCedula == null) {
           objDocumentos.txtCedula = doc;
-        }else if(objDocumentos.txtSoporte == null){
+        } else if (objDocumentos.txtSoporte == null) {
           objDocumentos.txtSoporte = doc;
-        }else if(objDocumentos.txtDetalles == null){
+        } else if (objDocumentos.txtDetalles == null) {
           objDocumentos.txtDetalles = doc;
         }
       }
@@ -895,7 +919,7 @@ let EditarCliente = (objDocumentos) => {
 
     Object.defineProperties(datos, {
       Camara_Comercio: {
-        value:  objDocumentos.txtCamara_Comercio,
+        value: objDocumentos.txtCamara_Comercio,
         enumerable: true,
       },
       Cedula_RL: {
@@ -1293,9 +1317,11 @@ let CargarRazones = (stringRazones) => {
   let arrayRazonesFormatiado = [];
 
   for (let razon of arrayRazones) {
-    let nuevaRazon = razon.trim();
-    nuevaRazon = nuevaRazon.replace(/,/g, "");
-    arrayRazonesFormatiado.push(nuevaRazon);
+    if (razon !== ",") {
+      let nuevaRazon = razon.trim();
+      nuevaRazon = nuevaRazon.replace(/,/g, "");
+      arrayRazonesFormatiado.push(nuevaRazon);
+    }
   }
 
   $.ajax({

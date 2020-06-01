@@ -3,7 +3,6 @@
   background-color: #272c33;
 }
 
-
 .MyStyle_login_box {
   color: #000 !important;
   background: #eef5f9 !important;
@@ -137,12 +136,9 @@
 }
 
 /* Filtro */
-.MyStyle_Btn_Filtro > button {
+.btn-verde {
   color: #fff;
-}
-.MyStyle_Btn_Filtro > a {
-  background: #0c0c0c;
-  color: rgb(28, 231, 204);
+  background: #00897b;
 }
 
 .input-group-addon {
@@ -249,39 +245,35 @@
 /* Notificaciones */
 
 .notificaciones .numNotificaciones {
-    position: absolute;
-    top: 5px;
-    left: 20px;
-    border-radius: 50%;
-    color: #fff;
-    background: #ff0000;
-    line-height: 18px;
-    font-family: sans-serif;
-    text-align: center;
-    font-size: 0.9rem;
-    font-weight: bold;
-    width: 22px;
-    height: 20px;
+  position: absolute;
+  top: 5px;
+  left: 20px;
+  border-radius: 50%;
+  color: #fff;
+  background: #ff0000;
+  line-height: 18px;
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 22px;
+  height: 20px;
 }
 
-.text-color-verde{
-    color: #00897B;
+.text-color-verde {
+  color: #00897b;
 }
 
-.fondo-verde{
-    background: #00897b;
-    color: #fff;
+.fondo-verde {
+  background: #00897b;
+  color: #fff;
 }
 
-.MyStyle_Notificacion{
+.MyStyle_Notificacion {
   font-size: 1.3rem !important;
   line-height: 1 !important;
 }
 
-.CargandoGif{
+.CargandoGif {
   background-image: url(/assets/images/icon/cargando.gif) !important;
 }
-
-/* .dtp.hidden{
-  z-index: -100 !important;
-} */

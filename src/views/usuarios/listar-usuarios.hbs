@@ -4,55 +4,44 @@
     </div>
     <div class="card-body" id="Card-Body-Gestion-Usuarios">
         <!-- Card Table -->
-          <div class="card MyStyle_Card_Filtro card-outline-info">
-            <div class="card-header">
-                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
+        <div class="card">
+            <div class="card-header MyStyle_Card_Header">
+                <h4 class="m-b-0 text-white">Filtro avanzado:</h4>
             </div>
             <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
-                    <div class="row">
-                        <div class="col-md-4">
-                                <div class="example">
-                                    <label class="m-t-30">Usuario</label>
-                                    <input type="text" class="form-control" id="Filtro-Usuario" placeholder="Usuario">
-                                </div>
-                            </div>
-                        <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Nombres</label>
-                                <input class="form-control" type="text" id="Filtro-Nombre"
-                                 placeholder="Nombre">
-                            </div>
-                        </div>
-                          <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Apellidos</label>
-                                <input class="form-control" type="text" id="Filtro-Apellido"
-                                 placeholder="Apellido">
-                            </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="example">
+                            <label class="m-t-30">Usuario</label>
+                            <input type="text" class="form-control" id="Filtro-Usuario" placeholder="Usuario">
                         </div>
                     </div>
-                    <div class="row">  
-                    <div class="col-md-4">
-                      <label class="m-t-30">Rol</label>
-                        <select class="form-control" id="Select-Rol"> 
+                    <div class="col-md-3">
+                        <label class="m-t-30">Rol</label>
+                        <select class="form-control" id="Select-Rol">
                         </select>
-                      </div>   
-                       <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Correo</label>
-                                <input class="form-control" type="text" id="Filtro-Correo"
-                                 placeholder="Correo">
-                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="example">
+                            <label class="m-t-30">Nombre</label>
+                            <input class="form-control" type="text" id="Filtro-Nombre" placeholder="Nombre">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                                <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
-                                    Limpiar filtro avanzado</button>
-                            </div>
+                    <div class="col-md-3">
+                        <div class="example">
+                            <label class="m-t-30">Correo</label>
+                            <input class="form-control" type="text" id="Filtro-Correo" placeholder="Correo">
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group m-t-30">
+                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
+                                Limpiar filtro avanzado</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="card  card-outline-info">
@@ -81,20 +70,17 @@
             </div>
             <div class="card-body" id="Card-Body-Gestion-Usuarios2">
                 <div class="table-responsive">
-                    <table id="UsuariosDataTable" class="table table-bordered  table-striped MyStyle_Color-Table">
+                    <table id="UsuariosDataTable" class="table stylish-table MyStyle_Color-Table">
                         <thead>
                             <tr>
-                                <th>Id_Usuario</th>
-                                <th>Usuario</th>
-                                <th>Nombre </th>
-                                <th>Apellidos </th>
-                                <th>Rol</th>
-                                <th>Correo</th>
-                                <th class="MyStyle_Table_Opciones">Opciones</th>
+                                <th><i class="fa fa-user"></i> Usuario</th>
+                                <th><i class="fa fa-tag"></i> Rol</th>
+                                <th><i class="fa fa-id-card"></i> Nombre </th>
+                                <th><i class="mdi mdi-gmail"></i> Correo</th>
+                                <th class="MyStyle_Table_Opciones"><i class="fa fa-sliders"></i> Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-
                         </tbody>
                     </table>
                 </div>
@@ -111,18 +97,18 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                    Modificar información</h4>
+                    <i class="fa fa-address-card-o"></i> Información</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
-            <div class="modal-body p-t-0 p-b-0">
+            <div class="modal-body">
                 <div class="card m-b-0">
-                    <div class="card-body p-t-0 p-b-0 ">
+                    <div class="card-body">
                         <div class="row">
                             <div class="col-4">
                                 <h4 class="MyStyle_Detalles_Emp_Usu m-t-40 m-b-30">Fotografía:</h4>
                                 <div id="imgDetalleUsuario"></div>
                             </div>
-                            <div class="col-8">
+                            <div id="DetalleNormal" class="col-8">
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item"> <a id="FormularioEmpleado" class="nav-link active"
                                             data-toggle="tab" href="#DetallesEmpleado" role="tab">
@@ -244,6 +230,75 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="DetalleOperador" class="col-8">
+                                <ul class="nav nav-tabs customtab" role="tablist">
+                                    <li class="nav-item"> <a id="FormularioEmpleado" class="nav-link active"
+                                            data-toggle="tab" href="#DetallesEmpleado" role="tab">
+                                            <span class="hidden-sm-up"><i class="ti-home"></i></span>
+                                            <span class="hidden-xs-down">Operador</span></a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active m-3" id="DetallesEmpleado" role="tabpanel">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Nombre:
+                                                    </label>
+                                                    <p id="txtNombreDetalle_O"></p>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Correo:
+                                                    </label>
+                                                    <p id="txtCorreoDetalle_O"></p>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Usuario:
+                                                    </label>
+                                                    <p id="txtUsuarioDetalle_O"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Rol:
+                                                    </label>
+                                                    <p id="txtRolDetalle_O"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Conexión:
+                                                    </label>
+                                                    <p id="txtConexionDetalle_O"></p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label MyStyle_Detalles_Emp_Usu">
+                                                        Estado:
+                                                    </label>
+                                                    <p id="txtEstadoDetalle_O"></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -268,7 +323,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                   <i class="fa fa-pencil"></i>  Modificar información
+                    <i class="fa fa-pencil"></i> Modificar información
                 </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
@@ -276,7 +331,6 @@
                 <div class="card m-b-0">
                     <div class="card-body wizard-content p-t-0 p-b-0 ">
                         <form id="FormEditarUsuario" class="wizard-circle">
-                            <!-- Step 1 -->
                             <h6>Información empleado.</h6>
                             <section>
                                 <hr class="m-t-0 m-b-20">
@@ -295,7 +349,7 @@
                                                                 <i class="ti-user"></i>
                                                             </span>
                                                         </div>
-                                                        <select class="custom-select col-12" id="txtTipoDocumento"
+                                                        <select class="form-control custom-select" id="txtTipoDocumento"
                                                             name="txtTipoDocumento">
                                                             <option selected disabled value="">Seleccione</option>
                                                         </select>
@@ -446,7 +500,6 @@
                                     </div>
                                 </div>
                             </section>
-                            <!-- Step 2 -->
                             <h6>Información usuario.</h6>
                             <section>
                                 <hr class="m-t-0 m-b-20">
@@ -490,16 +543,140 @@
                     </div>
                 </div>
             </div>
-            {{!-- <div class="modal-footer">
-                <div class="row">
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-info">
-                            <i class="fa fa-pencil"></i> Modificar
-                        </button>
-                    </div>
-                </div>
-            </div> --}}
         </div>
     </div>
 </div>
-<!-- /modal-->
+<!-- Editar usuario Asesor externo -->
+<div class="modal fade ModalEditarUsuariosAE" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;">
+    <div class="modal-dialog MyStyle_modalTamaño1000">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                    <i class="fa fa-pencil"></i> Modificar información
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body p-t-0 p-b-0">
+                <div class="card m-b-0">
+                    <div class="card-body wizard-content p-t-0 p-b-0 ">
+                        <form id="FormEditarUsuarioAE" class="wizard-circle">
+                            <h6>Asesor externo</h6>
+                            <section>
+                                <hr class="m-t-0 m-b-20">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Nombre
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="txtNombreAE"
+                                                            name="txtNombreAE" placeholder="Nombre Completo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Correo
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-email"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="email" class="form-control" id="txtCorreoAE"
+                                                            name="txtCorreoAE" placeholder="Ingresar correo">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label">Usuario
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-user"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="text" class="form-control" id="txtUsuarioAE"
+                                                            name="txtUsuarioAE" placeholder="Nombre usuario">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <input type="checkbox" id="checkbox_contrasena" name="checkbox_contrasena"
+                                            class="MyStyle_Checkbox detalleLinea">
+                                        <label class="font-weight-bold" for="checkbox_contrasena">
+                                            Cambiar contraseña:
+                                        </label>
+                                        <hr class="m-t-0 m-b-20">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label"
+                                                        id="Label-Form-Registro-Usuario">Contraseña
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-lock"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="password" class="form-control" id="txtContrasenaAE"
+                                                            name="txtContrasenaAE" placeholder="Contraseña" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="control-label"
+                                                        id="Label-Form-Registro-Usuario">Confirmar
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">
+                                                                <i class="ti-lock"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="password" class="form-control"
+                                                            id="txtConfirmarContrasenaAE"
+                                                            name="txtConfirmarContrasenaAE"
+                                                            placeholder="Confirmar contraseña" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="card">
+                                            <div class="card-body MyStyle_File_Card">
+                                                <h4 class="card-title">Fotografía</h4>
+                                                <div id="inputFotografiaEditarAE">
+                                                    <input type="file" id="fileFotografiaAE" name="Fotografia" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

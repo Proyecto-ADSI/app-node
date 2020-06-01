@@ -18,17 +18,17 @@ $(function () {
           render: function (data, datatype, row) {
             if (datatype === "display") {
               return `
-                            <div class="row">
-                               <div class="col-md-3">
-                                   <span class="round MyStyle_FondoRound">
-                                    <img src="/assets/images/usuarios/${row.Imagen}" alt="user" width="50">
-                                   </span>
-                               </div>
-                               <div class="col-md-4">
-                                   <h6>${data}</h6><small class="text-muted">${row.Nombre_Rol}</small>
-                               </div>
-                           </div>
-                            `;
+                <div class="row">
+                  <div class="col-md-3">
+                    <span class="round MyStyle_FondoRound">
+                        <img src="/assets/images/usuarios/${row.Imagen}" alt="user" width="50">
+                    </span>
+                  </div>
+                  <div class="col-md-4">
+                    <h6>${data}</h6><small class="text-muted">${row.Nombre_Rol}</small>
+                  </div>
+                </div>
+              `;
             } else {
               return data;
             }
