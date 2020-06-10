@@ -61,6 +61,7 @@ $(document).on("click", ".SwitchDocumento ", function () {
   let fila = $(this).closest("tr");
   let switchElem = fila.find('.js-switch')[0];
   let Id = parseInt(fila.find('td:eq(0)').text());
+  
 
   
 
