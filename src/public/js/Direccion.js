@@ -48,11 +48,13 @@ $(function () {
         maxlength: 10,
       },
       txtNumero2: {
+        required: true,
         SoloNumeros: true,
         minlength: 1,
         maxlength: 10,
       },
       txtNumero3: {
+        required: true,
         SoloNumeros: true,
         minlength: 1,
         maxlength: 10,
@@ -137,7 +139,7 @@ $(function () {
       } else {
         $("#txtDireccion").val(Direccion);
       }
-    }else {
+    } else {
       $("#txtDireccion").val(Direccion);
     }
 

@@ -44,7 +44,7 @@ $.validator.addMethod(
   function (value, element) {
     return this.optional(element) || /^[1-9]\d*/.test(value);
   },
-  "No se permite 0 al inicio ni caracteres especiales y alfabéticos."
+  "Ingrese una valor válido."
 );
 
 $.validator.addMethod(
@@ -69,8 +69,11 @@ $.validator.addMethod(
 $.validator.addMethod(
   "ValidarNIT",
   function (value, element) {
-    return this.optional(element) || /(^[\d]+[-][\d]?$)/.test(value);
-    // return this.optional(element) || /^([\d]+[-][\d]?$)|([\d]$)/.test(value);
+    return (
+      this.optional(element) ||
+      /(^[\d]+$)/.test(value) ||
+      /(^[\d]+[-]+[\d]$)/.test(value)
+    );
   },
   "Ingrese un NIT válido"
 );

@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Eskatemp SAS</title>
 
-	{{!----------------------------------- CSS ----------------------------}}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eskatemp SAS</title>
+    <link rel="shortcut icon" href="/assets/images/Logos/icono2.ico" type="image/x-icon">
+
+    {{!----------------------------------- CSS ----------------------------}}
     {{!-- Bootstrap Core CSS --}}
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Mis estilos -->
-	<link rel="stylesheet" href="css/home.css">
-	<link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/home.css">
     <!-- TEMA DE LA PLANTILLA -->
-    <link  href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
-    
+    <link href="/css/style_Blanco.css" id="Style_Tema" rel="stylesheet">
+
 
     <!-- Sweetalert -->
     <link href="../../assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-	
-</head>
-<body>
+    <link rel="stylesheet" href="/assets/plugins/aos/aos.css">
 
-	{{{body}}}
+</head>
+
+<body data-spy="scroll" data-target=".navbar" data-offset="50">
+
+    {{{body}}}
 
     {{!-- Socket.IO --}}
     {{!-- <script src="/socket.io/socket.io.js"></script>
     <script src="/js/socket.io.js"></script> --}}
-   
+
 </body>
+
 </html>

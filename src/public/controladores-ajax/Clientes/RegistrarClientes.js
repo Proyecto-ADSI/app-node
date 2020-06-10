@@ -126,7 +126,7 @@ $(function () {
                 return '"Cliente ya registrado."';
               }
             },
-          }
+          },
         },
         txtTelefono: {
           required: true,
@@ -150,7 +150,7 @@ $(function () {
                 return '"Teléfono ya registrado."';
               }
             },
-          }
+          },
         },
         txtNIT: {
           ValidarNIT: true,
@@ -172,7 +172,7 @@ $(function () {
                 return '"NIT ya registrado."';
               }
             },
-          }
+          },
         },
         txtEncargado: {
           SoloLetras: true,
@@ -599,7 +599,6 @@ let SubirDocumentos = () => {
 };
 
 let RegistrarCliente = (objDocumentos) => {
-
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
     // Array Lineas
@@ -696,7 +695,7 @@ let RegistrarCliente = (objDocumentos) => {
       Validacion_Doc_S: false,
     };
 
-    if($(".switch_corporativo").bootstrapSwitch("state")) {
+    if ($(".switch_corporativo").bootstrapSwitch("state")) {
       let switchClausula = $("#switchClausula")
         .children("label")
         .children("input");
@@ -723,7 +722,7 @@ let RegistrarCliente = (objDocumentos) => {
       });
     }
 
-    if($(".switch_doc").bootstrapSwitch("state") === true) {
+    if ($(".switch_doc").bootstrapSwitch("state") === true) {
       datos.Validacion_Doc_S = true;
 
       Object.defineProperties(datos, {
@@ -1032,7 +1031,10 @@ let CargarDatosUbicacionRadio = () => {
     }
   }
   for (let item of Municipios) {
-    if (item.Nombre_Municipio == "Medellín") {
+    if (
+      item.Nombre_Municipio == "Medellín" ||
+      item.Nombre_Municipio == "Medellin"
+    ) {
       Id_Municipio = parseInt(item.Id_Municipio);
     }
   }

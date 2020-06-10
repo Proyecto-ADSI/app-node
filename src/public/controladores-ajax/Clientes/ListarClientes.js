@@ -14,7 +14,7 @@ ObtenerCliente = (Id_Cliente) => {
 
 $(function () {
   ObtenerSession().then((data) => {
-    Id_Rol = parseInt(data.session.Id_Usuario);
+    Id_Rol = parseInt(data.session.Id_Rol);
 
     // Ver registro después de click en notificacion notificación.
     if (sessionStorage.IdRegistroNotificacion) {
@@ -27,7 +27,6 @@ $(function () {
       CambiarEstadoVisitaNotificacion();
     }
     DataTable = $("#ClientesDataTable").DataTable({
-      cache: true,
       ajax: {
         url: `${URL}/Cliente`,
         error: function (error) {
@@ -163,9 +162,7 @@ $(function () {
       },
       createdRow: function (row, data, index) {
         let Estado_Cliente = parseInt(data.Estado_Cliente);
-
         let switchElem = Array.prototype.slice.call($(row).find(".js-switch"));
-
         switchElem.forEach(function (html) {
           let s = new Switchery(html, {
             color: "#26c6da",
@@ -211,7 +208,9 @@ $(document).on("click", "#btnEditar", function () {
 $(document).on("click", ".switchery ", function () {
   let fila = $(this).closest("tr");
   let switchElem = fila.find(".js-switch")[0];
-  let Id_Cliente_Estado = parseInt(fila.find("td:eq(0)").text());
+
+  let datosCliente = DataTable.row($(this).parents("tr")).data();
+  let Id_Cliente_Estado = datosCliente.Id_Cliente;
 
   // Cambiar Estado Cliente
   let Estado;

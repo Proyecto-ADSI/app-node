@@ -13,7 +13,6 @@ let Login = () => {
     processData: false,
   })
     .done((respuesta) => {
-
       if (respuesta.data.ok) {
         //  // Crear Sesión
         let session = {
@@ -24,6 +23,7 @@ let Login = () => {
           Email: respuesta.data.Email,
           Usuario_Img: respuesta.data.Imagen,
           Tema: 1,
+          Host: URL,
         };
 
         fetch("/Login", {
@@ -37,31 +37,31 @@ let Login = () => {
             let session = JSON.parse(data);
             if (session.ok) {
               let Rol = parseInt(respuesta.data.Id_Rol);
-            //   Redireccionamiento
-              switch (Rol){
-                  case 1:
-                      //Administrador
-                      location.href = "/App/Admin"
-                      break;
-                  case 2:
-                      //Coordinador
-                      location.href = "/App/Coordinador"
-                      break;
-                  case 3:
-                      //Contac center
-                      location.href = "/App/ContactCenter/Noticias"
-                      break;
-                  case 4:
-                      //Gestor
-                      location.href = "/App/GestionCliente/Noticias"
-                      break;
-                  case 5:
-                      //Asesor
-                      location.href = "/App/AsesorInterno/Citas"
-                      break;
-                  case 6:
-                  location.href = "/App/AsesorExterno/Visitas"
-                      break;
+              //   Redireccionamiento
+              switch (Rol) {
+                case 1:
+                  //Administrador
+                  location.href = "/App/Admin";
+                  break;
+                case 2:
+                  //Coordinador
+                  location.href = "/App/Coordinador";
+                  break;
+                case 3:
+                  //Contac center
+                  location.href = "/App/ContactCenter/Noticias";
+                  break;
+                case 4:
+                  //Gestor
+                  location.href = "/App/GestionCliente/Noticias";
+                  break;
+                case 5:
+                  //Asesor
+                  location.href = "/App/AsesorInterno/Citas";
+                  break;
+                case 6:
+                  location.href = "/App/AsesorExterno/Visitas";
+                  break;
               }
             }
           });

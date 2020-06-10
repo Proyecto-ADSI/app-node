@@ -8,13 +8,15 @@
                 <!-- Logo icon --><b>
                     <!-- You can put here icon as well // <i class="wi wi-sunset"></i> // -->
                     <!-- Dark Logo icon -->
-                    <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="/assets/images/Logos/logoWhite.png" alt="homepage" width="60" height="60"
+                        class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                    <img src="/assets/images/Logos/logoDark.png" alt="homepage" width="60" height="60"
+                        class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
-                <span>CallPhone Soft.</span>
+                <span class=" font-weight-bold">Call Phone Soft.</span>
             </a>
         </div>
         <!-- ============================================================== -->
@@ -36,7 +38,8 @@
                 <!-- ============================================================== -->
                 <!-- Notificaciones -->
                 <li class="nav-item dropdown">
-                    <a id="iconNotificaciones" class="nav-link dropdown-toggle text-muted waves-effect waves-dark notificaciones" href=""
+                    <a id="iconNotificaciones"
+                        class="nav-link dropdown-toggle text-muted waves-effect waves-dark notificaciones" href=""
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
                         <span id="numNotificaciones" class="numNotificaciones" style="display: none;">0</span>
@@ -112,132 +115,38 @@
                 </li>
                 {{!-- Llamadas --}}
                 {{#xif session.Id_Rol '==' 1}}
-                <li class="nav-item dropdown mega-dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa  fa-phone"></i>
+                <li class="btn-group nav-item">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ti-headphone-alt"></i>
                     </a>
                     <div class="dropdown-menu animated slideInUp">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Atención Telefónica</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="#" class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Llamada precargada</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="/App/Admin/Llamadas/RegistrarP"
-                                                    class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Llamada no precargada</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="/App/Admin/Llamadas/RegistrarNP"
-                                                    class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h5 class="dropdown-item titulo_header_llamadas">Realizar llamada:</h5>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/App/Admin/Llamadas/RegistrarP">
+                            <i class="mdi mdi-phone-log"></i> Llamada precargada
+                        </a>
+                        <a class="dropdown-item" href="/App/Admin/Llamadas/RegistrarNP">
+                            <i class="mdi mdi-phone-plus"></i> Llamada <strong>NO</strong> precargada
+                        </a>
                     </div>
                 </li>
                 {{/xif}}
                 {{#xif session.Id_Rol '==' 3}}
-                <li class="nav-item dropdown mega-dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href=""
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa  fa-phone"></i>
+                <li class="btn-group nav-item">
+                    <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ti-headphone-alt"></i>
                     </a>
                     <div class="dropdown-menu animated slideInUp">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Atención Telefónica</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="#" class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Llamada precargada</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="/App/ContactCenter/Llamadas/RegistrarP"
-                                                    class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="container">
-                                    <div class="card">
-                                        <div class="face face1">
-                                            <div class="content">
-                                                <img src="/assets/images/logo-telefono.png" alt="Imagen 1">
-                                                <h3>Llamada no precargada</h3>
-                                            </div>
-                                        </div>
-                                        <div class="face face2">
-                                            <div class="content">
-                                                <a href="/App/ContactCenter/Llamadas/RegistrarNP"
-                                                    class="btn btn-outline-success">Continuar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h5 class="dropdown-item titulo_header_llamadas">Realizar llamada:</h5>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/App/ContactCenter/Llamadas/RegistrarP">
+                            <i class="mdi mdi-phone-log"></i> Llamada precargada
+                        </a>
+                        <a class="dropdown-item" href="/App/ContactCenter/Llamadas/RegistrarNP">
+                            <i class="mdi mdi-phone-plus"></i> Llamada <strong>NO</strong> precargada
+                        </a>
                     </div>
                 </li>
                 {{/xif}}
@@ -252,7 +161,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" aria-haspopup="true"
                         aria-expanded="false" data-toggle="dropdown">
-                        <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario"
+                        <img src="{{session.Host}}/Images/Usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario"
                             class="profile-pic">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right scale-up">
@@ -260,8 +169,8 @@
                             <li>
                                 <div class="dw-user-box">
                                     <div class="u-img" id="ImgUsuarioHeader2">
-                                        <img src="/assets/images/usuarios/{{session.Usuario_Img}}" alt="Imagen_Usuario"
-                                            class="profile-pic">
+                                        <img src="{{session.Host}}/Images/Usuarios/{{session.Usuario_Img}}"
+                                            alt="Imagen_Usuario" class="profile-pic">
                                     </div>
                                     <div class="u-text">
                                         <h4 id="txtNombre_Usuario_Header">{{session.Usuario}}</h4>

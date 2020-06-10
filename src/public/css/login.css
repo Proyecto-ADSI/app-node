@@ -1,66 +1,79 @@
 /* Login */
-.MyStyle_login_fondo{
-    background-color: #272c33;
+.MyStyle_login_fondo {
+  background-color: #272c33;
 }
 
-.MyStyle_login_box{
-    color: #000 !important;
-    background: #eef5f9 !important;
-    width: 650px !important;
-    margin-top: 5% !important;
-    border: none;
+.MyStyle_login_box {
+  color: #000 !important;
+  background: #eef5f9 !important;
+  width: 650px !important;
+  margin-top: 5% !important;
+  border: none;
 }
 /* Card 1 */
-.MyStyle_Card1_Fondo{
-    height: 100%;
-    background: url(/assets/images/Logos/logo.png);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+.MyStyle_Card1_Fondo {
+  height: 100%;
+  background: url(/assets/images/Logos/logo.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
 }
 
-
-.MyStyle_Box_Logo{
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    top: -10%;
-    left: 30%;
+.MyStyle_Box_Logo {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: -10%;
+  left: 30%;
 }
-
 
 /* Card 2 */
-.MyStyle_Logo_Empresa{
-    height: 100%;
-    width: 100%;
-    border-radius: 50%;
+.MyStyle_Logo_Empresa {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
 }
 
-.MyStyle_Card2_box{
-    padding-top: 25%;
+.MyStyle_Card2_box {
+  padding-top: 25%;
 }
 
-.MyStyle_Form_Control{
-    color: #000 !important;
+.MyStyle_Form_Control {
+  color: #000 !important;
 }
 
-.MyStyle_Form_Control:focus{
-    background-image: linear-gradient(#00897b, #00897b), linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13)) !important;
+.MyStyle_Form_Control:focus {
+  background-image: linear-gradient(#00897b, #00897b),
+    linear-gradient(rgba(120, 130, 140, 0.13), rgba(120, 130, 140, 0.13)) !important;
 }
 
-.MyStyle_Btn_Login{
-    color: #f3f3f3;
-    background: rgb(28, 231, 204); 
-    border: 2px solid rgb(28, 231, 204);
+.MyStyle_Btn_Login {
+  color: #f3f3f3;
+  background: rgb(28, 231, 204);
+  border: 2px solid rgb(28, 231, 204);
 }
 
-.MyStyle_Btn_Login:hover{
-    color: #f3f3f3;
-    background-color:rgb(28, 231, 204);
-    border: 2px solid #00897b;
+.MyStyle_Btn_Login:hover {
+  color: #f3f3f3;
+  background-color: rgb(28, 231, 204);
+  border: 2px solid #00897b;
 }
 
 /* Recuperar Contraseña */
-.MyStyle_btn_Regresar{
-    position: absolute;
-    top: 10%;
+.MyStyle_btn_Regresar {
+  position: absolute;
+  top: 10%;
+}
+
+.btnInicio {
+  margin-top: 10%;
+  background-color: #fff;
+  color: #00897b;
+  border-color: #00897b;
+  z-index: 100;
+}
+
+.btnInicio:hover {
+  background-color: #00897b;
+  color: #fff;
+  border-color: #fff;
 }

@@ -238,7 +238,8 @@
   z-index: 999999;
 }
 
-.MyStyle_FondoRound {
+.MyStyle_FondoRound,
+.btn_sin_fondo {
   background: transparent !important;
 }
 
@@ -276,4 +277,19 @@
 
 .CargandoGif {
   background-image: url(/assets/images/icon/cargando.gif) !important;
+}
+
+.titulo_header_llamadas {
+  pointer-events: none;
+}
+
+.opciones-collapse a {
+  float: right;
+  color: #fff !important;
+  /* padding-left: 7px;
+  font-size: 15px; */
+}
+
+.ServiciosFijosItems {
+  margin-right: 5%;
 }

@@ -22,6 +22,7 @@ $(function () {
   ObtenerSession().then((data) => {
     Id_Rol = parseInt(data.session.Id_Usuario);
     DataTableUsuarios = $("#UsuariosDataTable").DataTable({
+      // stateSave: true,
       ajax: {
         url: `${URL}/Usuarios`,
         error: function (error) {
@@ -40,7 +41,7 @@ $(function () {
                   <div class="row">
                     <div class="col-md-3">
                       <span class="round MyStyle_FondoRound">
-                          <img src="/assets/images/usuarios/${row.Imagen}" alt="user" width="50">
+                          <img src="http://localhost:8081/Images/Usuarios/${row.Imagen}" alt="user" width="50">
                       </span>
                     </div>
                     <div class="col-md-4">

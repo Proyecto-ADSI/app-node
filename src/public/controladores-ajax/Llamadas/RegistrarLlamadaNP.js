@@ -11,7 +11,6 @@ var TerminarLlamada = false;
 var EnlazarUbicacionEmpresa = false;
 var ValDireccionCita = false;
 
-
 $(function () {
   iniciarCronometroLlamada();
   var stepPlanCorp;
@@ -19,6 +18,7 @@ $(function () {
   form = $("#Form_Registro_LlamadaNP").show();
 
   form.steps({
+    saveState: true,
     headerTag: "h6",
     bodyTag: "section",
     transitionEffect: "fade",
@@ -33,8 +33,7 @@ $(function () {
 
       // Inicializar selects del formulario
       CargarDatosUbicacion();
-      CargarRazonesOperador();
-      CargarRazonesLlamada();
+      CargarOpcionesPredefinidas();
       CargarOperadores();
       CargarCalificaciones();
 
@@ -121,101 +120,87 @@ $(function () {
           .removeClass("form-control-danger");
       },
       rules: {
-        txtRazonSocial: {
-          required: true,
-          minlength: 5,
-          SoloAlfanumericos: true,
-          remote: {
-            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-            type: "get",
-            dataType: "json",
-            data: {
-              texto: function () {
-                if (gifRazonSocial) {
-                  $("#txtRazonSocial").addClass("CargandoGif");
-                  gifRazonSocial = false;
-                }
-                return $("#txtRazonSocial").val().trim();
-              },
-            },
-            dataFilter: function (res) {
-              var json = JSON.parse(res);
-              $("#txtRazonSocial").removeClass("CargandoGif");
-              if (json.data.ok) {
-                return '"true"';
-              } else {
-                CargarDatosModalDetalles(json.data.cliente);
-                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-                ValidarLlamarCliente(Estado_Cliente);
-                return '"Cliente ya registrado."';
-              }
-            },
-          },
-        },
-        txtTelefono: {
-          required: true,
-          SoloNumeros: true,
-          minlength: 5,
-          maxlength: 10,
-          remote: {
-            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-            type: "get",
-            dataType: "json",
-            data: {
-              texto: function () {
-                if (gifTelefono) {
-                  $("#txtTelefono").addClass("CargandoGif");
-                  gifTelefono = false;
-                }
-                return $("#txtTelefono").val().trim();
-              },
-            },
-            dataFilter: function (res) {
-              $("#txtTelefono").removeClass("CargandoGif");
-              var json = JSON.parse(res);
-              if (json.data.ok) {
-                return '"true"';
-              } else {
-                CargarDatosModalDetalles(json.data.cliente);
-                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-                ValidarLlamarCliente(Estado_Cliente);
-                return '"Teléfono ya registrado."';
-              }
-            },
-          },
-        },
-        txtNIT: {
-          ValidarNIT: true,
-          minlength: 5,
-          remote: {
-            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-            type: "get",
-            dataType: "json",
-            data: {
-              texto: function () {
-                if (gifNIT) {
-                  $("#txtNIT").addClass("CargandoGif");
-                  gifNIT = false;
-                }
-                return $("#txtNIT").val().trim();
-              },
-            },
-            dataFilter: function (res) {
-              $("#txtNIT").removeClass("CargandoGif");
-              var json = JSON.parse(res);
-              if (json.data.ok) {
-                ValidarResumenNIT(true);
-                return '"true"';
-              } else {
-                ValidarResumenNIT(false);
-                CargarDatosModalDetalles(json.data.cliente);
-                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-                ValidarLlamarCliente(Estado_Cliente);
-                return '"NIT ya registrado."';
-              }
-            },
-          },
-        },
+        // txtRazonSocial: {
+        //   required: true,
+        //   minlength: 5,
+        //   SoloAlfanumericos: true,
+        //   remote: {
+        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+        //     type: "get",
+        //     dataType: "json",
+        //     data: {
+        //       texto: function () {
+        //         return $("#txtRazonSocial").val().trim();
+        //       },
+        //     },
+        //     dataFilter: function (res) {
+        //       var json = JSON.parse(res);
+        //       if (json.data.ok) {
+        //         return '"true"';
+        //       } else {
+        //         CargarDatosModalDetalles(json.data.cliente);
+        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+        //         ValidarLlamarCliente(Estado_Cliente);
+        //         return '"Cliente ya registrado."';
+        //       }
+        //     },
+        //   },
+        // },
+        // txtTelefono: {
+        //   required: true,
+        //   SoloNumeros: true,
+        //   minlength: 5,
+        //   maxlength: 10,
+        //   remote: {
+        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+        //     type: "get",
+        //     dataType: "json",
+        //     data: {
+        //       texto: function (e) {
+        //         console.log(e);
+        //         return $("#txtTelefono").val().trim();
+        //       },
+        //     },
+        //     dataFilter: function (res) {
+        //       var json = JSON.parse(res);
+        //       if (json.data.ok) {
+        //         return '"true"';
+        //       } else {
+        //         CargarDatosModalDetalles(json.data.cliente);
+        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+        //         ValidarLlamarCliente(Estado_Cliente);
+        //         return '"Teléfono ya registrado."';
+        //       }
+        //     },
+        //   },
+        // },
+        // txtNIT: {
+        //   ValidarNIT: true,
+        //   minlength: 5,
+        //   remote: {
+        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+        //     type: "get",
+        //     dataType: "json",
+        //     data: {
+        //       texto: function () {
+        //         return $("#txtNIT").val().trim();
+        //       },
+        //     },
+        //     dataFilter: function (res) {
+        //       var json = JSON.parse(res);
+        //       if (json.data.ok) {
+        //         ValidarResumenNIT(true);
+        //         return '"true"';
+        //       } else {
+        //         ValidarResumenNIT(false);
+        //         CargarDatosModalDetalles(json.data.cliente);
+        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+        //         ValidarLlamarCliente(Estado_Cliente);
+        //         return '"NIT ya registrado."';
+        //       }
+        //     },
+        //   },
+        // },
         // txtPersona_Responde: {
         //   SoloLetras: true,
         // },
@@ -233,15 +218,27 @@ $(function () {
         // txtSubTipo: "required",
         // txtOperador: "required",
         // txtCalificacion: "required",
-        // txtDetalle_Cantidad_Lineas: {
-        //   required: true,
-        //   SoloNumeros: true,
-        // },
-        // txtDetalle_Valor_Mensual: {
-        //   required: true,
-        //   SoloNumeros: true,
-        // },
-        // detalleLineasRadios: "required",
+        txtDetalle_Cantidad_Lineas: {
+          required: true,
+          SoloNumeros: true,
+        },
+        txtDetalle_Valor_Mensual: {
+          required: true,
+          SoloNumeros2: true,
+        },
+        detalleLineasRadios: "required",
+        txtDetalleNavegacion: {
+          SoloNumeros: true,
+        },
+        txtDetalle_Minutos: {
+          SoloNumeros: true,
+        },
+        txtDetalle_Mensajes: {
+          SoloNumeros: true,
+        },
+        txtDetalle_Minutos_LDI: {
+          SoloNumeros: true,
+        },
         // txtFecha_inicio: "required",
         // txtFecha_fin: "required",
         // txtOperadorCita: "required",
@@ -270,6 +267,218 @@ $(function () {
     });
 
   // Inicializar elementos:
+
+  try {
+    dataSet = JSON.parse(localStorage.getItem("ServiciosMoviles") || []);
+  } catch (err) {
+    dataSet = [];
+  }
+
+  try {
+    serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos") || []);
+  } catch (err) {
+    serviciosFijos = [];
+  }
+
+  if (serviciosFijos.length > 0) {
+    for (let item of serviciosFijos) {
+      let pagina = "checkDetalle_Pagina";
+      let correo = "checkDetalle_Correo";
+      let ip = "checkDetalle_IPFija";
+      let dominio = "checkDetalle_dominio";
+      let telefonia = "checkDetalle_telefonia";
+      let television = "checkDetalle_television";
+      $("#ServiciosFijos").append(
+        `
+      <label class="ServiciosFijosItems" for="checkDetalle_telefonia"><i class="mdi mdi-bookmark-check"></i>
+        ${item}
+      </label>
+      `
+      );
+
+      switch (item) {
+        case "Página Web":
+          checkServiciosFijo(pagina);
+          break;
+        case "Correo":
+          checkServiciosFijo(correo);
+          break;
+        case "IP fija":
+          checkServiciosFijo(ip);
+          break;
+        case "Dominio":
+          checkServiciosFijo(dominio);
+          break;
+        case "Telefonía":
+          checkServiciosFijo(telefonia);
+          break;
+        case "Televisión":
+          checkServiciosFijo(television);
+          break;
+      }
+    }
+  }
+
+  DataTableServicios = $("#DataTableServicios")
+    .DataTable({
+      responsive: true,
+      columns: [
+        {
+          render: function (data, type, row) {
+            let text = data + " líneas";
+            return text;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            return data;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            let text = data + " GB";
+            return text;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            return data;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            return data;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            if (type === "display") {
+              let html = "";
+              for (let item of data) {
+                html =
+                  html +
+                  `
+                  <div class="label label-table text-center" style="background-color:#00897b">
+                  ${item}
+                  </div>
+                `;
+              }
+              return html;
+            } else {
+              let text = "";
+              for (let item of data) {
+                text = text + ", " + item;
+              }
+              return text;
+            }
+          },
+        },
+        {
+          render: function (data, type, row) {
+            if (type === "display") {
+              let html = "";
+              for (let item of data) {
+                html =
+                  html +
+                  `
+                  <div class="label label-table text-center" style="background-color:#00897b">
+                  ${item}
+                  </div>
+                `;
+              }
+              return html;
+            } else {
+              return data;
+            }
+          },
+        },
+        {
+          render: function (data, type, row) {
+            return data;
+          },
+        },
+        {
+          render: function (data, type, row) {
+            if (type === "display") {
+              let html = "";
+              for (let item of data) {
+                html =
+                  html +
+                  `
+                  <div class="label label-table text-center" style="background-color:#00897b">
+                  ${item}
+                  </div>
+                `;
+              }
+              return html;
+            } else {
+              return data;
+            }
+          },
+        },
+        {
+          render: function (data, type, row) {
+            if (type === "display") {
+              return `
+              <button type="button" id="DetallesLineasEditar" id_linea="${data}"
+              class="btn btn-info btn-sm">
+              <i class="fa fa-pencil"></i>
+          </button>
+          <button type="button" id="DetallesLineasEliminar" id_linea="${data}"
+              class="btn btn-danger btn-sm">
+              <i class="fa fa-close"></i>
+          </button>
+              `;
+            }
+            return data;
+          },
+        },
+      ],
+      columnDefs: [
+        { responsivePriority: 1, targets: 0 },
+        { responsivePriority: 2, targets: -1 },
+      ],
+      language: {
+        lengthMenu: "Mostrar _MENU_ registros",
+        zeroRecords: "No se encontraron resultados",
+        info:
+          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+        infoFiltered: "(filtrado de un total de _MAX_ registros)",
+        sSearch: "Buscar:",
+        oPaginate: {
+          sFirst: "Primero",
+          sLast: "Último",
+          sNext: "Siguiente",
+          sPrevious: "Anterior",
+        },
+        sProcessing: "Procesando...",
+      },
+    })
+    .columns.adjust()
+    .responsive.recalc();
+
+  if (dataSet.length > 0) {
+    for (let servicio of dataSet) {
+      let data = [
+        servicio.cantidadLineas,
+        servicio.cargoBasicoMensual,
+        servicio.navegacion,
+        servicio.minutos,
+        servicio.mensajes,
+        servicio.redesSociales,
+        servicio.minutosLDI,
+        servicio.cantidadLDI,
+        servicio.serviciosAdicionales,
+        servicio.id,
+      ];
+
+      DataTableServicios.row.add(data).draw();
+    }
+    DataTableServicios.responsive.recalc();
+    ObtenerDataLineasEditar();
+    EliminarDetalleLinea();
+  }
 
   // tooltip
   $("body").tooltip({ selector: "[data-toggle=tooltip]" });
@@ -336,70 +545,14 @@ $(function () {
 
   // Enlazar eventos de escucha:
 
-  // Gif cargando
-  //
-  $("#txtRazonSocial").keyup(function (e) {
-    let code = e.keyCode || e.which;
-    if (code != "9") {
-      gifRazonSocial = true;
-    }
-  });
-  $("#txtRazonSocial").change(function () {
-    if ($(this).hasClass("form-control-danger")) {
-      gifRazonSocial = false;
-    }
-  });
-
-  $("#txtRazonSocial").focusout(function () {
-    if ($(this).hasClass("form-control-success")) {
-      gifRazonSocial = false;
-    }
-  });
-
-  // txtTelefono
-  $("#txtTelefono").keyup(function (e) {
-    let code = Number(e.keyCode || e.which);
-    if (!isNaN(code)) {
-      if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105 || code == 8)) {
-        gifTelefono = true;
-      }
-    }
-  });
-  $("#txtTelefono").change(function () {
-    if ($(this).hasClass("form-control-danger")) {
-      gifTelefono = false;
-    }
-  });
-
-  $("#txtTelefono").focusout(function () {
-    if ($(this).hasClass("form-control-success")) {
-      gifTelefono = false;
-    }
-  });
-
-  // txtNIT
-  $("#txtNIT").keyup(function (e) {
-    let code = Number(e.keyCode || e.which);
-    if (!isNaN(code)) {
-      if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105 || code == 8)) {
-        gifNIT = true;
-      }
-    }
-  });
-  $("#txtNIT").change(function () {
-    if ($(this).hasClass("form-control-danger")) {
-      gifNIT = false;
-     
-    }
-  });
-
-  $("#txtNIT").focusout(function () {
-    if ($(this).hasClass("form-control-success")) {
-      gifNIT = false;
-    }
-  });
-
   // Atajos del formulario
+  $("#txtPersona_Responde").keyup(function () {
+    let estado = $("input:checkbox[name=txtValEncargado]").is(":checked");
+    if (estado) {
+      let Persona_Responde = $("#txtPersona_Responde").val();
+      $("#txtEncargado").val(Persona_Responde);
+    }
+  });
 
   $("#lbltxtValEncargado").click(function () {
     let estado = $("input:checkbox[name=txtValEncargado]").is(":checked");
@@ -418,6 +571,16 @@ $(function () {
 
     if (estado) {
       CargarDatosUbicacionRadio(false);
+    }
+  });
+
+  // Detalle línea
+  $("#txtDetalleMinutosLDI").on("change", function (e) {
+    let minutosLDI = $("#txtDetalleMinutosLDI").val();
+    if (minutosLDI.length > 0) {
+      $("#txtDetalle_Cantidad_LDI").removeAttr("disabled");
+    } else {
+      $("#txtDetalle_Cantidad_LDI").attr("disabled", true);
     }
   });
 
@@ -562,213 +725,11 @@ $(function () {
         ? RegistrarDetalleLinea()
         : EditarDetalleLinea();
 
-      // Detalles líneas
-
-      $(document).on("click", "#DetallesLineasDetalle", function () {
-        let idLinea = $(this).attr("id_linea");
-        let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-        DetalleLineas.forEach(function (linea, indice, array) {
-          if (linea.id == idLinea) {
-            let minutos = "";
-
-            if (linea.minIlimitados) {
-              minutos += "Ilimitados";
-            } else {
-              minutos += linea.minutos;
-            }
-
-            if (linea.todoOperador) {
-              minutos += ",todo operador";
-            }
-
-            if (linea.minOtro != "") {
-              minutos += "," + linea.minOtro;
-            }
-
-            let Valor_Total_Mensual = 0;
-            // Establecer valor total mensual de las lineas.
-            if (linea.valValorLineas == "1") {
-              Valor_Total_Mensual += parseInt(linea.valorMensual);
-            } else if (linea.valValorLineas == "2") {
-              Valor_Total_Mensual +=
-                parseInt(linea.valorMensual) * parseInt(linea.cantidadLineas);
-            }
-
-            $("#tbodyModalLinea").empty();
-            $("#tbodyModalLinea").append(`
-                                <tr id="txtIdLineasModalNumeros" style="display:none" >
-                                    <td>${linea.id}</td>
-                                </tr>
-                                    <tr>
-                                        <td> Cantidad líneas </td>
-                                        <td><p id="txtIncrementarLineas" class="float-right"> ${
-                                          linea.cantidadLineas
-                                        }</p></td>
-                                    </tr>
-                                    <tr>
-                                        <td><h5 class="text-danger font-weight-bold text-uppercase">Pago mensual</h5></td>
-                                        <td>
-                                            <i class="fa fa-dollar text-danger"></i>
-                                            <h5 class="float-right text-danger font-weight-bold">
-                                                ${Valor_Total_Mensual}
-                                            </h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Navegación</td>
-                                        <td>
-                                        ${linea.navegacion + " " + linea.unidad}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Minutos</td>
-                                        <td>
-                                            ${minutos}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Otros</td>
-                                        <td>
-
-                                        ${
-                                          linea.mensajes
-                                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl1">Mensajes</label>'
-                                            : ""
-                                        }
-
-                                        ${
-                                          linea.redes
-                                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked><label for="radio_tbl">Redes</label>'
-                                            : ""
-                                        }
-                                        
-                                        ${
-                                          linea.llamadas
-                                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked>  <label for="radio_tbl1">Llamadas</label>'
-                                            : ""
-                                        }
-                
-                                        ${
-                                          linea.roaming
-                                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl">Roaming</label>'
-                                            : ""
-                                        }
-                                        </td>
-                                    </tr>
-
-
-                                    `);
-
-            // TouchSpin
-            // $("#txtIncrementarLineas").TouchSpin({
-            //     min: 0,
-            //     max: 1000000000,
-            //     stepinterval: 50,
-            //     maxboostedstep: 10000000,
-            // });
-
-            if (typeof linea.NumerosLineas !== "undefined") {
-              $("#ModalNumerosLineas").empty();
-
-              AgregarInput(linea.NumerosLineas.length, linea.NumerosLineas);
-            } else {
-              $("#ModalNumerosLineas").empty();
-              AgregarInput(linea.cantidadLineas, 0, false);
-            }
-
-            $(".txtNumeroLinea").each(function () {
-              $(this).rules("add", {
-                ValidarCelular: true,
-                minlength: 10,
-                maxlength: 10,
-              });
-            });
-
-            $("#LineasModal").modal("show");
-          }
-        });
-      });
-
       // Editar linea
-
-      $(document).on("click", "#DetallesLineasEditar", function () {
-        let idLinea = $(this).attr("id_linea");
-        let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-        DetalleLineas.forEach(function (valor, indice, array) {
-          // console.log(valor);
-          if (valor.id == idLinea) {
-            $("#txtDetalleId").val(valor.id);
-            $("#txtDetalle_Cantidad_Lineas").val(valor.cantidadLineas);
-            $("#txtDetalle_Valor_Mensual").val(valor.valorMensual);
-            valor.valValorLineas == "1"
-              ? $("#txtDetalle_radio").prop("checked", true)
-              : $("#txtDetalle_radio2").prop("checked", true);
-            $("#txtDetalleNavegacion").val(valor.navegacion);
-            // $('#txtDetalleUnidad').val(),
-
-            if (valor.minIlimitados) {
-              if (
-                !$("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(
-                  ":checked"
-                )
-              ) {
-                $(
-                  "input:checkbox[name=txtDetalle_Validacion_Ilimitados]"
-                ).trigger("click");
-              }
-            } else {
-              $("#txtDetalle_Minutos").val(valor.minutos);
-            }
-            valor.todoOperador
-              ? $("input:checkbox[name=txtDetalle_Minutos_TO]").prop(
-                  "checked",
-                  true
-                )
-              : "";
-            valor.minOtro != ""
-              ? $("#txtDetalle_Minutos_Otro").val(valor.minOtro)
-              : $("#txtDetalle_Minutos_Otro").val("");
-            valor.mensajes
-              ? $("input:checkbox[name=txtDetalle_Mensajes]").prop(
-                  "checked",
-                  true
-                )
-              : "";
-            valor.redes
-              ? $("input:checkbox[name=txtDetalle_Redes]").prop("checked", true)
-              : "";
-            valor.llamadas
-              ? $("input:checkbox[name=txtDetalle_Llamadas]").prop(
-                  "checked",
-                  true
-                )
-              : "";
-            valor.roaming
-              ? $("input:checkbox[name=txtDetalle_Roaming]").prop(
-                  "checked",
-                  true
-                )
-              : "";
-          }
-        });
-      });
+      ObtenerDataLineasEditar();
 
       // Eliminar línea.
-
-      $(document).on("click", "#DetallesLineasEliminar", function () {
-        let idLinea = $(this).attr("id_linea");
-        let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-        DetalleLineas.forEach(function (valor, indice, array) {
-          if (valor.id == idLinea) {
-            DetalleLineas.splice(indice, 1);
-          }
-        });
-        sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
-        ListarDetalleLineas();
-      });
+      EliminarDetalleLinea();
     }
   });
 
@@ -779,6 +740,16 @@ $(function () {
         $("#txtDetalle_Minutos").prop("disabled", true);
       } else {
         $("#txtDetalle_Minutos").prop("disabled", false);
+      }
+    }
+  );
+  // Validación mensajes ilimitados.
+  $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").change(
+    function () {
+      if ($(this).is(":checked")) {
+        $("#txtDetalle_Mensajes").prop("disabled", true);
+      } else {
+        $("#txtDetalle_Mensajes").prop("disabled", false);
       }
     }
   );
@@ -875,55 +846,53 @@ let RegistrarLlamadaNP = () => {
     let Cantidad_Total_Lineas = 0;
     let Valor_Total_Mensual = 0;
 
-    if (sessionStorage.DetalleLineas) {
-      let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
+    if (localStorage.ServiciosMoviles) {
+      let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
 
       let GrupoLineas = 0;
-      for (let lineaItem of DetalleLineas) {
-        let minutos = "";
-
-        if (lineaItem.minIlimitados) {
-          minutos += "Ilimitados";
-        } else {
-          minutos += lineaItem.minutos;
+      for (let lineaItem of ServiciosMoviles) {
+        let redes = "";
+        if (lineaItem.redesSociales.length > 0) {
+          for (let red of lineaItem.redesSociales) {
+            redes = redes + red + ", ";
+            redes = redes.trim();
+          }
         }
 
-        if (lineaItem.todoOperador) {
-          minutos += ",todo operador";
+        let minLDI = "";
+        let cantidadLDI = null;
+        if (lineaItem.minutosLDI.length > 0) {
+          for (let pais of lineaItem.minutosLDI) {
+            minLDI = minLDI + pais + ", ";
+            minLDI = minLDI.trim();
+          }
+          cantidadLDI = lineaItem.cantidadLDI;
         }
 
-        if (lineaItem.minOtro != "") {
-          minutos += "," + lineaItem.minOtro;
+        let serviciosAdicionales = "";
+        if (lineaItem.serviciosAdicionales.length > 0) {
+          for (let servicio of lineaItem.serviciosAdicionales) {
+            serviciosAdicionales = serviciosAdicionales + servicio + ", ";
+            serviciosAdicionales = serviciosAdicionales.trim();
+          }
         }
 
-        // Establecer valor total mensual de las lineas.
-        if (lineaItem.valValorLineas == "1") {
-          Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
-        } else if (lineaItem.valValorLineas == "2") {
-          Valor_Total_Mensual +=
-            parseInt(lineaItem.valorMensual) *
-            parseInt(lineaItem.cantidadLineas);
-        }
+        // Establecer valor total mensual de la totalidad de lineas.
+        Valor_Total_Mensual += parseInt(lineaItem.cargoBasicoMensual);
 
         GrupoLineas++;
         for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
           let linea = {
-            minutos: minutos,
-            navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
-            mensajes: lineaItem.mensajes ? 1 : 0,
-            redes: lineaItem.redes ? 1 : 0,
-            llamadas: lineaItem.llamadas ? 1 : 0,
-            roaming: lineaItem.roaming ? 1 : 0,
-            cargo: lineaItem.valorMensual,
+            minutos: lineaItem.minutos,
+            navegacion: lineaItem.navegacion,
+            mensajes: lineaItem.mensajes,
+            redes: redes,
+            minutosLDI: minLDI,
+            cantidadLDI: cantidadLDI,
+            serviciosAdicionales: serviciosAdicionales,
+            cargoBasicoMensual: lineaItem.cargoBasicoMensual,
             grupo: GrupoLineas,
           };
-
-          if (typeof lineaItem.NumerosLineas !== "undefined") {
-            Object.defineProperty(linea, "numero", {
-              value: lineaItem.NumerosLineas[i],
-              enumerable: true,
-            });
-          }
 
           arrayLineas.push(linea);
         }
@@ -938,9 +907,9 @@ let RegistrarLlamadaNP = () => {
     if (typeof arrayRazones !== "undefined") {
       arrayRazones.forEach(function (razon, index, array) {
         if (index == 0) {
-          stringRazones += razon;
+          stringRazones += razon + ", ";
         } else {
-          stringRazones += ", " + razon;
+          stringRazones += razon + ", ";
         }
       });
     }
@@ -976,7 +945,8 @@ let RegistrarLlamadaNP = () => {
       Razones: stringRazones,
       Cantidad_Lineas: Cantidad_Total_Lineas,
       Valor_Mensual: Valor_Total_Mensual.toString(),
-      DetalleLineas: arrayLineas,
+      ServiciosFijos: JSON.parse(localStorage.getItem("ServiciosFijos")),
+      ServiciosMoviles: arrayLineas,
 
       // Validación
       Validacion_Registro_Cliente: Validacion_RegistrarCliente,
@@ -1097,77 +1067,75 @@ let RegistrarLlamadaNP = () => {
         });
       }
     }
+    console.log(datos);
+    // $.ajax({
+    //   url: `${URL}/Llamadas/LlamadaNP`,
+    //   dataType: "json",
+    //   type: "post",
+    //   contentType: "aplication/json",
+    //   data: JSON.stringify(datos),
+    //   processData: false,
+    //   success: function (respuesta) {
+    //     if (respuesta.data.ok) {
+    //       //se envía notifiación a coordinadores y administrador
+    //       clientesSocket.emit("Notificar");
 
-    $.ajax({
-      url: `${URL}/Llamadas/LlamadaNP`,
-      dataType: "json",
-      type: "post",
-      contentType: "aplication/json",
-      data: JSON.stringify(datos),
-      processData: false,
-      success: function (respuesta) {
-        console.log(respuesta);
-
-        if (respuesta.data.ok) {
-          // Si se registra cita se envía notifiación a coordinadores y administrador
-          clientesSocket.emit("Notificar");
-
-          swal(
-            {
-              title: "Registro exitoso.",
-              type: "success",
-              showCancelButton: false,
-              confirmButtonColor: "#2F6885",
-              confirmButtonText: "Continuar",
-              closeOnConfirm: false,
-            },
-            function (isConfirm) {
-              if (isConfirm) {
-                sessionStorage.removeItem("DetalleLineas");
-                location.href = Redireccionar("/Llamadas");
-              }
-            }
-          );
-        } else {
-          swal(
-            {
-              title: "Error al registrar.",
-              text: "Ha ocurrido un error al registrar, intenta de nuevo",
-              type: "error",
-              showCancelButton: false,
-              confirmButtonColor: "#2F6885",
-              confirmButtonText: "Continuar",
-              closeOnConfirm: false,
-            },
-            function (isConfirm) {
-              if (isConfirm) {
-                location.href = "Llamadas.html";
-                console.log(respuesta.data);
-              }
-            }
-          );
-        }
-      },
-      error: function (error) {
-        console.log(error);
-        swal(
-          {
-            title: "Error al registrar.",
-            text: "Error en el servidor, contacta al administrador",
-            type: "error",
-            showCancelButton: false,
-            confirmButtonColor: "#2F6885",
-            confirmButtonText: "Continuar",
-            closeOnConfirm: false,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              location.href = "AgregarEmpresa.html";
-            }
-          }
-        );
-      },
-    });
+    //       swal(
+    //         {
+    //           title: "Registro exitoso.",
+    //           type: "success",
+    //           showCancelButton: false,
+    //           confirmButtonColor: "#2F6885",
+    //           confirmButtonText: "Continuar",
+    //           closeOnConfirm: false,
+    //         },
+    //         function (isConfirm) {
+    //           if (isConfirm) {
+    //             sessionStorage.removeItem("DetalleLineas");
+    //             location.href = Redireccionar("/Llamadas");
+    //           }
+    //         }
+    //       );
+    //     } else {
+    //       swal(
+    //         {
+    //           title: "Error al registrar.",
+    //           text: "Ha ocurrido un error al registrar, intenta de nuevo",
+    //           type: "error",
+    //           showCancelButton: false,
+    //           confirmButtonColor: "#2F6885",
+    //           confirmButtonText: "Continuar",
+    //           closeOnConfirm: false,
+    //         },
+    //         function (isConfirm) {
+    //           if (isConfirm) {
+    //             location.href = "Llamadas.html";
+    //             console.log(respuesta.data);
+    //           }
+    //         }
+    //       );
+    //     }
+    //   },
+    //   error: function (error) {
+    //     console.log(error);
+    //     swal(
+    //       {
+    //         title: "Error al registrar.",
+    //         text: "Error en el servidor, contacta al administrador",
+    //         type: "error",
+    //         showCancelButton: false,
+    //         confirmButtonColor: "#2F6885",
+    //         confirmButtonText: "Continuar",
+    //         closeOnConfirm: false,
+    //       },
+    //       function (isConfirm) {
+    //         if (isConfirm) {
+    //           location.href = "AgregarEmpresa.html";
+    //         }
+    //       }
+    //     );
+    //   },
+    // });
   });
 };
 
@@ -1734,53 +1702,57 @@ let CargarCalificaciones = () => {
   });
 };
 
-let CargarRazonesOperador = () => {
+let CargarOpcionesPredefinidas = () => {
   $.ajax({
-    url: `${URL}/Razones/Operador`,
+    url: `${URL}/OpcionesPredefinidas`,
     type: "get",
     datatype: "json",
     success: function (datos) {
       $("#txtRazones").empty();
+      $("#txtDetallle_Redes_Sociales").empty();
+      $("#txtDetalle_Servicios_Adicionales").empty();
+      $("#txtRazonesLlamada").empty();
+      $("#txtDetalleMinutosLDI").empty();
 
       for (let item of datos.data) {
-        let $opcion = $("<option />", {
-          text: `${item.Razon}`,
-          value: `${item.Razon}`,
+        let opcion = $("<option />", {
+          text: `${item.Opcion}`,
+          value: `${item.Opcion}`,
         });
 
-        $("#txtRazones").append($opcion);
+        if (item.Categoria == "Operador") {
+          $("#txtRazones").append(opcion);
+        } else if (item.Categoria == "Redes Sociales") {
+          $("#txtDetallle_Redes_Sociales").append(opcion);
+        } else if (item.Categoria == "Servicios Adicionales") {
+          $("#txtDetalle_Servicios_Adicionales").append(opcion);
+        } else if (item.Categoria == "Llamada") {
+          $("#txtRazonesLlamada").append(opcion);
+        } else if (item.Categoria == "País LDI") {
+          $("#txtDetalleMinutosLDI").append(opcion);
+        }
       }
 
-      //  Select razones
+      //  Selects input
       $("#txtRazones").select2({
         tags: true,
         tokenSeparators: [","],
       });
-    },
-    error: function (error) {
-      console.log(error);
-    },
-  });
-};
-
-let CargarRazonesLlamada = () => {
-  $.ajax({
-    url: `${URL}/Razones/Llamada`,
-    type: "get",
-    datatype: "json",
-    success: function (datos) {
-      $("#txtRazonesLlamada").empty();
-
-      for (let item of datos.data) {
-        let $opcion = $("<option />", {
-          text: `${item.Razon}`,
-          value: `${item.Razon}`,
-        });
-
-        $("#txtRazonesLlamada").append($opcion);
-      }
-
-      //  Select razones
+      $("#txtDetalleMinutosLDI").select2({
+        multiple: true,
+        tags: true,
+        tokenSeparators: [","],
+      });
+      $("#txtDetallle_Redes_Sociales").select2({
+        multiple: true,
+        tags: true,
+        tokenSeparators: [","],
+      });
+      $("#txtDetalle_Servicios_Adicionales").select2({
+        multiple: true,
+        tags: true,
+        tokenSeparators: [","],
+      });
       $("#txtRazonesLlamada").select2({
         tags: true,
         tokenSeparators: [","],
@@ -1853,7 +1825,10 @@ let CargarDatosUbicacionRadio = (cita) => {
     }
   }
   for (let item of Municipios) {
-    if (item.Nombre_Municipio == "Medellín") {
+    if (
+      item.Nombre_Municipio == "Medellín" ||
+      item.Nombre_Municipio == "Medellin"
+    ) {
       Id_Municipio = parseInt(item.Id_Municipio);
     }
   }
@@ -1899,181 +1874,149 @@ let DatosUbicacionEmpresa = () => {
 // Detalle Líneas
 
 let RegistrarDetalleLinea = () => {
-  let DetalleLineas = [];
-  if (sessionStorage.DetalleLineas) {
-    DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+  let ServiciosMoviles = [];
+  if (localStorage.ServiciosMoviles) {
+    ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
   }
 
-  let arrayDetalleLinea = {
-    id: uuid.v4(),
-    cantidadLineas: $("#txtDetalle_Cantidad_Lineas").val(),
-    valorMensual: $("#txtDetalle_Valor_Mensual").val(),
-    valValorLineas: $("input:radio[name=detalleLineasRadios]:checked").val(),
-    navegacion: $("#txtDetalleNavegacion").val(),
-    unidad: $("#txtDetalleUnidad").val(),
-    minutos: $("#txtDetalle_Minutos").val(),
-    minIlimitados: $(
-      "input:checkbox[name=txtDetalle_Validacion_Ilimitados]"
-    ).is(":checked"),
-    todoOperador: $("input:checkbox[name=txtDetalle_Minutos_TO]").is(
-      ":checked"
-    ),
-    minOtro: $("#txtDetalle_Minutos_Otro").val(),
-    mensajes: $("input:checkbox[name=txtDetalle_Mensajes]").is(":checked"),
-    llamadas: $("input:checkbox[name=txtDetalle_Llamadas]").is(":checked"),
-    redes: $("input:checkbox[name=txtDetalle_Redes]").is(":checked"),
-    roaming: $("input:checkbox[name=txtDetalle_Roaming]").is(":checked"),
-  };
+  // Servicios fijos
+  RegistrarServiciosFijo();
 
-  DetalleLineas.push(arrayDetalleLinea);
+  // Servicios móviles
+  let arrayDetalleLinea = ObtenerDatosServiciosMoviles();
 
-  sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
+  let data = [
+    arrayDetalleLinea.cantidadLineas,
+    arrayDetalleLinea.cargoBasicoMensual,
+    arrayDetalleLinea.navegacion,
+    arrayDetalleLinea.minutos,
+    arrayDetalleLinea.mensajes,
+    arrayDetalleLinea.redesSociales,
+    arrayDetalleLinea.minutosLDI,
+    arrayDetalleLinea.cantidadLDI,
+    arrayDetalleLinea.serviciosAdicionales,
+    arrayDetalleLinea.id,
+  ];
+
+  ServiciosMoviles.push(arrayDetalleLinea);
+  localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
 
   LimpiarDetalleLinea();
   ListarDetalleLineas();
 };
 
-let ListarDetalleLineas = () => {
-  if (sessionStorage.DetalleLineas) {
-    let DetalleLineas;
-    let Cantidad_Lineas = 0;
-    let Valor_Mensual = 0;
-    let contador = 0;
-    DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+let ObtenerDataLineasEditar = () => {
+  $(document).on("click", "#DetallesLineasEditar", function () {
+    let data = DataTableServicios.row($(this).parents("tr")).data();
+    $("#txtDetalleId").val(data[9]);
+    $("#txtDetalle_Cantidad_Lineas").val(data[0]);
+    $("#txtDetalle_Valor_Mensual").val(data[1]);
+    $("#txtDetalle_radio2").prop("checked", true);
+    $("#txtDetalleNavegacion").val(data[2]);
 
-    $("#TblRegistroDetalleLineas").empty();
-
-    for (let item of DetalleLineas) {
-      contador++;
-
-      Cantidad_Lineas += parseInt(item.cantidadLineas);
-
-      if (parseInt(item.valValorLineas) == 1) {
-        Valor_Mensual += parseInt(item.valorMensual);
-      } else if (parseInt(item.valValorLineas) == 2) {
-        Valor_Mensual +=
-          parseInt(item.valorMensual) * parseInt(item.cantidadLineas);
+    if (data[3] === "Ilimitados") {
+      if (
+        !$("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(
+          ":checked"
+        )
+      ) {
+        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").trigger(
+          "click"
+        );
       }
-
-      $("#TblRegistroDetalleLineas").append(`
-                <tr>
-                    <td>${contador}</td>
-                    <td>${item.cantidadLineas}</td>
-                    <td>
-                        <i class="fa fa-dollar"></i>
-                        <div class="float-right">${item.valorMensual}</div> 
-                    </td>
-                    <td>${item.navegacion + " " + item.unidad}</td>
-                    <td>${item.minIlimitados ? "Ilimitados " : item.minutos}${
-        item.todoOperador ? " todo operador " : ""
-      } ${item.minOtro != "" ? item.minOtro : ""}</td>
-                    <td>
-                        ${
-                          item.mensajes
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl1">Mensajes</label>'
-                            : ""
-                        }
-
-                        ${
-                          item.redes
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked><label for="radio_tbl">Redes</label>'
-                            : ""
-                        }
-                        
-                        ${
-                          item.llamadas
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked>  <label for="radio_tbl1">Llamadas</label>'
-                            : ""
-                        }
-
-                        ${
-                          item.roaming
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl">Roaming</label>'
-                            : ""
-                        }
-                        
-                    </td>
-                    <td>
-                        <span class="label label-info">${
-                          parseInt(item.valValorLineas) == 1
-                            ? "En total"
-                            : "Por línea"
-                        }</span>
-                    </td>
-                    <td>
-
-                        <button type="button" id="DetallesLineasEditar" id_linea="${
-                          item.id
-                        }" class="btn btn-info btn-sm">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                
-                        <button type="button" id="DetallesLineasEliminar" id_linea="${
-                          item.id
-                        }" class="btn btn-danger btn-sm">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </td>
-                </tr>
-
-            `);
+    } else {
+      if (
+        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(
+          ":checked"
+        )
+      ) {
+        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").trigger(
+          "click"
+        );
+      }
+      $("#txtDetalle_Minutos").val(data[3]);
+    }
+    if (data[4] === "Ilimitados") {
+      if (
+        !$("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(
+          ":checked"
+        )
+      ) {
+        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").trigger(
+          "click"
+        );
+      }
+    } else {
+      if (
+        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(
+          ":checked"
+        )
+      ) {
+        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").trigger(
+          "click"
+        );
+      }
+      $("#txtDetalle_Mensajes").val(data[4]);
     }
 
-    $("#tFootRegistroDetalleCliente").empty();
-    $("#tFootRegistroDetalleCliente").append(`
-            <tr>
-                <td>
-                    <h5 class="box-title">Total:</h5>
-                </td>
-                <td>${Cantidad_Lineas}</td>
-                <td>
-                    <i class="fa fa-dollar"></i>
-                    <div class="float-right">${Valor_Mensual}</div> 
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        `);
+    if (data[6].length > 0) {
+      $("#txtDetalleMinutosLDI").val(data[6]).trigger("change");
+      $("#txtDetalle_Cantidad_LDI").val(data[7]);
+    }
+    if (data[5].length > 0) {
+      $("#txtDetallle_Redes_Sociales").val(data[5]).trigger("change");
+    }
+    if (data[8].length > 0) {
+      $("#txtDetalle_Servicios_Adicionales").val(data[8]).trigger("change");
+    }
+  });
+};
+
+let ListarDetalleLineas = () => {
+  if (localStorage.ServiciosMoviles) {
+    DataTableServicios.clear().draw();
+
+    let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
+
+    for (let servicio of ServiciosMoviles) {
+      let data = [
+        servicio.cantidadLineas,
+        servicio.cargoBasicoMensual,
+        servicio.navegacion,
+        servicio.minutos,
+        servicio.mensajes,
+        servicio.redesSociales,
+        servicio.minutosLDI,
+        servicio.cantidadLDI,
+        servicio.serviciosAdicionales,
+        servicio.id,
+      ];
+
+      DataTableServicios.row.add(data).draw();
+    }
+    DataTableServicios.responsive.recalc();
+    ObtenerDataLineasEditar();
+    EliminarDetalleLinea();
   }
 };
 
 let EditarDetalleLinea = () => {
   let idLinea = $("#txtDetalleId").val();
-  let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+  let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
 
-  DetalleLineas.forEach(function (valor, indice, array) {
+  ServiciosMoviles.forEach(function (valor, indice, array) {
     if (valor.id == idLinea) {
-      DetalleLineas.splice(indice, 1);
+      ServiciosMoviles.splice(indice, 1);
     }
   });
 
-  let arrayDetalleLinea = {
-    id: $("#txtDetalleId").val(),
-    cantidadLineas: $("#txtDetalle_Cantidad_Lineas").val(),
-    valorMensual: $("#txtDetalle_Valor_Mensual").val(),
-    valValorLineas: $("input:radio[name=detalleLineasRadios]:checked").val(),
-    navegacion: $("#txtDetalleNavegacion").val(),
-    unidad: $("#txtDetalleUnidad").val(),
-    minutos: $("#txtDetalle_Minutos").val(),
-    minIlimitados: $(
-      "input:checkbox[name=txtDetalle_Validacion_Ilimitados]"
-    ).is(":checked"),
-    todoOperador: $("input:checkbox[name=txtDetalle_Minutos_TO]").is(
-      ":checked"
-    ),
-    minOtro: $("#txtDetalle_Minutos_Otro").val(),
-    mensajes: $("input:checkbox[name=txtDetalle_Mensajes]").is(":checked"),
-    llamadas: $("input:checkbox[name=txtDetalle_Llamadas]").is(":checked"),
-    redes: $("input:checkbox[name=txtDetalle_Redes]").is(":checked"),
-    roaming: $("input:checkbox[name=txtDetalle_Roaming]").is(":checked"),
-  };
+  // Servicios fijos
+  RegistrarServiciosFijo();
+  // Servicios móviles
+  let arrayDetalleLinea = ObtenerDatosServiciosMoviles();
 
-  DetalleLineas.push(arrayDetalleLinea);
-
-  sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
+  ServiciosMoviles.push(arrayDetalleLinea);
+  localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
 
   LimpiarDetalleLinea();
   ListarDetalleLineas();
@@ -2085,7 +2028,6 @@ let LimpiarDetalleLinea = () => {
   $("#txtDetalle_Valor_Mensual").val("");
   $("input:radio[name=detalleLineasRadios]:checked").prop("checked", false);
   $("#txtDetalleNavegacion").val("");
-  // $('#txtDetalleUnidad').val(),
   $("#txtDetalle_Minutos").val("");
   if (
     $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(":checked")
@@ -2098,12 +2040,37 @@ let LimpiarDetalleLinea = () => {
   } else {
     $("#txtDetalle_Minutos").val("");
   }
-  $("input:checkbox[name=txtDetalle_Minutos_TO]").prop("checked", false);
-  $("#txtDetalle_Minutos_Otro").val("");
-  $("input:checkbox[name=txtDetalle_Mensajes]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Llamadas]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Redes]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Roaming]").prop("checked", false);
+  if (
+    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(":checked")
+  ) {
+    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").prop(
+      "checked",
+      false
+    );
+    $("#txtDetalle_Mensajes").prop("disabled", false);
+  } else {
+    $("#txtDetalle_Mensajes").val("");
+  }
+  $("#txtDetalleMinutosLDI").val(null).trigger("change");
+  $("#txtDetalle_Cantidad_LDI").val("");
+  $("#txtDetalle_Cantidad_LDI").prop("disabled", true);
+  $("#txtDetallle_Redes_Sociales").val(null).trigger("change");
+  $("#txtDetalle_Servicios_Adicionales").val(null).trigger("change");
+};
+
+let EliminarDetalleLinea = () => {
+  $(document).on("click", "#DetallesLineasEliminar", function () {
+    let idLinea = $(this).attr("id_linea");
+    let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
+
+    ServiciosMoviles.forEach(function (valor, indice, array) {
+      if (valor.id == idLinea) {
+        ServiciosMoviles.splice(indice, 1);
+      }
+    });
+    localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
+    ListarDetalleLineas();
+  });
 };
 
 let ValidarLlamarCliente = (estadoCliente) => {
@@ -2145,4 +2112,121 @@ let ValidarResumenNIT = (validacion) => {
   } else {
     $("#resumenCitaNIT").removeAttr("checked");
   }
+};
+
+let checkServiciosFijo = (name) => {
+  if (!$(`input:checkbox[name=${name}]`).is(":checked")) {
+    $(`input:checkbox[name=${name}]`).trigger("click");
+  }
+};
+
+let RegistrarServiciosFijo = () => {
+  let serviciosFijos = {
+    pagina: false,
+    correo: false,
+    ip: false,
+    dominio: false,
+    telefonia: false,
+    television: false,
+  };
+
+  if ($("input:checkbox[name=checkDetalle_Pagina]").is(":checked")) {
+    serviciosFijos.pagina = true;
+  }
+  if ($("input:checkbox[name=checkDetalle_Correo]").is(":checked")) {
+    serviciosFijos.correo = true;
+  }
+  if ($("input:checkbox[name=checkDetalle_IPFija]").is(":checked")) {
+    serviciosFijos.ip = true;
+  }
+  if ($("input:checkbox[name=checkDetalle_dominio]").is(":checked")) {
+    serviciosFijos.dominio = true;
+  }
+  if ($("input:checkbox[name=checkDetalle_telefonia]").is(":checked")) {
+    serviciosFijos.telefonia = true;
+  }
+  if ($("input:checkbox[name=checkDetalle_television]").is(":checked")) {
+    serviciosFijos.television = true;
+  }
+  localStorage.ServiciosFijos = JSON.stringify(serviciosFijos);
+  $("#ServiciosFijos").empty();
+  let itemsServiciosFijos = [];
+  if (serviciosFijos.pagina) {
+    itemsServiciosFijos.push("Página web");
+  }
+  if (serviciosFijos.correo) {
+    itemsServiciosFijos.push("Correo");
+  }
+  if (serviciosFijos.ip) {
+    itemsServiciosFijos.push("IP Fija");
+  }
+  if (serviciosFijos.dominio) {
+    itemsServiciosFijos.push("Dominio");
+  }
+  if (serviciosFijos.telefonia) {
+    itemsServiciosFijos.push("Telefonía");
+  }
+  if (serviciosFijos.television) {
+    itemsServiciosFijos.push("Televisión");
+  }
+  for (let item of itemsServiciosFijos) {
+    $("#ServiciosFijos").append(
+      `
+      <label class="ServiciosFijosItems" for="checkDetalle_telefonia"><i class="mdi mdi-bookmark-check"></i>
+        ${item}
+      </label>
+      `
+    );
+  }
+};
+
+let ObtenerDatosServiciosMoviles = () => {
+  let cargobasico = 0;
+  let valorInput = parseFloat($("#txtDetalle_Valor_Mensual").val());
+  let cantidadLineas = parseInt($("#txtDetalle_Cantidad_Lineas").val());
+  if ($("input:radio[name=detalleLineasRadios]:checked").val() == 1) {
+    cargobasico = valorInput / cantidadLineas;
+  } else {
+    cargobasico = valorInput;
+  }
+  cargobasico = cargobasico.toFixed(2);
+
+  let minutos = "";
+  if (
+    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(":checked")
+  ) {
+    minutos = "Ilimitados";
+  } else {
+    minutos = $("#txtDetalle_Minutos").val();
+  }
+
+  let mensajes = "";
+  if (
+    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(":checked")
+  ) {
+    mensajes = "Ilimitados";
+  } else {
+    mensajes = $("#txtDetalle_Mensajes").val();
+  }
+
+  let minutosLDI = $("#txtDetalleMinutosLDI").val();
+  let cantidadLDI = "";
+  if (minutosLDI.length > 0) {
+    cantidadLDI = $("#txtDetalle_Cantidad_LDI").val();
+  }
+
+  let arrayDetalleLinea = {
+    id: uuid.v4(),
+    cantidadLineas: cantidadLineas,
+    cargoBasicoMensual: cargobasico,
+    navegacion: $("#txtDetalleNavegacion").val(),
+    minutos: minutos,
+    mensajes: mensajes,
+    redesSociales: $("#txtDetallle_Redes_Sociales").val(),
+    minutosLDI: minutosLDI,
+    cantidadLDI: cantidadLDI,
+    serviciosAdicionales: $("#txtDetalle_Servicios_Adicionales").val(),
+  };
+
+  return arrayDetalleLinea;
 };

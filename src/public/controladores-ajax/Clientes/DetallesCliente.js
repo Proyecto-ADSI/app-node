@@ -106,15 +106,15 @@ CargarDatosModalDetalles = (Informacion) => {
       $("#Menu_Doc").removeAttr("style");
       $("#linkCedula_D").empty();
       $("#linkCedula_D").append(`
-                <a href="/documentos/${Informacion.Cedula_RL}"target="_blank""" class="btn btn-primary">Descargar</a>
+                <a href="${URL}/Doc/${Informacion.Cedula_RL}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
       $("#linkCamara_D").empty();
       $("#linkCamara_D").append(`
-                <a href="/documentos/${Informacion.Camara_Comercio}"target="_blank""" class="btn btn-primary">Descargar</a>
+                <a href="${URL}/Doc/${Informacion.Camara_Comercio}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
       $("#linkSoporte_D").empty();
       $("#linkSoporte_D").append(`
-                <a href="/documentos/${Informacion.Soporte_Ingresos}"target="_blank""" class="btn btn-primary">Descargar</a>
+                <a href="${URL}/Doc/${Informacion.Soporte_Ingresos}"target="_blank""" class="btn btn-primary">Descargar</a>
             `);
 
       if (Informacion.Detalles_Plan_Corporativo != null) {
@@ -125,7 +125,7 @@ CargarDatosModalDetalles = (Informacion) => {
                     Anexos Corporativo
                     </label>
                     <p  class="form-control-static">
-                    <a href="/documentos/${Informacion.Detalles_Plan_Corporativo}"target="_blank""" class="btn btn-primary">Descargar</a>
+                    <a href="${URL}/Doc/${Informacion.Detalles_Plan_Corporativo}"target="_blank""" class="btn btn-primary">Descargar</a>
                     </p>
             </div>
         `);
@@ -139,7 +139,7 @@ CargarDatosModalDetalles = (Informacion) => {
                     Oferta
                     </label>
                     <p  class="form-control-static">
-                    <a href="/documentos/${Informacion.Oferta}"target="_blank""" class="btn btn-primary">Descargar</a>
+                    <a href="${URL}/Doc/${Informacion.Oferta}"target="_blank""" class="btn btn-primary">Descargar</a>
                     </p>
             </div>
         `);
