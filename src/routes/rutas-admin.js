@@ -32,7 +32,7 @@ router.get('/Directorio/Editar', usuarioLogeado, (req,res)=>{
 
 // Llamadas
 router.get('/Llamadas',usuarioLogeado,(req,res)=>{
-    res.render('llamadas/listar-llamadas',{layout:'AdminLayout.hbs', Llamada_NP: true , session: req.session.datos_usuario })
+    res.render('llamadas/listar-llamadas',{layout:'AdminLayout.hbs', Llamadas: true , session: req.session.datos_usuario })
 });
 
 router.get('/Llamadas/Control',usuarioLogeado,(req,res)=>{

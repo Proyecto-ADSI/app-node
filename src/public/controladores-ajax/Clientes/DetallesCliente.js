@@ -2,23 +2,26 @@
 var Id_Cliente;
 
 CargarDatosModalDetalles = (Informacion) => {
-
   // Llenar detalles cliente
   Id_Cliente = Informacion.Id_Cliente;
-  $("#txtRazon_Social_D").text(Informacion.Razon_Social)
-  $("#txtTelefono_D").text(Informacion.Telefono)
-  $("#txtNIT_D").text(Informacion.NIT_CDV)
-  $("#txtEncargado_D").text(Informacion.Encargado)
-  $("#txtExtension_celular_D").text(Informacion.Ext_Tel_Contacto)
-  $("#txtPais_D").text(Informacion.Nombre_Pais)
-  $("#txtDepartamento_D").text(Informacion.Nombre_Departamento)
-  $("#txtMunicipio_D").text(Informacion.Nombre_Municipio)
-  $("#txtTipo_D").text(Informacion.SubTipo)
-  $("#txtBarrio_Vereda_D").text(Informacion.Nombre_Barrio_Vereda)
-  $("#txtDireccion_D").text(Informacion.Direccion)
-  $("#txtOperador_tbl_Lineas_D").text(Informacion.Nombre_Operador)
-  $("#txtCalificacion_D").text(Informacion.Calificacion)
-  $("#txtRazones_D").text(Informacion.Razones)
+  $("#txtRazon_Social_D").text(Informacion.Razon_Social);
+  $("#txtTelefono_D").text(Informacion.Telefono);
+  $("#txtNIT_D").text(Informacion.NIT_CDV);
+  $("#txtEncargado_D").text(Informacion.Encargado);
+  $("#txtExtension_celular_D").text(Informacion.Ext_Tel_Contacto);
+  $("#txtPais_D").text(Informacion.Nombre_Pais);
+  $("#txtDepartamento_D").text(Informacion.Nombre_Departamento);
+  $("#txtMunicipio_D").text(Informacion.Nombre_Municipio);
+  $("#txtTipo_D").text(Informacion.SubTipo);
+  $("#txtBarrio_Vereda_D").text(Informacion.Nombre_Barrio_Vereda);
+  $("#txtDireccion_D").text(Informacion.Direccion);
+  $("#txtOperador_tbl_Lineas_D").text(Informacion.Nombre_Operador);
+  $("#txtCalificacion_D").text(Informacion.Calificacion);
+  if (Informacion.Razones == ",") {
+    $("#txtRazones_D").text("No especificado");
+  } else {
+    $("#txtRazones_D").text(Informacion.Razones);
+  }
 
   // Crear tabla detalle líneas.
   if (Informacion.Detalle_Lineas) {
@@ -72,14 +75,13 @@ CargarDatosModalDetalles = (Informacion) => {
                 </tr>
             `);
     }
-    $("#txtCantidad_Lineas1_D").text(Informacion.Cantidad_Total_Lineas)
-    $("#txtValor_Mensual1_D").text(Informacion.Valor_Total_Mensual)
-
+    $("#txtCantidad_Lineas1_D").text(Informacion.Cantidad_Total_Lineas);
+    $("#txtValor_Mensual1_D").text(Informacion.Valor_Total_Mensual);
   } else {
-    $("#Tabla_Detalle_Lineas").css("display", "none");
+    $("#Tabla_Detalle_Lineas_D").css("display", "none");
     $("#Datos_Validacion").removeAttr("style");
-    $("#txtCantidad_Lineas2_D").text(Informacion.Cantidad_Total_Lineas)
-    $("#txtValor_Mensual2_D").text(Informacion.Valor_Total_Mensual)
+    $("#txtCantidad_Lineas2_D").text(Informacion.Cantidad_Total_Lineas);
+    $("#txtValor_Mensual2_D").text(Informacion.Valor_Total_Mensual);
   }
 
   let Id_Plan_Corporativo = parseInt(Informacion.Id_Plan_Corporativo);
@@ -96,9 +98,9 @@ CargarDatosModalDetalles = (Informacion) => {
       $("#txtClausulaPermanencia_D").text("No");
     }
 
-    $("#txtFecha_Inicio_D").text(Informacion.Fecha_Inicio)
-    $("#txtFecha_Fin_D").text(Informacion.Fecha_Fin)
-    $("#txtDescripcion_D").text(Informacion.Descripcion)
+    $("#txtFecha_Inicio_D").text(Informacion.Fecha_Inicio);
+    $("#txtFecha_Fin_D").text(Informacion.Fecha_Fin);
+    $("#txtDescripcion_D").text(Informacion.Descripcion);
 
     if (Id_Documentos > 0) {
       $("#Menu_Doc").removeAttr("style");

@@ -59,7 +59,7 @@
 
     {{!-- Directorio --}}
     {{#if Directorio}}
-    <script src="/controladores-ajax/Clientes/ListarClientes-admin.js"></script>
+    <script src="/controladores-ajax/Clientes/ListarClientes.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
     <script src="/controladores-ajax/Clientes/EliminarCliente.js"></script>
     <script src="/controladores-ajax/Clientes/ImportarClientes.js"></script>
@@ -83,9 +83,10 @@
     {{/if}}
 
     {{!-- Llamadas --}}
-    {{!-- {{#if Llamada_NP}}
+    {{#if Llamadas}}
     <script src="/controladores-ajax/Llamadas/ListarLlamadas.js"></script>
-    {{/if}} --}}
+    <script src="/controladores-ajax/Llamadas/DetallesLlamada.js"></script>
+    {{/if}}
 
     {{#if Registrar_Llamada_NP}}
     <!-- Cronómetro -->

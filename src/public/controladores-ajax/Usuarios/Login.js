@@ -91,7 +91,6 @@ $(function () {
     rules: {
       Usuario: {
         required: true,
-        minlength: 5,
         maxlength: 20,
       },
       Contrasena: {

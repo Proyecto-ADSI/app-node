@@ -65,10 +65,6 @@ let RegistrarUsuario = (imagen) => {
     datos.RegistrarAsesorExterno = true;
     Object.defineProperties(datos, {
       Nombre: {
-        value: "Operador",
-        enumerable: true,
-      },
-      Apellidos: {
         value: $("#txtNombreOperador").val(),
         enumerable: true,
       },
@@ -142,14 +138,14 @@ let CargarImagenRegistro = () => {
     data: formData,
     contentType: false,
     processData: false,
-    success: function(res){
+    success: function (res) {
       let imagen = res.data.pathArchivo;
       RegistrarUsuario(imagen);
     },
-    error: function(err){
-      console.log(err)
-    }
-  })
+    error: function (err) {
+      console.log(err);
+    },
+  });
 };
 
 CargarTiposDocumentos = () => {
@@ -262,16 +258,14 @@ ListarRoles = (datos) => {
 };
 
 $(function () {
-  
   // Inicializar selects del formulario
   CargarTiposDocumentos();
   CargarSexos();
   CargarTurnos();
-  ObtenerSession().then(data => {
+  ObtenerSession().then((data) => {
     let Id_Rol = data.session.Id_Rol;
     CargarRoles(Id_Rol);
   });
-  
 
   $("#FormRegistroUsuario").validate({
     submitHandler: function (form, event) {
@@ -447,7 +441,7 @@ $(function () {
     RegistrarEmpleado = true;
     let selRol = $("#txtRol option");
     if (selRol.length == 1) {
-      ObtenerSession().then(data => {
+      ObtenerSession().then((data) => {
         let Id_Rol = data.session.Id_Rol;
         CargarRoles(Id_Rol);
       });
@@ -460,7 +454,7 @@ $(function () {
     RegistrarEmpleado = false;
     let selRol = $("#txtRol option");
     if (selRol.length == 1) {
-      ObtenerSession().then(data => {
+      ObtenerSession().then((data) => {
         let Id_Rol = data.session.Id_Rol;
         CargarRoles(Id_Rol);
       });
