@@ -29,11 +29,18 @@
 <!-- Sweetalert -->
 <script src="/assets/plugins/sweetalert/sweetalert.min.js"></script>
 <!-- DataTable -->
-<script src="/assets/plugins/datatables/datatables.js"></script>
+<script src="/assets/plugins/datatables/datatables.min.js"></script>
 <script src="/assets/plugins/datatables/Responsive-2.2.4/js/dataTables.responsive.min.js"></script>
+{{!-- Seleccionar filas. --}}
+<script src="/assets/plugins/datatables/Select-1.3.1/js/dataTables.select.min.js"></script>
 <!-- BotonesDataTable -->
 <script src="/assets/plugins/datatables/Buttons-1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="/assets/plugins/datatables/Buttons-1.6.1/js/buttons.bootstrap4.min.js"></script>
 <script src="/assets/plugins/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
+<!--Exportar tablas excel pdf -->
+<script src="/assets/plugins/datatables/JSZip-2.5.0/jszip.min.js"></script>
+<script src="/assets/plugins/datatables/pdfmake-0.1.36/pdfmake.min.js"></script>
+<script src="/assets/plugins/datatables/pdfmake-0.1.36/vfs_fonts.js"></script>
 <!-- Idioma DataTable -->
 <script src="/js/DataTable.js"></script>
 <!-- Switchery -->
@@ -85,8 +92,12 @@
 <script src="/assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>
 <!-- Toast -->
 <script src="/assets/plugins/toast-master/js/jquery.toast.js"></script>
+<!-- ToastTr -->
+<script src="/assets/plugins/toastr/toastr.min.js"></script>
 <!--Color picker -->
 <script src="/assets/plugins/pickr-master/dist/pickr.min.js"></script>
+<!--Chart Js -->
+<script src="/assets/plugins/ChartJs/Chart.min.js"></script>
 
 {{!-- Funcionalidades --}}
 {{#xif session.Tema '==' 0}}

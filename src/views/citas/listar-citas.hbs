@@ -1,255 +1,116 @@
-<div class="card ">
-    <div class="card-header MyStyle_Card_Header">
-        <h4 class="m-b-0 text-white">Registro de citas</h4>
-    </div>
-    <div class="card-body" id="Card-Body-Filtrar-Citas">
-        <!-- Filtro -->
-        <div class="card MyStyle_Card_Filtro card-outline-primary">
-            <div class="card-header">
-                <h4 class="m-b-0 text-white">Filtro:</h4>
+        <div class="card">
+            <div class="card-header MyStyle_Card_Header">
+                <div class="row">
+                    <div class="col-md-10">
+                        <h4 class="m-b-0 text-white">Lista de citas:</h4>
+                    </div>              
+                </div>
             </div>
-            <div class="card-body" id="Card-Body-Filtrar-Citas2">
-                <form class="" action="" method="POST">
+            <div class="card-body">
+
+                  <div class="card MyStyle_Card_Filtro card-outline-info">
+            <div class="card-header">
+                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
+            </div>
+            <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="m-t-30">NIT</label>
-                            <input class="selectpicker form-control" id="Citas-Nit" style="width: 100%;"
-                                placeholder="Ingrese un NIT">
-                        </div>
-                        <div class="col-md-4">
-                            <label class="m-t-30">Empresa</label>
-                            <input class="selectpicker form-control" id="Citas-Razon-Social" style="width: 100%;"
-                                placeholder="Ingrese razón social">
-                        </div>
-
-                        <div class="col-md-4">
-                            <label class="m-t-30">Operador</label>
-                            <select class="selectpicker form-control" id="Citas-Operador" style="width: 100%;">
-                                <option disabled selected>Operador...</option>
-                                <option>Claro</option>
-                                <option>Movistar</option>
-                            </select>
-                        </div>
-
-                    </div>
-                    <div class="row">
-
-                        <div class="col-md-4">
+                                <div class="example">
+                                    <label class="m-t-30">Empresa cita</label>
+                                    <input type="text" class="form-control" id="Empresa-Cita" placeholder="Empresa">
+                                </div>
+                            </div>
+                        <div class="col-md-7">
                             <div class="example">
-                                <label class="m-t-30">Rango de Fechas</label>
-                                <input class="form-control input-daterange-datepicker" type="text" id="Citas-Fechas"
-                                    name="daterange" value="" />
+                                <label class="m-t-30">Fecha cita</label>
+                                 <div class="input-daterange input-group" id="Fecha-Cita">
+                                        <span class="input-group-addon">Inicio</span>
+                                        <input type="text" class="input-sm form-control" 
+                                            id="Fecha-Cita-Inicio" placeholder="dd/mm/yyyy" />
+                                        <span class="input-group-addon">Fin</span>
+                                        <input type="text" class="input-sm form-control"
+                                            id="Fecha-Cita-Fin" placeholder="dd/mm/yyyy" />
+                                    </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="m-t-30">Hora</label>
-                            <div class="input-group clockpicker " data-placement="bottom" data-align="top"
-                                data-autoclose="true">
-                                <input type="text" class="form-control" id="Citas-Hora" value="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
+                    </div>
+                    <div class="row">  
+                           <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Hora cita</label>
+                                 <div class="input-group clockpicker" data-placement="bottom"
+                                 data-align="top" data-autoclose="true">
+                                  <div class="input-group-append"><span class="input-group-text"><i
+                                class="fa fa-clock-o"></i></span>
+                              </div>
+                                <input type="text" id="Hora-Cita-Filtro" class="form-control"    placeholder="Hora">
+                                
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <h5 class="m-t-30">Estado</h5>
-                            <select class="selectpicker form-control" style="width: 100%;">
-                                <option disabled selected>Seleccione...</option>
-                                <option>Efectiva</option>
-                                <option>Programada</option>
-                                <option>No Efectiva</option>
-                                <option>Sin realizar</option>
-                            </select>
+                            <div class="example">
+                                <label class="m-t-30">Operador cita</label>
+                                <input class="form-control" type="text" id="Cita-Operador-Filtro"
+                                 placeholder="Operador">
+                            </div>
                         </div>
-
-
+                          <div class="col-md-4">
+                            <div class="example">
+                                <label class="m-t-30">Estado cita</label>
+                                <input class="form-control" type="text" id="Cita-Estado-Filtro"
+                                 placeholder="Estado">
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                                <button type="submit" class="btn btn-info"><i class="fas fa-search"></i>
-                                    Consultar</button>
-                                <button class="btn btn-warning" style="margin-left: 1.7rem;"><i
-                                        class="fas fa-filter"></i> Filtro avanzado </button>
+                                <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-info">
+                                    Limpiar filtro avanzado <i class="fa fa-trash"></i></button>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
 
-        <!-- Tabla -->
-        <div class="row">
-            <form action="">
-                <div class="table-responsive m-t-40" style="position:relative; left:20px;">
-                    <table id="example" class="table table-bordered table-striped MyStyle_Color-Table">
-                        <thead>
+             
+
+                <!--************** DataTable ***************************** -->
+
+                <div class="table-responsive">
+                    <table id="CitasDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
+                       <thead>
                             <tr>
-                                <th class="MyStyle_Table_num"> <i class="fa  fa-file-pdf-o"></i> </th>
-                                <th class="MyStyle_Table_num">#</th>
+                                <th><i class="fa fa-check-circle"></i></th>
                                 <th>Empresa</th>
-                                <th class="MyStyle_Table_Fecha">Fecha </th>
-                                <th class="MyStyle_Table_Hora">Hora</th>
                                 <th>Operador</th>
-                                <th>Líneas</th>
-                                <th class="MyStyle_Table_Estado">Estado</th>
+                                <th>Fecha </th>
+                                <th>Hora</th>
+                                <th>Estado</th>
                                 <th class="MyStyle_Table_Opciones">Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="MyStyle_demo-checkbox">
-                                        <input type="checkbox" id="basic_checkbox_1" hidden />
-                                        <label for="basic_checkbox_1"></label>
-                                    </div>
-                                </td>
-                                <td>1</td>
-                                <td>Tapitas S.A.S</td>
-                                <td>12/08/2019</td>
-                                <td>11:00 am</td>
-                                <td>
-                                    <div class="label label-table label-danger">Claro</div>
-                                </td>
-                                <td>4</td>
-                                <td>
-                                    <div class="label label-table label-info">Efectiva</div>
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="js-switch" data-color="#f62d51"
-                                        data-secondary-color="#26c6da" data-size="small" />
-
-                                    <a href="#" data-toggle="modal" class="btn btn-warning"
-                                        data-target=".ModalDetalles">
-                                        <i class="fa  fa-eye"></i>
-                                    </a>
-
-                                    <a href="../Llamadas/AgregarLlamada.html" data-toggle="tooltip"
-                                        data-original-title="Editar" class="btn btn-info">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-
-                                    <button type="button" data-toggle="tooltip" data-original-title="Eliminar"
-                                        class="btn btn-danger">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="MyStyle_demo-checkbox">
-                                        <input type="checkbox" id="basic_checkbox_2" hidden />
-                                        <label for="basic_checkbox_2"></label>
-                                    </div>
-                                </td>
-                                <td>2</td>
-                                <td>Cemento S.A.S</td>
-                                <td>12/08/2019</td>
-                                <td> 3:00 pm</td>
-                                <td>
-                                    <div class="label label-table label-success">Movistar</div>
-                                </td>
-                                <td>8</td>
-                                <td>
-
-                                    <div class="label label-table label-warning">Reprogramada</div>
-
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="js-switch" data-color="#f62d51"
-                                        data-secondary-color="#26c6da" data-size="small" />
-
-                                    <a href="#" data-toggle="modal" class="btn btn-warning"
-                                        data-target=".ModalDetalles">
-                                        <i class="fa  fa-eye"></i>
-
-                                    </a>
-
-                                    <a href="../Llamadas/AgregarLlamada.html" data-toggle="tooltip"
-                                        data-original-title="Editar" class="btn btn-info">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-
-                                    <button type="button" data-toggle="tooltip" data-original-title="Eliminar"
-                                        class="btn btn-danger">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="MyStyle_demo-checkbox">
-                                        <input type="checkbox" id="basic_checkbox_3" hidden />
-                                        <label for="basic_checkbox_3"></label>
-                                    </div>
-                                </td>
-                                <td>3</td>
-                                <td>Floristería S.A.S</td>
-                                <td>12/08/2019</td>
-                                <td>9:00 am</td>
-                                <td>
-                                    <div class="label label-table label-danger">Claro</div>
-                                </td>
-                                <td>4</td>
-                                <td>
-                                    <div class="label label-table label-danger">No Efectiva</div>
-                                </td>
-                                <td>
-                                    <input type="checkbox" class="js-switch" data-color="#f62d51"
-                                        data-secondary-color="#26c6da" data-size="small" />
-
-                                    <a href="#" data-toggle="modal" class="btn btn-warning"
-                                        data-target=".ModalDetalles">
-                                        <i class="fa  fa-eye"></i>
-
-                                    </a>
-
-                                    <a href="../Llamadas/AgregarLlamada.html" data-toggle="tooltip"
-                                        data-original-title="Editar" class="btn btn-info">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-
-                                    <button type="button" data-toggle="tooltip" data-original-title="Eliminar"
-                                        class="btn btn-danger">
-                                        <i class="fa fa-close"></i>
-                                    </button>
-                                </td>
-                            </tr>
-
                         </tbody>
                     </table>
+                    <div class="form-group m-t-30">
+                    <button type="button" class="btn btn-info mr-3" id="BtnReporte" title="Agregar citas a reporte"> <i
+                    class="fa  fa-file-pdf-o"></i> Citas en reporte</button>
+
+                    <button type="button" class="btn btn-danger" id="BtnInterna" title="Agregar citas a internas"><i class="fa  fa-calendar"></i> Citas internas</button>
+
+                   
                 </div>
-
-                <div class="MyStyle_demo-checkbox">
-                    <input type="checkbox" id="basic_checkbox_4" hidden />
-                    <label for="basic_checkbox_4" style="margin-top: 2rem; margin-left: 0.5rem;"></label>
-                    <p style="margin-left: 3.0rem; margin-top: -2.1rem;">Seleccionar todo</p>
+                
                 </div>
-
-                <div class="form-group m-t-30" style="margin-left: 1rem;">
-
-
-
-                    <a href="ReporAgregaOperador.html" class="btn btn-rounded btn-info"> <i
-                            class="fa  fa-file-pdf-o"></i> Agregar reporte</a>
-
-                    <a href="Agenda.html" class="btn btn-rounded btn-danger"> <i class="fa  fa-calendar"></i> Citas
-                        internas</a>
-
-                </div>
-
-
-
-
-            </form>
+            </div>
         </div>
     </div>
 </div>
-
 <!-- Detalle empresa -->
 <div class="modal fade ModalDetalles" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-    style="display: none;">
+    style="display: none;" id="myModal">
     <div class="modal-dialog " style="max-width: 1000px">
         <div class="modal-content">
             <div class="modal-header">
@@ -263,7 +124,7 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#DatosBasicos" role="tab"><span
+                                <a class="nav-link active" id="DateBasic" data-toggle="tab" href="#DatosBasicos" role="tab"><span
                                         class="hidden-sm-up"><i class="ti-home"></i></span>
                                     <span class="hidden-xs-down">
                                         Información contacto
@@ -289,18 +150,8 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#ReporteOperador" role="tab"><span
-                                        class="hidden-sm-up"><i class="ti-email"></i></span>
-                                    <span class="hidden-xs-down">
-                                        Reporte operador
-                                    </span>
-                                </a>
-                            </li>
-
-
-                            <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#ReporteCitaAsesor" role="tab"><span
+                            <li class="nav-item" id="ReportVisit" >
+                                <a class="nav-link" data-toggle="tab" href="#ReporteCitaAsesor" role="start"><span
                                         class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">
                                         Reporte visita
@@ -331,8 +182,8 @@
                                                             <label class="control-label text-right">
                                                                 NIT:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                1213235113-8
+                                                            <p class="form-control-static" id="Nit-Citas">
+                                                              
                                                             </p>
 
                                                         </div>
@@ -344,9 +195,8 @@
                                                                 Razón
                                                                 Social:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Tapitas
-                                                                S.A.S
+                                                            <p class="form-control-static" id="RazonSocial-Citas">
+
                                                             </p>
 
                                                         </div>
@@ -357,8 +207,8 @@
                                                             <label class="control-label text-right">
                                                                 Teléfono:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                12132
+                                                            <p class="form-control-static" id="Telefono-Citas">
+                                                            
                                                             </p>
 
                                                         </div>
@@ -367,74 +217,8 @@
 
                                                 </div>
                                                 <!--/row-->
-                                                <div class="row">
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Departamento:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Municipio:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Tipo:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Barrio
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                </div>
+            
                                                 <!--/row-->
-                                                <div class="row">
-
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Barrio/Vereda:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Dirección:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12132
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
-                                                </div>
                                                 <!-- /Row -->
                                             </div>
                                             <!-- Form-Body -->
@@ -475,8 +259,8 @@
                                                                 Persona que responde
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Dueño empresa
+                                                            <p class="form-control-static" id="DueñoEmpresa-Citas">
+                                                              
                                                             </p>
 
                                                         </div>
@@ -487,8 +271,8 @@
                                                             <label class="control-label text-right">
                                                                 Fecha llamada:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                12/12/12
+                                                            <p class="form-control-static" id="FechaLlamada-Citas">
+                                                               
                                                             </p>
                                                         </div>
                                                     </div>
@@ -505,8 +289,8 @@
 
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                8:00 PM
+                                                            <p class="form-control-static" id="HoraLlamada-Cita">
+                                                             
                                                             </p>
 
                                                         </div>
@@ -515,12 +299,12 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                habeas data
+                                                                Habeas data
 
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                si
+                                                            <p class="form-control-static" id="InfoHabeas-Citas">
+                                                                
                                                             </p>
 
                                                         </div>
@@ -532,8 +316,8 @@
                                                                 Estado
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                efectiva
+                                                            <p class="form-control-static" id="EstadoLlamada-Citas">
+                                                                
                                                             </p>
 
                                                         </div>
@@ -544,13 +328,8 @@
                                                                 Observación
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Lorem ipsum dolor sit amet consectetur
-                                                                adipisicing elit.
-                                                                Molestiae aut vel cum similique debitis
-                                                                quos dicta adipisci ab beatae quaerat?
-                                                                Provident aliquid eum facere quia dicta
-                                                                quis quasi culpa. Enim?
+                                                            <p class="form-control-static" id="ObservacionLlamada-Citas">
+                                                               
                                                             </p>
 
                                                         </div>
@@ -588,8 +367,8 @@
                                                             <label class="control-label text-right">
                                                                 Fecha cita:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                12/12/12
+                                                            <p class="form-control-static" id="Fecha-Cita">
+                                                               
                                                             </p>
 
                                                         </div>
@@ -601,8 +380,8 @@
                                                                 Hora cita
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                8:00 PM
+                                                            <p class="form-control-static" id="Hora-Cita">
+                                                               
                                                             </p>
 
                                                         </div>
@@ -613,8 +392,8 @@
                                                             <label class="control-label text-right">
                                                                 Departamento:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Antioquia
+                                                            <p class="form-control-static" id="Departamento-Cita">
+                                                               
                                                             </p>
 
                                                         </div>
@@ -630,8 +409,8 @@
                                                             <label class="control-label text-right">
                                                                 Municipio:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Copacabana
+                                                            <p class="form-control-static" id="Municipio-Cita">
+                                                               
                                                             </p>
 
                                                         </div>
@@ -642,8 +421,8 @@
                                                             <label class="control-label text-right">
                                                                 Barrio:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                San Juan
+                                                            <p class="form-control-static" id="Barrio-Cita">
+                                                                
                                                             </p>
 
                                                         </div>
@@ -654,8 +433,8 @@
                                                             <label class="control-label text-right">
                                                                 Nomenclatura:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Crr34,#22-12
+                                                            <p class="form-control-static" id="Direccion-Cita">
+                                                                
                                                             </p>
 
                                                         </div>
@@ -673,100 +452,6 @@
                                 </div>
 
                             </div>
-                            <div class="tab-pane" id="ReporteOperador" role="tabpanel">
-                                <div class="card MyStyle_Card_Detalle">
-                                    <div class="card-body">
-                                        <!-- Formulario -->
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-body">
-                                                <h3 class="box-title">
-                                                    Información
-                                                    Reporte operador
-                                                </h3>
-                                                <hr class="m-t-0 m-b-40">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                fecha reporte:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                12/12/12
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Estado :
-
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Habilitado
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Operador:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Claro
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
-                                                </div>
-
-
-
-                                                <!--/row-->
-                                                <div class="row">
-
-
-                                                </div>
-                                                <!--/row-->
-
-                                                <h3 class="box-title">
-                                                    pdf reporte
-                                                </h3>
-                                                <hr class="m-t-0 m-b-40">
-
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Reporte cita
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                <button class="btn btn-outline-primary">
-                                                                    Descargar</button>
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
-                                                    <!--/col-->
-
-                                                    <!--/col-->
-                                                </div>
-                                                <!-- /Row -->
-                                            </div>
-                                            <!-- Form-Body -->
-                                        </form>
-                                        <!-- /Formulario -->
-                                    </div>
-                                </div>
-                            </div>
-
                             <!--ultimo car reporte cita-->
                             <div class="tab-pane" id="ReporteCitaAsesor" role="tabpanel">
                                 <div class="card MyStyle_Card_Detalle">
@@ -784,73 +469,43 @@
                                                             <label class="control-label text-right">
                                                                 Fecha visita:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                12/12/12
+                                                            <p class="form-control-static" id="Fecha-Visita">
+                                                                
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
+                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                Hora visita:
-
+                                                                Tipo de venta:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                8:00 PM
+                                                            <p class="form-control-static" id="TipoVenta-Citas">
+                                                                
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
+                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                Tipo de venta
+                                                                Estado visita:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Paquete de internet
+                                                            <p class="form-control-static" id="EstadoVisita-Citas">
+                                                                
                                                             </p>
-
                                                         </div>
                                                     </div>
                                                     <!--/col-->
-
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                Calificación:
+                                                                Asesor:
                                                             </label>
-                                                            <p class="form-control-static">
-                                                                Buena
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Total líneas :
-
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                3
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Total cargos básicos:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                35.0000
+                                                            <p class="form-control-static" id="Asesor-Cita">
+                                                                
                                                             </p>
 
                                                         </div>
@@ -859,62 +514,7 @@
 
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Sugerencias:
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Lorem ipsum dolor, sit amet consectetur
-                                                                adipisicing elit. Debitis veniam ipsam
-                                                                facere corrupti harum est ipsa assumenda
-                                                                perspiciatis,
-                                                                earum id a necessitatibus nulla error
-                                                                deleniti fuga vero quam! Ipsam,
-                                                                delectus.
-                                                                Lorem ipsum dolor sit, amet consectetur
-                                                                adipisicing elit. Similique esse dolorem
-                                                                exercitationem. Nisi corporis nobis
-                                                                quia,
-                                                                velit nostrum assumenda minus incidunt
-                                                                optio facilis ullam possimus. Quam quo
-                                                                minus aliquid iure?
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-                                                    <div class="col-md-6">
-                                                        <div class="form-group">
-                                                            <label class="control-label text-right">
-                                                                Observaciones :
-
-                                                            </label>
-                                                            <p class="form-control-static">
-                                                                Lorem ipsum dolor, sit amet consectetur
-                                                                adipisicing elit. Debitis veniam ipsam
-                                                                facere corrupti harum est ipsa assumenda
-                                                                perspiciatis,
-                                                                earum id a necessitatibus nulla error
-                                                                deleniti fuga vero quam! Ipsam,
-                                                                delectus.
-                                                                Lorem ipsum dolor sit, amet consectetur
-                                                                adipisicing elit. Similique esse dolorem
-                                                                exercitationem. Nisi corporis nobis
-                                                                quia,
-                                                                velit nostrum assumenda minus incidunt
-                                                                optio facilis ullam possimus. Quam quo
-                                                                minus aliquid iure?
-                                                            </p>
-
-                                                        </div>
-                                                    </div>
-                                                    <!--/col-->
-
-                                                    <!--/col-->
-
-                                                </div>
+                                     
 
 
 

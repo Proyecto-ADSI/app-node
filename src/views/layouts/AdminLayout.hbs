@@ -72,6 +72,15 @@
     <script src="/controladores-ajax/Clientes/EditarCliente.js"></script>
     {{/if}}
 
+    {{#if Estadisticas}}
+     <script src="/controladores-ajax/Graficas/Graficas.js"></script>
+    {{/if}}
+
+
+    {{#if Llamada_NP}}
+    <script src="/controladores-ajax/Citas/ListarCitas.js"></script>
+    <script src="/controladores-ajax/Citas/DetallesCitas.js"></script>
+    {{/if}}
 
     {{!-- Llamadas --}}
     {{#if Llamadas}}
