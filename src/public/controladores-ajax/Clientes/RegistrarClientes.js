@@ -304,6 +304,9 @@ $(function () {
     }
   });
 
+  // Advertencia servicios
+  EnlazarClickAdvertencias();
+
   $("#txtPais").change(function () {
     let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
     let Departamentos = DatosUbicacion.Departamentos;
@@ -406,7 +409,7 @@ let SubirDocumentos = () => {
 let RegistrarCliente = (objDocumentos) => {
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
-
+    let ValidacionDBL = false;
     // Formatear celular
     let codigo = $("#txtCodigoPostal").val();
     let celular = $("#txtCelular").val();
@@ -416,6 +419,7 @@ let RegistrarCliente = (objDocumentos) => {
     // Servicios Fijos
     let serviciosFijos = null;
     if (localStorage.ServiciosFijos) {
+      ValidacionDBL = true;
       let localServiciosFijos = JSON.parse(
         localStorage.getItem("ServiciosFijos")
       );
@@ -435,6 +439,11 @@ let RegistrarCliente = (objDocumentos) => {
     let Valor_Total_Mensual = 0;
     if (localStorage.ServiciosMoviles) {
       let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
+
+      // Validación BDL
+      if (ServiciosMoviles.length > 0) {
+        ValidacionDBL = true;
+      }
 
       let GrupoLineas = 0;
       for (let lineaItem of ServiciosMoviles) {
@@ -497,12 +506,31 @@ let RegistrarCliente = (objDocumentos) => {
       Cantidad_Total_Lineas = arrayLineas.length;
     }
 
+    // Validaciones DBL
+    let Operador = $("#txtOperador").val();
+    if (Operador !== null) {
+      if (!isNaN(Operador)) {
+        Operador = parseInt(Operador);
+        ValidacionDBL = true;
+      }
+    }
+
+    let calificacion = $("#txtCalificacion").val();
+    if (calificacion !== null) {
+      if (!isNaN(calificacion)) {
+        calificacion = parseInt(calificacion);
+        ValidacionDBL = true;
+      }
+    }
+
     let arrayRazones = $("#txtRazones").val();
     let stringRazones = "";
-    if (arrayRazones.length > 0)
+    if (arrayRazones.length > 0) {
+      ValidacionDBL = true;
       for (let razon of arrayRazones) {
         stringRazones += razon + ", ";
       }
+    }
 
     let datos = {
       // Notificacion
@@ -525,20 +553,15 @@ let RegistrarCliente = (objDocumentos) => {
         $("#txtDireccion").val() == "" ? null : $("#txtDireccion").val(),
       Estado_Cliente: 1,
       //DBL
-      Id_Operador:
-        parseInt($("#txtOperador").val()) === NaN
-          ? null
-          : parseInt($("#txtOperador").val()),
-      Id_Calificacion_Operador:
-        parseInt($("#txtCalificacion").val()) === NaN
-          ? null
-          : parseInt($("#txtCalificacion").val()),
+      Id_Operador: Operador,
+      Id_Calificacion_Operador: calificacion,
       Razones: stringRazones === "" ? null : stringRazones,
       Cantidad_Lineas: Cantidad_Total_Lineas,
       Valor_Mensual: Valor_Total_Mensual.toString(),
       ServiciosFijos: serviciosFijos,
       ServiciosMoviles: arrayLineas,
       // Validacion
+      Validacion_DBL: ValidacionDBL,
       Validacion_PLan_C: false,
       Validacion_Doc_S: false,
     };
@@ -908,7 +931,7 @@ let CargarOperadores = () => {
     success: function (datos) {
       $("#txtOperador").empty();
       $("#txtOperador").prepend(
-        "<option selected disabled >Seleccione...</option>"
+        "<option selected disabled value='0'>Seleccione...</option>"
       );
       for (let item of datos.data) {
         let $opcion = $("<option />", {
@@ -933,7 +956,7 @@ let CargarCalificaciones = () => {
     success: function (datos) {
       $("#txtCalificacion").empty();
       $("#txtCalificacion").prepend(
-        "<option selected disabled >Seleccione...</option>"
+        "<option selected disabled value='0'>Seleccione...</option>"
       );
       for (let item of datos.data) {
         let $opcion = $("<option />", {

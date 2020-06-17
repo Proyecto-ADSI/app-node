@@ -68,7 +68,13 @@ $(function () {
   });
 
   $("#txtNumero1").change(function () {
-    numero1 = $("#txtNumero1").val();
+    let valid = form.validate().element(this);
+    validarError("#txtNumero1-error");
+    if (valid) {
+      numero1 = $("#txtNumero1").val();
+    } else {
+      numero1 = "";
+    }
     PrevisualizarDireccion();
   });
 
@@ -83,7 +89,13 @@ $(function () {
   });
 
   $("#txtNumero2").change(function () {
-    numero2 = "# " + $("#txtNumero2").val();
+    let valid = form.validate().element(this);
+    validarError("#txtNumero2-error");
+    if (valid) {
+      numero2 = "# " + $("#txtNumero2").val();
+    } else {
+      numero2 = "";
+    }
     PrevisualizarDireccion();
   });
 
@@ -98,7 +110,13 @@ $(function () {
   });
 
   $("#txtNumero3").change(function () {
-    numero3 = "- " + $("#txtNumero3").val();
+    let valid = form.validate().element(this);
+    validarError("#txtNumero3-error");
+    if (valid) {
+      numero3 = "- " + $("#txtNumero3").val();
+    } else {
+      numero3 = "";
+    }
     PrevisualizarDireccion();
   });
 
@@ -223,6 +241,17 @@ $(function () {
         value: `${datos[i]}`,
       });
       $(selector).append(opcion);
+    }
+  };
+
+  let validarError = (selector) => {
+    let error1 = $(selector);
+    error1 = error1[0];
+    let error2 = $(selector).next();
+    if (error2.length > 0) {
+      error2 = error2[0];
+      parent = error1.parentNode;
+      parent.removeChild(error2);
     }
   };
 });

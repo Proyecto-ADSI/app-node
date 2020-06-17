@@ -291,6 +291,15 @@ $(function () {
       $("#txtDetalle_Cantidad_LDI").attr("disabled", true);
     }
   });
+
+  if (localStorage.ServiciosMoviles) {
+    let serviciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
+    if (serviciosMoviles.length > 0) {
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      $(".switch_cita1").bootstrapSwitch("disabled", false);
+      $(".switch_AT1").bootstrapSwitch("disabled", false);
+    }
+  }
 });
 
 // Detalle Líneas
@@ -971,4 +980,99 @@ let getArrayString = (string) => {
   }
 
   return arrayStringFormatiado;
+};
+
+// Alertas Toast
+let EnlazarClickAdvertencias = () => {
+  $(".bootstrap-switch-label").click(function () {
+    let input = $(this).next().next();
+    let clase = $(input).attr("class");
+    ValidarAlertaServicios(clase);
+  });
+  $(".bootstrap-switch-handle-off").click(function () {
+    let input = $(this).next();
+    let clase = $(input).attr("class");
+    ValidarAlertaServicios(clase);
+  });
+};
+
+let ValidarAlertaServicios = (clase) => {
+  switch (clase) {
+    case "switch_corporativo":
+      if ($(".switch_corporativo").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_cita1":
+      if ($(".switch_cita1").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_cita2":
+      if ($(".switch_cita2").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_AT1":
+      if ($(".switch_AT1").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_AT2":
+      if ($(".switch_AT2").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_enviarCitaDespues":
+      if ($(".switch_enviarCitaDespues").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(2);
+      }
+      break;
+  }
+};
+
+let GenerarAlertasToast = (categoria) => {
+  switch (categoria) {
+    case 1:
+      $.toast({
+        heading: "¡Advertencia!",
+        text: '<p class="jq-toast-body">Primero debes registrar servicios.</p>',
+        position: "top-right",
+        bgColor: "#00897b",
+        loaderBg: "#383f48",
+        icon: "warning",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 2:
+      $.toast({
+        heading: "¡Advertencia!",
+        text:
+          '<p class="jq-toast-body">Primero debes validar NIT y dirección.</p>',
+        position: "top-right",
+        bgColor: "#00897b",
+        loaderBg: "#383f48",
+        icon: "warning",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 3:
+      $.toast({
+        heading: "¡No se puede enviar!",
+        text:
+          '<p class="jq-toast-body">Primero debes finalizar la llamada.</p>',
+        position: "top-right",
+        // bgColor: "#ff6849",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+  }
 };
