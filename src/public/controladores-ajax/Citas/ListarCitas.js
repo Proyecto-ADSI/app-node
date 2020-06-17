@@ -139,7 +139,7 @@ $(function () {
                 <div class="dropdown-menu animated rubberBand">
                     <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
-                    <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                    <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
               </div>
               </div>
   
@@ -508,7 +508,7 @@ $(function () {
       });
     } else {
       GuardarFilaSeleccionada.forEach((element) => {
-        if (element.Id_Estado_Cita == "6") {
+        if (element.Id_Estado_Cita == "4") {
           let ArrayCitasId = [];
           let Cita = {
             Id: parseInt(element.Id_Cita),
@@ -538,7 +538,7 @@ $(function () {
       location.href = "/App/Admin/Agenda";
     } else {
       GuardarFilaSeleccionada.forEach((element) => {
-        if (element.Id_Estado_Cita == "6") {
+        if (element.Id_Estado_Cita == "4") {
           let ArrayCitasId = [];
 
           let Cita = {

@@ -180,7 +180,7 @@ $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
 
   let DataCitas = {
     Id_Cita: parseInt(Citas7.Id_Cita),
-    Estadovg: 15,
+    Estadovg: 14,
   };
 
   $.ajax({
