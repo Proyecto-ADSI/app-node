@@ -21,7 +21,7 @@ $(function () {
                 <div class="row">
                   <div class="col-md-3">
                     <span class="round MyStyle_FondoRound">
-                        <img src="/assets/images/usuarios/${row.Imagen}" alt="user" width="50">
+                        <img src="${URL}/Images/Usuarios/${row.Imagen}" alt="user" width="50">
                     </span>
                   </div>
                   <div class="col-md-4">

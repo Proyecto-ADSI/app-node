@@ -201,7 +201,7 @@ $(document).on("click", "#btnDetalles", function () {
 $(document).on("click", "#btnEditar", function () {
   let datosCliente = DataTable.row($(this).parents("tr")).data();
   sessionStorage.DatosEditarCliente = JSON.stringify(datosCliente);
-  location.href = "/App/Admin/Directorio/Editar";
+  Redireccionar("/Directorio/Editar");
 });
 
 // Cambiar estado -> Inhabilitar/Habilitar

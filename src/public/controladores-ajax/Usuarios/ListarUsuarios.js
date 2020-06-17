@@ -1,3 +1,5 @@
+var DataTableUsuarios = null;
+
 ObtenerUsuario = (Id_Usuario, Modal) => {
   $.ajax({
     url: `${URL}/Usuarios/${Id_Usuario}`,
@@ -17,7 +19,7 @@ ObtenerUsuario = (Id_Usuario, Modal) => {
     },
   });
 };
-var DataTableUsuarios = null;
+
 $(function () {
   ObtenerSession().then((data) => {
     Id_Rol = parseInt(data.session.Id_Usuario);
@@ -41,7 +43,7 @@ $(function () {
                   <div class="row">
                     <div class="col-md-3">
                       <span class="round MyStyle_FondoRound">
-                          <img src="http://localhost:8081/Images/Usuarios/${row.Imagen}" alt="user" width="50">
+                          <img src="${URL}/Images/Usuarios/${row.Imagen}" alt="user" width="50">
                       </span>
                     </div>
                     <div class="col-md-4">
@@ -194,7 +196,7 @@ $(function () {
             secondaryColor: "#f62d51",
             size: "small",
           });
-
+          switchs = s;
           if (Estado_Usuario == 0) {
             s.setPosition(false, true);
           } else if (Estado_Usuario == 1) {
@@ -229,30 +231,61 @@ $(document).on("click", "#btnEditar", function () {
 });
 
 // Cambiar estado -> Inhabilitar/Habilitar
-$(document).on("click", ".switchery ", function () {
+$(document).on("click", ".switchery ", function (e) {
+  let datos = DataTableUsuarios.row($(this).parents("tr")).data();
+  let Id_Usuario_Estado = datos.Id_Usuario;
   let fila = $(this).closest("tr");
   let switchElem = fila.find(".js-switch")[0];
 
-  let datos = DataTableUsuarios.row($(this).parents("tr")).data();
-  let Id_Usuario_Estado = datos.Id_Usuario;
+  if (datos.Email_Valido == 0) {
+    // Eliminar
+    parent = switchElem.parentNode;
+    parent.removeChild(switchElem);
+    parent.removeChild(this);
+    // Crear nuevo switch
+    $(parent).prepend(
+      `<input type="checkbox" id="switch_cliente" class="js-switch"/>`
+    );
+    let NewswitchElem = Array.prototype.slice.call($(fila).find(".js-switch"));
+    NewswitchElem.forEach(function (html) {
+      let s = new Switchery(html, {
+        color: "#26c6da",
+        secondaryColor: "#f62d51",
+        size: "small",
+      });
+      s.setPosition(false, true);
+    });
 
-  // Cambiar Estado Usuario
-  let Estado;
-  if (switchElem.checked) {
-    Estado = 1;
+    // Alerta
+    $.toast({
+      heading: "No se puede habilitar.",
+      text: '<p class="jq-toast-body">El usuario no ha validado su correo.</p>',
+      position: "top-right",
+      loaderBg: "#ff6849",
+      icon: "error",
+      hideAfter: 3000,
+      showHideTransition: "slide",
+      stack: 1,
+    });
   } else {
-    Estado = 0;
-  }
+    // Cambiar Estado Usuario
+    let Estado;
+    if (switchElem.checked) {
+      Estado = 1;
+    } else {
+      Estado = 0;
+    }
 
-  $.ajax({
-    url: `${URL}/Usuarios/CambiarEstado/${Id_Usuario_Estado}/${Estado}`,
-    type: "get",
-    datatype: "json",
-    success: function (datos) {},
-    error: function (error) {
-      console.log(error);
-    },
-  });
+    $.ajax({
+      url: `${URL}/Usuarios/CambiarEstado/${Id_Usuario_Estado}/${Estado}`,
+      type: "get",
+      datatype: "json",
+      success: function (datos) {},
+      error: function (error) {
+        console.log(error);
+      },
+    });
+  }
 });
 
 // Eliminar usuarios y empleado
@@ -294,4 +327,8 @@ let LimpiarFiltro = () => {
   $("#Filtro-Nombre").val("");
   $("#Filtro-Correo").val("");
   DataTableUsuarios.columns().search("").draw();
+};
+
+RecargarDataTable = () => {
+  DataTableUsuarios.ajax.reload();
 };

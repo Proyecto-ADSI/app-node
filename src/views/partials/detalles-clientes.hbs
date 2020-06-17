@@ -1,6 +1,6 @@
 <div class="modal-body">
     <div class="card m-b-0 m-t-0">
-        <div class="card-body p-b-0 p-t-0">
+        <div class="card-body">
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a id="Menu_Info" class="nav-link active" data-toggle="tab" href="#DatosBasicos" role="tab"><span
@@ -17,7 +17,7 @@
                 <li class="nav-item">
                     <a id="Menu_Plan" class="nav-link" data-toggle="tab" href="#Corporativo" role="tab">
                         <span class="hidden-sm-up"><i class="ti-email"></i></span>
-                        <span class="hidden-xs-down"> Plan Corporativo </span>
+                        <span class="hidden-xs-down"> Plan corporativo </span>
                     </a>
                 </li>
                 {{#xif session.Id_Rol '==' 1}}
@@ -107,9 +107,19 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="font-weight-bold text-right">
-                                                Extensión o celular:
+                                                Correo:
                                             </label>
-                                            <p id="txtExtension_celular_D" class="form-control-static">
+                                            <p id="txtCorreo_D" class="form-control-static">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="font-weight-bold text-right">
+                                                Celular:
+                                            </label>
+                                            <p id="txtCelular_D" class="form-control-static">
 
                                             </p>
                                         </div>
@@ -179,7 +189,7 @@
                 <!-- Información Líneas -->
                 <div class="tab-pane" id="Lineas" role="tabpanel">
                     <div class="card MyStyle_Card_Detalle m-b-0">
-                        <div class="card-body p-b-0">
+                        <div class="card-body ">
                             <div class="row">
                                 <div class="col-md-8">
                                     <h3 class="box-title">
@@ -220,6 +230,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr class="m-t-10 m-b-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="font-weight-bold"> <i class="fa fa-home"></i> Servicios fijos:</h3>
+                                </div>
+                            </div>
+                            <div id="ValServiciosFijosDetalle" class="row">
+                                <div id="ServiciosFijosDetalle" class="col-md-12">
+
+                                </div>
+                            </div>
+                            <div id="ValNoServicios1Detalle" class="row ">
+                                <div class="col-md-12">
+                                    <h5 class="text-center font-weight-bold"><i class="fa fa-warning"></i>
+                                        No hay servicios fijos registrados.</h5>
+                                </div>
+                            </div>
+                            <hr class="m-t-10 m-b-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="font-weight-bold"> <i class="fa fa-mobile-phone"></i> Servicios móviles:
+                                    </h3>
+                                </div>
+                            </div>
                             <div id="Datos_Validacion" class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
@@ -242,44 +276,54 @@
                                     </div>
                                 </div>
                             </div>
+                            <div id="ValNoServicios2Detalle" class="row">
+                                <div class="col-md-12">
+                                    <h5 class="text-center font-weight-bold"><i class="fa fa-warning"></i>
+                                        No hay servicios móviles registrados.</h5>
+                                </div>
+                            </div>
                             <div id="Tabla_Detalle_Lineas_D" class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                        <table class="table color-table info-table">
+                                        <table id="DataTableServiciosDetalle"
+                                            class="table MyStyle_Color-Table display nowrap" style="width:100%">
                                             <thead>
                                                 <tr>
-                                                    <th>Línea</th>
-                                                    <th>Minutos</th>
-                                                    <th>Datos</th>
-                                                    <th>Otros</th>
-                                                    <th class="MyStyle_Cargo_Detalle_Linea">
-                                                        Cargo</th>
+                                                    <th class="text-center">Número línea</th>
+                                                    <th class="text-center">Cargo básico</th>
+                                                    <th class="text-center">Navegación</th>
+                                                    <th class="text-center">Minutos</th>
+                                                    <th class="text-center">Mensajes</th>
+                                                    <th class="text-center">Redes sociales </th>
+                                                    <th class="text-center">Minutos LDI</th>
+                                                    <th class="text-center">Cantidad LDI</th>
+                                                    <th class="text-center">Serivicios adicionales</th>
                                                 </tr>
                                             </thead>
-                                            <tbody id="Tbody_detalle_Lineas_D">
+                                            <tbody id="TblRegistroDetalleLineas">
+
 
                                             </tbody>
-                                            <tfoot>
+                                            {{!-- <tfoot id="tFootRegistroDetalleCliente">
                                                 <tr>
                                                     <td>
-                                                        <h5 class="box-title font-weight-bold d-inline-block">
-                                                            Total:</h5>
-                                                        <p id="txtCantidad_Lineas1_D"
-                                                            class="float-right font-weight-bold">
-                                                        </p>
+                                                        <h5 class="box-title">Total:</h5>
                                                     </td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td>4</td>
                                                     <td>
                                                         <i class="fa fa-dollar"></i>
-                                                        <div id="txtValor_Mensual1_D"
-                                                            class="float-right font-weight-bold">
-                                                        </div>
+                                                        <div class="float-right">$100,000</div>
                                                     </td>
                                                     <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                 </tr>
-                                            </tfoot>
+                                            </tfoot> --}}
                                         </table>
                                     </div>
                                 </div>
@@ -405,7 +449,7 @@
                                 <div class="col-md-2">
                                     <button class="btn btn-outline-info" data-toggle="modal"
                                         data-target="#facturaModal">
-                                        <i class="fa fa-file-text-o"></i> Factura
+                                        <i class="fa fa-file-text-o"></i> Oferta
                                     </button>
                                 </div>
                             </div>

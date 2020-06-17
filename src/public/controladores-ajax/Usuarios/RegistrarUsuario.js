@@ -63,6 +63,7 @@ let RegistrarUsuario = (imagen) => {
     });
   } else if (RegistrarAsesorExterno) {
     datos.RegistrarAsesorExterno = true;
+    datos.Rol = parseInt($("#txtRol2").val());
     Object.defineProperties(datos, {
       Nombre: {
         value: $("#txtNombreOperador").val(),
@@ -89,21 +90,15 @@ let RegistrarUsuario = (imagen) => {
     processData: false,
     success: function (respuesta) {
       if (respuesta.data.ok) {
-        swal(
-          {
-            title: "Usuario registrado correctamente.",
-            type: "success",
-            showCancelButton: false,
-            confirmButtonColor: "#2F6885",
-            confirmButtonText: "Continuar",
-            closeOnConfirm: false,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              Redireccionar("/Usuarios");
-            }
-          }
-        );
+        swal({
+          title: "Registro exitoso.",
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+        setTimeout(function () {
+          Redireccionar("/Usuarios");
+        }, 1000);
       } else {
         swal({
           title: "Error al registrar.",
@@ -289,12 +284,35 @@ $(function () {
         RegistrarUsuario(null);
       }
     },
+    onkeyup: function (element) {
+      if (element.id == "txtDocumento" || element.id == "txtUsuario") {
+        return false;
+      }
+    },
     rules: {
       txtTipoDocumento: "required",
       txtDocumento: {
         required: true,
         number: true,
         minlength: 5,
+        remote: {
+          url: `${URL}/Empleados/Validacion/Disponible`,
+          type: "get",
+          dataType: "json",
+          data: {
+            txtDocumento: function () {
+              return $("#txtDocumento").val();
+            },
+          },
+          dataFilter: function (res) {
+            var json = JSON.parse(res);
+            if (json.data) {
+              return '"true"';
+            } else {
+              return '"Documento ya registrado"';
+            }
+          },
+        },
       },
       txtNombre: {
         required: true,
@@ -439,39 +457,24 @@ $(function () {
     RegistrarAsesorExterno = false;
     SeleccionarEmpleado = false;
     RegistrarEmpleado = true;
-    let selRol = $("#txtRol option");
-    if (selRol.length == 1) {
-      ObtenerSession().then((data) => {
-        let Id_Rol = data.session.Id_Rol;
-        CargarRoles(Id_Rol);
-      });
-    }
+    $("#valRolesUsuarios1").removeAttr("style");
+    $("#valRolesUsuarios2").attr("style", "display:none");
   });
 
   $("#tabSeleccionarEmpleado").click(function () {
     RegistrarAsesorExterno = false;
     SeleccionarEmpleado = true;
     RegistrarEmpleado = false;
-    let selRol = $("#txtRol option");
-    if (selRol.length == 1) {
-      ObtenerSession().then((data) => {
-        let Id_Rol = data.session.Id_Rol;
-        CargarRoles(Id_Rol);
-      });
-    }
+    $("#valRolesUsuarios1").removeAttr("style");
+    $("#valRolesUsuarios2").attr("style", "display:none");
   });
 
   $("#tabRegistarAE").click(function () {
     RegistrarAsesorExterno = true;
     SeleccionarEmpleado = false;
     RegistrarEmpleado = false;
-    $("#txtRol").empty();
-    let opcion = $("<option />", {
-      text: "Asesor externo",
-      value: "6",
-      selected: true,
-    });
-    $("#txtRol").append(opcion);
+    $("#valRolesUsuarios2").removeAttr("style");
+    $("#valRolesUsuarios1").attr("style", "display:none");
   });
 
   $("#btnRegresar").click(function () {

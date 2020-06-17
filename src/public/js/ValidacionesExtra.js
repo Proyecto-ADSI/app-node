@@ -83,19 +83,25 @@ $.validator.addMethod(
   function (value, element) {
     let boolValiacion = true;
     let id_linea = $(element).attr("id_linea");
-    let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+    let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
 
     if (typeof id_linea !== "undefined") {
-      for (let linea of DetalleLineas) {
+      for (let linea of ServiciosMoviles) {
         if (linea.id == id_linea) {
-          console.log(parseInt(linea.cantidadLineas));
           if (value < parseInt(linea.cantidadLineas)) {
             boolValiacion = false;
           }
+          // let validacionNumero = false;
+          // for (let numero of linea.NumerosLineas) {
+          //   if (numero !== "" && numero !== "0") {
+          //     validacionNumero = true;
+          //   }
+          // }
+          // if (validacionNumero) {
+          // }
         }
       }
     }
-
     return boolValiacion;
   },
   "No se puede disminuir la cantidad, consulte el detalle."

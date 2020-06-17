@@ -1,11 +1,10 @@
 <div class="row">
-    <div class="col-12">
+    <div class="col-md-12">
         <div class="card">
+            <div class="card-header MyStyle_Card_Header ">
+                <h2 class="text-white">Registro de clientes</h2>
+            </div>
             <div class="card-body wizard-content">
-                <h4 class="card-title">
-                    Registro de clientes:
-                </h4>
-                <hr class="m-t-10 m-b-20">
                 <form id="Form_Registro_Clientes" class="wizard-circle">
                     <!-- Step 1 -->
                     <h6>Información de contacto</h6>
@@ -32,6 +31,15 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="int1">Extensión:</label>
+                                    <input type="text" class="form-control" id="txtExtension" name="txtExtension"
+                                        placeholder="Ext:101">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label class="control-label">
                                         NIT:
                                     </label>
@@ -39,8 +47,6 @@
                                         placeholder="12345678-9">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="int1">Encargado:</label>
@@ -50,9 +56,25 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="int1">Extensión o celular:</label>
-                                    <input type="text" class="form-control" id="txtExt_Tel_Contacto"
-                                        name="txtExt_Tel_Contacto" placeholder=" 101 | 3123456789">
+                                    <label for="int1">Correo</label>
+                                    <input type="text" class="form-control" id="txtCorreo" name="txtCorreo"
+                                        placeholder="ejemplo@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="int1">Código postal:</label>
+                                    <input type="text" class="form-control" id="txtCodigoPostal" name="txtCodigoPostal"
+                                        placeholder="+57" value="57">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="int1">Celular:</label>
+                                    <input type="text" class="form-control" id="txtCelular" name="txtCelular"
+                                        placeholder="Número: 3123456789">
                                 </div>
                             </div>
                         </div>
@@ -74,7 +96,8 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="control-label">Departamento: <span class="text-danger">*</span></label>
+                                    <label class="control-label">Departamento: <span
+                                            class="text-danger">*</span></label>
                                     <select name="txtDepartamento" id="txtDepartamento"
                                         class="select2 form-control custom-select" style="width: 100%; height:36px;">
                                         <option selected disabled>Seleccione...</option>
@@ -178,227 +201,7 @@
                                 </div>
                             </div>
                         </div>
-                        <h4 class="box-title font-weight-bold">Detalle de las líneas:</h4>
-                        <hr class="m-t-0 m-b-20">
-                        <div class="row">
-                            <input type="hidden" id="txtDetalleId" value="0">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="int1 "> Número de líneas:</label>
-                                    <input type="number" class="form-control detalleLinea"
-                                        id="txtDetalle_Cantidad_Lineas" name="txtDetalle_Cantidad_Lineas"
-                                        placeholder="Cantidad: 10">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        Pago <strong>mensual:</strong>
-                                    </label>
-                                    <div class="input-group">
-                                        <input id="txtDetalle_Valor_Mensual" type="text" name="txtDetalle_Valor_Mensual"
-                                            class="form-control detalleLinea" placeholder="Valor: $100000">
-                                        <div class="input-group-append">
-                                            <span class="input-group-text">COP</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group m-t-20 has-danger">
-                                    <input name="detalleLineasRadios" type="radio" class="with-gap detalleLinea"
-                                        id="txtDetalle_radio" value="1">
-                                    <label id="lblDetalle_radio" for="txtDetalle_radio">En total </label>
-                                    <input name="detalleLineasRadios" type="radio" class="with-gap detalleLinea"
-                                        id="txtDetalle_radio2" value="2">
-                                    <label id="lblDetalle_radio2" for="txtDetalle_radio2">Por cada línea </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="jobTitle2 ">Navegación:</label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control detalleLinea" id="txtDetalleNavegacion"
-                                            name="txtDetalleNavegacion" placeholder="1">
-                                        <div class="input-group-append">
-                                            <select name="txtDetalleUnidad" id="txtDetalleUnidad"
-                                                class="select2 form-control custom-select">
-                                                <option selected value="GB">GB</option>
-                                                <option value="MG">MG</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <label for="int1 ">Minutos:</label>
-                                    <input type="checkbox" id="txtDetalle_Validacion_Ilimitados"
-                                        name="txtDetalle_Validacion_Ilimitados" class="MyStyle_Checkbox detalleLinea">
-                                    <label for="txtDetalle_Validacion_Ilimitados">Ilimitados</label>
-                                    <input type="text" class="form-control detalleLinea" id="txtDetalle_Minutos"
-                                        name="txtDetalle_Minutos" placeholder="300">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-                                    <input type="checkbox" id="txtDetalle_Minutos_TO" name="txtDetalle_Minutos_TO"
-                                        class="MyStyle_Checkbox detalleLinea">
-                                    <label for="txtDetalle_Minutos_TO">Todo operador</label>
-                                    <input type="text" class="form-control detalleLinea" name="txtDetalle_Minutos_Otro"
-                                        id="txtDetalle_Minutos_Otro" placeholder="Otro:">
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group m-t-20">
-                                    <input type="checkbox" id="checkbox_mensajes" name="txtDetalle_Mensajes"
-                                        class="MyStyle_Checkbox detalleLinea">
-                                    <label for="checkbox_mensajes">Mensajes de texto</label>
-
-                                    <input type="checkbox" id="checkbox_llamadas" name="txtDetalle_Llamadas"
-                                        class="MyStyle_Checkbox detalleLinea">
-                                    <label for="checkbox_llamadas">Llamadas internacionales</label>
-                                </div>
-                            </div>
-                            <div class="col-md-3 ">
-                                <div class="form-group m-t-20">
-                                    <input type="checkbox" id="checkbox_redes" name="txtDetalle_Redes"
-                                        class="MyStyle_Checkbox detalleLinea">
-                                    <label for="checkbox_redes">Redes sociales</label>
-
-                                    <input type="checkbox" id="checkbox_roaming" name="txtDetalle_Roaming"
-                                        class="MyStyle_Checkbox detalleLinea">
-                                    <label for="checkbox_roaming">Roaming internacional</label>
-
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="m-t-0 m-b-20">
-                        <div class="row m-b-20">
-                            <div class="col-md-8">
-                                <h4 class="box-title font-weight-bold">Información de líneas del cliente:</h4>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" id="btnLimpiar" class="btn btn-primary">Limpiar
-                                    formulario</button>
-                            </div>
-                            <div class="col-md-2">
-                                <button type="button" id="btnGuardarDetalleLineas" class="btn btn-info">Guardar
-                                    líneas</button>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="table-responsive">
-                                    <table class="table color-table info-table">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>Cantidad</th>
-                                                <th>Pago mensual</th>
-                                                <th>Datos</th>
-                                                <th>Minutos</th>
-                                                <th>Otros</th>
-                                                <th>Tipo</th>
-                                                <th style="min-width: 150px;">Opciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="TblRegistroDetalleLineas">
-
-                                        </tbody>
-                                        <tfoot id="tFootRegistroDetalleCliente">
-
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Modal líneas -->
-                        <div class="modal fade" id="LineasModal" role="dialog">
-                            <div class="modal-dialog " style="max-width: 800px">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h2 class="modal-title font-weight-bold">Registro de número de líneas:</h2>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                            aria-hidden="true">×</button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row m-t-10 m-b-10">
-                                            <div class="col-md-6">
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <h3 class="text-center font-weight-bold">
-                                                            <i class="fa fa-file-text-o m-r-5"></i> Información
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="table-responsive">
-                                                            <table id="ClientesDataTable"
-                                                                class="table table-bordered table-striped MyStyle_Color-Table">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="min-width: 200px;">Concepto</th>
-                                                                        <th>Valor</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody id="tbodyModalLinea">
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="row m-b-20">
-                                                    <div class="col-md-10">
-                                                        <h3 class="text-center font-weight-bold">
-                                                            <i class="fa fa-list m-r-5"></i> Números de líneas
-                                                        </h3>
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="input-group-append">
-                                                            <button type="button" class="btn btn-outline-success"
-                                                                onclick="AgregarInput(1,0,true);">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="ModalNumerosLineas">
-                                                    <div class="form-group removeclass0">
-                                                        <div class="row form-group">
-                                                            <div class="col-md-12">
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control"
-                                                                        name="txtNumeroLinea"
-                                                                        placeholder="Ingresa un número">
-                                                                    <div class="input-group-append">
-                                                                        <button class="btn btn-outline-danger"
-                                                                            type="button" onclick="Eliminarinput(0)">
-                                                                            <i class="fa fa-minus"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-outline-danger"
-                                            data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-outline-info"
-                                            onclick="RegistrarNumeros();">Guardar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {{>registrar-detalle-servicios}}
                     </section>
                     <!-- Step 3 -->
                     <h6>Plan corporativo</h6>
@@ -531,10 +334,13 @@
                             </div>
                         </div>
                     </section>
+                    {{>modal-numeros-lineas}}
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+{{>listar-detalle-servicios}}
 
 {{>direccion}}

@@ -5,13 +5,12 @@ const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const session = require("express-session");
-var cookieParser = require('cookie-parser');
+var cookieParser = require("cookie-parser");
 
-
-//*** Inicializaciones ***/ 
+//*** Inicializaciones ***/
 const app = express();
 
-//*** Configuraciones ***/ 
+//*** Configuraciones ***/
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.engine(
@@ -21,12 +20,12 @@ app.engine(
     layoutsDir: path.join(app.get("views"), "layouts"),
     partialsDir: path.join(app.get("views"), "partials"),
     extname: ".hbs",
-    helpers: require('./lib/handlebars')
+    helpers: require("./lib/handlebars"),
   })
 );
 app.set("view engine", ".hbs");
 
-//*** Middlewares ***/ 
+//*** Middlewares ***/
 // Ver peticiones en consola.
 app.use(morgan("dev"));
 // Recibir datos de peticiones
@@ -35,27 +34,27 @@ app.use(bodyParser.json());
 // Acceder a la cookie del navegador.
 app.use(cookieParser());
 // Inicializar sesión
-app.use(session({
-  // Nombre de la cookie
-  key: 'user_sid',
-  // Cada sesión se guarda de manera única.
-  secret: "Call-Phone-Soft-Session",
-  // Que se inicialice.
-  saveUninitialized: false,
-  // Que se vuelva a guardar.
-  resave: false,
-  }
-));
+app.use(
+  session({
+    // Nombre de la cookie
+    key: "user_sid",
+    // Cada sesión se guarda de manera única.
+    secret: "Call-Phone-Soft-Session",
+    // Que se inicialice.
+    saveUninitialized: false,
+    // Que se vuelva a guardar.
+    resave: false,
+  })
+);
 
 app.use((req, res, next) => {
   if (req.cookies.user_sid && !req.session.datos_usuario) {
-      res.clearCookie('user_sid');        
+    res.clearCookie("user_sid");
   }
   next();
 });
 
-
-//*** Rutas ***/ 
+//*** Rutas ***/
 // Ruta inicial
 app.use(require("./routes/index"));
 // Ruta de logeo y cerrar sesión
@@ -63,15 +62,15 @@ app.use(require("./routes/autenticacion"));
 // Rutas Admin
 app.use("/App/Admin", require("./routes/rutas-admin"));
 // Rutas Coordinador
-app.use('/App/Coordinador',require('./routes/rutas-coordinador'));
+app.use("/App/Coordinador", require("./routes/rutas-coordinador"));
 // // Rutas Contact
-app.use('/App/ContactCenter',require('./routes/rutas-contact'));
+app.use("/App/ContactCenter", require("./routes/rutas-contact"));
 // // Rutas AsesorI
-app.use('/App/AsesorInterno',require('./routes/rutas-asesorI'));
+app.use("/App/AsesorInterno", require("./routes/rutas-asesorI"));
 // // Rutas AsesorE
-app.use('/App/AsesorExterno',require('./routes/rutas-asesorE'));
+app.use("/App/AsesorExterno", require("./routes/rutas-asesorE"));
 // // Rutas GestionC
-app.use('/App/GestionCliente',require('./routes/rutas-gestionC'));
+app.use("/App/GestionCliente", require("./routes/rutas-gestionC"));
 
 // Código público (accesible para el navegador)
 app.use(express.static(path.join(__dirname, "public")));
@@ -95,12 +94,17 @@ const io = socket(server);
 //   socket.on("chat:typing", function (data) {
 //     socket.broadcast.emit("chat:typing", data);
 //   });
-// });  
+// });
 
-const clientesSocket = io.of('/Clientes');
-clientesSocket.on('connection', (socket) =>{
-  socket.on('Notificar', function(){
-    socket.broadcast.emit('Notificar');
+const clientesSocket = io.of("/Clientes");
+clientesSocket.on("connection", (socket) => {
+  socket.on("Notificar", function () {
+    socket.broadcast.emit("Notificar");
   });
-})
-
+});
+const usuariosSocket = io.of("/Usuarios");
+usuariosSocket.on("connection", (socket) => {
+  socket.on("RecargarDataTableUsuarios", function () {
+    socket.broadcast.emit("RecargarDataTableUsuarios");
+  });
+});

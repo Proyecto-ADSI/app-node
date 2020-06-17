@@ -12,6 +12,7 @@ var id = 0;
 var form = null;
 
 $(function () {
+  controlServicios = 2;
   var stepPlanCorp;
   var stepDoc;
   form = $("#Form_Editar_Clientes").show();
@@ -105,57 +106,233 @@ $(function () {
       rules: {
         txtRazonSocial: {
           required: true,
-          minlength: 5,
+          minlength: 2,
+          maxlength: 45,
           SoloAlfanumericos: true,
         },
         txtTelefono: {
           required: true,
           SoloNumeros: true,
-          minlength: 5,
-          maxlength: 10,
+          minlength: 7,
+          maxlength: 7,
         },
-        txtNIT: {
-          ValidarNIT: true,
-          minlength: 5,
-        },
-        txtEncargado: {
-          SoloLetras: true,
-        },
-        txtExt_Tel_Contacto: {
+        txtExtension: {
           SoloNumeros: true,
           minlength: 2,
           maxlength: 10,
         },
-        // txtPais: "required",
-        // txtDepartamento: "required",
-        // txtMunicipio: "required",
-        // txtSubTipo: "required",
-        // txtNombre_Lugar: "required",
-        // txtDireccion: "required",
-        txtOperador: "required",
-        txtDetalle_Cantidad_Lineas: {
-          required: true,
+        txtNIT: {
+          ValidarNIT: true,
+          minlength: 9,
+          maxlength: 11,
+        },
+        txtEncargado: {
+          SoloLetras: true,
+          maxlength: 45,
+        },
+        txtCorreo: {
+          ValidarCorreo: true,
+          maxlength: 45,
+        },
+        txtCodigoPostal: {
           SoloNumeros: true,
+          maxlength: 5,
+          minlength: 1,
+        },
+        txtCelular: {
+          NumeroMovil: true,
+          minlength: 10,
+          maxlength: 10,
+        },
+        txtPais: "required",
+        txtDepartamento: "required",
+        txtMunicipio: "required",
+        txtDetalle_Cantidad_Lineas: {
+          maxlength: 3,
+          required: true,
+          SoloNumeros2: true,
           ValidarCantidadLineas: true,
         },
         txtDetalle_Valor_Mensual: {
           required: true,
-          SoloNumeros: true,
+          maxlength: 45,
+          SoloNumeros2: true,
         },
         detalleLineasRadios: "required",
         txtDetalleNavegacion: {
+          maxlength: 45,
           SoloNumeros: true,
         },
         txtDetalle_Minutos: {
-          SoloAlfanumericos: true,
+          maxlength: 45,
+          SoloNumeros: true,
         },
-        txtDetalle_Minutos_Otro: {
-          SoloAlfanumericos: true,
+        txtDetalle_Mensajes: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Cantidad_LDI: {
+          maxlength: 45,
+          SoloNumeros: true,
         },
       },
     });
 
-  // // Inicializar elementos:
+  // Inicializar elementos:
+
+  Informacion = JSON.parse(sessionStorage.getItem("DatosEditarCliente"));
+
+  // DataTableServicios = $("#DataTableServicios")
+  //   .DataTable({
+  //     responsive: true,
+  //     columns: [
+  //       {
+  //         render: function (data, type, row) {
+  //           let text = data + " líneas";
+  //           return text;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           return data;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           if (data == NA) {
+  //             return data;
+  //           }
+  //           let text = data + " GB";
+  //           return text;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           return data;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           return data;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           if (type === "display") {
+  //             if (data.length == 0) {
+  //               return NA;
+  //             }
+  //             let html = "";
+  //             for (let item of data) {
+  //               html =
+  //                 html +
+  //                 `
+  //                 <div class="label label-table text-center" style="background-color:#00897b">
+  //                 ${item}
+  //                 </div>
+  //               `;
+  //             }
+  //             return html;
+  //           } else {
+  //             let text = "";
+  //             for (let item of data) {
+  //               text = text + ", " + item;
+  //             }
+  //             return text;
+  //           }
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           if (type === "display") {
+  //             if (data.length == 0) {
+  //               return NA;
+  //             }
+  //             let html = "";
+  //             for (let item of data) {
+  //               html =
+  //                 html +
+  //                 `
+  //                 <div class="label label-table text-center" style="background-color:#00897b">
+  //                 ${item}
+  //                 </div>
+  //               `;
+  //             }
+  //             return html;
+  //           } else {
+  //             return data;
+  //           }
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           return data;
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           if (type === "display") {
+  //             if (data.length == 0) {
+  //               return NA;
+  //             }
+  //             let html = "";
+  //             for (let item of data) {
+  //               html =
+  //                 html +
+  //                 `
+  //                 <div class="label label-table text-center" style="background-color:#00897b">
+  //                 ${item}
+  //                 </div>
+  //               `;
+  //             }
+  //             return html;
+  //           } else {
+  //             return data;
+  //           }
+  //         },
+  //       },
+  //       {
+  //         render: function (data, type, row) {
+  //           if (type === "display") {
+  //             return `
+  //               <button type="button" id="DetallesLineasDetalle" id_linea="${data}"
+  //                 class="btn btn-primary btn-sm"><i class="mdi mdi-cellphone-android"></i>
+  //               </button>
+  //               <button type="button" id="DetallesLineasEditar" id_linea="${data}"
+  //                 class="btn btn-info btn-sm"> <i class="fa fa-pencil"></i>
+  //               </button>
+  //               <button type="button" id="DetallesLineasEliminar" id_linea="${data}"
+  //                 class="btn btn-danger btn-sm"><i class="fa fa-close"></i>
+  //               </button>
+  //             `;
+  //           }
+  //           return data;
+  //         },
+  //       },
+  //     ],
+  //     columnDefs: [
+  //       { responsivePriority: 1, targets: 0 },
+  //       { responsivePriority: 2, targets: -1 },
+  //     ],
+  //     language: {
+  //       lengthMenu: "Mostrar _MENU_ registros",
+  //       zeroRecords: "No se encontraron resultados",
+  //       info:
+  //         "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+  //       infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+  //       infoFiltered: "(filtrado de un total de _MAX_ registros)",
+  //       sSearch: "Buscar:",
+  //       oPaginate: {
+  //         sFirst: "Primero",
+  //         sLast: "Último",
+  //         sNext: "Siguiente",
+  //         sPrevious: "Anterior",
+  //       },
+  //       sProcessing: "Procesando...",
+  //     },
+  //   })
+  //   .columns.adjust()
+  //   .responsive.recalc();
 
   // bootstrap-switch
   $(".switch_corporativo").bootstrapSwitch({
@@ -163,6 +340,27 @@ $(function () {
     offText: "NO",
     onColor: "success",
     offColor: "danger",
+  });
+
+  //  Selects input
+  $("#txtRazones").select2({
+    tags: true,
+    tokenSeparators: [","],
+  });
+  $("#txtDetalleMinutosLDI").select2({
+    multiple: true,
+    tags: true,
+    tokenSeparators: [","],
+  });
+  $("#txtDetallle_Redes_Sociales").select2({
+    multiple: true,
+    tags: true,
+    tokenSeparators: [","],
+  });
+  $("#txtDetalle_Servicios_Adicionales").select2({
+    multiple: true,
+    tags: true,
+    tokenSeparators: [","],
   });
 
   // Enlazar eventos de escucha:
@@ -311,216 +509,57 @@ $(function () {
     PonerBarrios_Veredas(Id_Municipio, Id_SubTipo);
   });
 
-  $("#btnLimpiar").click(function () {
-    LimpiarDetalleLinea();
-  });
+  // $("#btnLimpiar").click(function () {
+  //   LimpiarDetalleLinea();
+  // });
 
-  $("#btnGuardarDetalleLineas").click(function () {
-    form.validate().settings.ignore = ":disabled,:hidden, .valDetalle";
-    if (form.valid()) {
-      $("#txtDetalleId").val() == "0"
-        ? RegistrarDetalleLinea()
-        : EditarDetalleLinea();
-    }
-  });
+  // $("#btnGuardarDetalleLineas").click(function () {
+  //   form.validate().settings.ignore = ":disabled,:hidden, .valDetalle";
+  //   if (form.valid()) {
+  //     $("#txtDetalleId").val() == "0"
+  //       ? RegistrarDetalleLinea()
+  //       : EditarDetalleLinea();
 
-  // Validación minutos ilimitados.
-  $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").change(
-    function () {
-      if ($(this).is(":checked")) {
-        $("#txtDetalle_Minutos").prop("disabled", true);
-      } else {
-        $("#txtDetalle_Minutos").prop("disabled", false);
-      }
-    }
-  );
+  //     // Detalles líneas
+  //     DetalleServiciosMoviles();
+  //     // Editar linea
+  //     ObtenerDataLineasEditar();
+  //     // Eliminar línea.
+  //     EliminarDetalleLinea();
+  //   }
+  // });
 
-  // Detalles líneas
+  // // Validación minutos ilimitados.
+  // $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").change(
+  //   function () {
+  //     if ($(this).is(":checked")) {
+  //       $("#txtDetalle_Minutos").prop("disabled", true);
+  //     } else {
+  //       $("#txtDetalle_Minutos").prop("disabled", false);
+  //     }
+  //   }
+  // );
 
-  $(document).on("click", "#DetallesLineasDetalle", function () {
-    let idLinea = $(this).attr("id_linea");
-    let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+  // // Validación mensajes ilimitados.
+  // $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").change(
+  //   function () {
+  //     if ($(this).is(":checked")) {
+  //       $("#txtDetalle_Mensajes").prop("disabled", true);
+  //     } else {
+  //       $("#txtDetalle_Mensajes").prop("disabled", false);
+  //     }
+  //   }
+  // );
 
-    DetalleLineas.forEach(function (linea, indice, array) {
-      if (linea.id == idLinea) {
-        let minutos = "";
-
-        if (linea.minIlimitados) {
-          minutos += "Ilimitados";
-        } else {
-          minutos += linea.minutos;
-        }
-
-        if (linea.todoOperador) {
-          minutos += ",todo operador";
-        }
-
-        if (linea.minOtro != "") {
-          minutos += "," + linea.minOtro;
-        }
-
-        let Valor_Total_Mensual = 0;
-        // Establecer valor total mensual de las lineas.
-        if (linea.valValorLineas == "1") {
-          Valor_Total_Mensual += parseInt(linea.valorMensual);
-        } else if (linea.valValorLineas == "2") {
-          Valor_Total_Mensual +=
-            parseInt(linea.valorMensual) * parseInt(linea.cantidadLineas);
-        }
-
-        $("#tbodyModalLinea").empty();
-        $("#tbodyModalLinea").append(`
-                    <tr id="txtIdLineasModalNumeros" style="display:none" >
-                        <td>${linea.id}</td>
-                    </tr>
-                        <tr>
-                            <td> Cantidad líneas </td>
-                            <td><p id="txtIncrementarLineas" class="float-right"> ${
-                              linea.cantidadLineas
-                            }</p></td>
-                        </tr>
-                        <tr>
-                            <td><h5 class="text-danger font-weight-bold text-uppercase">Pago mensual</h5></td>
-                            <td>
-                                <i class="fa fa-dollar text-danger"></i>
-                                <h5 class="float-right text-danger font-weight-bold">
-                                    ${Valor_Total_Mensual}
-                                </h5>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Navegación</td>
-                            <td>
-                            ${linea.navegacion + " " + linea.unidad}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Minutos</td>
-                            <td>
-                                ${minutos}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Otros</td>
-                            <td>
-
-                            ${
-                              linea.mensajes
-                                ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl1">Mensajes</label>'
-                                : ""
-                            }
-
-                            ${
-                              linea.redes
-                                ? '<input type="radio" class="with-gap" id="radio_tbl" checked><label for="radio_tbl">Redes</label>'
-                                : ""
-                            }
-                            
-                            ${
-                              linea.llamadas
-                                ? '<input type="radio" class="with-gap" id="radio_tbl" checked>  <label for="radio_tbl1">Llamadas</label>'
-                                : ""
-                            }
-    
-                            ${
-                              linea.roaming
-                                ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl">Roaming</label>'
-                                : ""
-                            }
-                            </td>
-                        </tr>
-
-
-                        `);
-
-        $("#ModalNumerosLineas").empty();
-        if (typeof linea.NumerosLineas !== "undefined") {
-          if (typeof linea.id_lineas !== "undefined") {
-            AgregarInput(
-              linea.NumerosLineas.length,
-              linea.NumerosLineas,
-              linea.id_lineas
-            );
-          } else {
-            AgregarInput(linea.NumerosLineas.length, linea.NumerosLineas);
-          }
-        } else {
-          AgregarInput(linea.cantidadLineas, 0, 0, false);
-        }
-
-        $(".txtNumeroLinea").each(function () {
-          $(this).rules("add", {
-            ValidarCelular: true,
-            minlength: 10,
-            maxlength: 10,
-          });
-        });
-
-        $("#LineasModal").modal("show");
-      }
-    });
-  });
-
-  $(document).on("click", "#DetallesLineasEditar", function () {
-    let idLinea = $(this).attr("id_linea");
-    let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-    DetalleLineas.forEach(function (valor, indice, array) {
-      if (valor.id == idLinea) {
-        $("#txtDetalleId").val(valor.id);
-        $("#txtDetalleId").attr("grupo", valor.grupo);
-        $("#txtDetalle_Cantidad_Lineas").val(valor.cantidadLineas);
-        $("#txtDetalle_Cantidad_Lineas").attr("id_linea", valor.id);
-        $("#txtDetalle_Valor_Mensual").val(valor.valorMensual);
-        valor.valValorLineas == "1"
-          ? $("#txtDetalle_radio").prop("checked", true)
-          : $("#txtDetalle_radio2").prop("checked", true);
-        $("#txtDetalleNavegacion").val(valor.navegacion);
-        // $('#txtDetalleUnidad').val(),
-        valor.minIlimitados
-          ? $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").trigger(
-              "click"
-            )
-          : $("#txtDetalle_Minutos").val(valor.minutos);
-        valor.todoOperador
-          ? $("input:checkbox[name=txtDetalle_Minutos_TO]").prop(
-              "checked",
-              true
-            )
-          : "";
-        valor.minOtro != ""
-          ? $("#txtDetalle_Minutos_Otro").val(valor.minOtro)
-          : $("#txtDetalle_Minutos_Otro").val("");
-        valor.mensajes
-          ? $("input:checkbox[name=txtDetalle_Mensajes]").prop("checked", true)
-          : "";
-        valor.redes
-          ? $("input:checkbox[name=txtDetalle_Redes]").prop("checked", true)
-          : "";
-        valor.llamadas
-          ? $("input:checkbox[name=txtDetalle_Llamadas]").prop("checked", true)
-          : "";
-        valor.roaming
-          ? $("input:checkbox[name=txtDetalle_Roaming]").prop("checked", true)
-          : "";
-      }
-    });
-  });
-
-  $(document).on("click", "#DetallesLineasEliminar", function () {
-    let idLinea = $(this).attr("id_linea");
-    let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-    DetalleLineas.forEach(function (valor, indice, array) {
-      if (valor.id == idLinea) {
-        DetalleLineas.splice(indice, 1);
-      }
-    });
-    sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
-    ListarDetalleLineas();
-  });
-
-  Informacion = JSON.parse(sessionStorage.getItem("DatosEditarCliente"));
+  // // Validación minutos LDI
+  // $("#txtDetalleMinutosLDI").on("change", function (e) {
+  //   let minutosLDI = $("#txtDetalleMinutosLDI").val();
+  //   if (minutosLDI.length > 0) {
+  //     $("#txtDetalle_Cantidad_LDI").removeAttr("disabled");
+  //   } else {
+  //     $("#txtDetalle_Cantidad_LDI").attr("disabled", true);
+  //   }
+  // });
 
   // ************************************ Llenar formulario ********************************************************
   Id_Cliente = Informacion.Id_Cliente;
@@ -541,9 +580,34 @@ $(function () {
   // Información de contacto.
   $("#txtRazonSocial").val(Informacion.Razon_Social);
   $("#txtTelefono").val(Informacion.Telefono);
-  $("#txtNIT").val(Informacion.NIT_CDV);
-  $("#txtEncargado").val(Informacion.Encargado);
-  $("#txtExt_Tel_Contacto").val(Informacion.Ext_Tel_Contacto);
+  let Extension = obtenerValueValidado(Informacion.Extension);
+  $("#txtExtension").val(Extension);
+  let NIT_CDV = obtenerValueValidado(Informacion.NIT_CDV);
+  $("#txtNIT").val(NIT_CDV);
+  let Encargado = obtenerValueValidado(Informacion.Encargado);
+  $("#txtEncargado").val(Encargado);
+  let Correo = obtenerValueValidado(Informacion.Correo);
+  $("#txtCorreo").val(Correo);
+  let Celular = obtenerValueValidado(Informacion.Celular);
+  if (Celular !== "") {
+    // Código postal
+    let regex = /("[^"]*"|[^ ]*) /g;
+    let arrayStringCodigo = Celular.match(regex);
+    let codigo = arrayStringCodigo[0];
+    // Eliminar +
+    codigo = codigo.substring(1);
+    // Eliminar espacio final.
+    codigo = codigo.trim();
+    // Celular
+    let regex2 = /3[\d]+$/g;
+    let arrayString = Celular.match(regex2);
+    let celular = arrayString[0];
+
+    $("#txtCelular").val(celular);
+    $("#txtCodigoPostal").val(codigo);
+  } else {
+    $("#txtEncargado").val(Celular);
+  }
 
   // Ubicación.
   setTimeout(function () {
@@ -568,27 +632,76 @@ $(function () {
       Informacion.Id_Barrios_Veredas
     );
   }, 2000);
-
-  $("#txtDireccion").val(Informacion.Direccion);
+  let Direccion = obtenerValueValidado(Informacion.Direccion);
+  $("#txtDireccion").val(Direccion);
 
   // Datos básicos líneas.
   if (parseInt(Informacion.Id_Plan_Corporativo) > 0) {
   }
   CargarOperadores(Informacion.Id_Operador);
   CargarCalificaciones(Informacion.Id_Calificacion_Operador);
-  CargarRazones(Informacion.Razones);
+  CargarOpcionesPredefinidas();
+  let arrayRazones = getArrayString(Informacion.Razones);
+  if (arrayRazones.length > 0) {
+    console.log(arrayRazones);
+    // $("#txtRazones").val(arrayRazones).trigger("change");
+    for (let item of arrayRazones) {
+      let data = {
+        id: `${item}`,
+        text: `${item}`,
+      };
+      let newOption = new Option(data.text, data.id, true, true);
+      // Append it to the select
+      console.log("apennd 1");
+      $("#txtRazones").append(newOption).trigger("change");
+    }
+  }
+  // Servicios fijos
+  if (Informacion.Servicios_Fijos) {
+    let serviciosBD = Informacion.Servicios_Fijos;
 
-  // Detalle líneas.
-  if (typeof Informacion.Detalle_Lineas !== "undefined") {
+    let serviciosFijos = {
+      pagina: false,
+      correo: false,
+      ip: false,
+      dominio: false,
+      telefonia: false,
+      television: false,
+      id_linea_fija: parseInt(Informacion.Servicios_Fijos.Id_Linea_Fija),
+    };
+
+    if (serviciosBD.Pagina_Web == "1") {
+      serviciosFijos.pagina = true;
+    }
+    if (serviciosBD.Correo_Electronico == "1") {
+      serviciosFijos.correo = true;
+    }
+    if (serviciosBD.IP_Fija == "1") {
+      serviciosFijos.ip = true;
+    }
+    if (serviciosBD.Dominio == "1") {
+      serviciosFijos.dominio = true;
+    }
+    if (serviciosBD.Telefonia == "1") {
+      serviciosFijos.telefonia = true;
+    }
+    if (serviciosBD.Television == "1") {
+      serviciosFijos.television = true;
+    }
+    localStorage.ServiciosFijos = JSON.stringify(serviciosFijos);
+  }
+
+  // Convertir Servicios Móviles BD a JSON localStorage
+  if (typeof Informacion.Servicios_Moviles !== "undefined") {
     let ArrayLineasGrupo = [];
-    for (let lineaBD of Informacion.Detalle_Lineas) {
+    for (let lineaBD of Informacion.Servicios_Moviles) {
       if (ArrayLineasGrupo.length > 0) {
         let control = false;
         // Comprobar si el grupo ya está agregado.
         for (let linea of ArrayLineasGrupo) {
           if (linea.grupo === lineaBD.Grupo) {
             linea.cantidadLineas += 1;
-            linea.id_lineas.push(lineaBD.Id_Linea);
+            linea.id_lineas.push(lineaBD.Id_Linea_Movil);
             linea.NumerosLineas.push(lineaBD.Linea);
 
             control = true;
@@ -603,8 +716,7 @@ $(function () {
         ArrayLineasGrupo.push(linea);
       }
     }
-    sessionStorage.DetalleLineas = JSON.stringify(ArrayLineasGrupo);
-    ListarDetalleLineas();
+    localStorage.ServiciosMoviles = JSON.stringify(ArrayLineasGrupo);
   }
 
   let CargarInformacionPlan = () => {
@@ -626,8 +738,8 @@ $(function () {
   if (parseInt(Informacion.Clausula_Permanencia) == 1) {
     $("#switchClausula").children("label").children("span").trigger("click");
   }
-
-  $("#txtDescripcion").val(Informacion.Descripcion);
+  let Descripcion = obtenerValueValidado(Informacion.Descripcion);
+  $("#txtDescripcion").val(Descripcion);
 
   // Documentos
   let CargarInformacionDocumentos = () => {
@@ -769,6 +881,29 @@ let SubirDocumentos = () => {
 };
 
 let EditarCliente = (objDocumentos) => {
+  // Formatear celular
+  let codigo = $("#txtCodigoPostal").val();
+  let celular = $("#txtCelular").val();
+  if (celular !== "") {
+    celular = "+" + codigo + " " + celular;
+  }
+  // Servicios Fijos
+  let serviciosFijos = null;
+  if (localStorage.ServiciosFijos) {
+    let localServiciosFijos = JSON.parse(
+      localStorage.getItem("ServiciosFijos")
+    );
+    serviciosFijos = {
+      id_linea_fija: localServiciosFijos.id_linea_fija,
+      correo: localServiciosFijos.correo ? 1 : 0,
+      dominio: localServiciosFijos.dominio ? 1 : 0,
+      ip: localServiciosFijos.ip ? 1 : 0,
+      pagina: localServiciosFijos.pagina ? 1 : 0,
+      telefonia: localServiciosFijos.telefonia ? 1 : 0,
+      television: localServiciosFijos.television ? 1 : 0,
+    };
+  }
+
   // Array Lineas
   let arrayLineas = [];
 
@@ -776,46 +911,50 @@ let EditarCliente = (objDocumentos) => {
   let Valor_Total_Mensual = 0;
   let GrupoLineas = 0;
 
-  if (sessionStorage.DetalleLineas) {
-    let DetalleLineas = JSON.parse(sessionStorage.DetalleLineas);
+  if (localStorage.ServiciosMoviles) {
+    let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
 
-    for (let lineaItem of DetalleLineas) {
-      let minutos = "";
-
-      if (lineaItem.minIlimitados) {
-        minutos += "Ilimitados";
-      } else {
-        minutos += lineaItem.minutos;
+    for (let lineaItem of ServiciosMoviles) {
+      let redes = "";
+      if (lineaItem.redesSociales.length > 0) {
+        for (let red of lineaItem.redesSociales) {
+          redes = redes + red + ", ";
+          redes = redes.trim();
+        }
       }
 
-      if (lineaItem.todoOperador) {
-        minutos += ",todo operador";
+      let minLDI = "";
+      let cantidadLDI = null;
+      if (lineaItem.minutosLDI.length > 0) {
+        for (let pais of lineaItem.minutosLDI) {
+          minLDI = minLDI + pais + ", ";
+          minLDI = minLDI.trim();
+        }
+        cantidadLDI = lineaItem.cantidadLDI;
       }
 
-      if (lineaItem.minOtro != "") {
-        minutos += "," + lineaItem.minOtro;
+      let serviciosAdicionales = "";
+      if (lineaItem.serviciosAdicionales.length > 0) {
+        for (let servicio of lineaItem.serviciosAdicionales) {
+          serviciosAdicionales = serviciosAdicionales + servicio + ", ";
+          serviciosAdicionales = serviciosAdicionales.trim();
+        }
       }
-
-      // Establecer valor total mensual de las lineas.
-      if (lineaItem.valValorLineas == "1") {
-        Valor_Total_Mensual += parseInt(lineaItem.valorMensual);
-      } else if (lineaItem.valValorLineas == "2") {
-        Valor_Total_Mensual +=
-          parseInt(lineaItem.valorMensual) * parseInt(lineaItem.cantidadLineas);
-      }
-
+      // Establecer valor total mensual de la totalidad de lineas.
+      Valor_Total_Mensual += parseInt(lineaItem.cargoBasicoMensual);
       GrupoLineas++;
       for (let i = 1; i <= parseInt(lineaItem.cantidadLineas); i++) {
         let linea = {
-          id: parseInt(lineaItem.id_lineas[i - 1]),
           numero: lineaItem.NumerosLineas[i - 1],
-          minutos: minutos,
-          navegacion: lineaItem.navegacion + " " + lineaItem.unidad,
-          mensajes: lineaItem.mensajes ? 1 : 0,
-          redes: lineaItem.redes ? 1 : 0,
-          llamadas: lineaItem.llamadas ? 1 : 0,
-          roaming: lineaItem.roaming ? 1 : 0,
-          cargo: lineaItem.valorMensual,
+          minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
+          navegacion: lineaItem.navegacion === "" ? null : lineaItem.navegacion,
+          mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
+          redes: redes === "" ? null : redes,
+          minutosLDI: minLDI === "" ? null : minLDI,
+          cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
+          serviciosAdicionales:
+            serviciosAdicionales === "" ? null : serviciosAdicionales,
+          cargoBasicoMensual: lineaItem.cargoBasicoMensual,
           grupo: GrupoLineas,
         };
 
@@ -828,7 +967,6 @@ let EditarCliente = (objDocumentos) => {
 
   let arrayRazones = $("#txtRazones").val();
   let stringRazones = "";
-
   for (let razon of arrayRazones) {
     stringRazones += razon + ", ";
   }
@@ -838,19 +976,32 @@ let EditarCliente = (objDocumentos) => {
     Id_Cliente: parseInt(Id_Cliente),
     Razon_Social: $("#txtRazonSocial").val(),
     Telefono: $("#txtTelefono").val(),
-    NIT_CDV: $("#txtNIT").val(),
-    Encargado: $("#txtEncargado").val(),
-    Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
-    Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
-    Direccion: $("#txtDireccion").val(),
+    Extension:
+      $("#txtExtension").val() === "" ? null : $("#txtExtension").val(),
+    NIT_CDV: $("#txtNIT").val() === "" ? null : $("#txtNIT").val(),
+    Encargado: $("#txtEncargado").val() == "" ? null : $("#txtEncargado").val(),
+    Correo: $("#txtCorreo").val() == "" ? null : $("#txtCorreo").val(),
+    Celular: celular == "" ? null : celular,
+    Barrio_Vereda:
+      parseInt($("#txtNombre_Lugar").val()) === NaN
+        ? null
+        : parseInt($("#txtNombre_Lugar").val()),
+    Direccion: $("#txtDireccion").val() == "" ? null : $("#txtDireccion").val(),
     //DBL
     Id_DBL: parseInt(Id_DBL),
-    Id_Operador: parseInt($("#txtOperador").val()),
-    Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
-    Razones: stringRazones,
+    Id_Operador:
+      parseInt($("#txtOperador").val()) === NaN
+        ? null
+        : parseInt($("#txtOperador").val()),
+    Id_Calificacion_Operador:
+      parseInt($("#txtCalificacion").val()) === NaN
+        ? null
+        : parseInt($("#txtCalificacion").val()),
+    Razones: stringRazones === "" ? null : stringRazones,
     Cantidad_Lineas: Cantidad_Total_Lineas,
     Valor_Mensual: Valor_Total_Mensual.toString(),
-    DetalleLineas: arrayLineas,
+    ServiciosFijos: serviciosFijos,
+    ServiciosMoviles: arrayLineas,
 
     // Validacion
     Validacion_PLan_C: false,
@@ -900,13 +1051,14 @@ let EditarCliente = (objDocumentos) => {
         enumerable: true,
       },
       Descripcion: {
-        value: $("#txtDescripcion").val(),
+        value:
+          $("#txtDescripcion").val() === "" ? null : $("#txtDescripcion").val(),
         enumerable: true,
       },
     });
   }
 
-  if ($(".switch_doc").bootstrapSwitch("state")) {
+  if ($(".switch_doc").bootstrapSwitch("state") == true) {
     datos.Validacion_Doc_S = true;
 
     // Validar si existe la propiedad en el objeto.
@@ -936,6 +1088,7 @@ let EditarCliente = (objDocumentos) => {
       },
     });
   }
+  console.log(datos);
   $.ajax({
     url: `${URL}/Cliente`,
     type: "put",
@@ -946,24 +1099,18 @@ let EditarCliente = (objDocumentos) => {
   })
     .done((respuesta) => {
       console.log(respuesta);
-
       if (respuesta.data.ok) {
-        swal(
-          {
-            title: "¡Cliente modificado correctamente!",
-            type: "success",
-            showCancelButton: false,
-            confirmButtonColor: "#2F6885",
-            confirmButtonText: "Continuar",
-            closeOnConfirm: false,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              sessionStorage.removeItem("DetalleLineas");
-              Redireccionar("/Directorio");
-            }
-          }
-        );
+        localStorage.removeItem("ServiciosMoviles");
+        localStorage.removeItem("ServiciosFijos");
+        swal({
+          title: "¡Cliente modificado correctamente!",
+          type: "success",
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+        setTimeout(function () {
+          Redireccionar("/Directorio");
+        }, 1000);
       } else {
         swal({
           title: "¡Error al modificar!",
@@ -977,65 +1124,36 @@ let EditarCliente = (objDocumentos) => {
       }
     })
     .fail((error) => {
-      swal(
-        {
-          title: "Error al registrar.",
-          text: "Ha ocurrido un error al registrar, intenta de nuevo",
-          type: "error",
-          showCancelButton: false,
-          confirmButtonColor: "#2F6885",
-          confirmButtonText: "Continuar",
-          closeOnConfirm: false,
-        },
-        function (isConfirm) {
-          if (isConfirm) {
-            location.href = "AgregarEmpresa.html";
-            console.log(error);
-          }
-        }
-      );
+      swal({
+        title: "Error al registrar.",
+        text: "Ha ocurrido un error al registrar, intenta de nuevo",
+        type: "error",
+        showCancelButton: false,
+        confirmButtonColor: "#2F6885",
+        confirmButtonText: "Continuar",
+        closeOnConfirm: true,
+      });
     });
 };
 
 let CrearLineaSession = (lineaBD) => {
-  let regex = /(\d+)/g;
-  let regex2 = /([A-Za-z]+)/g;
-  let regex3 = /(\w+)/g;
-  let navegacion = lineaBD.Navegacion.match(regex);
-  let unidad = lineaBD.Navegacion.match(regex2);
-  let minutosRegex = lineaBD.Minutos.match(regex3);
+  let redesSociales = getArrayString(lineaBD.Redes_Sociales);
+  let minutosLDI = getArrayString(lineaBD.Minutos_LDI);
+  let serviciosAdicionales = getArrayString(lineaBD.Servicios_Adicionales);
 
-  let ilimitados = false;
-  let minutos = "";
-  let todoOperador = false;
-  let minOtro = "";
-
-  if (minutosRegex[0] === "Ilimitados") {
-    ilimitados = true;
-
-    if (lineaBD.Minutos.indexOf(",todo operador") != -1) {
-      todoOperador = true;
-
-      let posicion = lineaBD.Minutos.indexOf(",todo operador");
-      let inicioIndex = posicion + 15;
-      minOtro = lineaBD.Minutos.substring(inicioIndex);
-    } else {
-      minOtro = lineaBD.Minutos.substring(11);
-    }
-  } else {
-    minutos = minutosRegex[0];
-    if (lineaBD.Minutos.indexOf(",todo operador") != -1) {
-      todoOperador = true;
-
-      let posicion = lineaBD.Minutos.indexOf(",todo operador");
-      let inicioIndex = posicion + 15;
-      minOtro = lineaBD.Minutos.substring(inicioIndex);
-    } else {
-      minOtro = lineaBD.Minutos.substring(minutos.length + 1);
-    }
+  if (lineaBD.Navegacion == NA) {
+    lineaBD.Navegacion = "";
   }
-
-  let arrayId = [lineaBD.Id_Linea];
+  if (lineaBD.Minutos == NA) {
+    lineaBD.Minutos = "";
+  }
+  if (lineaBD.Mensajes == NA) {
+    lineaBD.Mensajes = "";
+  }
+  if (lineaBD.Cantidad_LDI == NA) {
+    lineaBD.Cantidad_LDI = "";
+  }
+  let arrayId = [lineaBD.Id_Linea_Movil];
   let arrayNumeros = [lineaBD.Linea];
   let linea = {
     id: uuid.v4(),
@@ -1043,18 +1161,14 @@ let CrearLineaSession = (lineaBD) => {
     id_lineas: arrayId,
     NumerosLineas: arrayNumeros,
     cantidadLineas: 1,
-    valorMensual: lineaBD.Cargo_Basico,
-    valValorLineas: "2",
-    navegacion: navegacion[0],
-    unidad: unidad[0],
-    minutos: minutos,
-    minIlimitados: ilimitados,
-    todoOperador: todoOperador,
-    minOtro: minOtro,
-    mensajes: lineaBD.Mensajes === "1" ? true : false,
-    llamadas: lineaBD.Llamadas_Inter === "1" ? true : false,
-    redes: lineaBD.Redes_Sociales === "1" ? true : false,
-    roaming: lineaBD.Roaming === "1" ? true : false,
+    cargoBasicoMensual: lineaBD.Cargo_Basico,
+    navegacion: lineaBD.Navegacion,
+    minutos: lineaBD.Minutos,
+    mensajes: lineaBD.Mensajes,
+    redesSociales: redesSociales,
+    minutosLDI: minutosLDI,
+    cantidadLDI: lineaBD.Cantidad_LDI,
+    serviciosAdicionales: serviciosAdicionales,
   };
 
   return linea;
@@ -1257,8 +1371,13 @@ let CargarOperadores = (Id_Operador) => {
     success: function (datos) {
       $("#txtOperador").empty();
 
+      if (Id_Operador == "0") {
+        $("#txtOperador").prepend(
+          "<option selected disabled>Seleccione</option>"
+        );
+      }
       for (let item of datos.data) {
-        if (item.Id_Operador == Id_Operador) {
+        if (item.Id_Operador == Id_Operador && Id_Operador !== "0") {
           var $opcion = $("<option />", {
             text: `${item.Nombre_Operador}`,
             value: `${item.Id_Operador}`,
@@ -1287,8 +1406,16 @@ let CargarCalificaciones = (Id_Calificacion_Operador) => {
     datatype: "json",
     success: function (datos) {
       $("#txtCalificacion").empty();
+      if (Id_Calificacion_Operador == "0") {
+        $("#txtCalificacion").prepend(
+          "<option selected disabled>Seleccione</option>"
+        );
+      }
       for (let item of datos.data) {
-        if (item.Id_Calificacion_Operador == Id_Calificacion_Operador) {
+        if (
+          item.Id_Calificacion_Operador == Id_Calificacion_Operador &&
+          Id_Calificacion_Operador !== "0"
+        ) {
           var $opcion = $("<option />", {
             text: `${item.Calificacion}`,
             value: `${item.Id_Calificacion_Operador}`,
@@ -1310,73 +1437,39 @@ let CargarCalificaciones = (Id_Calificacion_Operador) => {
   });
 };
 
-let CargarRazones = (stringRazones) => {
-  let regex = /("[^"]*"|[^,]*),/g;
-  let arrayRazones = stringRazones.match(regex);
-
-  let arrayRazonesFormatiado = [];
-
-  for (let razon of arrayRazones) {
-    if (razon !== ",") {
-      let nuevaRazon = razon.trim();
-      nuevaRazon = nuevaRazon.replace(/,/g, "");
-      arrayRazonesFormatiado.push(nuevaRazon);
-    }
-  }
-
+let CargarOpcionesPredefinidas = () => {
   $.ajax({
-    url: `${URL}/Razones/Operador`,
+    url: `${URL}/OpcionesPredefinidas`,
     type: "get",
     datatype: "json",
     success: function (datos) {
-      $("#txtRazones").empty();
+      for (let item of datos.data) {
+        let data = {
+          id: `${item.Opcion}`,
+          text: `${item.Opcion}`,
+        };
 
-      let arrayRazonesBD = datos.data;
-      let arrayRazonesE = [];
-      let opcion = null;
-
-      for (let razon of arrayRazonesFormatiado) {
-        for (let item of arrayRazonesBD) {
-          if (item.Razon === razon) {
-            opcion = $("<option />", {
-              text: `${item.Razon}`,
-              value: `${item.Razon}`,
-              selected: true,
-            });
-
-            arrayRazonesE.push(item);
+        if (item.Categoria == "Operador") {
+          // Agregar opción al select2 si no está agregada.
+          if (
+            !$("#txtRazones").find("option[value='" + data.id + "']").length
+          ) {
+            let newOption = new Option(data.text, data.id, false, false);
+            $("#txtRazones").append(newOption).trigger("change");
           }
-
-          $("#txtRazones").append(opcion);
+        } else if (item.Categoria == "Redes Sociales") {
+          let newOption = new Option(data.text, data.id, false, false);
+          $("#txtDetallle_Redes_Sociales").append(newOption).trigger("change");
+        } else if (item.Categoria == "Servicios Adicionales") {
+          let newOption = new Option(data.text, data.id, false, false);
+          $("#txtDetalle_Servicios_Adicionales")
+            .append(newOption)
+            .trigger("change");
+        } else if (item.Categoria == "País LDI") {
+          let newOption = new Option(data.text, data.id, false, false);
+          $("#txtDetalleMinutosLDI").append(newOption).trigger("change");
         }
       }
-
-      // Eliminar razones ya agregadas.
-      for (let razon of arrayRazonesE) {
-        arrayRazonesBD.forEach(function (item, index, array) {
-          if (razon.Id_Razon_Calificacion == item.Id_Razon_Calificacion) {
-            arrayRazonesBD.splice(index, 1);
-          }
-        });
-      }
-
-      // Agregar razones no seleccionadas.
-      if (arrayRazonesBD.length > 0) {
-        for (let item of arrayRazonesBD) {
-          let opcion2 = $("<option />", {
-            text: `${item.Razon}`,
-            value: `${item.Razon}`,
-          });
-
-          $("#txtRazones").append(opcion2);
-        }
-      }
-
-      //  Select razones
-      $(".Select_Razones").select2({
-        tags: true,
-        tokenSeparators: [","],
-      });
     },
     error: function (error) {
       console.log(error);
@@ -1384,462 +1477,10 @@ let CargarRazones = (stringRazones) => {
   });
 };
 
-// // Detalle Líneas
-
-let RegistrarDetalleLinea = () => {
-  let DetalleLineas = [];
-  if (sessionStorage.DetalleLineas) {
-    DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
+let obtenerValueValidado = (value) => {
+  let valueValidado = value;
+  if (value === NA) {
+    valueValidado = "";
   }
-
-  let arrayIds = [];
-  let arrayNumeros = [];
-  let cantidadLineas = parseInt($("#txtDetalle_Cantidad_Lineas").val());
-  for (let i = 1; i <= cantidadLineas; i++) {
-    arrayIds.push("0");
-    arrayNumeros.push("0");
-  }
-
-  let arrayDetalleLinea = {
-    id: uuid.v4(),
-    cantidadLineas: $("#txtDetalle_Cantidad_Lineas").val(),
-    id_lineas: arrayIds,
-    NumerosLineas: arrayNumeros,
-    valorMensual: $("#txtDetalle_Valor_Mensual").val(),
-    valValorLineas: $("input:radio[name=detalleLineasRadios]:checked").val(),
-    navegacion: $("#txtDetalleNavegacion").val(),
-    unidad: $("#txtDetalleUnidad").val(),
-    minutos: $("#txtDetalle_Minutos").val(),
-    minIlimitados: $(
-      "input:checkbox[name=txtDetalle_Validacion_Ilimitados]"
-    ).is(":checked"),
-    todoOperador: $("input:checkbox[name=txtDetalle_Minutos_TO]").is(
-      ":checked"
-    ),
-    minOtro: $("#txtDetalle_Minutos_Otro").val(),
-    mensajes: $("input:checkbox[name=txtDetalle_Mensajes]").is(":checked"),
-    llamadas: $("input:checkbox[name=txtDetalle_Llamadas]").is(":checked"),
-    redes: $("input:checkbox[name=txtDetalle_Redes]").is(":checked"),
-    roaming: $("input:checkbox[name=txtDetalle_Roaming]").is(":checked"),
-  };
-
-  DetalleLineas.push(arrayDetalleLinea);
-
-  sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
-
-  LimpiarDetalleLinea();
-  ListarDetalleLineas();
+  return valueValidado;
 };
-
-let ListarDetalleLineas = () => {
-  if (sessionStorage.DetalleLineas) {
-    let DetalleLineas;
-    let Cantidad_Lineas = 0;
-    let Valor_Mensual = 0;
-    let contador = 0;
-    DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-    $("#TblRegistroDetalleLineas").empty();
-
-    for (let item of DetalleLineas) {
-      contador++;
-      Cantidad_Lineas += parseInt(item.cantidadLineas);
-
-      if (parseInt(item.valValorLineas) == 1) {
-        Valor_Mensual += parseInt(item.valorMensual);
-      } else if (parseInt(item.valValorLineas) == 2) {
-        Valor_Mensual +=
-          parseInt(item.valorMensual) * parseInt(item.cantidadLineas);
-      }
-
-      $("#TblRegistroDetalleLineas").append(`
-                <tr>
-                    <td>${contador}</td>
-                    <td>${item.cantidadLineas}</td>
-                    <td>
-                        <i class="fa fa-dollar"></i>
-                        <div class="float-right">${item.valorMensual}</div> 
-                    </td>
-                    <td>${item.navegacion + " " + item.unidad}</td>
-                    <td>${item.minIlimitados ? "Ilimitados " : item.minutos}${
-        item.todoOperador ? " todo operador " : ""
-      } ${item.minOtro != "" ? item.minOtro : ""}</td>
-                    <td>
-                        ${
-                          item.mensajes
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl1">Mensajes</label>'
-                            : ""
-                        }
-
-                        ${
-                          item.redes
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked><label for="radio_tbl">Redes</label>'
-                            : ""
-                        }
-                        
-                        ${
-                          item.llamadas
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked>  <label for="radio_tbl1">Llamadas</label>'
-                            : ""
-                        }
-
-                        ${
-                          item.roaming
-                            ? '<input type="radio" class="with-gap" id="radio_tbl" checked> <label for="radio_tbl">Roaming</label>'
-                            : ""
-                        }
-                        
-                    </td>
-                    <td>
-                        <span class="label label-info">${
-                          parseInt(item.valValorLineas) == 1
-                            ? "En total"
-                            : "Por línea"
-                        }</span>
-                    </td>
-                    <td>
-                        <button type="button" id="DetallesLineasDetalle" id_linea="${
-                          item.id
-                        }"  class="btn btn-outline-primary btn-sm">
-                            <i class="fa  fa-eye"></i>
-                        </button>
-
-                        <button type="button" id="DetallesLineasEditar" id_linea="${
-                          item.id
-                        }" class="btn btn-outline-info btn-sm">
-                            <i class="fa fa-pencil"></i>
-                        </button>
-                
-                        <button type="button" id="DetallesLineasEliminar" id_linea="${
-                          item.id
-                        }" class="btn btn-outline-danger btn-sm">
-                            <i class="fa fa-close"></i>
-                        </button>
-                    </td>
-                </tr>
-
-            `);
-    }
-
-    $("#tFootRegistroDetalleCliente").empty();
-    $("#tFootRegistroDetalleCliente").append(`
-            <tr>
-                <td>
-                    <h5 class="box-title">Total:</h5>
-                </td>
-                <td>${Cantidad_Lineas}</td>
-                <td>
-                    <i class="fa fa-dollar"></i>
-                    <div class="float-right">${Valor_Mensual}</div> 
-                </td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-        `);
-  }
-};
-
-let EditarDetalleLinea = () => {
-  let idLinea = $("#txtDetalleId").val();
-  let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-
-  for (let linea of DetalleLineas) {
-    if (linea.id == idLinea) {
-      let lineasNuevas =
-        parseInt($("#txtDetalle_Cantidad_Lineas").val()) -
-        parseInt(linea.cantidadLineas);
-
-      for (let i = 0; i < lineasNuevas; i++) {
-        linea.id_lineas.push("0");
-        linea.NumerosLineas.push("0");
-      }
-
-      // Editar información de línea.
-      linea.cantidadLineas = $("#txtDetalle_Cantidad_Lineas").val();
-      linea.valorMensual = $("#txtDetalle_Valor_Mensual").val();
-      linea.valValorLineas = $(
-        "input:radio[name=detalleLineasRadios]:checked"
-      ).val();
-      linea.navegacion = $("#txtDetalleNavegacion").val();
-      linea.unidad = $("#txtDetalleUnidad").val();
-      linea.minutos = $("#txtDetalle_Minutos").val();
-      linea.minIlimitados = $(
-        "input:checkbox[name=txtDetalle_Validacion_Ilimitados]"
-      ).is(":checked");
-      linea.todoOperador = $("input:checkbox[name=txtDetalle_Minutos_TO]").is(
-        ":checked"
-      );
-      linea.minOtro = $("#txtDetalle_Minutos_Otro").val();
-      linea.mensajes = $("input:checkbox[name=txtDetalle_Mensajes]").is(
-        ":checked"
-      );
-      linea.llamadas = $("input:checkbox[name=txtDetalle_Llamadas]").is(
-        ":checked"
-      );
-      linea.redes = $("input:checkbox[name=txtDetalle_Redes]").is(":checked");
-      linea.roaming = $("input:checkbox[name=txtDetalle_Roaming]").is(
-        ":checked"
-      );
-
-      sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
-    }
-  }
-
-  LimpiarDetalleLinea();
-  ListarDetalleLineas();
-};
-
-let LimpiarDetalleLinea = () => {
-  $("#txtDetalleId").val(0);
-  $("#txtDetalle_Cantidad_Lineas").val("");
-  $("#txtDetalle_Valor_Mensual").val("");
-  $("input:radio[name=detalleLineasRadios]:checked").prop("checked", false);
-  $("#txtDetalleNavegacion").val("");
-  // $('#txtDetalleUnidad').val(),
-  $("#txtDetalle_Minutos").val("");
-  if (
-    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(":checked")
-  ) {
-    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").prop(
-      "checked",
-      false
-    );
-    $("#txtDetalle_Minutos").prop("disabled", false);
-  } else {
-    $("#txtDetalle_Minutos").val("");
-  }
-  $("input:checkbox[name=txtDetalle_Minutos_TO]").prop("checked", false);
-  $("#txtDetalle_Minutos_Otro").val("");
-  $("input:checkbox[name=txtDetalle_Mensajes]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Llamadas]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Redes]").prop("checked", false);
-  $("input:checkbox[name=txtDetalle_Roaming]").prop("checked", false);
-};
-
-// Números
-
-function AgregarInput(cantidad, numeros, ids, click) {
-  for (let i = 1; i <= cantidad; i++) {
-    id++;
-    let objTo = document.getElementById("ModalNumerosLineas");
-    let divtest = document.createElement("div");
-    divtest.setAttribute("class", "form-group removeclass" + id);
-
-    if (Array.isArray(numeros)) {
-      if (Array.isArray(ids)) {
-        if (numeros[i - 1] == "0") {
-          if (ids[i - 1] == "0") {
-            divtest.innerHTML = `
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i class="fa fa-mobile"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control txtNumeroLinea" name="txtNumeroLinea" 
-                                placeholder="Ingresa un número" id_linea_numero="0">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-danger" type="button" onclick="Eliminarinput(${id})">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-          } else {
-            divtest.innerHTML = `
-                    <div class="row form-group">
-                        <div class="col-md-12">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1">
-                                        <i class="fa fa-mobile"></i>
-                                    </span>
-                                </div>
-                                <input type="text" class="form-control txtNumeroLinea" name="txtNumeroLinea" 
-                                placeholder="Ingresa un número" id_linea_numero="${
-                                  ids[i - 1]
-                                }">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-danger" type="button" onclick="Eliminarinput(${id})">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-          }
-        } else {
-          if (ids[i - 1] == "0") {
-            divtest.innerHTML = `
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">
-                                            <i class="fa fa-mobile"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control txtNumeroLinea" name="txtNumeroLinea" 
-                                    placeholder="Ingresa un número" value="${
-                                      numeros[i - 1]
-                                    }" id_linea_numero="0">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-danger" type="button" onclick="Eliminarinput(${id})">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-          } else {
-            divtest.innerHTML = `
-                        <div class="row form-group">
-                            <div class="col-md-12">
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="basic-addon1">
-                                            <i class="fa fa-mobile"></i>
-                                        </span>
-                                    </div>
-                                    <input type="text" class="form-control txtNumeroLinea" name="txtNumeroLinea" 
-                                    placeholder="Ingresa un número" value="${
-                                      numeros[i - 1]
-                                    }" id_linea_numero="${ids[i - 1]}">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-danger" type="button" onclick="Eliminarinput(${id})">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        `;
-          }
-        }
-      }
-    } else {
-      if (click) {
-        let cantidadLineas = parseInt($("#txtIncrementarLineas").html());
-        cantidadLineas++;
-        $("#txtIncrementarLineas").html(cantidadLineas);
-      }
-
-      divtest.innerHTML = `
-                <div class="row form-group">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="basic-addon1">
-                                    <i class="fa fa-mobile"></i>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control txtNumeroLinea" name="txtNumeroLinea" 
-                            placeholder="Ingresa un número" id_linea_numero="0">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-danger" type="button" onclick="Eliminarinput(${id})">
-                                    <i class="fa fa-minus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-    }
-
-    objTo.appendChild(divtest);
-  }
-}
-
-function Eliminarinput(id) {
-  let cantidadLineas = parseInt($("#txtIncrementarLineas").html());
-  cantidadLineas--;
-  $("#txtIncrementarLineas").html(cantidadLineas);
-  $(".removeclass" + id).remove();
-}
-
-function RegistrarNumeros() {
-  if (ValidarNumerosLineas()) {
-    let DetalleLineas = JSON.parse(sessionStorage.getItem("DetalleLineas"));
-    let idLinea = $("#txtIdLineasModalNumeros td").html();
-    let arrayInputs = $('input:text[name="txtNumeroLinea"]');
-    let arrayNumeros = [];
-    let arrayIds = [];
-    DetalleLineas.forEach(function (linea, indice, array) {
-      if (linea.id == idLinea) {
-        linea.cantidadLineas = parseInt($("#txtIncrementarLineas").html());
-
-        for (let numero of arrayInputs) {
-          let numVal = $(numero).val() == "" ? "0" : $(numero).val();
-          arrayNumeros.push(numVal);
-          arrayIds.push($(numero).attr("id_linea_numero"));
-        }
-
-        Object.defineProperty(linea, "NumerosLineas", {
-          value: arrayNumeros,
-          enumerable: true,
-        });
-
-        Object.defineProperty(linea, "id_lineas", {
-          value: arrayIds,
-          enumerable: true,
-        });
-
-        sessionStorage.DetalleLineas = JSON.stringify(DetalleLineas);
-
-        swal(
-          {
-            title: "Números registrados correctamente.",
-            type: "success",
-            showCancelButton: false,
-            confirmButtonColor: "#2F6885",
-            confirmButtonText: "Continuar",
-            closeOnConfirm: true,
-          },
-          function (isConfirm) {
-            if (isConfirm) {
-              ListarDetalleLineas();
-              $("#LineasModal").modal("hide");
-            }
-          }
-        );
-      }
-    });
-  }
-}
-
-function ValidarNumerosLineas() {
-  let valid = true;
-
-  if ($('input:text[name="txtNumeroLinea"]').length > 0) {
-    $('input:text[name="txtNumeroLinea"]').each(function (index, element) {
-      let validacion = form.validate().element(element);
-
-      if (validacion === false) {
-        valid = validacion;
-      }
-    });
-  } else {
-    valid = false;
-
-    swal({
-      title: "Error al registrar números.",
-      text: "Debes registrar por lo menos una línea.",
-      type: "error",
-      showCancelButton: false,
-      confirmButtonColor: "#2F6885",
-      confirmButtonText: "Continuar",
-      closeOnConfirm: true,
-    });
-  }
-
-  return valid;
-}

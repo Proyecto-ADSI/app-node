@@ -293,3 +293,6 @@
 .ServiciosFijosItems {
   margin-right: 5%;
 }
+.z_indexCorrecionTooltip {
+  z-index: 1 !important;
+}

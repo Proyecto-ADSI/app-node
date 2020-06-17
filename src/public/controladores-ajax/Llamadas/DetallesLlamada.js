@@ -1,9 +1,15 @@
 CargarDatosModalDetalles = (Informacion) => {
   $("#txtRazon_Social_D").text(Informacion.Razon_Social);
-  $("#txtTelefono_D").text(Informacion.Telefono);
+
+  let telefono = Informacion.Telefono;
+  if (Informacion.Extension !== null) {
+    telefono = telefono + "  Ext " + Informacion.Extension;
+  }
+  $("#txtTelefono_D").text(telefono);
   $("#txtNIT_D").text(Informacion.NIT_CDV);
   $("#txtEncargado_D").text(Informacion.Encargado);
-  $("#txtExtension_celular_D").text(Informacion.Ext_Tel_Contacto);
+  $("#txtCorreo_D").text(Informacion.Correo);
+  $("#txtCelular_D").text(Informacion.Celular);
   $("#txtPais_D").text(Informacion.Nombre_Pais);
   $("#txtDepartamento_D").text(Informacion.Nombre_Departamento);
   $("#txtMunicipio_D").text(Informacion.Nombre_Municipio);

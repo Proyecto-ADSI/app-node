@@ -85,7 +85,7 @@ $(function () {
                 </div>
               `;
             } else {
-              return data;
+              return row.Id_Estado_Llamada;
             }
           },
         },
@@ -138,3 +138,37 @@ $(document).on("click", "#btnDetalles", function () {
   let datosCliente = DataTable.row($(this).parents("tr")).data();
   CargarDatosModalDetalles(datosCliente);
 });
+
+$("#Filtro_NIT").on("keyup", function () {
+  DataTable.columns(0).search(this.value).draw();
+});
+
+$("#Filtro_RazonSocial").on("keyup", function () {
+  DataTable.columns(1).search(this.value).draw();
+});
+
+$("#Filtro_Municipio").on("keyup", function () {
+  DataTable.columns(2).search(this.value).draw();
+});
+
+$("#Filtro_Fecha").on("keyup", function () {
+  DataTable.columns(3).search(this.value).draw();
+});
+
+$("#Filtro_Usuario").on("keyup", function () {
+  DataTable.columns(4).search(this.value).draw();
+});
+$("#Filtro_Estado").on("change", function () {
+  DataTable.columns(5).search(this.value).draw();
+});
+
+let LimpiarFiltro = () => {
+  $("#Filtro_NIT").val("");
+  $("#Filtro_RazonSocial").val("");
+  $("#Filtro_Municipio").val("");
+  $("#Filtro_Fecha").val("");
+  $("#Filtro_Usuario").val("");
+  $("#Filtro_Estado").val("");
+
+  DataTable.columns().search("").draw();
+};

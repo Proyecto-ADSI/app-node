@@ -17,7 +17,7 @@
                     </div>
                     <div class="col-md-3">
                         <h6 class="titulo_RL">
-                            <i class="fa fa-search"></i> Verificación
+                            <i class="fa fa-search"></i> Post-llamada
                         </h6>
                         <div class="MyStyle_Contador">
                             <div id="txtMinutosV" class="Contador_Minutos">00</div>
@@ -25,10 +25,6 @@
                         </div>
                     </div>
                     <div class="col-md-2 btns">
-                        <button type="button" id="btnVerificarDatos" data-toggle="tooltip"
-                            data-original-title="Verificar datos" class="btn btn-success d-inline-block" disabled>
-                            <i class="mdi mdi-check-all"></i>
-                        </button>
                         <button type="button" id="btnTerminarLlamada" data-toggle="tooltip"
                             data-original-title="Terminar Llamada" class="btn btn-danger d-inline-block">
                             <i class="fa fa-close"></i>
@@ -62,6 +58,15 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label for="int1">Extensión:</label>
+                                    <input type="text" class="form-control" id="txtExtension" name="txtExtension"
+                                        placeholder="Ext: 101">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
                                     <label class="control-label">
                                         NIT:
                                     </label>
@@ -69,18 +74,14 @@
                                         placeholder="12345678-9">
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-
                                     <label for="txtPersona_Responde">¿Quién responde?:</label>
-
+                                    <span class="text-danger">*</span>
                                     <input type="checkbox" id="txtValEncargado" name="txtValEncargado"
                                         class="MyStyle_Checkbox">
                                     <label for="txtValEncargado" id="lbltxtValEncargado" class="checkbox"
                                         data-toggle="tooltip" data-original-title="¿Encargado?"></label>
-
                                     <input type="text" class="form-control" id="txtPersona_Responde"
                                         name="txtPersona_Responde" placeholder="Jhon Doe">
                                 </div>
@@ -90,13 +91,6 @@
                                     <label for="int1">Encargado:</label>
                                     <input type="text" class="form-control" id="txtEncargado" name="txtEncargado"
                                         placeholder="Jhon Doe">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="int1">Extensión o celular:</label>
-                                    <input type="text" class="form-control" id="txtExt_Tel_Contacto"
-                                        name="txtExt_Tel_Contacto" placeholder="3123456789 | 101">
                                 </div>
                             </div>
                         </div>
@@ -181,10 +175,11 @@
                     <section>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                            <div class="col-md-2">
+                            <div class="col-md-3 z_indexCorrecionTooltip">
                                 <div class="form-group">
                                     <label for="location1">¿Corporativo?</label>
-                                    <input type="checkbox" class="switch_corporativo">
+                                    <br>
+                                    <input type="checkbox" class="switch_corporativo" disabled>
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -198,7 +193,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label"> Calificación del operador:
                                         <span class="text-danger">*</span>
@@ -212,7 +207,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-10">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="control-label">
                                         Razones: <i class="fa fa-question-circle" data-toggle="tooltip"
@@ -225,245 +220,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div id="ValidacionCita" class="col-md-2">
-                                <div class="form-group">
-                                    <label for="location1">¿Pacta cita?</label>
-                                    <input type="checkbox" class="switch_cita1">
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h3 class="font-weight-bold"> <i class="fa fa-home"></i> Servicios fijos:</h3>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="opciones-collapse">
-                                    <a class="btn btn-sm btn-info" data-toggle="collapse" data-target="#ServicioFijos"
-                                        aria-expanded="true" aria-controls="ServicioFijos">
-                                        <i class="ti-minus"></i>
+                        {{>registrar-detalle-servicios}}
 
-                                    </a>
+                        <div class="row ValidacionClickCorp">
+                            <div class="col-md-12 text-center">
+                                <div class="form-group d-inline-block m-r-40 ValidacionAT">
+                                    <label for="location1">¿Atención telefónica?</label>
+                                    <br>
+                                    <input type="checkbox" class="switch_AT1" disabled>
                                 </div>
-                            </div>
-                        </div>
-                        <hr class="m-t-10 m-b-20">
-                        <div id="ServicioFijos" class="collapse">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_Pagina" name="checkDetalle_Pagina"
-                                            class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_Pagina"><i class="ti-layout-cta-left"></i> Página
-                                            web</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_Correo" name="checkDetalle_Correo"
-                                            class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_Correo"><i class="ti-email"></i> Correo</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_IPFija" name="checkDetalle_IPFija"
-                                            class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_IPFija"><i class="mdi mdi-access-point"></i> IP
-                                            Fija</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_dominio" name="checkDetalle_dominio"
-                                            class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_dominio"><i class="mdi mdi-web"></i> Dominio</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_telefonia" name="checkDetalle_telefonia"
-                                            class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_telefonia"><i class="mdi mdi-phone-classic"></i>
-                                            Telefonía</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-20">
-                                        <input type="checkbox" id="checkDetalle_television"
-                                            name="checkDetalle_television" class="MyStyle_Checkbox">
-                                        <label for="checkDetalle_television"><i class="mdi mdi-television"></i>
-                                            Televisión</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="m-t-10 m-b-20">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <h3 class="font-weight-bold"> <i class="fa fa-mobile-phone"></i> Servicios móviles:</h3>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="opciones-collapse">
-                                    <a class="btn btn-sm btn-info" data-toggle="collapse"
-                                        data-target="#ServiciosMoviles" aria-expanded="true"
-                                        aria-controls="ServiciosMoviles">
-                                        <i class="ti-minus"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="m-t-10 m-b-20">
-                        <div id="ServiciosMoviles" class="collapse">
-                            <div class="row">
-                                <input type="hidden" id="txtDetalleId" value="0">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label"> Cantidad de líneas:
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="number" class="form-control detalleLinea"
-                                            id="txtDetalle_Cantidad_Lineas" name="txtDetalle_Cantidad_Lineas"
-                                            placeholder="Cantidad: 10">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Cargo básico <strong>mensual:</strong> <span class="text-danger">*</span>
-                                        </label>
-                                        <div class="input-group">
-                                            <input id="txtDetalle_Valor_Mensual" type="text"
-                                                name="txtDetalle_Valor_Mensual" class="form-control detalleLinea"
-                                                placeholder="Valor: $55,000">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">COP</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group m-t-30">
-                                        <input name="detalleLineasRadios" type="radio" class="with-gap detalleLinea"
-                                            id="txtDetalle_radio" value="1">
-                                        <label id="lblDetalle_radio" for="txtDetalle_radio">En total
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                        <input name="detalleLineasRadios" type="radio" class="with-gap detalleLinea"
-                                            id="txtDetalle_radio2" value="2">
-                                        <label id="lblDetalle_radio2" for="txtDetalle_radio2">Por cada línea
-                                            <span class="text-danger">*</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Navegación:
-                                            <span class="font-weight-bold">GB</span>
-                                        </label>
-                                        <div class="form-group">
-                                            <input type="number" class="form-control detalleLinea"
-                                                id="txtDetalleNavegacion" name="txtDetalleNavegacion"
-                                                placeholder="Cantidad: 10">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="int1 ">Minutos a todo destino:</label>
-                                        <input type="checkbox" id="txtDetalle_Validacion_Ilimitados"
-                                            name="txtDetalle_Validacion_Ilimitados"
-                                            class="MyStyle_Checkbox detalleLinea">
-
-                                        <label class="checkbox" for="txtDetalle_Validacion_Ilimitados"
-                                            data-toggle="tooltip" data-original-title="Ilimitados"></label>
-                                        <input type="number" class="form-control detalleLinea" id="txtDetalle_Minutos"
-                                            name="txtDetalle_Minutos" placeholder="Cantidad: 3000">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="int1 ">Mensajes:</label>
-                                        <input type="checkbox" id="txtDetalle_Validacion_SMSIlimitados"
-                                            name="txtDetalle_Validacion_SMSIlimitados"
-                                            class="MyStyle_Checkbox detalleLinea">
-
-                                        <label class="checkbox" for="txtDetalle_Validacion_SMSIlimitados"
-                                            data-toggle="tooltip" data-original-title="Ilimitados"></label>
-                                        <input type="number" class="form-control detalleLinea" id="txtDetalle_Mensajes"
-                                            name="txtDetalle_Mensajes" placeholder="SMS: 3000">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Minutos LDI:
-                                            <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                            </i>
-                                        </label>
-                                        <select id="txtDetalleMinutosLDI" class="select2-multiple m-b-10 valDetalle"
-                                            style="width: 100%" multiple="multiple"
-                                            data-placeholder="Seleccione o escriba">
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="txtDetalle_Cantidad_LDI">Cantidad LDI:</label>
-                                        <input type="number" class="form-control detalleLinea"
-                                            name="txtDetalle_Cantidad_LDI" id="txtDetalle_Cantidad_LDI"
-                                            placeholder="Cantidad: 3000" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Redes sociales:
-                                            <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                            </i>
-                                        </label>
-                                        <select id="txtDetallle_Redes_Sociales"
-                                            class="select2-multiple m-b-10 valDetalle" style="width: 100%"
-                                            multiple="multiple" data-placeholder="Seleccione o escriba">
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label">
-                                            Servicios adicionales:
-                                            <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                            </i>
-                                        </label>
-                                        <select id="txtDetalle_Servicios_Adicionales"
-                                            class="select2-multiple m-b-10 valDetalle" style="width: 100%"
-                                            multiple="multiple" data-placeholder="Seleccione o escriba">
-
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="m-t-0 m-b-20">
-                            <div class="row">
-                                <div class="col-md-6 text-right">
-                                    <button type="button" id="btnLimpiar" class="btn btn-primary">
-                                        Limpiar formulario</button>
-                                </div>
-                                <div class="col-md-6 text-left">
-                                    <button type="button" id="btnGuardarDetalleLineas" class="btn btn-info">
-                                        Guardar servicios</button>
+                                <div class="form-group d-inline-block">
+                                    <label for="location1">¿Agenda cita?</label>
+                                    <br>
+                                    <input type="checkbox" class="switch_cita1" disabled>
                                 </div>
                             </div>
                         </div>
@@ -473,11 +243,12 @@
                     <section>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="form-group">
+                            <div class="col-md-5">
+                                <div class="form-group ">
                                     <label class="control-label">¿Claúsula permanencia?:
                                         <span class="text-danger">*</span>
                                     </label>
+                                    <br>
                                     <div id="switchClausula" class="switch">
                                         <label>
                                             <strong> NO</strong>
@@ -490,8 +261,8 @@
                             </div>
                             <div class="col-md-7">
                                 <div class="form-group">
-                                    <label for="txtFecha_inicio">Fecha del corporativo:
-                                        <span class="text-danger">*</span>
+                                    <label for="txtFecha_inicio">
+                                        Fecha del corporativo:
                                     </label>
                                     <div class="input-daterange input-group" id="Fecha_Corporativo">
                                         <span class="input-group-addon">Inicio</span>
@@ -503,19 +274,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <label for="location1">¿Pacta cita?</label>
-                                    <input type="checkbox" class="switch_cita2">
-                                </div>
-                            </div>
+
                         </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="participants1">Descripción del corporativo</label>
+                                    <label for="participants1">Descripción del corporativo:</label>
                                     <textarea name="txtDescripcion" id="txtDescripcion" rows="5" class="form-control"
                                         placeholder="Ingresa una descripción"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="form-group d-inline-block m-r-40 ValidacionAT">
+                                    <label for="location1">¿Atención telefónica?</label>
+                                    <br>
+                                    <input type="checkbox" class="switch_AT2">
+                                </div>
+                                <div class="form-group d-inline-block">
+                                    <label for="location1">¿Agenda cita?</label>
+                                    <br>
+                                    <input type="checkbox" class="switch_cita2">
                                 </div>
                             </div>
                         </div>
@@ -576,11 +356,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="int1">Extensión o celular:
+                                    <label for="int1">Celular:
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" class="form-control" id="txtExt_Tel_ContactoEC"
-                                        name="txtExt_Tel_ContactoEC" placeholder="3123456789 | 101">
+                                    <input type="text" class="form-control" id="txtCelularCita" name="txtCelularCita"
+                                        placeholder="3123456788">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -692,125 +472,253 @@
                                         placeholder="Centro Comercial, Iglesia, Parque, etc...">
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">
+                                        <i class="fa fa-clock-o"></i> ¿Recordar cita?:</label>
+                                    <input type="text" id="Fecha_RC" class="form-control floating-label"
+                                        placeholder=" Ejemplo: Lunes 01 Enero 2020 12:00">
+                                </div>
+                            </div>
                         </div>
                     </section>
                     <!-- Step 5 -->
-                    <h6>Fin de llamada</h6>
+                    <h6>Atención telefónica</h6>
                     <section>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-5">
-                                        <div class="form-group">
-                                            <label for="location1">Habeas Data:<span class="text-danger">*</span>
-                                            </label>
-                                            <input type="checkbox" class="switch_habeas_data">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7">
-                                        <div class="form-group">
-                                            <label class="control-label">Conclusión Llamada:</label>
-                                            <select name="txtConclusion" id="txtConclusion"
-                                                class="select2 form-control custom-select" disabled="disabled">
-                                                <option selected value="1">No efectiva</option>
-                                                <option disabled value="2">Llamar nuevamente</option>
-                                                <option disabled value="3">Efectiva</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Envio de oferta:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <br>
+                                    <input name="rbtnEnvioOferta" type="radio" class="with-gap" id="rbtnAtencionTel1"
+                                        value="1">
+                                    <label id="lblAtencionTel1" for="rbtnAtencionTel1">
+                                        <i class="mdi mdi-email"></i> Correo
+                                    </label>
+                                    <br>
+                                    <input name="rbtnEnvioOferta" type="radio" class="with-gap" id="rbtnAtencionTel2"
+                                        value="2">
+                                    <label id="lblAtencionTel2" for="rbtnAtencionTel2">
+                                        <i class="mdi mdi-whatsapp"></i> WhatsApp
+                                    </label>
+                                    <br>
+                                    <input name="rbtnEnvioOferta" type="radio" class="with-gap" id="rbtnAtencionTel3"
+                                        value="3">
+                                    <label id="lblAtencionTel3" for="rbtnAtencionTel3">
+                                        <i class="mdi mdi-email"></i><i class="mdi mdi-whatsapp"></i> Ambos medios
+                                    </label>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label class="control-label">
-                                                Razones:
-                                            </label>
-                                            <select id="txtRazonesLlamada" class="select2-multiple m-b-10"
-                                                style="width: 100%" multiple="multiple"
-                                                data-placeholder="Seleccione o escriba">
-                                                <option value="No responden">No responden</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="m-t-20 m-b-20">
-                                <div id="ValidacionesCita" style="display: none;">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <h4 class="box-title m-b-20">Validación de información:</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="location1">¿Factura?:
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="checkbox" class="switch_factura">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="location1">Dirección:
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="checkbox" class="switch_direccion">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label class="d-block" for="location1">NIT:
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="checkbox" class="switch_nit">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- <div class="row">
-                                                            <div class="col-md-12">
-                                                                <button type="button" id="btnVerificarDatos" class="btn waves-effect waves-light btn-success">
-                                                                    Verificar datos
-                                                                </button>
-                                                                <button type="button" id="btnEnviarCitaDespues"  data-toggle="modal"
-                                                                data-target="#modalProgramarLlamada" class="btn waves-effect waves-light btn-danger">
-                                                                    Enviar cita después
-                                                                </button>
-                                                            </div>
-                                                        </div> -->
-                                </div>
-                                <!-- <div >
-                                                        <div class="row">
-                                                            <div class="col-md-12">
-                                                                <h4 class="box-title m-b-20">Opciones de llamada:</h4>
-                                                            </div>
-                                                        </div>
-                                                        
-                                                    </div> -->
+                            </div>
+                            <div class="col-md-8">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group">
-                                            <label id="lbReprogramarLlamada" class="font-weight-bold">
-                                                <i class="fa fa-clock-o"></i> Llamar nuevamente:</label>
-                                            <input type="text" id="Fecha_LP" class="form-control floating-label"
-                                                placeholder=" Ejemplo: Lunes 01 Enero 2020 12:00">
+                                            <label class="control-label">Correo:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" name="txtCorreo" id="txtCorreo" class="form-control"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="int1">Código postal:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="txtCodigoPostal"
+                                                name="txtCodigoPostal" placeholder="+57" value="57" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label for="int1">Celular:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="text" class="form-control" id="txtCelularAT"
+                                                name="txtCelularAT" disabled>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="decisions1">Observación:</label>
-                                            <textarea name="txtObservacion" id="txtObservacion" rows="12"
-                                                class="form-control"></textarea>
-                                        </div>
 
-                                    </div>
+                        </div>
+                    </section>
+                    <!-- Step 6 -->
+                    <h6>Finalizar llamada</h6>
+                    <section>
+                        <hr class="m-t-0 m-b-20">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label for="location1">Habeas Data:<span class="text-danger">*</span>
+                                    </label>
+                                    <input type="checkbox" class="switch_habeas_data">
+                                </div>
+                            </div>
+                            <div class="col-md-3 ValidacionesCita" style="display: none;">
+                                <div class="form-group">
+                                    <label for="location1">¿Factura?:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <br>
+                                    <input type="checkbox" class="switch_factura">
+                                </div>
+                            </div>
+                            <div class="col-md-3 ValidacionesLlamada">
+                                <div class="form-group">
+                                    <label for="location1">
+                                        ¿Llamar nuevamente?</label>
+                                    </label>
+                                    <br>
+                                    <input type="checkbox" class="switch_llamarNuevamente">
+                                </div>
+                            </div>
+                            <div id="ValidacionTerminarLL1" class="col-md-7">
+                                <div class="form-group">
+                                    <label class="control-label">Conclusión Llamada:</label>
+                                    <select name="txtConclusion" id="txtConclusion"
+                                        class="select2 form-control custom-select" disabled="disabled">
+                                        <option selected value="1">No efectiva</option>
+                                        <option disabled value="2">Llamar nuevamente</option>
+                                        <option disabled value="3">Efectiva</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 ValidacionTerminarLL2" style="display: none;">
+                                <div class="form-group">
+                                    <label class="control-label">Conclusión Llamada:</label>
+                                    <select name="txtConclusion" id="txtConclusion"
+                                        class="select2 form-control custom-select" disabled="disabled">
+                                        <option selected value="1">No efectiva</option>
+                                        <option disabled value="2">Llamar nuevamente</option>
+                                        <option disabled value="3">Efectiva</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 ValidacionTerminarLL2" style="display: none;">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        ¿Se llamó a una empresa? <span class="text-danger">*</span>
+                                    </label>
+                                    <br>
+                                    <input name="rbtEmpresaValida" type="radio" class="with-gap" id="rbtValEmpresa"
+                                        value="1">
+                                    <label for="rbtValEmpresa">Si</label>
+                                    <input name="rbtEmpresaValida" type="radio" class="with-gap" id="rbtValEmpresa2"
+                                        value="2">
+                                    <label for="rbtValEmpresa2">No</label>
+                                    <input name="rbtEmpresaValida" type="radio" class="with-gap" id="rbtValEmpresa3"
+                                        value="3">
+                                    <label for="rbtValEmpresa3">No responden</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label">
+                                        Razones:
+                                    </label>
+                                    <select id="txtRazonesLlamada" class="select2-multiple m-b-10" style="width: 100%"
+                                        multiple="multiple" data-placeholder="Seleccione o escriba">
+                                        <option value="No responden">No responden</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="form-group">
+                                    <button type="button" id="btnFinalizarLlamada" class="btn btn-info"><i
+                                            class="mdi mdi-phone-classic"></i>
+                                        Finalizar llamada</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ValFinalizarLlamada" class="row" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="decisions1">Observación de la llamada:</label>
+                                    <textarea name="txtObservacion" id="txtObservacion" rows="5"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="m-t-20 m-b-20 ValFinalizarLlamadaCita" style="display: none;">
+                        <div style="display: none;" class="row ValFinalizarLlamadaCita">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <h4 class="box-title m-b-20 font-weight-bold">Validación de información:</h4>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="location1">Dirección:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <br>
+                                            <input type="checkbox" class="switch_direccion">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="location1">NIT:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <br>
+                                            <input type="checkbox" class="switch_nit">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="location1">
+                                                ¿Enviar cita después?</label>
+                                            </label>
+                                            <br>
+                                            <input type="checkbox" class="switch_enviarCitaDespues" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-t-20 m-b-20">
+                        </div>
+                    </section>
+                    <!-- Step 7 -->
+                    <h6>Programar fecha</h6>
+                    <section>
+                        <hr class="m-t-0 m-b-20">
+                        <div class="row ValidacionesPLlamada">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">
+                                        <i class="fa fa-clock-o"></i> Llamar nuevamente:</label>
+                                    <input type="text" id="Fecha_LP" class="form-control floating-label"
+                                        placeholder=" Ejemplo: Lunes 01 Enero 2020 12:00">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row ValidacionesPCita" style="display: none;">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="font-weight-bold">
+                                        <i class="fa fa-clock-o"></i> Enviar cita después:</label>
+                                    <input type="text" id="Fecha_EC" class="form-control floating-label"
+                                        placeholder=" Ejemplo: Lunes 01 Enero 2020 12:00">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- Step 8 -->
+                    <h6>Diseñar oferta</h6>
+                    <section>
+                        <hr class="m-t-0 m-b-20">
+
                     </section>
                 </form>
                 <hr>
@@ -823,44 +731,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
-    <div class="col-md-2">
-        {{!-- <div class="card">
-            <div class="card-body">
-                <h4 class="d-inline-block m-t-10 m-r-10">Empresa:</h4>
-                <button type="button" class="btn btn-info btn-circle">
-                    <i class="fa fa-eye"></i>
-                </button>
-                <hr>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="content">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span class="card-subtitle">Empresa S.A.S</span>
-                        </div>
-                        <div class="content">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span class="card-subtitle">Teléfono</span>
-                        </div>
-                        <div class="content">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span class="card-subtitle">Operador</span>
-                        </div>
-                        <div class="content">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span class="card-subtitle">Corporativo: NO</span>
-                        </div>
-                        <div class="content">
-                            <i class="fa fa-check-circle-o"></i>
-                            <span class="card-subtitle"># Líneas</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+    <div class="col-md-2 p-r-0 p-l-0">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><i class="fa fa-calendar"></i> Cita:</h4>
@@ -878,6 +752,16 @@
                             <label for="resumenCita">Hora</label>
                         </div>
                         <div class="content">
+                            <input type="checkbox" id="resumenCitaHD" class="MyStyle_Checkbox" readonly
+                                onclick="javascript: return false;">
+                            <label for="resumenCita">Habeas Data</label>
+                        </div>
+                        <div class="content">
+                            <input type="checkbox" id="resumenCitaFactura" class="MyStyle_Checkbox" readonly
+                                onclick="javascript: return false;">
+                            <label for="resumenCita">Factura</label>
+                        </div>
+                        <div class="content">
                             <input type="checkbox" id="resumenCitaDireccion" class="MyStyle_Checkbox" readonly
                                 onclick="javascript: return false;">
                             <label for="resumenCita">Dirección</label>
@@ -887,90 +771,43 @@
                                 onclick="javascript: return false;">
                             <label for="resumenCita">NIT</label>
                         </div>
-                        <div class="content">
-                            <input type="checkbox" id="resumenCitaFactura" class="MyStyle_Checkbox" readonly
-                                onclick="javascript: return false;">
-                            <label for="resumenCita">Factura</label>
-                        </div>
-                        <div class="content">
-                            <input type="checkbox" id="resumenCitaHD" class="MyStyle_Checkbox" readonly
-                                onclick="javascript: return false;">
-                            <label for="resumenCita">Habeas Data</label>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header MyStyle_Card_Header ">
-                <h2 class="text-white">Información de los servicios del cliente:</h2>
-            </div>
+        <div id="DetalleEmpresaCard" class="card" style="display: none;">
             <div class="card-body">
+                <h4 class="d-inline-block m-t-10">Empresa:</h4>
+                <button type="button" class="btn btn-sm btn-info btn-circle" data-toggle="modal"
+                    data-target=".ModalDetalles">
+                    <i class="fa fa-eye"></i>
+                </button>
+                <hr>
                 <div class="row">
                     <div class="col-md-12">
-                        <h3 class="font-weight-bold"> <i class="fa fa-home"></i> Servicios fijos:</h3>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div id="ServiciosFijos" class="col-md-12">
-
-                    </div>
-                </div>
-                <hr class="m-t-10 m-b-20">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h3 class="font-weight-bold"> <i class="fa fa-mobile-phone"></i> Servicios móviles:</h3>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="table-responsive">
-                            <table id="DataTableServicios" class="table MyStyle_Color-Table display nowrap"
-                                style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center">Cantidad líneas</th>
-                                        <th class="text-center">Cargo básico</th>
-                                        <th class="text-center">Navegación</th>
-                                        <th class="text-center">Minutos</th>
-                                        <th class="text-center">Mensajes</th>
-                                        <th class="text-center">Redes sociales </th>
-                                        <th class="text-center">Minutos LDI</th>
-                                        <th class="text-center">Cantidad LDI</th>
-                                        <th class="text-center">Serivicios adicionales</th>
-                                        <th class="text-center">Opciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="TblRegistroDetalleLineas">
-
-
-                                </tbody>
-                                {{!-- <tfoot id="tFootRegistroDetalleCliente">
-                            <tr>
-                                <td>
-                                    <h5 class="box-title">Total:</h5>
-                                </td>
-                                <td>4</td>
-                                <td>
-                                    <i class="fa fa-dollar"></i>
-                                    <div class="float-right">$100,000</div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tfoot> --}}
-                            </table>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnEmpresa" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnTelefono" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnNIT" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnOPerador" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnCorporativo" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnLineas" class="card-subtitle"></span>
                         </div>
                     </div>
                 </div>
@@ -978,6 +815,8 @@
         </div>
     </div>
 </div>
+
+{{>listar-detalle-servicios}}
 
 {{>direccion}}
 
@@ -1016,19 +855,35 @@
                         <i class="fa fa-warning"></i> ¡Cliente ya registrado!
                     </h2>
                 </div>
-                <div id="MensajeLabel" class="col-md-5">
-
-                </div>
                 <div class="col-md-2">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
             </div>
-
-            {{>detalles-clientes}}
-
-            <div id="ValidarBtnLlamar" class="modal-footer">
-
+            <div class="card m-b-0">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 text-center">
+                            <div class="form-group">
+                                <div id="MensajeLabel" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="RazonesNoDisponible" class="col-md-6 text-center">
+                            <div class="form-group">
+                                <h5 class="font-weight-bold">Razones:</h5>
+                                <b></b>
+                                <p id="listRazones"></p>
+                            </div>
+                        </div>
+                        <div id="ValidarBtnLlamar" class="col-md-6 text-center">
+                            <button type="button" onclick="LlamarClienteRegistrado()" class="btn btn-info">
+                                <i class="fa fa-phone"></i> Llamar
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            {{>detalles-clientes}}
         </div>
     </div>
 </div>

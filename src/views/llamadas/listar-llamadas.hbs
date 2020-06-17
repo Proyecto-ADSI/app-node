@@ -3,96 +3,65 @@
         <h4 class="m-b-0 text-white">Registro de Llamadas</h4>
     </div>
     <div class="card-body" id="Card-Body-Filtrar-Llamadas">
-        <div class="card MyStyle_Card_Filtro card-outline-primary">
-            <div class="card-header">
-                <h4 class="m-b-0 text-white">Filtro:</h4>
+        <div class="card">
+            <div class="card-header MyStyle_Card_Header">
+                <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
             </div>
             <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
-                <form class="" action="" method="POST">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <label class="m-t-30">NIT</label>
-                                    <input type="text" class="form-control" id="Llamadas-Nit" placeholder="123...">
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="MyStyle_Guion"> -</label>
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="m-t-30">Dígito</label>
-                                    <input type="number" class="form-control" id="Llamadas-Digito" placeholder="1...">
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">NIT</label>
+                            <input type="text" class="form-control" id="Filtro_NIT" placeholder="NIT">
                         </div>
-                        <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Rango de Fechas</label>
-                                <input class="form-control input-daterange-datepicker" type="text" name="daterange"
-                                    id="Llamadas-Rango-Fechas" value="" />
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="m-t-30">Hora</label>
-                            <div class="input-group clockpicker " data-placement="bottom" data-align="top"
-                                data-autoclose="true">
-                                <input type="text" class="form-control" id="Llamadas-Hora" value="">
-                                <div class="input-group-append">
-                                    <span class="input-group-text"><i class="fa fa-clock-o"></i></span>
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label class="m-t-30">Teléfono</label>
-                            <input type="text" class="form-control" id="Llamadas-Telefono" placeholder="1234567...">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Razón social</label>
+                            <input class="form-control" type="text" id="Filtro_RazonSocial" placeholder="Razón social">
                         </div>
-                        <div class="col-md-4">
-                            <label class="m-t-30">Contact Center</label>
-
-                            <select class="selectpicker" id="Llamadas-Contact" multiple data-style="form-control"
-                                style="width: 100%;">
-                                <!--  select2 custom-select form-control -->
-                                <!-- multiple data-style="form-control btn-secondary" -->
-                                <!-- <option>Select</option> -->
-                                <optgroup label="Hombres">
-                                    <option value="CA">Juan Pérez</option>
-                                    <option value="NV">Juan Manuel Rico</option>
-                                    <option value="OR">Andrés Felipe Montoya</option>
-                                    <option value="WA">Santiago Mejía</option>
-                                </optgroup>
-                                <optgroup label="Mujeres">
-                                    <option value="AZ">Mónica Garcia</option>
-                                    <option value="CO">Alejandra Parra</option>
-                                    <option value="ID">Jhohana Vélez</option>
-
-                                </optgroup>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Municipio</label>
+                            <input class="form-control" type="text" id="Filtro_Municipio" placeholder="Municipio">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Fecha</label>
+                            <input class="form-control" type="text" id="Filtro_Fecha" placeholder="Fecha">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Usuario</label>
+                            <input class="form-control" type="text" id="Filtro_Usuario" placeholder="Usuario">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Estado</label>
+                            <select name="txtCalificacion" id="Filtro_Estado"
+                                class="select2 form-control custom-select valDetalle">
+                                <option selected disabled>Seleccione...</option>
+                                <option value="1">No efectiva</option>
+                                <option value="2">Llamar nuevamente</option>
+                                <option value="3">Efectiva</option>
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <h5 class="m-t-30">Estado</h5>
-                            <select class="selectpicker form-control" id="Llamadas-Estado" style="width: 100%;">
-                                <option disabled selected>Seleccione...</option>
-                                <option>Efectiva</option>
-                                <option>Programada</option>
-                                <option>No Efectiva</option>
-                            </select>
-                        </div>
-
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                                <button type="submit" class="btn btn-info"><i class="fas fa-search"></i>
-                                    Consultar</button>
-                                <button class="btn btn-warning" style="margin-left: 1.7rem;"><i
-                                        class="fas fa-filter"></i> Filtro avanzado </button>
-                            </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
+                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
+                                Limpiar filtro avanzado</button>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
         <div class="table-responsive m-t-40">
@@ -218,9 +187,19 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="font-weight-bold text-right">
-                                                            Extensión o celular:
+                                                            Correo:
                                                         </label>
-                                                        <p id="txtExtension_celular_D" class="form-control-static">
+                                                        <p id="txtCorreo_D" class="form-control-static">
+
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="font-weight-bold text-right">
+                                                            Celular:
+                                                        </label>
+                                                        <p id="txtCelular_D" class="form-control-static">
 
                                                         </p>
                                                     </div>

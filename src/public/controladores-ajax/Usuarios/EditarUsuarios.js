@@ -19,7 +19,7 @@ CargarDatosModalEditar = (Informacion) => {
 
     $("#inputFotografiaEditarAE").empty();
     $("#inputFotografiaEditarAE").append(`
-    <input type="file" id="fileFotografiaAE" name="Fotografia" data-default-file="/assets/images/usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
+    <input type="file" id="fileFotografiaAE" name="Fotografia" data-default-file="${URL}/Images/Usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
   `);
 
     let dropify = $("#fileFotografiaAE").dropify({
@@ -52,7 +52,7 @@ CargarDatosModalEditar = (Informacion) => {
 
     $("#inputFotografiaEditar").empty();
     $("#inputFotografiaEditar").append(`
-    <input type="file" id="fileFotografia" name="Fotografia" data-default-file="/assets/images/usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
+    <input type="file" id="fileFotografia" name="Fotografia" data-default-file="${URL}/Images/Usuarios/${Informacion.Imagen}" imagen="${Informacion.Imagen}"/>
   `);
 
     let dropify = $("#fileFotografia").dropify({
@@ -325,22 +325,16 @@ let EditarUsuario = (imagen) => {
       }
     })
     .fail((error) => {
-      swal(
-        {
-          title: "Error en el servidor.",
-          text: "Ha ocurrido un error al modificar, intenta de nuevo",
-          type: "danger",
-          showCancelButton: false,
-          confirmButtonColor: "#2F6885",
-          confirmButtonText: "Continuar",
-          closeOnConfirm: false,
-        },
-        function (isConfirm) {
-          if (isConfirm) {
-            console.log(error);
-          }
-        }
-      );
+      console.log(error);
+      swal({
+        title: "Error en el servidor.",
+        text: "Ha ocurrido un error al modificar, intenta de nuevo",
+        type: "error",
+        showCancelButton: false,
+        confirmButtonColor: "#2F6885",
+        confirmButtonText: "Continuar",
+        closeOnConfirm: true,
+      });
     });
 };
 
@@ -394,7 +388,7 @@ let EditarUsuarioAE = (imagen) => {
       swal({
         title: "Error en el servidor.",
         text: "Ha ocurrido un error al modificar, intenta de nuevo",
-        type: "danger",
+        type: "error",
         showCancelButton: false,
         confirmButtonColor: "#2F6885",
         confirmButtonText: "Continuar",

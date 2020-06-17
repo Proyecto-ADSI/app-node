@@ -4,17 +4,23 @@ var form = null;
 // Variables de control
 var Reprogramar_Llamada = false;
 var Enviar_Cita_Despues = false;
+var RecordarCita = false;
 var Fecha_Cita = null;
 var Fecha_LP = null;
-var Validacion_RegistrarCliente = true;
+var Fecha_EC = null;
+var FinalizarLlamada = false;
 var TerminarLlamada = false;
+var ClienteNoValido = false;
+var NoResponden = false;
 var EnlazarUbicacionEmpresa = false;
 var ValDireccionCita = false;
 
 $(function () {
+  controlServicios = 3;
   iniciarCronometroLlamada();
-  var stepPlanCorp;
-  var stepCita;
+  // var stepPlanCorp;
+  // var stepCita;
+  // var stepAT;
   form = $("#Form_Registro_LlamadaNP").show();
 
   form.steps({
@@ -27,9 +33,15 @@ $(function () {
       // Validacion de steps
       stepPlanCorp = form.steps("getStep", 2);
       stepCita = form.steps("getStep", 3);
-      stepFinLlamada = form.steps("getStep", 4);
+      stepAT = form.steps("getStep", 4);
+      stepFinLlamada = form.steps("getStep", 5);
+      stepProgramarFecha = form.steps("getStep", 6);
+      stepDiseñarOferta = form.steps("getStep", 7);
       form.steps("remove", 2);
       form.steps("remove", 2);
+      form.steps("remove", 2);
+      form.steps("remove", 3);
+      form.steps("remove", 3);
 
       // Inicializar selects del formulario
       CargarDatosUbicacion();
@@ -66,25 +78,38 @@ $(function () {
       );
     },
     onFinished: function (event, currentIndex) {
-      if (
-        $(".switch_cita1").bootstrapSwitch("state") === true ||
-        $(".switch_cita2").bootstrapSwitch("state") === true
-      ) {
-        if (ValidacionesCita()) {
+      if (FinalizarLlamada) {
+        if (
+          $(".switch_cita1").bootstrapSwitch("state") === true ||
+          $(".switch_cita2").bootstrapSwitch("state") === true
+        ) {
+          if (ValidacionesCita()) {
+            if (sessionStorage.DatosUbicacion) {
+              sessionStorage.removeItem("DatosUbicacion");
+            }
+            RegistrarLlamadaNP();
+          }
+        } else {
           if (sessionStorage.DatosUbicacion) {
             sessionStorage.removeItem("DatosUbicacion");
           }
           RegistrarLlamadaNP();
         }
       } else {
-        if (sessionStorage.DatosUbicacion) {
-          sessionStorage.removeItem("DatosUbicacion");
-        }
-        RegistrarLlamadaNP();
+        GenerarAlertasToast(3);
       }
     },
   }),
     form.validate({
+      onkeyup: function (element) {
+        if (
+          element.id == "txtRazonSocial" ||
+          element.id == "txtTelefono" ||
+          element.id == "txtNIT"
+        ) {
+          return false;
+        }
+      },
       ignore: "input[type=hidden]",
       successClass: "text-success",
       errorClass: "form-control-feedback",
@@ -97,6 +122,8 @@ $(function () {
           error.insertAfter(element.parent(".input-group"));
         } else if (element[0].name == "detalleLineasRadios") {
           error.insertAfter($("#lblDetalle_radio2"));
+        } else if (element[0].name == "rbtnEnvioOferta") {
+          error.insertAfter($("#lblAtencionTel3"));
         } else {
           error.insertAfter(element);
         }
@@ -122,7 +149,8 @@ $(function () {
       rules: {
         // txtRazonSocial: {
         //   required: true,
-        //   minlength: 5,
+        //   minlength: 2,
+        //   maxlength: 45,
         //   SoloAlfanumericos: true,
         //   remote: {
         //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
@@ -136,8 +164,10 @@ $(function () {
         //     dataFilter: function (res) {
         //       var json = JSON.parse(res);
         //       if (json.data.ok) {
+        //         $("#DetalleEmpresaCard").attr("style", "display:none");
         //         return '"true"';
         //       } else {
+        //         MostarCardDetalleEmpresa(json.data.cliente);
         //         CargarDatosModalDetalles(json.data.cliente);
         //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
         //         ValidarLlamarCliente(Estado_Cliente);
@@ -149,23 +179,24 @@ $(function () {
         // txtTelefono: {
         //   required: true,
         //   SoloNumeros: true,
-        //   minlength: 5,
-        //   maxlength: 10,
+        //   minlength: 7,
+        //   maxlength: 7,
         //   remote: {
         //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
         //     type: "get",
         //     dataType: "json",
         //     data: {
         //       texto: function (e) {
-        //         console.log(e);
         //         return $("#txtTelefono").val().trim();
         //       },
         //     },
         //     dataFilter: function (res) {
         //       var json = JSON.parse(res);
         //       if (json.data.ok) {
+        //         $("#DetalleEmpresaCard").attr("style", "display:none");
         //         return '"true"';
         //       } else {
+        //         MostarCardDetalleEmpresa(json.data.cliente);
         //         CargarDatosModalDetalles(json.data.cliente);
         //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
         //         ValidarLlamarCliente(Estado_Cliente);
@@ -176,7 +207,8 @@ $(function () {
         // },
         // txtNIT: {
         //   ValidarNIT: true,
-        //   minlength: 5,
+        //   minlength: 9,
+        //   maxlength: 11,
         //   remote: {
         //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
         //     type: "get",
@@ -189,10 +221,10 @@ $(function () {
         //     dataFilter: function (res) {
         //       var json = JSON.parse(res);
         //       if (json.data.ok) {
-        //         ValidarResumenNIT(true);
+        //         $("#DetalleEmpresaCard").attr("style", "display:none");
         //         return '"true"';
         //       } else {
-        //         ValidarResumenNIT(false);
+        //         MostarCardDetalleEmpresa(json.data.cliente);
         //         CargarDatosModalDetalles(json.data.cliente);
         //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
         //         ValidarLlamarCliente(Estado_Cliente);
@@ -201,46 +233,66 @@ $(function () {
         //     },
         //   },
         // },
-        // txtPersona_Responde: {
-        //   SoloLetras: true,
+        //   txtPersona_Responde: {
+        //     required: true,
+        //     maxlength: 45,
+        //     SoloLetras: true,
+        //   },
+        //   txtEncargado: {
+        //     maxlength: 45,
+        //     SoloLetras: true,
+        //   },
+        //   txtPais: "required",
+        //   txtDepartamento: "required",
+        //   txtMunicipio: "required",
+        //   txtOperador: "required",
+        //   txtDetalle_Cantidad_Lineas: {
+        //     required: true,
+        //     maxlength: 3,
+        //     SoloNumeros2: true,
+        //   },
+        //   txtDetalle_Valor_Mensual: {
+        //     required: true,
+        //     maxlength: 45,
+        //     SoloNumeros2: true,
+        //   },
+        //   detalleLineasRadios: "required",
+        //   txtDetalleNavegacion: {
+        //     maxlength: 45,
+        //     SoloNumeros: true,
+        //   },
+        //   txtDetalle_Minutos: {
+        //     maxlength: 45,
+        //     SoloNumeros: true,
+        //   },
+        //   txtDetalle_Mensajes: {
+        //     maxlength: 45,
+        //     SoloNumeros: true,
+        //   },
+        //   txtDetalle_Cantidad_LDI: {
+        //     maxlength: 45,
+        //     SoloNumeros: true,
+        //   },
+        //   // txtFecha_inicio: "required",
+        //   // txtFecha_fin: "required",
+        // rbtnEnvioOferta: "required",
+        // txtCorreo: {
+        //   required: true,
+        //   maxlength: 45,
+        //   ValidarCorreo: true,
         // },
-        // txtEncargado: {
-        //   SoloLetras: true,
-        // },
-        // txtExt_Tel_Contacto: {
+        // txtCodigoPostal: {
+        //   required: true,
         //   SoloNumeros: true,
-        //   minlength: 2,
+        //   maxlength: 5,
+        //   minlength: 1,
+        // },
+        // txtCelularAT: {
+        //   required: true,
+        //   NumeroMovil: true,
+        //   minlength: 10,
         //   maxlength: 10,
         // },
-        // txtPais: "required",
-        // txtDepartamento: "required",
-        // txtMunicipio: "required",
-        // txtSubTipo: "required",
-        // txtOperador: "required",
-        // txtCalificacion: "required",
-        txtDetalle_Cantidad_Lineas: {
-          required: true,
-          SoloNumeros: true,
-        },
-        txtDetalle_Valor_Mensual: {
-          required: true,
-          SoloNumeros2: true,
-        },
-        detalleLineasRadios: "required",
-        txtDetalleNavegacion: {
-          SoloNumeros: true,
-        },
-        txtDetalle_Minutos: {
-          SoloNumeros: true,
-        },
-        txtDetalle_Mensajes: {
-          SoloNumeros: true,
-        },
-        txtDetalle_Minutos_LDI: {
-          SoloNumeros: true,
-        },
-        // txtFecha_inicio: "required",
-        // txtFecha_fin: "required",
         // txtOperadorCita: "required",
         // txtFechaCita: "required",
         // btnHoraCita: "required",
@@ -248,7 +300,7 @@ $(function () {
         //   required: true,
         //   SoloLetras: true,
         // },
-        // txtExt_Tel_ContactoEC: {
+        // txtCelularCita: {
         //   SoloNumeros: true,
         //   minlength: 2,
         //   maxlength: 10,
@@ -268,219 +320,8 @@ $(function () {
 
   // Inicializar elementos:
 
-  try {
-    dataSet = JSON.parse(localStorage.getItem("ServiciosMoviles") || []);
-  } catch (err) {
-    dataSet = [];
-  }
-
-  try {
-    serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos") || []);
-  } catch (err) {
-    serviciosFijos = [];
-  }
-
-  if (serviciosFijos.length > 0) {
-    for (let item of serviciosFijos) {
-      let pagina = "checkDetalle_Pagina";
-      let correo = "checkDetalle_Correo";
-      let ip = "checkDetalle_IPFija";
-      let dominio = "checkDetalle_dominio";
-      let telefonia = "checkDetalle_telefonia";
-      let television = "checkDetalle_television";
-      $("#ServiciosFijos").append(
-        `
-      <label class="ServiciosFijosItems" for="checkDetalle_telefonia"><i class="mdi mdi-bookmark-check"></i>
-        ${item}
-      </label>
-      `
-      );
-
-      switch (item) {
-        case "Página Web":
-          checkServiciosFijo(pagina);
-          break;
-        case "Correo":
-          checkServiciosFijo(correo);
-          break;
-        case "IP fija":
-          checkServiciosFijo(ip);
-          break;
-        case "Dominio":
-          checkServiciosFijo(dominio);
-          break;
-        case "Telefonía":
-          checkServiciosFijo(telefonia);
-          break;
-        case "Televisión":
-          checkServiciosFijo(television);
-          break;
-      }
-    }
-  }
-
-  DataTableServicios = $("#DataTableServicios")
-    .DataTable({
-      responsive: true,
-      columns: [
-        {
-          render: function (data, type, row) {
-            let text = data + " líneas";
-            return text;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            return data;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            let text = data + " GB";
-            return text;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            return data;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            return data;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            if (type === "display") {
-              let html = "";
-              for (let item of data) {
-                html =
-                  html +
-                  `
-                  <div class="label label-table text-center" style="background-color:#00897b">
-                  ${item}
-                  </div>
-                `;
-              }
-              return html;
-            } else {
-              let text = "";
-              for (let item of data) {
-                text = text + ", " + item;
-              }
-              return text;
-            }
-          },
-        },
-        {
-          render: function (data, type, row) {
-            if (type === "display") {
-              let html = "";
-              for (let item of data) {
-                html =
-                  html +
-                  `
-                  <div class="label label-table text-center" style="background-color:#00897b">
-                  ${item}
-                  </div>
-                `;
-              }
-              return html;
-            } else {
-              return data;
-            }
-          },
-        },
-        {
-          render: function (data, type, row) {
-            return data;
-          },
-        },
-        {
-          render: function (data, type, row) {
-            if (type === "display") {
-              let html = "";
-              for (let item of data) {
-                html =
-                  html +
-                  `
-                  <div class="label label-table text-center" style="background-color:#00897b">
-                  ${item}
-                  </div>
-                `;
-              }
-              return html;
-            } else {
-              return data;
-            }
-          },
-        },
-        {
-          render: function (data, type, row) {
-            if (type === "display") {
-              return `
-              <button type="button" id="DetallesLineasEditar" id_linea="${data}"
-              class="btn btn-info btn-sm">
-              <i class="fa fa-pencil"></i>
-          </button>
-          <button type="button" id="DetallesLineasEliminar" id_linea="${data}"
-              class="btn btn-danger btn-sm">
-              <i class="fa fa-close"></i>
-          </button>
-              `;
-            }
-            return data;
-          },
-        },
-      ],
-      columnDefs: [
-        { responsivePriority: 1, targets: 0 },
-        { responsivePriority: 2, targets: -1 },
-      ],
-      language: {
-        lengthMenu: "Mostrar _MENU_ registros",
-        zeroRecords: "No se encontraron resultados",
-        info:
-          "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-        infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-        infoFiltered: "(filtrado de un total de _MAX_ registros)",
-        sSearch: "Buscar:",
-        oPaginate: {
-          sFirst: "Primero",
-          sLast: "Último",
-          sNext: "Siguiente",
-          sPrevious: "Anterior",
-        },
-        sProcessing: "Procesando...",
-      },
-    })
-    .columns.adjust()
-    .responsive.recalc();
-
-  if (dataSet.length > 0) {
-    for (let servicio of dataSet) {
-      let data = [
-        servicio.cantidadLineas,
-        servicio.cargoBasicoMensual,
-        servicio.navegacion,
-        servicio.minutos,
-        servicio.mensajes,
-        servicio.redesSociales,
-        servicio.minutosLDI,
-        servicio.cantidadLDI,
-        servicio.serviciosAdicionales,
-        servicio.id,
-      ];
-
-      DataTableServicios.row.add(data).draw();
-    }
-    DataTableServicios.responsive.recalc();
-    ObtenerDataLineasEditar();
-    EliminarDetalleLinea();
-  }
-
   // tooltip
+  // InicializarToltips();
   $("body").tooltip({ selector: "[data-toggle=tooltip]" });
 
   // bootstrap-switch
@@ -498,6 +339,42 @@ $(function () {
     onColor: "success",
     offColor: "danger",
   });
+  $(".switch_AT1").bootstrapSwitch({
+    onText: "SI",
+    offText: "NO",
+    onColor: "success",
+    offColor: "danger",
+  });
+
+  $(".atencion_tel").bootstrapSwitch({
+    onText: "SI",
+    offText: "NO",
+    onColor: "success",
+    offColor: "danger",
+  });
+
+  $("input:radio[name=rbtnEnvioOferta]").change(function () {
+    let value = parseInt($(this).val());
+
+    switch (value) {
+      case 1:
+        $("#txtCorreo").removeAttr("disabled");
+        $("#txtCodigoPostal").attr("disabled");
+        $("#txtCelularAT").attr("disabled", true);
+        $("#txtCodigoPostal").attr("disabled", true);
+        break;
+      case 2:
+        $("#txtCodigoPostal").removeAttr("disabled");
+        $("#txtCelularAT").removeAttr("disabled");
+        $("#txtCorreo").attr("disabled", true);
+        break;
+      case 3:
+        $("#txtCodigoPostal").removeAttr("disabled");
+        $("#txtCelularAT").removeAttr("disabled");
+        $("#txtCorreo").removeAttr("disabled");
+        break;
+    }
+  });
 
   $(".switch_habeas_data").bootstrapSwitch({
     onText: "SI",
@@ -506,42 +383,13 @@ $(function () {
     offColor: "danger",
   });
 
-  // Fecha reprogramar llamada
-  $("#Fecha_LP")
-    .bootstrapMaterialDatePicker({
-      lang: "es",
-      format: "dddd DD MMMM YYYY - HH:mm",
-      minDate: new Date(),
-      switchOnClick: true,
-      weekStart: 1,
-      // maxDate: moment().add(10, 'days'),
-      disabledDays: [6, 7],
-      shortTime: true,
-      clearButton: true,
-      nowButton: true,
-      cancelText: "Cancelar",
-      clearText: "Limpiar",
-      nowText: "Fecha actual",
-    })
-    .on("change", function (e, date) {
-      if (typeof date !== "undefined") {
-        Fecha_LP = FormatearFecha(date._d, true);
-
-        if (
-          $(".switch_cita1").bootstrapSwitch("state") === true ||
-          $(".switch_cita2").bootstrapSwitch("state") === true
-        ) {
-          Enviar_Cita_Despues = true;
-        } else {
-          Reprogramar_Llamada = true;
-          ModificarConclusionLlamada(2);
-        }
-      } else {
-        Enviar_Cita_Despues = false;
-        Reprogramar_Llamada = false;
-        ModificarConclusionLlamada(1);
-      }
-    });
+  // Llamar nuevamente
+  $(".switch_llamarNuevamente").bootstrapSwitch({
+    onText: "SI",
+    offText: "NO",
+    onColor: "success",
+    offColor: "danger",
+  });
 
   // Enlazar eventos de escucha:
 
@@ -574,31 +422,57 @@ $(function () {
     }
   });
 
-  // Detalle línea
-  $("#txtDetalleMinutosLDI").on("change", function (e) {
-    let minutosLDI = $("#txtDetalleMinutosLDI").val();
-    if (minutosLDI.length > 0) {
-      $("#txtDetalle_Cantidad_LDI").removeAttr("disabled");
-    } else {
-      $("#txtDetalle_Cantidad_LDI").attr("disabled", true);
-    }
-  });
-
   // Estado del switch Cita 1
   $(".switch_cita1").on("switchChange.bootstrapSwitch", function (
     event,
     state
   ) {
     if (state) {
+      $(".switch_AT1").bootstrapSwitch("disabled", true);
+      $(".switch_corporativo").bootstrapSwitch("disabled", true);
       form.steps("insert", 2, stepCita);
       InicializarFormCitas();
       ValidarBtnTerminarLlamada();
     } else {
+      $(".switch_AT1").bootstrapSwitch("disabled", false);
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
       form.steps("remove", 2);
       EliminarStepCita();
       ValidarBtnTerminarLlamada();
     }
   });
+
+  // Estado del switch atención 1
+  $(".switch_AT1").on("switchChange.bootstrapSwitch", function (event, state) {
+    if (state) {
+      $(".switch_cita1").bootstrapSwitch("disabled", true);
+      $(".switch_corporativo").bootstrapSwitch("disabled", true);
+      form.steps("insert", 2, stepAT);
+      form.steps("insert", 4, stepDiseñarOferta);
+      $(".ValidacionesLlamada").attr("style", "display:none");
+      ModificarConclusionLlamada(3);
+      ValidarBtnTerminarLlamada();
+    } else {
+      $(".switch_cita1").bootstrapSwitch("disabled", false);
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      form.steps("remove", 2);
+      form.steps("remove", 3);
+      ModificarConclusionLlamada(1);
+      ValidarBtnTerminarLlamada();
+    }
+  });
+
+  if (localStorage.ServiciosMoviles) {
+    let serviciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
+    if (serviciosMoviles.length > 0) {
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      $(".switch_cita1").bootstrapSwitch("disabled", false);
+      $(".switch_AT1").bootstrapSwitch("disabled", false);
+    }
+  }
+
+  // Advertencia servicios
+  EnlazarClickAdvertencias();
 
   // Estado del switch Plan corporativo
   $(".switch_corporativo").on("switchChange.bootstrapSwitch", function (
@@ -620,10 +494,16 @@ $(function () {
         todayHighlight: true,
       });
 
-      $("#ValidacionCita").attr("style", "display: none");
+      $(".ValidacionClickCorp").attr("style", "display: none");
       ValidarBtnTerminarLlamada();
 
       $(".switch_cita2").bootstrapSwitch({
+        onText: "SI",
+        offText: "NO",
+        onColor: "success",
+        offColor: "danger",
+      });
+      $(".switch_AT2").bootstrapSwitch({
         onText: "SI",
         offText: "NO",
         onColor: "success",
@@ -636,13 +516,35 @@ $(function () {
         state
       ) {
         if (state) {
+          $(".switch_AT2").bootstrapSwitch("disabled", true);
           form.steps("insert", 3, stepCita);
           InicializarFormCitas();
           ValidarBtnTerminarLlamada();
         } else {
+          $(".switch_AT2").bootstrapSwitch("disabled", false);
           form.steps("remove", 3);
           EliminarStepCita();
           ValidarBtnTerminarLlamada();
+        }
+      });
+
+      $(".switch_AT2").on("switchChange.bootstrapSwitch", function (
+        event,
+        state
+      ) {
+        if (state) {
+          $(".switch_corporativo").bootstrapSwitch("disabled", true);
+          $(".switch_cita2").bootstrapSwitch("disabled", true);
+          form.steps("insert", 3, stepAT);
+          form.steps("insert", 5, stepDiseñarOferta);
+          $(".ValidacionesLlamada").attr("style", "display:none");
+          ModificarConclusionLlamada(3);
+        } else {
+          $(".switch_corporativo").bootstrapSwitch("disabled", false);
+          $(".switch_cita2").bootstrapSwitch("disabled", false);
+          form.steps("remove", 3);
+          form.steps("remove", 4);
+          ModificarConclusionLlamada(1);
         }
       });
     } else {
@@ -651,7 +553,7 @@ $(function () {
       }
 
       form.steps("remove", 2);
-      $("#ValidacionCita").removeAttr("style");
+      $(".ValidacionClickCorp").removeAttr("style");
       ValidarBtnTerminarLlamada();
     }
   });
@@ -712,67 +614,86 @@ $(function () {
     PonerBarrios_Veredas(Id_Municipio, Id_SubTipo, false);
   });
 
-  // Botones detalle líneas
-
-  $("#btnLimpiar").click(function () {
-    LimpiarDetalleLinea();
-  });
-
-  $("#btnGuardarDetalleLineas").click(function () {
-    form.validate().settings.ignore = ":disabled,:hidden, .valDetalle";
-    if (form.valid()) {
-      $("#txtDetalleId").val() == "0"
-        ? RegistrarDetalleLinea()
-        : EditarDetalleLinea();
-
-      // Editar linea
-      ObtenerDataLineasEditar();
-
-      // Eliminar línea.
-      EliminarDetalleLinea();
-    }
-  });
-
-  // Validación minutos ilimitados.
-  $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").change(
-    function () {
-      if ($(this).is(":checked")) {
-        $("#txtDetalle_Minutos").prop("disabled", true);
-      } else {
-        $("#txtDetalle_Minutos").prop("disabled", false);
-      }
-    }
-  );
-  // Validación mensajes ilimitados.
-  $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").change(
-    function () {
-      if ($(this).is(":checked")) {
-        $("#txtDetalle_Mensajes").prop("disabled", true);
-      } else {
-        $("#txtDetalle_Mensajes").prop("disabled", false);
-      }
-    }
-  );
-
-  // Terminar llamada
+  // Botón terminar llamada
   $("#btnTerminarLlamada").click(function () {
     TerminarLlamada = true;
+    $("#ValidacionTerminarLL1").attr("style", "display:none");
+    $(".ValidacionTerminarLL2").removeAttr("style");
+
+    $("input:radio[name=rbtEmpresaValida]").change(function () {
+      let value = $(this).val();
+      switch (value) {
+        case "1":
+          ClienteNoValido = false;
+          break;
+        case "2":
+          ClienteNoValido = true;
+          break;
+        case "3":
+          NoResponden = true;
+          break;
+      }
+    });
     form.steps("skip", 1);
     form.steps("next");
-    Validacion_RegistrarCliente = false;
   });
 
-  // Verificar Datos
-  $("#btnVerificarDatos").click(function () {
+  // Botón finalizar llamada
+  $("#btnFinalizarLlamada").click(function () {
+    FinalizarLlamada = true;
     detenerCronometroLlamada();
     iniciarCronometroVerificar();
+
+    if (
+      $(".switch_cita1").bootstrapSwitch("state") === true ||
+      $(".switch_cita2").bootstrapSwitch("state") === true
+    ) {
+      $("#ValFinalizarLlamada").removeAttr("style");
+      $(".ValFinalizarLlamadaCita").removeAttr("style");
+      $(".switch_cita1").bootstrapSwitch("disabled", true);
+      $(".switch_cita2").bootstrapSwitch("disabled", true);
+      $(".switch_direccion").bootstrapSwitch({
+        onText: "Válida",
+        offText: "Inválida",
+        onColor: "success",
+        offColor: "danger",
+      });
+
+      $(".switch_nit").bootstrapSwitch({
+        onText: "Válido",
+        offText: "Inválido",
+        onColor: "success",
+        offColor: "danger",
+      });
+
+      $(".switch_enviarCitaDespues").bootstrapSwitch({
+        onText: "Si",
+        offText: "No",
+        onColor: "success",
+        offColor: "danger",
+      });
+
+      // Alertas toast
+      EnlazarClickAdvertencias();
+
+      $(".switch_direccion").on("switchChange.bootstrapSwitch", function (
+        event,
+        state
+      ) {
+        HabilitarEnviarDC();
+        ValidarResumenCita();
+      });
+      $(".switch_nit").on("switchChange.bootstrapSwitch", function (
+        event,
+        state
+      ) {
+        HabilitarEnviarDC();
+        ValidarResumenCita();
+      });
+    } else {
+      $("#ValFinalizarLlamada").removeAttr("style");
+    }
   });
-
-  // Resumen Cita
-  // NIT
-  // $("#txtNIT").change(function () {
-
-  // });
 
   // Factura
   $(".switch_factura").on("switchChange.bootstrapSwitch", function (
@@ -795,6 +716,120 @@ $(function () {
       $("#resumenCitaHD").attr("checked", true);
     } else {
       $("#resumenCitaHD").removeAttr("checked");
+    }
+  });
+
+  // Llamar nuevamente
+  $(".switch_llamarNuevamente").on("switchChange.bootstrapSwitch", function (
+    event,
+    state
+  ) {
+    if (state) {
+      $(".switch_corporativo").bootstrapSwitch("disabled", true);
+      if ($(".switch_corporativo").bootstrapSwitch("state")) {
+        form.steps("insert", 4, stepProgramarFecha);
+        $(".switch_AT2").bootstrapSwitch("disabled", true);
+        $(".switch_cita2").bootstrapSwitch("disabled", true);
+      } else {
+        form.steps("insert", 3, stepProgramarFecha);
+        $(".switch_AT1").bootstrapSwitch("disabled", true);
+        $(".switch_cita1").bootstrapSwitch("disabled", true);
+      }
+
+      // Fecha reprogramar llamada
+      $("#Fecha_LP")
+        .bootstrapMaterialDatePicker({
+          lang: "es",
+          format: "dddd DD MMMM YYYY - HH:mm",
+          minDate: new Date(),
+          switchOnClick: true,
+          weekStart: 1,
+          // maxDate: moment().add(10, 'days'),
+          disabledDays: [6, 7],
+          shortTime: true,
+          clearButton: true,
+          nowButton: true,
+          cancelText: "Cancelar",
+          clearText: "Limpiar",
+          nowText: "Fecha actual",
+        })
+        .on("change", function (e, date) {
+          if (typeof date !== "undefined") {
+            Fecha_LP = FormatearFecha(date._d, true);
+            Reprogramar_Llamada = true;
+            ModificarConclusionLlamada(2);
+          } else {
+            Reprogramar_Llamada = false;
+            ModificarConclusionLlamada(1);
+          }
+        });
+    } else {
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      if ($(".switch_corporativo").bootstrapSwitch("state")) {
+        form.steps("remove", 4);
+        $(".switch_AT2").bootstrapSwitch("disabled", false);
+        $(".switch_cita2").bootstrapSwitch("disabled", false);
+      } else {
+        form.steps("remove", 3);
+        $(".switch_AT1").bootstrapSwitch("disabled", false);
+        $(".switch_cita1").bootstrapSwitch("disabled", false);
+      }
+    }
+  });
+
+  // Enviar cita después
+  $(".switch_enviarCitaDespues").on("switchChange.bootstrapSwitch", function (
+    event,
+    state
+  ) {
+    if (state) {
+      if ($(".switch_corporativo").bootstrapSwitch("state")) {
+        $(".switch_cita2").bootstrapSwitch("disabled", true);
+        form.steps("insert", 5, stepProgramarFecha);
+      } else {
+        $(".switch_cita1").bootstrapSwitch("disabled", true);
+        form.steps("insert", 4, stepProgramarFecha);
+      }
+      $(".ValidacionesPLlamada").attr("style", "display:none");
+      $(".ValidacionesPCita").removeAttr("style");
+
+      // Fecha enviar cita después
+      $("#Fecha_EC")
+        .bootstrapMaterialDatePicker({
+          lang: "es",
+          format: "dddd DD MMMM YYYY - HH:mm",
+          minDate: new Date(),
+          switchOnClick: true,
+          weekStart: 1,
+          // maxDate: moment().add(10, 'days'),
+          disabledDays: [6, 7],
+          shortTime: true,
+          clearButton: true,
+          nowButton: true,
+          cancelText: "Cancelar",
+          clearText: "Limpiar",
+          nowText: "Fecha actual",
+        })
+        .on("change", function (e, date) {
+          if (typeof date !== "undefined") {
+            Fecha_EC = FormatearFecha(date._d, true);
+            Enviar_Cita_Despues = true;
+            // ModificarConclusionLlamada(2);
+          } else {
+            Enviar_Cita_Despues = false;
+            ModificarConclusionLlamada(1);
+          }
+        });
+    } else {
+      if ($(".switch_corporativo").bootstrapSwitch("state")) {
+        $(".switch_cita2").bootstrapSwitch("disabled", false);
+        form.steps("remove", 5);
+      } else {
+        $(".switch_cita1").bootstrapSwitch("disabled", false);
+        form.steps("remove", 4);
+        $(".ValidacionesPCita").attr("style", "display:none");
+        $(".ValidacionesPLlamada").removeAttr("style");
+      }
     }
   });
 });
@@ -840,7 +875,23 @@ let RegistrarLlamadaNP = () => {
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
 
-    // Array Lineas
+    // Servicios Fijos
+    let serviciosFijos = null;
+    if (localStorage.ServiciosFijos) {
+      let localServiciosFijos = JSON.parse(
+        localStorage.getItem("ServiciosFijos")
+      );
+      serviciosFijos = {
+        correo: localServiciosFijos.correo ? 1 : 0,
+        dominio: localServiciosFijos.dominio ? 1 : 0,
+        ip: localServiciosFijos.ip ? 1 : 0,
+        pagina: localServiciosFijos.pagina ? 1 : 0,
+        telefonia: localServiciosFijos.telefonia ? 1 : 0,
+        television: localServiciosFijos.television ? 1 : 0,
+      };
+    }
+
+    // Servicios Moviles
     let arrayLineas = [];
 
     let Cantidad_Total_Lineas = 0;
@@ -883,13 +934,15 @@ let RegistrarLlamadaNP = () => {
         GrupoLineas++;
         for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
           let linea = {
-            minutos: lineaItem.minutos,
-            navegacion: lineaItem.navegacion,
-            mensajes: lineaItem.mensajes,
-            redes: redes,
-            minutosLDI: minLDI,
-            cantidadLDI: cantidadLDI,
-            serviciosAdicionales: serviciosAdicionales,
+            minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
+            navegacion:
+              lineaItem.navegacion === "" ? null : lineaItem.navegacion,
+            mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
+            redes: redes === "" ? null : redes,
+            minutosLDI: minLDI === "" ? null : minLDI,
+            cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
+            serviciosAdicionales:
+              serviciosAdicionales === "" ? null : serviciosAdicionales,
             cargoBasicoMensual: lineaItem.cargoBasicoMensual,
             grupo: GrupoLineas,
           };
@@ -917,6 +970,18 @@ let RegistrarLlamadaNP = () => {
     let Id_Estado_Llamada = parseInt($("#txtConclusion").val());
     let txtDuracion_Llamada =
       "00:" + $("#txtMinutosL").text() + ":" + $("#txtSegundosL").text();
+
+    // Estado cliente
+    let Estado_Cliente = null;
+    if (NoResponden) {
+      Estado_Cliente = 1;
+    } else {
+      if (ClienteNoValido) {
+        Estado_Cliente = 2;
+      } else {
+        Estado_Cliente = 0;
+      }
+    }
     let datos = {
       // Llamada
       Id_Usuario: Id_Usuario,
@@ -934,208 +999,242 @@ let RegistrarLlamadaNP = () => {
       // Cliente
       Razon_Social: $("#txtRazonSocial").val(),
       Telefono: $("#txtTelefono").val(),
-      NIT_CDV: $("#txtNIT").val(),
-      Encargado: $("#txtEncargado").val(),
-      Ext_Tel_Contacto: $("#txtExt_Tel_Contacto").val(),
-      Barrio_Vereda: parseInt($("#txtNombre_Lugar").val()),
-      Direccion: $("#txtDireccion").val(),
+      Extension:
+        $("#txtExtension").val() === "" ? null : $("#txtExtension").val(),
+      NIT_CDV: $("#txtNIT").val() == "" ? null : $("#txtNIT").val(),
+      Encargado:
+        $("#txtEncargado").val() == "" ? null : $("#txtEncargado").val(),
+      Barrio_Vereda:
+        parseInt($("#txtNombre_Lugar").val()) === NaN
+          ? null
+          : parseInt($("#txtNombre_Lugar").val()),
+      Direccion:
+        $("#txtDireccion").val() == "" ? null : $("#txtDireccion").val(),
+      Correo: null,
+      Celular: null,
+      Estado_Cliente: Estado_Cliente,
       //DBL
-      Id_Operador: parseInt($("#txtOperador").val()),
-      Id_Calificacion_Operador: parseInt($("#txtCalificacion").val()),
-      Razones: stringRazones,
+      Id_Operador:
+        parseInt($("#txtOperador").val()) === NaN
+          ? null
+          : parseInt($("#txtOperador").val()),
+      Id_Calificacion_Operador:
+        parseInt($("#txtCalificacion").val()) === NaN
+          ? null
+          : parseInt($("#txtCalificacion").val()),
+      Razones: stringRazones === "" ? null : stringRazones,
       Cantidad_Lineas: Cantidad_Total_Lineas,
       Valor_Mensual: Valor_Total_Mensual.toString(),
-      ServiciosFijos: JSON.parse(localStorage.getItem("ServiciosFijos")),
+      ServiciosFijos: serviciosFijos,
       ServiciosMoviles: arrayLineas,
 
       // Validación
-      Validacion_Registro_Cliente: Validacion_RegistrarCliente,
+      Validacion_DBL: TerminarLlamada ? false : true,
       Validacion_PLan_C: false,
       Validacion_Doc_S: false,
       Validacion_Cita: false,
     };
 
-    if (Id_Estado_Llamada == 3) {
+    if (Id_Estado_Llamada == 2) {
       Object.defineProperty(datos, "Fecha_LP", {
         value: Fecha_LP,
         enumerable: true,
       });
     }
 
-    // Validar si el cliente es válido
-    if (Validacion_RegistrarCliente) {
-      // Si tiene corporativo.
-      if ($(".switch_corporativo").bootstrapSwitch("state")) {
-        let switchClausula = $("#switchClausula")
-          .children("label")
-          .children("input");
+    // Si tiene corporativo.
+    if ($(".switch_corporativo").bootstrapSwitch("state")) {
+      let switchClausula = $("#switchClausula")
+        .children("label")
+        .children("input");
 
-        datos.Validacion_PLan_C = true;
+      datos.Validacion_PLan_C = true;
 
-        Object.defineProperties(datos, {
-          Clausula: {
-            value: switchClausula[0].checked ? 1 : 0,
-            enumerable: true,
-          },
-          Fecha_Inicio: {
-            value: $("#txtFecha_inicio").val(),
-            enumerable: true,
-          },
-          Fecha_Fin: {
-            value: $("#txtFecha_fin").val(),
-            enumerable: true,
-          },
-          Descripcion: {
-            value: $("#txtDescripcion").val(),
-            enumerable: true,
-          },
+      Object.defineProperties(datos, {
+        Clausula: {
+          value: switchClausula[0].checked ? 1 : 0,
+          enumerable: true,
+        },
+        Fecha_Inicio: {
+          value: $("#txtFecha_inicio").val(),
+          enumerable: true,
+        },
+        Fecha_Fin: {
+          value: $("#txtFecha_fin").val(),
+          enumerable: true,
+        },
+        Descripcion: {
+          value:
+            $("#txtDescripcion").val() === ""
+              ? null
+              : $("#txtDescripcion").val(),
+          enumerable: true,
+        },
+      });
+    }
+
+    // Si se agenda cita.
+    if (
+      $(".switch_cita1").bootstrapSwitch("state") === true ||
+      $(".switch_cita2").bootstrapSwitch("state") === true
+    ) {
+      let txtDuracion_Verificacion =
+        "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
+      let switchRL = $("#switchRL").children("label").children("input");
+      datos.Validacion_Cita = true;
+      // Hora cita
+      let horaCita = "11:00:00";
+
+      // Fecha Cita
+      let fechaCita = Fecha_Cita + " " + horaCita;
+
+      // Celular
+      datos.Celular =
+        $("#txtCelularCita").val() == "" ? null : $("#txtCelularCita").val();
+
+      // Estado Cita
+      // 3 -> sin gestionar en BD
+      let Estado_Cita = 3;
+
+      if (RecordarCita) {
+        // 2 -> sin recordar en BD
+        Estado_Cita = 2;
+        Object.defineProperty(datos, "Fecha_Programada", {
+          value: Fecha_RC,
+          enumerable: true,
         });
       }
 
-      // Si se agenda cita.
-      if (
-        $(".switch_cita1").bootstrapSwitch("state") === true ||
-        $(".switch_cita2").bootstrapSwitch("state") === true
-      ) {
-        let txtDuracion_Verificacion =
-          "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
-        let switchRL = $("#switchRL").children("label").children("input");
-        datos.Validacion_Cita = true;
-        // Hora cita
-        let horaCita = "11:00:00";
-
-        // Fecha Cita
-        let fechaCita = Fecha_Cita + " " + horaCita;
-
-        // Estado Cita
-        // 2 -> sin gestionar en BD
-        let Estado_Cita = 2;
-        if (Enviar_Cita_Despues) {
-          // 1 -> sin confirmar en BD
-          Estado_Cita = 1;
-          Object.defineProperty(datos, "Fecha_LP", {
-            value: Fecha_LP,
-            enumerable: true,
-          });
-        }
-
-        Object.defineProperties(datos, {
-          Encargado_Cita: {
-            value: $("#txtEncargado_Cita").val(),
-            enumerable: true,
-          },
-          Ext_Tel_ContactoEC: {
-            value: $("#txtExt_Tel_ContactoEC").val(),
-            enumerable: true,
-          },
-          Representante_Legal: {
-            value: switchRL[0].checked ? 1 : 0,
-            enumerable: true,
-          },
-          Fecha_Cita: {
-            value: fechaCita,
-            enumerable: true,
-          },
-          Duracion_Verificacion: {
-            value: txtDuracion_Verificacion,
-            enumerable: true,
-          },
-          Direccion_Cita: {
-            value: $("#txtDireccion_Cita").val(),
-            enumerable: true,
-          },
-          Barrios_Veredas_Cita: {
-            value: parseInt($("#txtNombre_LugarCita").val()),
-            enumerable: true,
-          },
-          Lugar_Referencia: {
-            value: $("#txtPuntoReferencia").val(),
-            enumerable: true,
-          },
-          Id_Operador_Cita: {
-            value: parseInt($("#txtOperadorCita").val()),
-            enumerable: true,
-          },
-          Id_Estado_Cita: {
-            value: Estado_Cita,
-            enumerable: true,
-          },
-          Id_Estado_Cita: {
-            value: Estado_Cita,
-            enumerable: true,
-          },
+      if (Enviar_Cita_Despues) {
+        // 1 -> sin confirmar en BD
+        Estado_Cita = 1;
+        Object.defineProperty(datos, "Fecha_Programada", {
+          value: Fecha_EC,
+          enumerable: true,
         });
       }
+      Object.defineProperties(datos, {
+        Encargado_Cita: {
+          value: $("#txtEncargado_Cita").val(),
+          enumerable: true,
+        },
+        Representante_Legal: {
+          value: switchRL[0].checked ? 1 : 0,
+          enumerable: true,
+        },
+        Fecha_Cita: {
+          value: fechaCita,
+          enumerable: true,
+        },
+        Duracion_Verificacion: {
+          value: txtDuracion_Verificacion,
+          enumerable: true,
+        },
+        Direccion_Cita: {
+          value: $("#txtDireccion_Cita").val(),
+          enumerable: true,
+        },
+        Barrios_Veredas_Cita: {
+          value: parseInt($("#txtNombre_LugarCita").val()),
+          enumerable: true,
+        },
+        Lugar_Referencia: {
+          value: $("#txtPuntoReferencia").val(),
+          enumerable: true,
+        },
+        Id_Operador_Cita: {
+          value: parseInt($("#txtOperadorCita").val()),
+          enumerable: true,
+        },
+        Id_Estado_Cita: {
+          value: Estado_Cita,
+          enumerable: true,
+        },
+        Id_Estado_Cita: {
+          value: Estado_Cita,
+          enumerable: true,
+        },
+      });
+    }
+
+    // Si se genera atención telefónica
+    if (
+      $(".switch_AT1").bootstrapSwitch("state") === true ||
+      $(".switch_AT2").bootstrapSwitch("state") === true
+    ) {
+      // Formatear celular
+      let codigo = $("#txtCodigoPostal").val();
+      let celular = $("#txtCelularAT").val();
+      if (celular !== "") {
+        celular = "+" + codigo + " " + celular;
+      }
+
+      datos.Celular = celular == "" ? null : celular;
+      datos.Correo = $("#txtCorreo").val() == "" ? null : $("#txtCorreo").val();
     }
     console.log(datos);
-    // $.ajax({
-    //   url: `${URL}/Llamadas/LlamadaNP`,
-    //   dataType: "json",
-    //   type: "post",
-    //   contentType: "aplication/json",
-    //   data: JSON.stringify(datos),
-    //   processData: false,
-    //   success: function (respuesta) {
-    //     if (respuesta.data.ok) {
-    //       //se envía notifiación a coordinadores y administrador
-    //       clientesSocket.emit("Notificar");
-
-    //       swal(
-    //         {
-    //           title: "Registro exitoso.",
-    //           type: "success",
-    //           showCancelButton: false,
-    //           confirmButtonColor: "#2F6885",
-    //           confirmButtonText: "Continuar",
-    //           closeOnConfirm: false,
-    //         },
-    //         function (isConfirm) {
-    //           if (isConfirm) {
-    //             sessionStorage.removeItem("DetalleLineas");
-    //             location.href = Redireccionar("/Llamadas");
-    //           }
-    //         }
-    //       );
-    //     } else {
-    //       swal(
-    //         {
-    //           title: "Error al registrar.",
-    //           text: "Ha ocurrido un error al registrar, intenta de nuevo",
-    //           type: "error",
-    //           showCancelButton: false,
-    //           confirmButtonColor: "#2F6885",
-    //           confirmButtonText: "Continuar",
-    //           closeOnConfirm: false,
-    //         },
-    //         function (isConfirm) {
-    //           if (isConfirm) {
-    //             location.href = "Llamadas.html";
-    //             console.log(respuesta.data);
-    //           }
-    //         }
-    //       );
-    //     }
-    //   },
-    //   error: function (error) {
-    //     console.log(error);
-    //     swal(
-    //       {
-    //         title: "Error al registrar.",
-    //         text: "Error en el servidor, contacta al administrador",
-    //         type: "error",
-    //         showCancelButton: false,
-    //         confirmButtonColor: "#2F6885",
-    //         confirmButtonText: "Continuar",
-    //         closeOnConfirm: false,
-    //       },
-    //       function (isConfirm) {
-    //         if (isConfirm) {
-    //           location.href = "AgregarEmpresa.html";
-    //         }
-    //       }
-    //     );
-    //   },
-    // });
+    $.ajax({
+      url: `${URL}/Llamadas/LlamadaNP`,
+      dataType: "json",
+      type: "post",
+      contentType: "aplication/json",
+      data: JSON.stringify(datos),
+      processData: false,
+      success: function (respuesta) {
+        if (respuesta.data.ok) {
+          //se envía notifiación a coordinadores y administrador
+          localStorage.removeItem("ServiciosMoviles");
+          localStorage.removeItem("ServiciosFijos");
+          clientesSocket.emit("Notificar");
+          swal({
+            title: "Registro exitoso.",
+            type: "success",
+            showCancelButton: false,
+            showConfirmButton: false,
+          });
+          setTimeout(function () {
+            location.href = Redireccionar("/Noticias");
+          }, 1000);
+        } else {
+          swal(
+            {
+              title: "Error al registrar.",
+              text: "Ha ocurrido un error al registrar, intenta de nuevo",
+              type: "error",
+              showCancelButton: false,
+              confirmButtonColor: "#2F6885",
+              confirmButtonText: "Continuar",
+              closeOnConfirm: false,
+            },
+            function (isConfirm) {
+              if (isConfirm) {
+                location.href = "Llamadas.html";
+                console.log(respuesta.data);
+              }
+            }
+          );
+        }
+      },
+      error: function (error) {
+        console.log(error);
+        swal(
+          {
+            title: "Error al registrar.",
+            text: "Error en el servidor, contacta al administrador",
+            type: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#2F6885",
+            confirmButtonText: "Continuar",
+            closeOnConfirm: false,
+          },
+          function (isConfirm) {
+            if (isConfirm) {
+              location.href = "AgregarEmpresa.html";
+            }
+          }
+        );
+      },
+    });
   });
 };
 
@@ -1175,6 +1274,31 @@ let InicializarFormCitas = () => {
         $("#resumenCitaFecha").attr("checked", true);
       } else {
         $("#resumenCitaFecha").removeAttr("checked");
+      }
+    });
+
+  $("#Fecha_RC")
+    .bootstrapMaterialDatePicker({
+      lang: "es",
+      format: "dddd DD MMMM YYYY - HH:mm",
+      minDate: new Date(),
+      switchOnClick: true,
+      weekStart: 1,
+      // maxDate: moment().add(10, 'days'),
+      disabledDays: [6, 7],
+      shortTime: true,
+      clearButton: true,
+      nowButton: true,
+      cancelText: "Cancelar",
+      clearText: "Limpiar",
+      nowText: "Fecha actual",
+    })
+    .on("change", function (e, date) {
+      if (typeof date !== "undefined") {
+        Fecha_RC = FormatearFecha(date._d, true);
+        RecordarCita = true;
+      } else {
+        RecordarCita = false;
       }
     });
 
@@ -1308,9 +1432,21 @@ let InicializarFormCitas = () => {
     }
   });
 
+  // $("input:radio[name=rbtRecordarCita]").change(function () {
+  //   let value = $(this).val();
+  //   switch (value) {
+  //     case "1":
+  //       RecordarCita = true;
+  //       break;
+  //     case "2":
+  //       RecordarCita = false;
+  //       break;
+  //   }
+  // });
+
   // Validaciones Cita
-  $("#ValidacionesCita").removeAttr("style");
-  $("#lbReprogramarLlamada").text("Enviar cita después:");
+  $(".ValidacionesLlamada").attr("style", "display:none");
+  $(".ValidacionesCita").removeAttr("style");
 
   $(".switch_factura").bootstrapSwitch({
     onText: "SI",
@@ -1319,29 +1455,16 @@ let InicializarFormCitas = () => {
     offColor: "danger",
   });
 
-  $(".switch_direccion").bootstrapSwitch({
-    onText: "Válida",
-    offText: "Inválida",
-    onColor: "success",
-    offColor: "danger",
-  });
-
-  $(".switch_nit").bootstrapSwitch({
-    onText: "Válido",
-    offText: "Inválido",
-    onColor: "success",
-    offColor: "danger",
-  });
+  // ValidarAlertaServicios;
 
   // Conclusión llamada
   ModificarConclusionLlamada(3);
-
-  $("#btnVerificarDatos").removeAttr("disabled");
 };
 
 let EliminarStepCita = () => {
   $("#lbReprogramarLlamada").text("Llamar nuevamente:");
-  $("#ValidacionesCita").attr("style", "display:none");
+  $(".ValidacionesCita").attr("style", "display:none");
+  $(".ValidacionesLlamada").removeAttr("style");
 
   // Conclusión llamada
   ModificarConclusionLlamada(1);
@@ -1393,7 +1516,9 @@ let ValidarBtnTerminarLlamada = () => {
   if (
     $(".switch_corporativo").bootstrapSwitch("state") == true ||
     $(".switch_cita1").bootstrapSwitch("state") === true ||
-    $(".switch_cita2").bootstrapSwitch("state") === true
+    $(".switch_cita2").bootstrapSwitch("state") === true ||
+    $(".switch_AT1").bootstrapSwitch("state") === true ||
+    $(".switch_AT2").bootstrapSwitch("state") === true
   ) {
     $("#btnTerminarLlamada").prop("disabled", true);
   } else {
@@ -1871,208 +1996,6 @@ let DatosUbicacionEmpresa = () => {
   $("#txtDireccion_Cita").val(Direccion);
 };
 
-// Detalle Líneas
-
-let RegistrarDetalleLinea = () => {
-  let ServiciosMoviles = [];
-  if (localStorage.ServiciosMoviles) {
-    ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
-  }
-
-  // Servicios fijos
-  RegistrarServiciosFijo();
-
-  // Servicios móviles
-  let arrayDetalleLinea = ObtenerDatosServiciosMoviles();
-
-  let data = [
-    arrayDetalleLinea.cantidadLineas,
-    arrayDetalleLinea.cargoBasicoMensual,
-    arrayDetalleLinea.navegacion,
-    arrayDetalleLinea.minutos,
-    arrayDetalleLinea.mensajes,
-    arrayDetalleLinea.redesSociales,
-    arrayDetalleLinea.minutosLDI,
-    arrayDetalleLinea.cantidadLDI,
-    arrayDetalleLinea.serviciosAdicionales,
-    arrayDetalleLinea.id,
-  ];
-
-  ServiciosMoviles.push(arrayDetalleLinea);
-  localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
-
-  LimpiarDetalleLinea();
-  ListarDetalleLineas();
-};
-
-let ObtenerDataLineasEditar = () => {
-  $(document).on("click", "#DetallesLineasEditar", function () {
-    let data = DataTableServicios.row($(this).parents("tr")).data();
-    $("#txtDetalleId").val(data[9]);
-    $("#txtDetalle_Cantidad_Lineas").val(data[0]);
-    $("#txtDetalle_Valor_Mensual").val(data[1]);
-    $("#txtDetalle_radio2").prop("checked", true);
-    $("#txtDetalleNavegacion").val(data[2]);
-
-    if (data[3] === "Ilimitados") {
-      if (
-        !$("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(
-          ":checked"
-        )
-      ) {
-        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").trigger(
-          "click"
-        );
-      }
-    } else {
-      if (
-        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(
-          ":checked"
-        )
-      ) {
-        $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").trigger(
-          "click"
-        );
-      }
-      $("#txtDetalle_Minutos").val(data[3]);
-    }
-    if (data[4] === "Ilimitados") {
-      if (
-        !$("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(
-          ":checked"
-        )
-      ) {
-        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").trigger(
-          "click"
-        );
-      }
-    } else {
-      if (
-        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(
-          ":checked"
-        )
-      ) {
-        $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").trigger(
-          "click"
-        );
-      }
-      $("#txtDetalle_Mensajes").val(data[4]);
-    }
-
-    if (data[6].length > 0) {
-      $("#txtDetalleMinutosLDI").val(data[6]).trigger("change");
-      $("#txtDetalle_Cantidad_LDI").val(data[7]);
-    }
-    if (data[5].length > 0) {
-      $("#txtDetallle_Redes_Sociales").val(data[5]).trigger("change");
-    }
-    if (data[8].length > 0) {
-      $("#txtDetalle_Servicios_Adicionales").val(data[8]).trigger("change");
-    }
-  });
-};
-
-let ListarDetalleLineas = () => {
-  if (localStorage.ServiciosMoviles) {
-    DataTableServicios.clear().draw();
-
-    let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
-
-    for (let servicio of ServiciosMoviles) {
-      let data = [
-        servicio.cantidadLineas,
-        servicio.cargoBasicoMensual,
-        servicio.navegacion,
-        servicio.minutos,
-        servicio.mensajes,
-        servicio.redesSociales,
-        servicio.minutosLDI,
-        servicio.cantidadLDI,
-        servicio.serviciosAdicionales,
-        servicio.id,
-      ];
-
-      DataTableServicios.row.add(data).draw();
-    }
-    DataTableServicios.responsive.recalc();
-    ObtenerDataLineasEditar();
-    EliminarDetalleLinea();
-  }
-};
-
-let EditarDetalleLinea = () => {
-  let idLinea = $("#txtDetalleId").val();
-  let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
-
-  ServiciosMoviles.forEach(function (valor, indice, array) {
-    if (valor.id == idLinea) {
-      ServiciosMoviles.splice(indice, 1);
-    }
-  });
-
-  // Servicios fijos
-  RegistrarServiciosFijo();
-  // Servicios móviles
-  let arrayDetalleLinea = ObtenerDatosServiciosMoviles();
-
-  ServiciosMoviles.push(arrayDetalleLinea);
-  localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
-
-  LimpiarDetalleLinea();
-  ListarDetalleLineas();
-};
-
-let LimpiarDetalleLinea = () => {
-  $("#txtDetalleId").val(0);
-  $("#txtDetalle_Cantidad_Lineas").val("");
-  $("#txtDetalle_Valor_Mensual").val("");
-  $("input:radio[name=detalleLineasRadios]:checked").prop("checked", false);
-  $("#txtDetalleNavegacion").val("");
-  $("#txtDetalle_Minutos").val("");
-  if (
-    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(":checked")
-  ) {
-    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").prop(
-      "checked",
-      false
-    );
-    $("#txtDetalle_Minutos").prop("disabled", false);
-  } else {
-    $("#txtDetalle_Minutos").val("");
-  }
-  if (
-    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(":checked")
-  ) {
-    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").prop(
-      "checked",
-      false
-    );
-    $("#txtDetalle_Mensajes").prop("disabled", false);
-  } else {
-    $("#txtDetalle_Mensajes").val("");
-  }
-  $("#txtDetalleMinutosLDI").val(null).trigger("change");
-  $("#txtDetalle_Cantidad_LDI").val("");
-  $("#txtDetalle_Cantidad_LDI").prop("disabled", true);
-  $("#txtDetallle_Redes_Sociales").val(null).trigger("change");
-  $("#txtDetalle_Servicios_Adicionales").val(null).trigger("change");
-};
-
-let EliminarDetalleLinea = () => {
-  $(document).on("click", "#DetallesLineasEliminar", function () {
-    let idLinea = $(this).attr("id_linea");
-    let ServiciosMoviles = JSON.parse(localStorage.getItem("ServiciosMoviles"));
-
-    ServiciosMoviles.forEach(function (valor, indice, array) {
-      if (valor.id == idLinea) {
-        ServiciosMoviles.splice(indice, 1);
-      }
-    });
-    localStorage.ServiciosMoviles = JSON.stringify(ServiciosMoviles);
-    ListarDetalleLineas();
-  });
-};
-
 let ValidarLlamarCliente = (estadoCliente) => {
   if (estadoCliente == 1) {
     $("#MensajeLabel").empty();
@@ -2083,17 +2006,8 @@ let ValidarLlamarCliente = (estadoCliente) => {
         </h4>
       </div>
     `);
-
-    $("#ValidarBtnLlamar").empty();
-    $("#ValidarBtnLlamar").append(`
-      <div class="row">
-        <div class="col-md-6">
-          <button type="button" onclick="LlamarClienteRegistrado()" class="btn btn-info">
-              <i class="fa fa-phone"></i> Llamar
-          </button>
-        </div>
-      </div>
-    `);
+    $("#RazonesNoDisponible").attr("style", "display:none");
+    $("#ValidarBtnLlamar").removeAttr("style");
   } else {
     $("#MensajeLabel").empty();
     $("#MensajeLabel").append(`
@@ -2103,130 +2017,138 @@ let ValidarLlamarCliente = (estadoCliente) => {
         </h4>
       </div>
     `);
+    $("#ValidarBtnLlamar").attr("style", "display:none");
+    $("#RazonesNoDisponible").removeAttr("style");
+    $("#listRazones").text("Cliente inhabilitado");
   }
 };
 
-let ValidarResumenNIT = (validacion) => {
-  if (validacion) {
+let ValidarResumenCita = () => {
+  if ($(".switch_nit").bootstrapSwitch("state")) {
     $("#resumenCitaNIT").attr("checked", true);
   } else {
     $("#resumenCitaNIT").removeAttr("checked");
   }
-};
-
-let checkServiciosFijo = (name) => {
-  if (!$(`input:checkbox[name=${name}]`).is(":checked")) {
-    $(`input:checkbox[name=${name}]`).trigger("click");
-  }
-};
-
-let RegistrarServiciosFijo = () => {
-  let serviciosFijos = {
-    pagina: false,
-    correo: false,
-    ip: false,
-    dominio: false,
-    telefonia: false,
-    television: false,
-  };
-
-  if ($("input:checkbox[name=checkDetalle_Pagina]").is(":checked")) {
-    serviciosFijos.pagina = true;
-  }
-  if ($("input:checkbox[name=checkDetalle_Correo]").is(":checked")) {
-    serviciosFijos.correo = true;
-  }
-  if ($("input:checkbox[name=checkDetalle_IPFija]").is(":checked")) {
-    serviciosFijos.ip = true;
-  }
-  if ($("input:checkbox[name=checkDetalle_dominio]").is(":checked")) {
-    serviciosFijos.dominio = true;
-  }
-  if ($("input:checkbox[name=checkDetalle_telefonia]").is(":checked")) {
-    serviciosFijos.telefonia = true;
-  }
-  if ($("input:checkbox[name=checkDetalle_television]").is(":checked")) {
-    serviciosFijos.television = true;
-  }
-  localStorage.ServiciosFijos = JSON.stringify(serviciosFijos);
-  $("#ServiciosFijos").empty();
-  let itemsServiciosFijos = [];
-  if (serviciosFijos.pagina) {
-    itemsServiciosFijos.push("Página web");
-  }
-  if (serviciosFijos.correo) {
-    itemsServiciosFijos.push("Correo");
-  }
-  if (serviciosFijos.ip) {
-    itemsServiciosFijos.push("IP Fija");
-  }
-  if (serviciosFijos.dominio) {
-    itemsServiciosFijos.push("Dominio");
-  }
-  if (serviciosFijos.telefonia) {
-    itemsServiciosFijos.push("Telefonía");
-  }
-  if (serviciosFijos.television) {
-    itemsServiciosFijos.push("Televisión");
-  }
-  for (let item of itemsServiciosFijos) {
-    $("#ServiciosFijos").append(
-      `
-      <label class="ServiciosFijosItems" for="checkDetalle_telefonia"><i class="mdi mdi-bookmark-check"></i>
-        ${item}
-      </label>
-      `
-    );
-  }
-};
-
-let ObtenerDatosServiciosMoviles = () => {
-  let cargobasico = 0;
-  let valorInput = parseFloat($("#txtDetalle_Valor_Mensual").val());
-  let cantidadLineas = parseInt($("#txtDetalle_Cantidad_Lineas").val());
-  if ($("input:radio[name=detalleLineasRadios]:checked").val() == 1) {
-    cargobasico = valorInput / cantidadLineas;
+  if ($(".switch_direccion").bootstrapSwitch("state")) {
+    $("#resumenCitaDireccion").attr("checked", true);
   } else {
-    cargobasico = valorInput;
+    $("#resumenCitaDireccion").removeAttr("checked");
   }
-  cargobasico = cargobasico.toFixed(2);
+};
 
-  let minutos = "";
+// Alertas Toast
+let EnlazarClickAdvertencias = () => {
+  $(".bootstrap-switch-label").click(function () {
+    let input = $(this).next().next();
+    let clase = $(input).attr("class");
+    ValidarAlertaServicios(clase);
+  });
+  $(".bootstrap-switch-handle-off").click(function () {
+    let input = $(this).next();
+    let clase = $(input).attr("class");
+    ValidarAlertaServicios(clase);
+  });
+};
+
+let ValidarAlertaServicios = (clase) => {
+  switch (clase) {
+    case "switch_corporativo":
+      if ($(".switch_cita1").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_cita1":
+      if ($(".switch_cita1").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_cita2":
+      if ($(".switch_cita2").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_AT1":
+      if ($(".switch_AT1").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_AT2":
+      if ($(".switch_AT2").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(1);
+      }
+      break;
+    case "switch_enviarCitaDespues":
+      if ($(".switch_enviarCitaDespues").bootstrapSwitch("disabled")) {
+        GenerarAlertasToast(2);
+      }
+      break;
+  }
+};
+
+let GenerarAlertasToast = (categoria) => {
+  switch (categoria) {
+    case 1:
+      $.toast({
+        heading: "¡Advertencia!",
+        text: '<p class="jq-toast-body">Primero debes registrar servicios.</p>',
+        position: "top-right",
+        bgColor: "#00897b",
+        loaderBg: "#383f48",
+        icon: "warning",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 2:
+      $.toast({
+        heading: "¡Advertencia!",
+        text:
+          '<p class="jq-toast-body">Primero debes validar NIT y dirección.</p>',
+        position: "top-right",
+        bgColor: "#00897b",
+        loaderBg: "#383f48",
+        icon: "warning",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 3:
+      $.toast({
+        heading: "¡No se puede enviar!",
+        text:
+          '<p class="jq-toast-body">Primero debes finalizar la llamada.</p>',
+        position: "top-right",
+        // bgColor: "#ff6849",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+  }
+};
+
+// Habilitar enviar después cita
+let HabilitarEnviarDC = () => {
   if (
-    $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").is(":checked")
+    $(".switch_nit").bootstrapSwitch("state") &&
+    $(".switch_direccion").bootstrapSwitch("state")
   ) {
-    minutos = "Ilimitados";
+    $(".switch_enviarCitaDespues").bootstrapSwitch("disabled", false);
   } else {
-    minutos = $("#txtDetalle_Minutos").val();
+    $(".switch_enviarCitaDespues").bootstrapSwitch("disabled", true);
   }
+};
 
-  let mensajes = "";
-  if (
-    $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").is(":checked")
-  ) {
-    mensajes = "Ilimitados";
-  } else {
-    mensajes = $("#txtDetalle_Mensajes").val();
-  }
-
-  let minutosLDI = $("#txtDetalleMinutosLDI").val();
-  let cantidadLDI = "";
-  if (minutosLDI.length > 0) {
-    cantidadLDI = $("#txtDetalle_Cantidad_LDI").val();
-  }
-
-  let arrayDetalleLinea = {
-    id: uuid.v4(),
-    cantidadLineas: cantidadLineas,
-    cargoBasicoMensual: cargobasico,
-    navegacion: $("#txtDetalleNavegacion").val(),
-    minutos: minutos,
-    mensajes: mensajes,
-    redesSociales: $("#txtDetallle_Redes_Sociales").val(),
-    minutosLDI: minutosLDI,
-    cantidadLDI: cantidadLDI,
-    serviciosAdicionales: $("#txtDetalle_Servicios_Adicionales").val(),
-  };
-
-  return arrayDetalleLinea;
+let MostarCardDetalleEmpresa = (data) => {
+  $("#spnEmpresa").text(data.Razon_Social);
+  $("#spnTelefono").text(data.Telefono);
+  $("#spnNIT").text(data.NIT_CDV);
+  $("#spnOPerador").text(data.Nombre_Operador);
+  $("#spnCorporativo").text("Corporativo: " + data.Corporativo);
+  $("#spnLineas").text(data.Cantidad_Total_Lineas + " líneas");
+  $("#DetalleEmpresaCard").removeAttr("style");
 };

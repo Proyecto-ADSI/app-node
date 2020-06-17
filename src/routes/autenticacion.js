@@ -12,6 +12,9 @@ router.get("/Login", redireccionarUsuario, (req, res) => {
 router.get("/Restablecer", redireccionarUsuario, (req, res) => {
   res.render("home/restablecer", { layout: "eskatemp.hbs" });
 });
+router.get("/ValidarCorreo", redireccionarUsuario, (req, res) => {
+  res.render("home/validar-correo", { layout: "eskatemp.hbs" });
+});
 
 router.post("/Login", (req, res) => {
   req.session.datos_usuario = req.body;

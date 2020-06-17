@@ -26,7 +26,7 @@ EliminarCliente = (Id_Cliente) => {
                 title: "No se puede eliminar.",
                 type: "error",
                 text:
-                  "El cliente está asociado a un registro de llamada o visita externa, por tanto no se puede eliminar, puede inhabilitarlo.",
+                  "El cliente está asociado a registros en el sistema, por tanto no se puede eliminar, puede inhabilitarlo.",
                 showCancelButton: false,
                 confirmButtonColor: "#2F6885",
                 confirmButtonText: "Cerrar",

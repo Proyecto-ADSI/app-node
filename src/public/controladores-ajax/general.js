@@ -1,4 +1,5 @@
 const URL = "http://localhost:8081";
+const NA = "N/A";
 
 let Redireccionar = (URLRedirect) => {
   fetch("/ObtenerSession", {

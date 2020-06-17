@@ -4,21 +4,29 @@ ObtenerSession().then((data) => {
     case 1:
       clientesSocket = io("/Clientes");
       clientesSocket.on("Notificar", function () {
-        GuardarNotificaciones(true,true);
+        GuardarNotificaciones(true, true);
+      });
+      clientesSocket = io("/Usuarios");
+      clientesSocket.on("RecargarDataTableUsuarios", function () {
+        RecargarDataTable();
       });
       //   citasSocket = io("/Citas");
       break;
     case 2:
       clientesSocket = io("/Clientes");
       clientesSocket.on("Notificar", function () {
-        GuardarNotificaciones(true,true);
+        GuardarNotificaciones(true, true);
+      });
+      clientesSocket = io("/Usuarios");
+      clientesSocket.on("RecargarDataTableUsuarios", function () {
+        RecargarDataTable();
       });
       //   citasSocket = io("/Citas");
       break;
     case 3:
       clientesSocket = io("/Clientes");
       clientesSocket.on("Notificar", function () {
-        GuardarNotificaciones(true,true);
+        GuardarNotificaciones(true, true);
       });
       //   citasSocket = io("/Citas");
       break;

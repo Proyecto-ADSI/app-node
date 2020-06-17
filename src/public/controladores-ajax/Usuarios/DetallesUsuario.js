@@ -9,7 +9,7 @@ CargarDatosModalDetalles = (Informacion) => {
   let img = document.createElement("IMG");
   img.setAttribute("class", "img-thumbnail");
   img.setAttribute("width", "300");
-  img.src = `../../../assets/images/usuarios/${Informacion.Imagen}`;
+  img.src = `${URL}/Images/Usuarios/${Informacion.Imagen}`;
   $("#imgDetalleUsuario").html(img);
   // Llenar detalles empleado
 
