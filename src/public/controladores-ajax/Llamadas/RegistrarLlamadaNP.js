@@ -147,174 +147,174 @@ $(function () {
           .removeClass("form-control-danger");
       },
       rules: {
-        // txtRazonSocial: {
-        //   required: true,
-        //   minlength: 2,
-        //   maxlength: 45,
-        //   SoloAlfanumericos: true,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function () {
-        //         return $("#txtRazonSocial").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"Cliente ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        // txtTelefono: {
-        //   required: true,
-        //   SoloNumeros: true,
-        //   minlength: 7,
-        //   maxlength: 7,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function (e) {
-        //         return $("#txtTelefono").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"Teléfono ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        // txtNIT: {
-        //   ValidarNIT: true,
-        //   minlength: 9,
-        //   maxlength: 11,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function () {
-        //         return $("#txtNIT").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"NIT ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        //   txtPersona_Responde: {
-        //     required: true,
-        //     maxlength: 45,
-        //     SoloLetras: true,
-        //   },
-        //   txtEncargado: {
-        //     maxlength: 45,
-        //     SoloLetras: true,
-        //   },
-        //   txtPais: "required",
-        //   txtDepartamento: "required",
-        //   txtMunicipio: "required",
-        //   txtOperador: "required",
-        //   txtDetalle_Cantidad_Lineas: {
-        //     required: true,
-        //     maxlength: 3,
-        //     SoloNumeros2: true,
-        //   },
-        //   txtDetalle_Valor_Mensual: {
-        //     required: true,
-        //     maxlength: 45,
-        //     SoloNumeros2: true,
-        //   },
-        //   detalleLineasRadios: "required",
-        //   txtDetalleNavegacion: {
-        //     maxlength: 45,
-        //     SoloNumeros: true,
-        //   },
-        //   txtDetalle_Minutos: {
-        //     maxlength: 45,
-        //     SoloNumeros: true,
-        //   },
-        //   txtDetalle_Mensajes: {
-        //     maxlength: 45,
-        //     SoloNumeros: true,
-        //   },
-        //   txtDetalle_Cantidad_LDI: {
-        //     maxlength: 45,
-        //     SoloNumeros: true,
-        //   },
-        //   // txtFecha_inicio: "required",
-        //   // txtFecha_fin: "required",
-        // rbtnEnvioOferta: "required",
-        // txtCorreo: {
-        //   required: true,
-        //   maxlength: 45,
-        //   ValidarCorreo: true,
-        // },
-        // txtCodigoPostal: {
-        //   required: true,
-        //   SoloNumeros: true,
-        //   maxlength: 5,
-        //   minlength: 1,
-        // },
-        // txtCelularAT: {
-        //   required: true,
-        //   NumeroMovil: true,
-        //   minlength: 10,
-        //   maxlength: 10,
-        // },
-        // txtOperadorCita: "required",
-        // txtFechaCita: "required",
-        // btnHoraCita: "required",
-        // txtEncargado_Cita: {
-        //   required: true,
-        //   SoloLetras: true,
-        // },
-        // txtCelularCita: {
-        //   SoloNumeros: true,
-        //   minlength: 2,
-        //   maxlength: 10,
-        // },
-        // txtPaisCita: "required",
-        // txtDepartamentoCita: "required",
-        // txtMunicipioCita: "required",
-        // txtSubTipoCita: "required",
-        // txtNombre_LugarCita: "required",
-        // txtDireccion_Cita: "required",
-        // txtPuntoReferencia: {
-        //   required: true,
-        //   SoloAlfanumericos: true,
-        // },
+        txtRazonSocial: {
+          required: true,
+          minlength: 2,
+          maxlength: 45,
+          SoloAlfanumericos: true,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtRazonSocial").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Cliente ya registrado."';
+              }
+            },
+          },
+        },
+        txtTelefono: {
+          required: true,
+          SoloNumeros: true,
+          minlength: 7,
+          maxlength: 7,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function (e) {
+                return $("#txtTelefono").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Teléfono ya registrado."';
+              }
+            },
+          },
+        },
+        txtNIT: {
+          ValidarNIT: true,
+          minlength: 9,
+          maxlength: 11,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtNIT").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"NIT ya registrado."';
+              }
+            },
+          },
+        },
+        txtPersona_Responde: {
+          required: true,
+          maxlength: 45,
+          SoloLetras: true,
+        },
+        txtEncargado: {
+          maxlength: 45,
+          SoloLetras: true,
+        },
+        txtPais: "required",
+        txtDepartamento: "required",
+        txtMunicipio: "required",
+        txtOperador: "required",
+        txtDetalle_Cantidad_Lineas: {
+          required: true,
+          maxlength: 3,
+          SoloNumeros2: true,
+        },
+        txtDetalle_Valor_Mensual: {
+          required: true,
+          maxlength: 45,
+          SoloNumeros2: true,
+        },
+        detalleLineasRadios: "required",
+        txtDetalleNavegacion: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Minutos: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Mensajes: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Cantidad_LDI: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        // txtFecha_inicio: "required",
+        // txtFecha_fin: "required",
+        rbtnEnvioOferta: "required",
+        txtCorreo: {
+          required: true,
+          maxlength: 45,
+          ValidarCorreo: true,
+        },
+        txtCodigoPostal: {
+          required: true,
+          SoloNumeros: true,
+          maxlength: 5,
+          minlength: 1,
+        },
+        txtCelularAT: {
+          required: true,
+          NumeroMovil: true,
+          minlength: 10,
+          maxlength: 10,
+        },
+        txtOperadorCita: "required",
+        txtFechaCita: "required",
+        btnHoraCita: "required",
+        txtEncargado_Cita: {
+          required: true,
+          SoloLetras: true,
+        },
+        txtCelularCita: {
+          SoloNumeros: true,
+          minlength: 2,
+          maxlength: 10,
+        },
+        txtPaisCita: "required",
+        txtDepartamentoCita: "required",
+        txtMunicipioCita: "required",
+        txtSubTipoCita: "required",
+        txtNombre_LugarCita: "required",
+        txtDireccion_Cita: "required",
+        txtPuntoReferencia: {
+          required: true,
+          SoloAlfanumericos: true,
+        },
       },
     });
 
