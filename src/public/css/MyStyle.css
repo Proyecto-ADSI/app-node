@@ -106,6 +106,12 @@
 .MyStyle_Table_Opciones {
   min-width: 180px;
 }
+.MyStyle_Table_Asesor {
+  min-width: 220px;
+}
+.MyStyle_Table_Empresa {
+  min-width: 120px;
+}
 .MyStyle_Table_Fecha {
   max-width: 10px !important;
 }

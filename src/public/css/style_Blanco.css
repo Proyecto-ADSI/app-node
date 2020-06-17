@@ -1577,7 +1577,8 @@ dropdown-item
 ******************/
 .dropdown-item {
   padding: 8px 1rem;
-  color: #67757c; }
+  color: #67757c; 
+  cursor: pointer;}
 
 /*******************
 Custom-select

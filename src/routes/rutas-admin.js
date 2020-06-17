@@ -49,7 +49,7 @@ router.get('/Citas',usuarioLogeado,(req,res)=>{
 });
 
 router.get('/Agenda',usuarioLogeado,(req,res)=>{
-    res.render('citas/agenda',{layout:'AdminLayout.hbs', Llamada_NP: true , session: req.session.datos_usuario })
+    res.render('citas/agenda',{layout:'AdminLayout.hbs', Agenda_Citas: true , session: req.session.datos_usuario })
 });
 
 // Usuarios

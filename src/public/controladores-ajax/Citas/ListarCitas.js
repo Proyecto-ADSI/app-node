@@ -1,35 +1,6 @@
-var DataTableCitas = null;
+ DataTableCitas = null;
 var GuardarFilaSeleccionada = [];
 var NumeroSelec = null;
-
-
-
-$(document).on("click","#BtnReporte", function(){
-  if(GuardarFilaSeleccionada == null){
-    swal({
-      title: "No hay datos seleccionados",
-      text: "Selecciona una cita para cambiar el estado",
-      type: "error",
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Ok",
-    })
- }
-})
-
-$(document).on("click","#BtnInterna", function(){
-  if(GuardarFilaSeleccionada == null){
-    swal({
-      title: "No hay datos seleccionados",
-      text: "Selecciona una cita para cambiar el estado",
-      type: "error",
-      confirmButtonClass: "btn-danger",
-      confirmButtonText: "Ok",
-    })
- }
-})
- 
-
-
 
 $(function () {
 
@@ -50,14 +21,12 @@ $(function () {
 
          let Numero1 = Math.random(Numero);
 
-         if(data == 3){
+         
 
           return `<div class='MyStyle_demo-checkbox'><input type='checkbox' class="CheckCitas" id='basic_checkbox_1${Numero1}' hidden /><label for='basic_checkbox_1${Numero1}'></label></div>`
 
-        }
-        else{
-          return null
-        }
+      
+       
 
        }
       },
@@ -103,34 +72,61 @@ $(function () {
             }
             return HoraReal
         }},
-         {data: "Id_Estado_Cita",
+         {data: null,
          render: function(data,type,FullData){
 
-          if (data == 1) {
+          if (FullData.Estado_Cita == "Sin confirmar") {
             return `<div class="label label-table" style='background:#FF5733;'>${FullData.Estado_Cita}</div>`
           } 
-          else if(data == 2) {
+          else if(FullData.Estado_Cita == "Sin recordar") {
             return `<div class="label label-table label-warning">${FullData.Estado_Cita}</div>`
           }
-          else if(data == 3){
-            return `<div class="label label-table" style='background:#00897b;'>${FullData.Estado_Cita}</div>`
+          else if(FullData.Estado_Cita == "No confirmada"){
+            return `<div class="label label-table" style='background:#932C42'>${FullData.Estado_Cita}</div>`
           }
-          else if(data == 4){
-            return `<div class="label label-table" style='background:#1596DF;'>${FullData.Estado_Cita}</div>`
+          else if(FullData.Estado_Cita == "Sin gestionar"){
+            return `<div class="label label-table" style='background:#AC7424'>${FullData.Estado_Cita}</div>`
           }
-          else if(data == 5){
+          else if(FullData.Estado_Cita == "No recordada"){
             return `<div class="label label-table label-primary">${FullData.Estado_Cita}</div>`
           }
-          else if(data == 6){
+          else if(FullData.Estado_Cita == "Verificada"){
             return `<div class="label label-table" style='background:#19C046 ;'>${FullData.Estado_Cita}</div>`
           }
-          else if(data == 7){
-            return `<div class="label label-table" style='background:#E1149A;'>${FullData.Estado_Cita}</div>`
+          else if(FullData.Estado_Cita == "Inválida"){
+            return `<div class="label label-table" style='background:#A80202B3'>${FullData.Estado_Cita}</div>`
           }
-          else if(data == 8){
-            return `<div class="label label-table" style='background:#30CA92;'>${FullData.Estado_Cita}</div>`
+          else if(FullData.Estado_Cita == "No gestionada"){
+            return `<div class="label label-table" style='background:#F49308;'>${FullData.Estado_Cita}</div>`
           }
-          else if(data == 9){
+          else if(FullData.Estado_Cita == "En reporte"){
+            return `<div class="label label-table" style='background:#1596DF;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Sin asignar"){
+            return `<div class="label label-table label-danger">${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Asignada"){
+            return `<div class="label label-table" style='background:#00897b;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "No asignada"){
+            return `<div class="label label-table" style='background:#7B1949;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "En desarrollo"){
+            return `<div class="label label-table" style='background:#7A66AA;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "No realizada"){
+            return `<div class="label label-table" style='background:#F86868;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Realizada"){
+            return `<div class="label label-table" style='background:#2F9358;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Reagendada"){
+            return `<div class="label label-table" style='background:#7B783A;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Cancelada"){
+            return `<div class="label label-table" style='background:#F60055F2;'>${FullData.Estado_Cita}</div>`
+          }
+          else if(FullData.Estado_Cita == "Cliente no agendo"){
             return `<div class="label label-table label-danger">${FullData.Estado_Cita}</div>`
           }
           
@@ -139,47 +135,304 @@ $(function () {
 
       {data:"Id_Estado_Cita",
        render: function(data,type,FullData){
-         
-         if (data == 2 || data == 3) {
-           return `
-           <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
-              data-target=".ModalDetalles">
-              <i class="fa  fa-eye"></i>
-          </button>
       
-          <button type="button" data-toggle="tooltip"
-              data-original-title="Editar" class="btn btn-info">
-              <i class="fa fa-pencil"></i>
-          </button>
-      
-          <button type="button" data-toggle="tooltip" data-original-title="Eliminar"
-              class="btn btn-danger">
-              <i class="fa fa-close"></i>
-          </button>
 
-          <input type="checkbox" id="Switch_Cita" class="js-switch"/>
-      `
-         }
-         else{
-        return  `
+        if (FullData.Estado_Cita == "Sin confirmar") {
+          return  `
 
-       <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
-          data-target=".ModalDetalles">
-          <i class="fa  fa-eye"></i>
-      </button>
+          <div class="btn-group">
+            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated rubberBand">
+                    <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a id='SinRecordar' class="dropdown-item"><i class="fa fa-question-circle"></i> Sin recordar</a>
+                    <a class="dropdown-item"><i class="fa fa-exclamation-triangle"></i> No confirmada</a>
+                    <a id='SinGestionar' class="dropdown-item"><i class="fa fa-handshake-o"></i> Sin gestionar</a>
+              </div>
+              </div>
   
-      <button type="button" data-toggle="tooltip"
-          data-original-title="Editar" class="btn btn-info">
-          <i class="fa fa-pencil"></i>
-      </button>
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "Sin recordar") {
+          return  `
+
+          <div class="btn-group">
+            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated rubberBand">
+                    <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a id='SinGestionar' class="dropdown-item"><i class="fa fa-handshake-o"></i> Sin gestionar</a>
+                    <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamada</a>
+                   
+                    <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+              </div>
+              </div>
   
-      <button type="button" data-toggle="tooltip" data-original-title="Eliminar"
-          class="btn btn-danger">
-          <i class="fa fa-close"></i>
-      </button>
-  `
-         }
-       }}
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "No confirmada") {
+          return  `
+
+          <div class="btn-group">
+            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated rubberBand">
+                    <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamada<br>(No confirmada)</a>
+              </div>
+              </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "Sin gestionar") {
+          return  `
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                  <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
+                  <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválida</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "No recordada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                 
+                  <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamada <br>(No recordada)</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                
+            </div>
+            </div>
+            
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "Verificada") {
+          return  `
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button"  id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "Inválida") {
+          return  `
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='SinGestionar' class="dropdown-item"><i class="fa fa-handshake-o"></i> Sin gestionar</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        } 
+        else if (FullData.Estado_Cita == "No gestionada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+              <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválida</a>
+              <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
+              <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "En reporte") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Realizada' class="dropdown-item"><i class="fa fa-star-half-o"></i> Realizada</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "Sin asignar") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }  
+        else if (FullData.Estado_Cita == "Asignada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Desarrollo' class="dropdown-item"><i class="fa fa-handshake-o"></i> En desarrollo</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }  
+        else if (FullData.Estado_Cita == "No asignada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }  
+        else if (FullData.Estado_Cita == "En desarrollo") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Realizada' class="dropdown-item"><i class="fa fa-star-half-o"></i> Realizada</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "No realizada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='Reagendada' class="dropdown-item"><i class="fa fa-calendar"></i> Reagendada</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+  else if (FullData.Estado_Cita == "Realizada") {
+          return  `
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "Reagendada") {
+          return  `
+
+          <div class="btn-group">
+          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated rubberBand">
+                  <a id='SinRecordar' class="dropdown-item"><i class="fa fa-question-circle"></i> Sin recordar</a>
+                  <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
+                  
+            </div>
+            </div>
+  
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "Cancelada") {
+          return  `
+
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+        else if (FullData.Estado_Cita == "Cliente no agendo") {
+          return  `
+
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+            data-target=".ModalDetalles">
+            <i class="fa  fa-eye"></i>
+        </button>
+    `
+        }
+       }},
     ], 
     language: Español, 
     select: {
@@ -196,7 +449,10 @@ $(function () {
         extend:'pdfHtml5',
         text:'<i class="fa fa-file-pdf-o" style="color:#fff;"></i>',
         titleAttr:'Exportar a PDF',
-        className:'btn btn-danger',
+        className:'btn btn-danger mr-2',  
+        attr:  {
+          id: 'Btn-Pdf-Data'
+      },
         //Atajo rapido para hacer funcionalidad del boton tecla + D y saldra el pdf
         key:{
           key:'d',
@@ -207,7 +463,26 @@ $(function () {
         extend:'excelHtml5',
         text:'<i class="fa fa-file-excel-o" style="color:#fff;"></i>',
         titleAttr:'Exportar a excel',
-        className:'btn btn-info',
+        className:'btn btn-info mr-2',
+        attr:  {
+          id: 'Btn-Excel-Data'
+      },
+        //Atajo rapido para hacer funcionalidad del boton tecla + x y exportara a excel
+        key:{
+          key:'x',
+          ctrlKey:true,
+          }
+      },
+      {
+        text:'<i class="fa fa-question-circle" style="color:#fff;"></i>',
+        className:'btn btn-warning',
+        titleAttr:"¿Qué es esto?",
+        attr:  {
+          id: 'Btn-Helped'
+      },
+      action: function(){
+            $("#AyudaExportar").modal("show")
+      },
         //Atajo rapido para hacer funcionalidad del boton tecla + x y exportara a excel
         key:{
           key:'x',
@@ -215,47 +490,16 @@ $(function () {
           }
       },
     ],   
-    createdRow: function (row, data, index) {
-      
-       Estado_Cita = parseInt(data.Id_Estado_Cita);
-
-      let switchElem = Array.prototype.slice.call($(row).find(".js-switch"));
-
-      switchElem.forEach(function (html) {
-        let s = new Switchery(html, {
-          color: "#00897b",
-          secondaryColor: "#ffb22b",
-          size: "small",
-          className:'switchery SwitchCitas'    
-        });
-
-        if (Estado_Cita == 2) {
-          s.setPosition(false, true);
-        } else if (Estado_Cita == 3) {
-          s.setPosition(true, true);
-        }
-      });
-    },
   });
-
-  // $('#TablaCategorias tbody').on( 'click', '#BtnEditar', function () {
-
-  //    Editar = DataTableCategorias.row($(this).parents('tr')).data(); 
-    
-  //    ObtenerCategoria(Editar);
-  // }); 
-
   $('#CitasDataTable tbody').on( 'click', '#BtnCitasDetalle', function () {
   
     var DetallesCitas = DataTableCitas.row($(this).parents('tr')).data();
+
+    console.log(DetallesCitas)
     
      DetallesCitass(DetallesCitas);
   });  
 
-  //  $('#TablaCategorias tbody').on( 'click', '#BtnEliminar', function () {
-
-//   Eliminar = DataTableCategorias.row($(this).parents('tr')).data();
-// }); 
 
 
 
@@ -300,50 +544,9 @@ $(function () {
       });     
   })
 
-  $('#CitasDataTable tbody').on( 'click', '.SwitchCitas', function () {
-
- 
-    let fila = $(this).closest("tr");
-    let switchElem = fila.find('.js-switch')[0];
-
-    DataCitasVg = DataTableCitas.row($(this).parents('tr')).data();
-  
-    let Id_Cita = DataCitasVg.Id_Cita
-    
-    let Estadovg;
-    if(switchElem.checked){
-        Estadovg = 3;
-    }else{
-        Estadovg = 2;  
-    } 
-  
-    let DataVg = {
-      Id_Cita: parseInt(Id_Cita),
-      Estadovg : Estadovg
-    }
-  
-    $.ajax({
-        url: `${URL}/Citas/CambioEstado`,
-        type: 'put',
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(DataVg),
-        processData: false,
-        success: function (data) {
-          RecargarDataTable(); 
-          GuardarFilaSeleccionada = []
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-  });
-
-
-  
-
 
   $("#BtnReporte").on("click", function(){
+
 
     if(Object.entries(GuardarFilaSeleccionada).length === 0){
       swal({
@@ -353,19 +556,35 @@ $(function () {
         confirmButtonClass: "btn-danger",
         confirmButtonText: "Ok",
       })
-    }else{
+    }
+    else{
+      GuardarFilaSeleccionada.forEach(element => {
 
-    let ArrayCitasId = []
+     if (element.Id_Estado_Cita == "6") {
 
-     GuardarFilaSeleccionada.forEach(element => {
+      let ArrayCitasId = [] 
        let Cita = {
           Id: parseInt(element.Id_Cita),
-          Estado: 4
+          Estado: 9
         }   
         ArrayCitasId.push(Cita)
-     });
+
      CambiarEstadoCitas(ArrayCitasId)
     }
+    else {
+      swal({
+        title: "Cita en estado no verficada",
+        text: "Solo las citas verificadas pueden agregarse al reporte",
+        type: "warning",
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ok",
+      })
+
+      RecargarDataTable();
+      GuardarFilaSeleccionada = []
+    }
+  });
+}
   })
 
   $("#BtnInterna").on("click", function(){
@@ -374,17 +593,35 @@ $(function () {
      location.href = "/App/Admin/Agenda"
     }else{
       
-    let ArrayCitasId = []
+    GuardarFilaSeleccionada.forEach(element => {
 
-     GuardarFilaSeleccionada.forEach(element => {
+      if (element.Id_Estado_Cita == "6") {
+
+        let ArrayCitasId = []
+
        let Cita = {
           Id: parseInt(element.Id_Cita),
-          Estado: 5
+          Estado: 10
         }   
+
         ArrayCitasId.push(Cita)
-     });
-     CambiarEstadoCitas(ArrayCitasId)
-    }
+    
+     CambiarEstadoCitas(ArrayCitasId)  
+
+      } else {
+
+        swal({
+          title: "Cita en estado no verficada",
+          text: "Solo las citas verificadas pueden agregarse a internas",
+          type: "warning",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Ok",
+        })
+        RecargarDataTable();
+        GuardarFilaSeleccionada = []     
+      }
+    });
+  }
   })
 
  let CambiarEstadoCitas = (ArrayCitasId) => {
@@ -475,13 +712,14 @@ $("#Fecha-Cita-Inicio").on('change',function(){
   DataTableCitas.columns(3).search(this.value).draw();
 })
 
-$("#Hora-Cita-Filtro").on('keyup', function(){
+$("#Hora-Cita-Filtro").on('change', function(){
   DataTableCitas.columns(4).search(this.value).draw();
 })
 
 $("#Cita-Estado-Filtro").on('keyup', function(){
   DataTableCitas.columns(5).search(this.value).draw();
 })
+
 
 let LimpiarFiltroCitas = () =>{
   $("#Empresa-Cita").val('')
@@ -493,11 +731,17 @@ let LimpiarFiltroCitas = () =>{
   DataTableCitas.columns().search('').draw()
 }
 
+$(function(){
+  $('.clockpicker').clockpicker();
+  $("#Btn-Pdf-Data").css("border-radius","40px")
+  $("#Btn-Excel-Data").css({"border-radius":"40px","margin-left":"0.2rem","background-color":"#00897b","border-color":"#00897b"})
+  $("#Btn-Helped").css({"border-radius":"40px","margin-left":"0.2rem"})
 
-
-
-
-
+  $('#Fecha-Cita-Inicio, #Fecha-Cita-Fin').change( function() {
+    DataTableCitas.draw();
+} );
+  // $(".Cita-Sin-Confirmar").css({"cursor":"poiner"})
+})
 
  
 

@@ -7,15 +7,6 @@ let DetallesCitass = (DetallesCitas) =>{
     $("#Nit-Citas").html(DataCi.NIT_CDV)
     $("#RazonSocial-Citas").html(DataCi.Razon_Social)
     $("#Telefono-Citas").html(DataCi.Telefono)
-
-    // var fecha = new Date();
-    // var sumarsesion = 5;
-
-    // fecha.setMinutes(fecha.getMinutes() + sumarsesion);
-
-    // console.log(fecha.getMinutes())
-
-
     //Datos llamada
     $("#DueñoEmpresa-Citas").html(DataCi.Persona_Responde)
 
@@ -54,7 +45,7 @@ let DetallesCitass = (DetallesCitas) =>{
 
 
 
-    //Datos citas
+    //Datos cita
     let FechaCitas =  new Date(DataCi.Fecha_Cita)
     let Mess = FechaCitas.getMonth()+1
     let Diaa = FechaCitas.getDate()
@@ -62,7 +53,7 @@ let DetallesCitass = (DetallesCitas) =>{
 
     let FechaCita = Diaa + "/" +"0"+Mess + "/" + Añoo;
 
-    $("#Fecha-Cita").html(FechaCita)
+    $("#Fecha-Citass").html(FechaCita)
 
     let HoraCitas = new Date(DataCi.Fecha_Cita)
 
@@ -89,17 +80,14 @@ let DetallesCitass = (DetallesCitas) =>{
 
     //Datosvisita
 
-    // if(DataCi.Fecha_Visita === null || DataCi.Tipo_Venta === null || DataCi.Id_Estado_Visita === null ){
+    if(DataCi.Fecha_Visita == null || DataCi.Tipo_Venta == null || DataCi.Id_Estado_Visita == null ){
 
-    //     // $('#ReportVisit').hide()
-
-     
-    //     // $("#DateBasic").addClass("nav-link active show")
-    //     // $("#DatosBasicos").addClass("tab-pane active show")
-    //     // $('#ReporteCitaAsesor').removeClass("tab-pane active show").addClass("tab-pane")
+    
+        $("#ReportVisit").css("display","none")
+        $('#ReporteCitaAsesor').css("display","none")
        
 
-    // }else{
+    }else{
     $('#ReporteVisita').show()
     $("#Fecha-Visita").html(DataCi.Fecha_Visita)
     $("#TipoVenta-Citas").html(DataCi.Tipo_Venta)
@@ -119,4 +107,14 @@ let DetallesCitass = (DetallesCitas) =>{
         $("#EstadoVisita-Citas").html("Cancelada")
     }
 }
-//  }
+if (DataCi.Descripcion_Novedad == null || DataCi.Fecha_Novedad == null) {
+    $("#NovedadesLi").css("display","none")
+    $('#Novedades-TabPane').css("display","none")
+}
+else{
+    $("#NovedadesLi").css("display","block")
+    $('#Novedades-TabPane').css("display","block")
+    $("#Fecha-Novedades").html(DataCi.Fecha_Novedad)
+    $("#Novedades-Descripcion").html(DataCi.Descripcion_Novedad)
+}
+ }
