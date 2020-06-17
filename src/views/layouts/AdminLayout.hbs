@@ -67,11 +67,9 @@
     {{/if}}
     {{#if Directorio_Registro}}
     <script src="/controladores-ajax/Clientes/RegistrarClientes.js"></script>
-    <script src="/js/DetalleServicios.js"></script>
     {{/if}}
     {{#if Directorio_Editar}}
     <script src="/controladores-ajax/Clientes/EditarCliente.js"></script>
-    <script src="/js/DetalleServicios.js"></script>
     {{/if}}
 
     {{#if Estadisticas}}
@@ -82,6 +80,11 @@
     {{#if Llamada_NP}}
     <script src="/controladores-ajax/Citas/ListarCitas.js"></script>
     <script src="/controladores-ajax/Citas/DetallesCitas.js"></script>
+    <script src="/controladores-ajax/Citas/CambiarEstados.js"></script>
+    {{/if}}
+
+    {{#if Agenda_Citas}}
+    <script src="/controladores-ajax/Citas/ListarCitasSinAsignar.js"></script>
     {{/if}}
 
     {{!-- Llamadas --}}

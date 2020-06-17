@@ -27,9 +27,6 @@
                                         <span class="input-group-addon">Inicio</span>
                                         <input type="text" class="input-sm form-control" 
                                             id="Fecha-Cita-Inicio" placeholder="dd/mm/yyyy" />
-                                        <span class="input-group-addon">Fin</span>
-                                        <input type="text" class="input-sm form-control"
-                                            id="Fecha-Cita-Fin" placeholder="dd/mm/yyyy" />
                                     </div>
                             </div>
                         </div>
@@ -83,12 +80,12 @@
                        <thead>
                             <tr>
                                 <th><i class="fa fa-check-circle"></i></th>
-                                <th>Empresa</th>
-                                <th>Operador</th>
-                                <th>Fecha </th>
-                                <th>Hora</th>
-                                <th>Estado</th>
-                                <th class="MyStyle_Table_Opciones">Opciones</th>
+                                <th><i class="fa fa-building-o"></i> Empresa</th>
+                                <th><i class="fa fa-phone-square"></i> Operador</th>
+                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                <th><i class="fa fa-clock-o"></i> Hora</th>
+                                <th><i class="fa fa-list-ul"></i> Estado</th>
+                                <th class="MyStyle_Table_Opciones"><i class="fa fa-sliders"></i> Opciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,7 +96,6 @@
                     class="fa  fa-file-pdf-o"></i> Citas en reporte</button>
 
                     <button type="button" class="btn btn-danger" id="BtnInterna" title="Agregar citas a internas"><i class="fa  fa-calendar"></i> Citas internas</button>
-
                    
                 </div>
                 
@@ -155,6 +151,14 @@
                                         class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">
                                         Reporte visita
+                                    </span>
+                                </a>
+                            </li>
+                              <li class="nav-item" id="NovedadesLi" >
+                                <a class="nav-link" data-toggle="tab" href="#Novedades-TabPane" role="start"><span
+                                        class="hidden-sm-up"><i class="ti-email"></i></span>
+                                    <span class="hidden-xs-down">
+                                        Novedades
                                     </span>
                                 </a>
                             </li>
@@ -367,7 +371,7 @@
                                                             <label class="control-label text-right">
                                                                 Fecha cita:
                                                             </label>
-                                                            <p class="form-control-static" id="Fecha-Cita">
+                                                            <p class="form-control-static" id="Fecha-Citass">
                                                                
                                                             </p>
 
@@ -532,6 +536,61 @@
                                 </div>
                             </div>
 
+                             {{!-- <div class="tab-pane" id="Novedades-TabPane" role="tabpanel">
+                                <div class="card MyStyle_Card_Detalle">
+                                    <div class="card-body">
+                                        <!-- Formulario -->
+                                        <form class="form-horizontal" role="form">
+                                            <div class="form-body">
+                                                <h3 class="box-title">
+                                                    Novedades
+                                                </h3>
+                                                <hr class="m-t-0 m-b-40">
+                                                <div class="row">
+                                                     <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Fecha de novedad:
+                                                            </label>
+                                                            <p class="form-control-static" id="Fecha-Novedades">
+                                                                
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                      <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Descripción
+                                                                :
+                                                            </label>
+                                                            <p class="form-control-static" id="Novedades-Descripcion">
+                                                               
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    
+                                        
+
+                                     
+
+
+
+                                                <!--/row-->
+
+                                                <!--/row-->
+
+
+                                                <!-- /Row -->
+                                            </div>
+                                            <!-- Form-Body -->
+                                        </form>
+                                        <!-- /Formulario -->
+                                    </div>
+                                </div>
+                            </div> --}}
+
 
                         </div>
                     </div>
@@ -552,4 +611,30 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false"  id="Novedades-Modal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Novedades</h5>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Descripción novedades:</label>
+            <textarea rows="4" cols="10" class="form-control" id="Novedad"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="Novedades-Enviar">Enviar</button>
+      </div>
+    </div>
+  </div>
 </div>
