@@ -1,6 +1,10 @@
 DataTableCitas = null;
 var GuardarFilaSeleccionada = [];
 var NumeroSelec = null;
+var DataTableReporte = null;
+var ArrayCitasId = [];
+
+$("#DescargarPdf").hide()
 
 $(function () {
   DataTableCitas = $("#CitasDataTable").DataTable({
@@ -8,19 +12,24 @@ $(function () {
       url: `${URL}/Citas`,
       deferRender: true,
       error: function (error) {
-        console.log("Eror al listar citas " + error);
+        // console.log("Eror al listar citas " + error);
       },
     },
     columns: [
       {
-        data: "Id_Estado_Cita",
+        data: null,
 
         render: function (data, type, FullData) {
           let Numero = FullData.Id_Cita;
 
           let Numero1 = Math.random(Numero);
-
-          return `<div class='MyStyle_demo-checkbox'><input type='checkbox' class="CheckCitas" id='basic_checkbox_1${Numero1}' hidden /><label for='basic_checkbox_1${Numero1}'></label></div>`;
+          
+          if (FullData.Estado_Cita == "Verificada") {
+            return `<div class='MyStyle_demo-checkbox' id='CheckboxCitas'><input type='checkbox' class="CheckCitas" id='basic_checkbox_1${Numero1}' hidden /><label for='basic_checkbox_1${Numero1}'></label></div>`;
+          }
+          else{
+            return null;
+          }
         },
       },
       { data: "Razon_Social" },
@@ -452,8 +461,6 @@ $(function () {
   $("#CitasDataTable tbody").on("click", "#BtnCitasDetalle", function () {
     var DetallesCitas = DataTableCitas.row($(this).parents("tr")).data();
 
-    console.log(DetallesCitas);
-
     DetallesCitass(DetallesCitas);
   });
 
@@ -461,10 +468,6 @@ $(function () {
   DataTableCitas.on("select", function () {
     Filas = DataTableCitas.rows(".selected").indexes();
     GuardarFilaSeleccionada = DataTableCitas.rows(Filas).data().toArray();
-
-    // NumeroSelec = DataTableCitas.rows( '.selected' ).count()
-
-    // $("#CitasSelect").html(NumeroSelec)
 
     $.toast({
       heading: "Perfecto",
@@ -476,15 +479,14 @@ $(function () {
       hideAfter: 1350,
       stack: false,
     });
+
+
   });
 
   DataTableCitas.on("deselect", function () {
     Filas1 = DataTableCitas.rows(".selected").indexes();
     GuardarFilaSeleccionada = DataTableCitas.rows(Filas1).data().toArray();
 
-    // NumeroSelec = DataTableCitas.rows( '.selected' ).count()
-
-    // $("#CitasNum").html(NumeroSelec)
     $.toast({
       heading: "Perfecto",
       text: "Cita deseleccionada",
@@ -496,107 +498,41 @@ $(function () {
       stack: false,
     });
   });
+  
+  
 
-  $("#BtnReporte").on("click", function () {
-    if (Object.entries(GuardarFilaSeleccionada).length === 0) {
-      swal({
-        title: "No hay datos seleccionados",
-        text: "Selecciona una cita para cambiar el estado",
-        type: "error",
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ok",
-      });
-    } else {
-      GuardarFilaSeleccionada.forEach((element) => {
-        if (element.Id_Estado_Cita == "4") {
-          let ArrayCitasId = [];
-          let Cita = {
-            Id: parseInt(element.Id_Cita),
-            Estado: 5,
-          };
-          ArrayCitasId.push(Cita);
+ 
 
-          CambiarEstadoCitas(ArrayCitasId);
-        } else {
-          swal({
-            title: "Cita en estado no verficada",
-            text: "Solo las citas verificadas pueden agregarse al reporte",
-            type: "warning",
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Ok",
-          });
+  // $("#BtnInterna").on("click", function () {
+  //   if (Object.entries(GuardarFilaSeleccionada).length === 0) {
+  //     location.href = "/App/Admin/Agenda";
+  //   } else {
+  //      let ArrayCitasId = [];
 
-          RecargarDataTable();
-          GuardarFilaSeleccionada = [];
-        }
-      });
-    }
-  });
+  //     GuardarFilaSeleccionada.forEach((element) => {
+  //       if (element.Id_Estado_Cita == "4") {
 
-  $("#BtnInterna").on("click", function () {
-    if (Object.entries(GuardarFilaSeleccionada).length === 0) {
-      location.href = "/App/Admin/Agenda";
-    } else {
-      GuardarFilaSeleccionada.forEach((element) => {
-        if (element.Id_Estado_Cita == "4") {
-          let ArrayCitasId = [];
+  //         let Cita = {
+  //           Id: parseInt(element.Id_Cita),
+  //           Estado: 6,
+  //         };
 
-          let Cita = {
-            Id: parseInt(element.Id_Cita),
-            Estado: 6,
-          };
-
-          ArrayCitasId.push(Cita);
-
-          CambiarEstadoCitas(ArrayCitasId);
-        } else {
-          swal({
-            title: "Cita en estado no verficada",
-            text: "Solo las citas verificadas pueden agregarse a internas",
-            type: "warning",
-            confirmButtonClass: "btn-danger",
-            confirmButtonText: "Ok",
-          });
-          RecargarDataTable();
-          GuardarFilaSeleccionada = [];
-        }
-      });
-    }
-  });
-
-  let CambiarEstadoCitas = (ArrayCitasId) => {
-    $.ajax({
-      url: `${URL}/Citas/CambioEstado/Multiple`,
-      dataType: "json",
-      type: "POST",
-      contentType: "application/json",
-      data: JSON.stringify(ArrayCitasId),
-      processData: false,
-      success: function (data) {
-        RecargarDataTable();
-        GuardarFilaSeleccionada = [];
-      },
-      error: function (error) {
-        swal({
-          title: "No hay datos seleccionados",
-          text: "Selecciona una cita para cambiar el estado",
-          type: "error",
-          confirmButtonClass: "btn-danger",
-          confirmButtonText: "Ok",
-        });
-        // console.log(error)
-      },
-    }).fail((error) => {
-      swal({
-        title: "No hay datos seleccionados",
-        text: "Selecciona una cita para cambiar el estado",
-        type: "error",
-        confirmButtonClass: "btn-danger",
-        confirmButtonText: "Ok",
-      });
-      // console.log(error);
-    });
-  };
+  //         ArrayCitasId.push(Cita);
+  //       } else {
+  //         swal({
+  //           title: "Cita en estado no verficada",
+  //           text: "Solo las citas verificadas pueden agregarse a internas",
+  //           type: "warning",
+  //           confirmButtonClass: "btn-danger",
+  //           confirmButtonText: "Ok",
+  //         });
+  //         RecargarDataTable();
+  //         GuardarFilaSeleccionada = [];
+  //       }
+  //     });
+  //     CambiarEstadoCitas(ArrayCitasId);
+  //   }
+  // });
 });
 
 let RecargarDataTable = () => {
@@ -677,5 +613,211 @@ $(function () {
   $("#Fecha-Cita-Inicio, #Fecha-Cita-Fin").change(function () {
     DataTableCitas.draw();
   });
-  // $(".Cita-Sin-Confirmar").css({"cursor":"poiner"})
 });
+
+
+$("#BtnReporte1").on('click', function(){
+
+  if (Object.entries(GuardarFilaSeleccionada).length === 0) {
+    // $('#SelectAsesorEx-er').remove();
+    $("#SelectAsesorEx").append(`<option selected disabled value="">No hay datos seleccionados</option>`)
+  }else{
+    $.ajax({
+        url: `${URL}/Citas/Asesores/Externos`,
+        dataType: 'json',
+        type: 'GET',
+    }).done(respuesta =>{
+        $("#SelectAsesorEx").empty();
+        $("#SelectAsesorEx").append(`
+        <option selected disabled value="">Seleccione un asesor</option>
+            `);
+            respuesta.data.forEach(element => {
+              $("#SelectAsesorEx").append(`
+              <option value="${element.Id_Usuario}">${element.Usuario}</option>
+                  `);
+            }); 
+    }).fail(error =>{
+        // console.log(error);
+    });
+  }
+
+  $("#ModalReporte").modal("show");
+
+  DataTableReporte = $("#CitasReporteDataTable").DataTable({
+    destroy:true,
+    data: GuardarFilaSeleccionada,
+    columns: [
+      
+        {data: "Razon_Social"},
+        {data: "Nombre_Operador",
+         render: function(data,type,FullDataa){
+                 if (type == 'display') {
+                  return `<div class="label label-table" style="background:${FullDataa.Color_Operador};">${data}</div>`
+                 }else{
+                   return false
+                 }
+         }},
+        {data: "Fecha_Cita",
+        render: function(data){
+          let Fecha = new Date(data);
+
+          let Mes = Fecha.getMonth() + 1;
+          let Dia = Fecha.getDate();
+          let Año = Fecha.getFullYear();
+
+          for (var i = 1; i < 9; i++) {
+            if (Dia == i) {
+              return "0" + Dia + "/" + "0" + Mes + "/" + Año;
+            }
+          }
+
+          let Fecha1 = Dia + "/" + "0" + Mes + "/" + Año;
+
+          return Fecha1;
+        }},
+        {data: "Fecha_Cita",
+        render: function(data){
+          let Hora = new Date(data);
+
+          let Hora1 = Hora.getHours();
+          let Minutos = Hora.getMinutes();
+          let Segundos = Hora.getSeconds();
+
+          let HoraReal = Hora1 + ":" + Minutos;
+
+          if (Minutos == 0) {
+            return Hora1 + ":" + Minutos + "0";
+          }
+          return HoraReal;
+        }},
+        {data: "Estado_Cita",
+         render: function(data,type,FullDataa){
+               if (type == 'display') {
+                return `<div class="label label-table" style='background:#19C046 ;'>${data}</div>`
+               }
+               else{
+                 return false
+               } 
+         }}
+
+    ],
+
+    language: Español,
+  });
+
+  $("#CitasReporteDataTable").css({"width":"965px"})
+})
+
+ let CambiarEstadoCitas = () => {
+
+  if (Object.entries(GuardarFilaSeleccionada).length === 0) {
+    swal({
+      title: "No hay datos seleccionados",
+      text: "Selecciona una cita para cambiar el estado",
+      type: "error",
+      confirmButtonClass: "btn-danger",
+      confirmButtonText: "Ok",
+    });
+  } else {
+    GuardarFilaSeleccionada.forEach((element) => {
+      if (element.Id_Estado_Cita == "4") {
+        let Cita = {
+          Id_Cita: parseInt(element.Id_Cita),
+          Estado: 5,
+          TipoVisita:1,
+          Id_Asesor_Externoo:parseInt($("#SelectAsesorEx option:selected").val()),
+        };
+        ArrayCitasId.push(Cita);
+      } 
+    });
+  }
+
+    $.ajax({
+      url: `${URL}/Citas/CambioEstado/Multiple`,
+      dataType: "json",
+      type: "post",
+      contentType: "application/json",
+      data: JSON.stringify(ArrayCitasId),
+      processData: false,
+      success: function (data) {  
+      let PDF = JSON.stringify(data)  
+      $("#DescargarPdf").show()  
+      $("#DescargarPdf").attr('href',`${URL}/Reportes/${PDF.substr(26,31)}`)
+
+      $("#DescargarPdf").on('click', function(){
+        $("#DescargarPdf").hide()
+      })
+
+        RecargarDataTable();
+        GuardarFilaSeleccionada = [];
+      },
+      error: function (error) {
+        console.log(error)
+        swal({
+          title: "Error",
+          text: "Error en el servidor",
+          type: "error",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Ok",
+        });
+      },
+    }).fail((error) => {
+      swal({
+        title: "Error",
+        text: "Error en el servidor",
+        type: "error",
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ok",
+      });
+    });
+  };
+ 
+  $(function (){
+    $("#FormAsesores").validate({
+        submitHandler: function(){
+          if (Object.entries(GuardarFilaSeleccionada).length === 0) {
+            swal({
+              title: "No hay datos seleccionados",
+              text: "Selecciona una cita para cambiar el estado",
+              type: "error",
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Ok",
+            });
+
+            $("#SelectAsesorEx").val("");
+          }else{      
+                CambiarEstadoCitas(ArrayCitasId);
+                DataTableReporte.clear().draw();
+                $("#SelectAsesorEx").val("");
+          }
+        },
+        rules:{
+          SelectAseExt: {
+                required:true
+            }
+        },
+        errorClass: "form-control-feedback",
+        errorElement: "div",
+        highlight: function (element) {
+            $(element).parents(".form-group").addClass("has-danger").removeClass("has-success");
+            $(element).addClass("form-control-danger").removeClass("form-control-success");
+        },
+        unhighlight: function (element) {
+
+            $(element).parents(".form-group").addClass("has-success").removeClass("has-danger");
+            $(element).addClass("form-control-success").removeClass("form-control-danger");
+        },
+        errorPlacement: function (error, element) {
+                error.insertAfter(element.parent(".input-group"));
+            
+        }
+        
+    });
+})
+
+
+
+
+
+
+

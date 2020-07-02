@@ -1,54 +1,5 @@
 var Citas7 = null;
 
-// $("#CitasDataTable tbody").on("click", "#SinRecordar", function () {
-//   let Citas = DataTableCitas.row($(this).parents("tr")).data();
-
-//   let DataCitas = {
-//     Id_Cita: parseInt(Citas.Id_Cita),
-//     Estadovg: 2,
-//   };
-
-//   $.ajax({
-//     url: `${URL}/Citas/CambioEstado`,
-//     type: "put",
-//     dataType: "json",
-//     contentType: "application/json",
-//     data: JSON.stringify(DataCitas),
-//     processData: false,
-//     success: function (data) {
-//       RecargarDataTable();
-//       GuardarFilaSeleccionada = [];
-//     },
-//     error: function (error) {
-//       console.log(error);
-//     },
-//   });
-// });
-
-// $("#CitasDataTable tbody").on("click", "#SinGestionar", function () {
-//   let Citas1 = DataTableCitas.row($(this).parents("tr")).data();
-
-//   let DataCitas = {
-//     Id_Cita: parseInt(Citas1.Id_Cita),
-//     Estadovg: 4,
-//   };
-
-//   $.ajax({
-//     url: `${URL}/Citas/CambioEstado`,
-//     type: "put",
-//     dataType: "json",
-//     contentType: "application/json",
-//     data: JSON.stringify(DataCitas),
-//     processData: false,
-//     success: function (data) {
-//       RecargarDataTable();
-//       GuardarFilaSeleccionada = [];
-//     },
-//     error: function (error) {
-//       console.log(error);
-//     },
-//   });
-// });
 $("#CitasDataTable tbody").on("click", "#Verificar", function () {
   let Citas2 = DataTableCitas.row($(this).parents("tr")).data();
 
@@ -59,7 +10,7 @@ $("#CitasDataTable tbody").on("click", "#Verificar", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -83,7 +34,7 @@ $("#CitasDataTable tbody").on("click", "#Invalida", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -109,7 +60,7 @@ $("#CitasDataTable tbody").on("click", "#Desarrollo", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -134,7 +85,7 @@ $("#CitasDataTable tbody").on("click", "#Realizada", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -159,7 +110,7 @@ $("#CitasDataTable tbody").on("click", "#Reagendada", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -185,7 +136,7 @@ $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
 
   $.ajax({
     url: `${URL}/Citas/CambioEstado`,
-    type: "put",
+    type: "patch",
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(DataCitas),
@@ -201,7 +152,8 @@ $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
   });
 });
 
-$("#Novedades-Enviar").on("click", function () {
+let RegistrarNovedad = () =>{
+
   let Novedades = {
     Id_Novedad: null,
     Descripcion: $("#Novedad").val(),
@@ -224,4 +176,45 @@ $("#Novedades-Enviar").on("click", function () {
       console.log(error);
     },
   });
-});
+}
+
+
+$(function (){
+
+
+
+  $("#Novedades_Form").validate({
+      submitHandler: function(){
+              RegistrarNovedad();
+
+              $("#Novedad").val("");
+
+              $("#Novedades_Form .form-group").removeClass("has-success")
+              $("#Novedades_Form .form-control").removeClass("form-control-sucess")
+      },
+      rules:{
+          Novedadd: {
+              required:true,
+              SoloAlfanumericos:true,
+              minlength:5,
+              maxlength:45
+          }
+      },
+      errorClass: "form-control-feedback",
+      errorElement: "div",
+      highlight: function (element) {
+          $(element).parents(".form-group").addClass("has-danger").removeClass("has-success");
+          $(element).addClass("form-control-danger").removeClass("form-control-success");
+      },
+      unhighlight: function (element) {
+
+          $(element).parents(".form-group").addClass("has-success").removeClass("has-danger");
+          $(element).addClass("form-control-success").removeClass("form-control-danger");
+      },
+      errorPlacement: function (error, element) {
+              error.insertAfter(element.parent(".input-group"));
+          
+      }
+      
+  });
+})

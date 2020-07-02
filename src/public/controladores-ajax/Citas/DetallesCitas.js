@@ -107,14 +107,14 @@ let DetallesCitass = (DetallesCitas) =>{
         $("#EstadoVisita-Citas").html("Cancelada")
     }
 }
-if (DataCi.Descripcion_Novedad == null || DataCi.Fecha_Novedad == null) {
-    $("#NovedadesLi").css("display","none")
-    $('#Novedades-TabPane').css("display","none")
-}
-else{
-    $("#NovedadesLi").css("display","block")
-    $('#Novedades-TabPane').css("display","block")
-    $("#Fecha-Novedades").html(DataCi.Fecha_Novedad)
-    $("#Novedades-Descripcion").html(DataCi.Descripcion_Novedad)
-}
+// if (DataCi.Descripcion_Novedad == null || DataCi.Fecha_Novedad == null) {
+//     $("#NovedadesLi").css("display","none")
+//     $('#Novedades-TabPane').css("display","none")
+// }
+// else{
+//     $("#NovedadesLi").css("display","block")
+//     $('#Novedades-TabPane').css("display","block")
+//     $("#Fecha-Novedades").html(DataCi.Fecha_Novedad)
+//     $("#Novedades-Descripcion").html(DataCi.Descripcion_Novedad)
+// }
  }

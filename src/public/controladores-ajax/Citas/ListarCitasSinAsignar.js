@@ -6,7 +6,6 @@ $(function () {
     DataTableCitasSinAsginar = $("#SinAsignarDataTable").DataTable({
     ajax: {
       url: `${URL}/Citas/SinAsignar`,
-      deferRender: true,
       error: function (error) {
         console.log("Eror al listar citas " + error);
       },
@@ -92,39 +91,13 @@ $(function () {
     ], 
 
     language: Español, 
-  });
-
+  })
+ 
   $('#SinAsignarDataTable tbody').on( 'click', '#BtnDetallesSinAsignar', function () {
   
     var DetallesCitasSinAsignar = DataTableCitasSinAsginar.row($(this).parents('tr')).data();
 
-    console.log(DetallesCitasSinAsignar)
-    
   }); 
-
-$.ajax({
-    url: `${URL}/Operador`,
-    dataType: 'json',
-    type: 'GET',
-}).done(respuesta =>{
-    $("#List-Operadores").empty();
-
-    respuesta.data.forEach(element => {
-        
-        $("#List-Operadores").append(
-
-         `<div class="MyStyle_Calentar_List"><i class="fa fa-circle" style='color:${element.Color};'></i>
-          ${element.Nombre_Operador}
-         </div> `
-            
-            );
-        });
-}).fail(error =>{
-    console.log(error);
-});
-
-
-
 });
 
 let RecargarDataTable = () =>{
@@ -160,11 +133,40 @@ var Español = {
 }
 
 
+$("#SinAsignar").on('click', function(){
+
+  $("#ModalSinAsignar").modal('show')
+  $("#SinAsignarDataTable").css({"width":"965px"})
+});
+
+// $("#AgendaLink").on('click', function(){
+//   $.ajax({
+//     url: `${URL}/Operador`,
+//     dataType: 'json',
+//     type: 'GET',
+// }).done(respuesta =>{
+//     $("#List-Operadores").empty();
+
+//     respuesta.data.forEach(element => {
+        
+//         $("#List-Operadores").append(
+
+//          `<div class="MyStyle_Calentar_List"><i class="fa fa-circle" style='color:${element.Color};'></i>
+//           ${element.Nombre_Operador}
+//          </div> `
+            
+//             );
+//         });
+// }).fail(error =>{
+//     console.log(error);
+// });
+// })
+
 $(function(){
     $("#Btn-Pdf-Data").css("border-radius","40px")
     $("#Btn-Excel-Data").css({"border-radius":"40px","margin-left":"0.2rem","background-color":"#00897b","border-color":"#00897b"})
     $("#Btn-Helped").css({"border-radius":"40px","margin-left":"0.2rem"})
-    // $(".Cita-Sin-Confirmar").css({"cursor":"poiner"})
+//     $(".Cita-Sin-Confirmar").css({"cursor":"poiner"})
   })
 
 
