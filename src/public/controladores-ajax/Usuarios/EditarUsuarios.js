@@ -75,7 +75,7 @@ CargarDatosModalEditar = (Informacion) => {
 
 CargarTiposDocumentos = (Id_Documento) => {
   $.ajax({
-    url: `${URL}/Documento`,
+    url: `${URL}/Documentos`,
     type: "get",
     datatype: "json",
     success: function (datos) {

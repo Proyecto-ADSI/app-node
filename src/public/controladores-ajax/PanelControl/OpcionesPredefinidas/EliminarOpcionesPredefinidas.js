@@ -25,7 +25,7 @@ EliminarOpcionesPredefinidas = (Id_OP) => {
                 "¡Registro eliminado correctamente!",
                 "success"
               );
-              ListarOpcionesPredefinidas();
+              RecargarDataTableOpciones();
             }
           },
           error: function (error) {

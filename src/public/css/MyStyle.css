@@ -88,7 +88,7 @@
 }
 
 .MyStyle_Tabs {
-  width: 800px !important;
+  width: 100% !important;
 }
 
 /* Tabla Llamadas */
@@ -289,6 +289,31 @@
   pointer-events: none;
 }
 
+/* STEPS */
+.wizard-content .wizard > .steps > ul > li.done .step {
+  background-color: #00897b !important;
+  border-color: #00897b !important;
+  color: #fff !important;
+}
+.wizard-content .wizard.wizard-circle > .steps > ul > li:after,
+.wizard-content .wizard.wizard-circle > .steps > ul > li:before {
+  background-color: #00897b !important;
+}
+.wizard-content .wizard > .steps > ul > li.current .step {
+  border-color: #00897b !important;
+  background-color: #333333 !important;
+  color: #00897b !important;
+}
+.wizard-content .wizard > .actions > ul > li > a {
+  background: #00897b !important;
+  color: #fff !important;
+}
+.wizard-content .wizard > .actions > ul > li > a[href="#previous"] {
+  background-color: #fff !important;
+  color: #54667a !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
 .opciones-collapse a {
   float: right;
   color: #fff !important;
@@ -298,4 +323,310 @@
 
 .ServiciosFijosItems {
   margin-right: 5%;
+}
+
+.tabs-vertical li .nav-link.active,
+.tabs-vertical li .nav-link:hover,
+.tabs-vertical li .nav-link.active:focus {
+  background: #00897b !important;
+}
+
+/* Propuestas */
+
+.modalFullScreen {
+  padding: 0 !important;
+}
+
+.modalFullScreen .modal-dialog {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  margin: 0;
+}
+
+.modalFullScreen .modal-content {
+  height: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.modalFullScreen .modal-body {
+  overflow-y: auto;
+}
+
+.cardPropuesta {
+  width: 100%;
+  padding: 20px 20px;
+}
+
+.cardPropuesta .tituloPropuesta {
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cardPropuesta .colum1Titulo {
+  min-width: 250px;
+  padding-left: 20px;
+}
+
+.cardPropuesta .columna1 {
+  /* text-align: center; */
+  font-weight: bold;
+  padding-left: 20px;
+}
+
+/* .cardPropuesta .columna2 {
+  text-align: center;
+} */
+
+.cardPropuesta .tdPadre {
+  position: relative;
+}
+
+.cardPropuesta .divHijo {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  margin: auto;
+}
+
+.SubTituloOferta {
+  font-weight: bold;
+}
+
+.imgOperador {
+  height: 150px;
+  text-align: center;
+}
+
+.imgOperador img {
+  height: 100%;
+}
+
+.colPadre {
+  position: relative;
+}
+
+#filaAclaraciones_Notas {
+  margin-bottom: 50px;
+}
+.sectionAclaraciones {
+  border-radius: 80px;
+  background-color: #a82d2d;
+  color: #fff;
+  padding: 20px 50px;
+  margin-left: 5%;
+}
+
+.sectionAclaraciones h2 {
+  color: #fff;
+}
+
+.sectionAclaraciones ul li {
+  text-align: justify;
+  margin-top: 15px;
+}
+
+.sectionNotas {
+  padding: 20px 50px;
+}
+
+.sectionNotas ul li {
+  margin-bottom: 10px;
+}
+
+.sectionIndicaciones {
+  border-radius: 80px;
+  border: #379b79 solid 8px;
+  padding: 40px 20px;
+  margin: 0 20%;
+}
+
+.sectionContacto {
+  padding: 40px;
+  margin: 5% 20%;
+  box-shadow: 14px 10px 35px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 80px;
+}
+
+.sectionContacto .centarContenido {
+  text-align: center;
+  padding-top: 30px;
+}
+
+.sectionContacto .centarContenido2 {
+  text-align: center;
+  padding-top: 50px;
+}
+
+.sectionContacto .quitarPadding {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.swiper-container {
+  width: 100% !important;
+  padding-top: 20px !important;
+  /* padding-bottom: 50px !important; */
+}
+
+.swiper-slide {
+  background-position: center !important;
+  background-size: cover !important;
+  width: 300px !important;
+  height: 300px !important;
+}
+
+.CardServicios {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  /* transform: translate(-50%, -50%); */
+  /* background: #495057; */
+  overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.CardServicios .poster {
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+}
+
+.CardServicios .poster::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background: linear-gradient(0deg, #379b79 10%, transparent); */
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.CardServicios .poster .icon {
+  width: 100%;
+  height: 100%;
+  font-size: 9rem;
+  /* text-align: center; */
+}
+
+.CardServicios .poster .icon i {
+  position: absolute;
+  top: 0;
+  left: 25%;
+}
+.CardServicios .details {
+  position: absolute;
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+  bottom: -65%;
+  left: 0;
+  box-sizing: border-box;
+  transition: 0.5s;
+  z-index: 2;
+}
+
+.CardServicios:hover .details {
+  bottom: 0;
+  background-color: #495057;
+  color: #fff;
+}
+.CardServicios .details.show {
+  bottom: 0;
+  background-color: #495057;
+  color: #fff;
+}
+
+.CardServicios .details.show .info {
+  display: block;
+}
+
+.CardServicios .details .titulo {
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.CardServicios .details .titulo label {
+  font-size: 2rem !important;
+  transition: none;
+}
+
+.CardServicios:hover .details .titulo label {
+  transition: none;
+}
+.CardServicios .details .info {
+  display: none;
+  margin-top: 10px;
+}
+.CardServicios:hover .details .info {
+  display: block;
+  /* transition: 0.5s; */
+}
+
+.CardServicios .details .info h4 {
+  color: #fff;
+  font-weight: bold;
+}
+.CardServicios .details .info .mensaje_consulta {
+  font-size: 10px;
+  color: #99abb4;
+}
+
+.icono_mark {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  color: #00897b;
+  font-size: 2rem;
+}
+.icono_mark.show {
+  display: block;
+}
+
+#Pseudo_tabOfertaE {
+  cursor: pointer;
+}
+#Pseudo_tabOfertaP {
+  cursor: pointer;
+}
+
+/* Comparativo */
+
+.cardComparativo {
+  border: 2px solid #495057 !important;
+  border-radius: 10px !important;
+}
+
+.colAjuste {
+  margin-left: 25%;
+}
+
+.titulo_comparativo {
+  background-color: #495057;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.cardAjuste {
+  border: 2px solid !important;
+  border-radius: 10px !important;
+}
+.titulo_ajuste {
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
 }

@@ -145,7 +145,7 @@ let CargarImagenRegistro = () => {
 
 CargarTiposDocumentos = () => {
   $.ajax({
-    url: `${URL}/Documento`,
+    url: `${URL}/Documentos`,
     type: "get",
     datatype: "json",
     success: function (datos) {
@@ -274,7 +274,6 @@ $(function () {
         if (RegistrarEmpleado) {
           files = $("#fileFotografia")[0].files;
         }
-
         if (files.length == 0) {
           RegistrarUsuario("defect.jpg");
         } else {

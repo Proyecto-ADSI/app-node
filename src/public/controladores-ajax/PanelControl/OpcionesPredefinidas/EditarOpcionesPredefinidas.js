@@ -1,3 +1,22 @@
+Id_OP = null;
+
+let CargarModalEditarOpciones = (data) => {
+  Id_OP = data.Id_OP;
+  $("#txtOpcionEdit").val(data.Opcion);
+  $("#txtCategoriaEdit").empty();
+  $("#txtCategoriaEdit").append(Categorias);
+  let arrayConclusion = $("#txtCategoriaEdit option");
+  for (let item of arrayConclusion) {
+    let categoria = $(item).val();
+    if (categoria == data.Categoria) {
+      $(item).attr("selected", true);
+    } else {
+      $(item).removeAttr("selected");
+    }
+  }
+  $("#ModificarOpcionesPredefinidas").modal("show");
+};
+
 let EditarOpcionesPredefinidas = () => {
   let datos = {
     Id_OP: parseInt(Id_OP),
@@ -15,8 +34,9 @@ let EditarOpcionesPredefinidas = () => {
     .done((respuesta) => {
       if (respuesta.data.ok) {
         swal("Excelente", "¡Registro modificado correctamente!", "success");
+        RecargarDataTableOpciones();
         $("#ModificarOpcionesPredefinidas").modal("hide");
-        ListarOpcionesPredefinidas();
+        LimpiarFormOpciones("#txtOpcionEdit", "#txtCategoriaEdit");
       } else {
         swal(
           "Error al modificar",
@@ -37,9 +57,7 @@ $("#FormOpcionesPredefinidasEdit").validate({
   rules: {
     txtOpcionEdit: {
       required: true,
-      SoloAlfanumericos: true,
-      minlength: 2,
-      maxlength: 45,
+      maxlength: 255,
     },
     txtCategoriaEdit: "required",
   },

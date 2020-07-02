@@ -992,9 +992,9 @@ let CargarOpcionesPredefinidas = () => {
 
         if (item.Categoria == "Operador") {
           $("#txtRazones").append(opcion);
-        } else if (item.Categoria == "Redes Sociales") {
+        } else if (item.Categoria == "Servicios ilimitados") {
           $("#txtDetallle_Redes_Sociales").append(opcion);
-        } else if (item.Categoria == "Servicios Adicionales") {
+        } else if (item.Categoria == "Servicios adicionales") {
           $("#txtDetalle_Servicios_Adicionales").append(opcion);
         } else if (item.Categoria == "País LDI") {
           $("#txtDetalleMinutosLDI").append(opcion);

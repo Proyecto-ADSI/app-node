@@ -4,7 +4,7 @@
             <div class="card-body" id="Card-Body-Panel-Control">
                 <h4 class="card-title">Configuración del sistema</h4>
                 <!-- Nav tabs -->
-                <div class="vtabs ">
+                <div class="vtabs MyStyle_Tabs">
                     <ul class="nav nav-tabs tabs-vertical" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#presentacion" role="tab">
@@ -68,7 +68,7 @@
                         </li>
                     </ul>
                     <!-- Tab panes -->
-                    <div class="tab-content MyStyle_Tabs">
+                    <div class="tab-content">
                         <!-- Presentación Corporativa -->
                         <div class="tab-pane active" id="presentacion" role="tabpanel">
                             <div class="row">
@@ -319,11 +319,6 @@
                             </div>
                         </div>
                     </div>
-
-
-
-
-
 
                     <!-- Sexo -->
                     <div class="tab-pane " id="sexo" role="tabpanel">
@@ -772,7 +767,7 @@
 
                     {{!-- Operadores --}}
                     <div class="tab-pane" id="operadores" role="tabpanel">
-                        <div class="row">
+                        {{!-- <div class="row">
                             <div class="col-6">
                                 <div class="card" id="Card-Operadores">
                                     <div class="card-body">
@@ -837,6 +832,173 @@
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-outline-success">
+                                    <div class="card-header MyStyle_Card_Header">
+                                        <h4 class="m-b-0 text-white">Operadores</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="nav nav-tabs customtab" role="tablist">
+                                            <li id="tab1_Operadores" class="nav-item">
+                                                <a id="FormularioEmpleado" class="nav-link active" data-toggle="tab"
+                                                    href="#tabPane1_Operadores" role="tab">
+                                                    <span class="hidden-sm-up"><i class="ti-home"></i></span>
+                                                    <span class="hidden-xs-down">Gestionar Operadores</span>
+                                                </a>
+                                            </li>
+                                            <li id="tab2_Operadores" class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#tabPane2_Operadores"
+                                                    role="tab">
+                                                    <span class="hidden-sm-up"><i class="ti-user"></i></span>
+                                                    <span class="hidden-xs-down">Registrar Operadores </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content d-block">
+                                            <div class="tab-pane active p-20" id="tabPane1_Operadores" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table id="DataTableOperadores"
+                                                                class="table MyStyle_Color-Table display nowrap"
+                                                                style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Operador</th>
+                                                                        <th class="text-center">Oferta</th>
+                                                                        <th class="text-center">Opciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane  p-20" id="tabPane2_Operadores" role="tabpanel">
+                                                <form class="form-horizontal p-t-20" id="FormOperadores">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="txtOpcion">Nombre operador:
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="txtOperador" name="txtOperador"
+                                                                            placeholder="Ingresa un nombre">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <label class="control-label">
+                                                                        Color: <span class="text-danger">*</span>
+                                                                    </label>
+                                                                    <div class="form-group">
+                                                                        <div class="input-group">
+                                                                            <div class="input-group-append">
+                                                                                <span class="input-group-text"
+                                                                                    id="basic-addon1">
+                                                                                    <div class="color-picker"></div>
+                                                                                </span>
+                                                                            </div>
+                                                                            <input type="text" class="form-control"
+                                                                                placeholder="Ejemplo" id="Color"
+                                                                                name="Color">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12 m-t-10">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label">
+                                                                            ¿Generar ofertas para este operador? <span
+                                                                                class="text-danger">*</span>
+                                                                        </label>
+                                                                        <br>
+                                                                        <input name="rbtGeneraOferta" type="radio"
+                                                                            class="with-gap" id="rbtVal1" value="1">
+                                                                        <label for="rbtVal1">Si</label>
+                                                                        <input name="rbtGeneraOferta" type="radio"
+                                                                            class="with-gap" id="rbtVal2" value="2">
+                                                                        <label for="rbtVal2">No</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label for="txtOpcion">Correo:
+                                                                            <span class="text-danger">*</span>
+                                                                        </label>
+                                                                        <input type="text" class="form-control"
+                                                                            id="txtCorreoOperador"
+                                                                            name="txtCorreoOperador"
+                                                                            placeholder="Ingresa un correo" disabled>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="txtOpcion">Imágen operador:
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input type="file" id="fileImgOperador"
+                                                                    name="fileImgOperador" data-height="300"
+                                                                    data-default-file="{{session.Host}}/Images/Usuarios/defect.jpg"
+                                                                    data-allowed-file-extensions="png jpeg jpg" />
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="txtOpcion">Contraseña:
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input type="password" class="form-control"
+                                                                    id="txtContrasenaOperador"
+                                                                    name="txtContrasenaOperador"
+                                                                    placeholder="Ingresa la contraseña" disabled>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="txtOpcion">Confirmar contraseña:
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <input type="password" class="form-control"
+                                                                    id="txtConfirmarContrasenaOperador"
+                                                                    name="txtConfirmarContrasenaOperador"
+                                                                    placeholder="Confirma la contraseña" disabled>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-info">
+                                                                    Guardar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -991,61 +1153,91 @@
                     <!-- Opciones Predefinidas -->
                     <div class="tab-pane" id="OpcionesPredefinidas" role="tabpanel">
                         <div class="row">
-                            <div class="col-8">
-                                <div class="card" id="Card-OpcionesPredefinidas">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Opciones predefinidas registradas.</h4>
-                                        <div class="table-responsive">
-                                            <table class="table color-table success-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Descripción</th>
-                                                        <th>Categoría</th>
-                                                        <th>Opciones</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="TablaOpcionesPredefinidas">
-
-                                                </tbody>
-                                            </table>
-                                        </div>
+                            <div class="col-md-12">
+                                <div class="card card-outline-success">
+                                    <div class="card-header MyStyle_Card_Header">
+                                        <h4 class="m-b-0 text-white">Opciones predefinidas</h4>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="card" id="Card-Operadores2">
                                     <div class="card-body">
-                                        <h4 class="card-title">Registro de opciones predefinidas</h4>
-                                        <form class="form-horizontal p-t-20" id="FormOpcionesPredefinidas">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="txtOpcion">Descripción:</label>
-                                                        <input type="text" class="form-control" id="txtOpcion"
-                                                            name="txtOpcion" placeholder="Ingrese descripción...">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group ">
-                                                        <label class="control-label">Categoria:</label>
-                                                        <select name="txtCategoria" id="txtCategoria"
-                                                            class="custom-select form-control">
+                                        <ul class="nav nav-tabs customtab" role="tablist">
+                                            <li id="tab1_Opciones" clas="nav-item">
+                                                <a id="FormularioEmpleado" class="nav-link active" data-toggle="tab"
+                                                    href="#tabPane1_Opciones" role="tab">
+                                                    <span class="hidden-sm-up"><i class="ti-home"></i></span>
+                                                    <span class="hidden-xs-down">Gestionar opciones</span>
+                                                </a>
+                                            </li>
+                                            <li id="tab2_Opciones" class="nav-item">
+                                                <a class="nav-link" data-toggle="tab" href="#tabPane2_Opciones"
+                                                    role="tab">
+                                                    <span class="hidden-sm-up"><i class="ti-user"></i></span>
+                                                    <span class="hidden-xs-down">Registrar opciones </span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <!-- Tab panes -->
+                                        <div class="tab-content d-block">
+                                            <div class="tab-pane active p-20" id="tabPane1_Opciones" role="tabpanel">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="table-responsive">
+                                                            <table id="DataTableOpciones"
+                                                                class="table MyStyle_Color-Table display nowrap"
+                                                                style="width:100%">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Categoría</th>
+                                                                        <th class="text-center">Descripción</th>
+                                                                        <th class="text-center">Opciones</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
 
-                                                        </select>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row m-b-0">
-                                                <div class="offset-sm-3 col-sm-9">
-                                                    <button type="submit"
-                                                        class="btn btn-info waves-effect waves-light">Guardar
-                                                    </button>
-                                                </div>
+                                            <div class="tab-pane  p-20" id="tabPane2_Opciones" role="tabpanel">
+                                                <form class="form-horizontal p-t-20" id="FormOpcionesPredefinidas">
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label for="txtOpcion">Descripción:
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <textarea class="form-control" name="txtOpcion"
+                                                                    id="txtOpcion" rows="5"></textarea>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group ">
+                                                                <label class="control-label">Categoria:
+                                                                    <span class="text-danger">*</span>
+                                                                </label>
+                                                                <select name="txtCategoria" id="txtCategoria"
+                                                                    class="custom-select form-control">
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-info">
+                                                                    Guardar
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1147,49 +1339,124 @@
 
                     <div class="modal fade" id="ModificarOperador" tabindex="-1" role="dialog"
                         aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
+                        <div class="modal-dialog  modal-lg">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Editar operador</h4>
                                     <button type="button" class="close" data-dismiss="modal"
                                         aria-hidden="true">×</button>
                                 </div>
-                                <div class="modal-body">
-                                    <form id="FormOperadorEdit">
-                                        <div class="col-sm-12">
-                                            <div class="form-group row">
-                                                <div class="input-group">
-                                                    <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon1">
-                                                            <i class="ti-user"></i>
-                                                        </span>
+                                <form id="FormOperadorEdit">
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="txtOpcion">Nombre operador:
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                id="txtOperador_Editar" name="txtOperador_Editar"
+                                                                placeholder="Ingresa un nombre">
+                                                        </div>
                                                     </div>
-
-                                                    <input type="text" class="form-control" id="TxtOperadorEdit"
-                                                        name="OperadorEdit" placeholder="Operador">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <label class="control-label">
+                                                            Color: <span class="text-danger">*</span>
+                                                        </label>
+                                                        <div class="form-group">
+                                                            <div class="input-group">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" id="basic-addon1">
+                                                                        <div class="color-pickerEdit"></div>
+                                                                    </span>
+                                                                </div>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Ejemplo" id="Color_Editar"
+                                                                    name="Color_Editar">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12 m-t-10">
+                                                        <div class="form-group">
+                                                            <label class="control-label">
+                                                                ¿Generar ofertas para este operador?
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <br>
+                                                            <input name="rbtGeneraOferta_Editar" type="radio"
+                                                                class="with-gap" id="rbtVal1_Editar" value="1">
+                                                            <label for="rbtVal1_Editar">Si</label>
+                                                            <input name="rbtGeneraOferta_Editar" type="radio"
+                                                                class="with-gap" id="rbtVal2_Editar" value="2">
+                                                            <label for="rbtVal2_Editar">No</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label for="txtOpcion">Correo:
+                                                                <span class="text-danger">*</span>
+                                                            </label>
+                                                            <input type="text" class="form-control"
+                                                                id="txtCorreoOperador_Editar"
+                                                                name="txtCorreoOperador_Editar"
+                                                                placeholder="Ingresa un correo">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text" id="basic-addon1">
-                                                                <div class="color-pickerEdit"></div>
-                                                            </span>
-                                                        </div>
-                                                        <input type="text" class="form-control" placeholder="Ejemplo"
-                                                            id="ColorEdit">
-                                                    </div>
+                                            <div class="col-md-6">
+                                                <div id="ValImagenEditar" class="form-group">
+                                                    <label class="control-label">Imágen operador:
+                                                        <span class="text-danger">*</span>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default waves-effect"
-                                        data-dismiss="modal">Salir</button>
-                                    <button type="submit" class="btn waves-effect waves-light btn-info">Editar
-                                        operador</button>
-                                </div>
+                                        <input type="checkbox" id="checkbox_contrasena" name="checkbox_contrasena"
+                                            class="MyStyle_Checkbox" disabled>
+                                        <label class="font-weight-bold" for="checkbox_contrasena">
+                                            Cambiar contraseña:
+                                        </label>
+                                        <hr class="m-t-0 m-b-20">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="txtOpcion">Contraseña:
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="password" class="form-control"
+                                                        id="txtContrasenaOperador_Editar"
+                                                        name="txtContrasenaOperador_Editar"
+                                                        placeholder="Ingresa la contraseña" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="txtOpcion">Confirmar contraseña:
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+                                                    <input type="password" class="form-control"
+                                                        id="txtConfirmarContrasenaOperador_Editar"
+                                                        name="txtConfirmarContrasenaOperador_Editar"
+                                                        placeholder="Confirma la contraseña" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default waves-effect"
+                                            data-dismiss="modal">Salir</button>
+                                        <button type="submit" class="btn waves-effect waves-light btn-info">Editar
+                                            operador</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -1617,7 +1884,7 @@
                             <div class="modal-content">
                                 <form id="FormOpcionesPredefinidasEdit">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Editar calificación operador</h4>
+                                        <h4 class="modal-title">Editar opción predefinida</h4>
                                         <button type="button" class="close" data-dismiss="modal"
                                             aria-hidden="true">×</button>
                                     </div>
@@ -1626,8 +1893,8 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label for="txtOpcionEdit">Descripción:</label>
-                                                    <input type="text" class="form-control" id="txtOpcionEdit"
-                                                        name="txtOpcionEdit" placeholder="Ingrese descripción...">
+                                                    <textarea class="form-control" name="txtOpcionEdit"
+                                                        id="txtOpcionEdit" rows="5"></textarea>
                                                 </div>
                                             </div>
                                         </div>

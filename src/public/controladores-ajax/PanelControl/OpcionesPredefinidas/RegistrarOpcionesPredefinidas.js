@@ -12,15 +12,8 @@ let RegistrarOpcionesPredefinidas = () => {
     processData: false,
     success: function (res) {
       if (res.data.ok) {
-        $("#txtOpcion").val("");
-        $("#txtCategoria").empty();
-        $("#txtCategoria").append(Categorias);
-
-        $("#FormOpcionesPredefinidas .form-group").removeClass("has-success");
-        $("#FormOpcionesPredefinidas .form-control").removeClass(
-          "form-control-success"
-        );
-        ListarOpcionesPredefinidas();
+        LimpiarFormOpciones();
+        RecargarDataTableOpciones();
         swal({
           title: "¡Registro exitoso!",
           type: "success",
@@ -28,6 +21,7 @@ let RegistrarOpcionesPredefinidas = () => {
           confirmButtonText: "Ok",
           closeOnConfirm: true,
         });
+        $("#tab1_Opciones a").trigger("click");
       } else {
         swal({
           title: "Error",
@@ -59,9 +53,7 @@ $(function () {
     rules: {
       txtOpcion: {
         required: true,
-        SoloAlfanumericos: true,
-        minlength: 2,
-        maxlength: 45,
+        maxlength: 255,
       },
       txtCategoria: "required",
     },
