@@ -437,73 +437,19 @@ let RegistrarCliente = (objDocumentos) => {
     let arrayLineas = [];
     let Cantidad_Total_Lineas = 0;
     let Valor_Total_Mensual = 0;
-    if (localStorage.ServiciosMoviles) {
-      let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
 
+    if (localStorage.ServiciosMoviles) {
+      let ServiciosFormateados = FormatearServiciosMoviles(
+        JSON.parse(localStorage.ServiciosMoviles),
+        false
+      );
+      Cantidad_Total_Lineas = ServiciosFormateados.Cantidad_Total_Lineas;
+      Valor_Total_Mensual = ServiciosFormateados.Valor_Total_Mensual;
+      arrayLineas = ServiciosFormateados.arrayServiciosMoviles;
       // Validación BDL
-      if (ServiciosMoviles.length > 0) {
+      if (arrayLineas.length > 0) {
         ValidacionDBL = true;
       }
-
-      let GrupoLineas = 0;
-      for (let lineaItem of ServiciosMoviles) {
-        let redes = "";
-        if (lineaItem.redesSociales.length > 0) {
-          for (let red of lineaItem.redesSociales) {
-            redes = redes + red + ", ";
-            redes = redes.trim();
-          }
-        }
-
-        let minLDI = "";
-        let cantidadLDI = null;
-        if (lineaItem.minutosLDI.length > 0) {
-          for (let pais of lineaItem.minutosLDI) {
-            minLDI = minLDI + pais + ", ";
-            minLDI = minLDI.trim();
-          }
-          cantidadLDI = lineaItem.cantidadLDI;
-        }
-
-        let serviciosAdicionales = "";
-        if (lineaItem.serviciosAdicionales.length > 0) {
-          for (let servicio of lineaItem.serviciosAdicionales) {
-            serviciosAdicionales = serviciosAdicionales + servicio + ", ";
-            serviciosAdicionales = serviciosAdicionales.trim();
-          }
-        }
-
-        // Establecer valor total mensual de la totalidad de lineas.
-        Valor_Total_Mensual += parseInt(lineaItem.cargoBasicoMensual);
-
-        GrupoLineas++;
-        for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
-          let linea = {
-            minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
-            navegacion:
-              lineaItem.navegacion === "" ? null : lineaItem.navegacion,
-            mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
-            redes: redes === "" ? null : redes,
-            minutosLDI: minLDI === "" ? null : minLDI,
-            cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
-            serviciosAdicionales:
-              serviciosAdicionales === "" ? null : serviciosAdicionales,
-            cargoBasicoMensual: lineaItem.cargoBasicoMensual,
-            grupo: GrupoLineas,
-          };
-
-          if (typeof lineaItem.NumerosLineas !== "undefined") {
-            Object.defineProperty(linea, "numero", {
-              value: lineaItem.NumerosLineas[i],
-              enumerable: true,
-            });
-          }
-
-          arrayLineas.push(linea);
-        }
-      }
-
-      Cantidad_Total_Lineas = arrayLineas.length;
     }
 
     // Validaciones DBL
@@ -557,9 +503,10 @@ let RegistrarCliente = (objDocumentos) => {
       Id_Calificacion_Operador: calificacion,
       Razones: stringRazones === "" ? null : stringRazones,
       Cantidad_Lineas: Cantidad_Total_Lineas,
-      Valor_Mensual: Valor_Total_Mensual.toString(),
+      Valor_Mensual: Valor_Total_Mensual,
       ServiciosFijos: serviciosFijos,
       ServiciosMoviles: arrayLineas,
+      Estado_DBL: 3,
       // Validacion
       Validacion_DBL: ValidacionDBL,
       Validacion_PLan_C: false,
@@ -980,7 +927,7 @@ let CargarOpcionesPredefinidas = () => {
     datatype: "json",
     success: function (datos) {
       $("#txtRazones").empty();
-      $("#txtDetallle_Redes_Sociales").empty();
+      $("#txtDetallle_Servicios_Ilimitados").empty();
       $("#txtDetalle_Servicios_Adicionales").empty();
       $("#txtDetalleMinutosLDI").empty();
 
@@ -993,7 +940,7 @@ let CargarOpcionesPredefinidas = () => {
         if (item.Categoria == "Operador") {
           $("#txtRazones").append(opcion);
         } else if (item.Categoria == "Servicios ilimitados") {
-          $("#txtDetallle_Redes_Sociales").append(opcion);
+          $("#txtDetallle_Servicios_Ilimitados").append(opcion);
         } else if (item.Categoria == "Servicios adicionales") {
           $("#txtDetalle_Servicios_Adicionales").append(opcion);
         } else if (item.Categoria == "País LDI") {
@@ -1011,7 +958,7 @@ let CargarOpcionesPredefinidas = () => {
         tags: true,
         tokenSeparators: [","],
       });
-      $("#txtDetallle_Redes_Sociales").select2({
+      $("#txtDetallle_Servicios_Ilimitados").select2({
         multiple: true,
         tags: true,
         tokenSeparators: [","],

@@ -17,6 +17,9 @@ var ValDireccionCita = false;
 var idAclaracion = 0;
 var idNota = 0;
 var swiper = null;
+var Nombre_Empleado = "";
+var Oferta_Personalizada_PDF = [];
+var valInicializarInfoAT = false;
 $(function () {
   controlServicios = 3;
   iniciarCronometroLlamada();
@@ -59,18 +62,45 @@ $(function () {
       if (TerminarLlamada) {
         return true;
       } else {
-        return (
-          currentIndex > newIndex ||
-          (!(3 === newIndex && Number($("#age-2").val()) < 18) &&
-            (currentIndex < newIndex &&
-              (form.find(".body:eq(" + newIndex + ") label.error").remove(),
-              form
-                .find(".body:eq(" + newIndex + ") .error")
-                .removeClass("error")),
-            (form.validate().settings.ignore =
-              ":disabled,:hidden, .detalleLinea"),
-            form.valid()))
-        );
+        if ($(".switch_corporativo").bootstrapSwitch("state")) {
+          if (currentIndex == 4) {
+            if (FinalizarLlamada) {
+              return (
+                (form.validate().settings.ignore =
+                  ":disabled,:hidden, .detalleLinea"),
+                form.valid()
+              );
+            } else {
+              GenerarAlertasToast(3);
+              return false;
+            }
+          } else {
+            return (
+              (form.validate().settings.ignore =
+                ":disabled,:hidden, .detalleLinea"),
+              form.valid()
+            );
+          }
+        } else {
+          if (currentIndex == 3) {
+            if (FinalizarLlamada) {
+              return (
+                (form.validate().settings.ignore =
+                  ":disabled,:hidden, .detalleLinea"),
+                form.valid()
+              );
+            } else {
+              GenerarAlertasToast(3);
+              return false;
+            }
+          } else {
+            return (
+              (form.validate().settings.ignore =
+                ":disabled,:hidden, .detalleLinea"),
+              form.valid()
+            );
+          }
+        }
       }
     },
     onStepChanged: function (event, currentIndex, priorIndex) {
@@ -79,11 +109,21 @@ $(function () {
         $(".switch_AT1").bootstrapSwitch("state") === true ||
         $(".switch_AT2").bootstrapSwitch("state") === true
       ) {
-        if (currentIndex == 4) {
-          DataTableOE.responsive.recalc();
-          DataTableOP.responsive.recalc();
-          if (swiper) {
-            swiper.update();
+        if ($(".switch_corporativo").bootstrapSwitch("state")) {
+          if (currentIndex == 5) {
+            DataTableOE.responsive.recalc();
+            DataTableOP.responsive.recalc();
+            if (swiper) {
+              swiper.update();
+            }
+          }
+        } else {
+          if (currentIndex == 4) {
+            DataTableOE.responsive.recalc();
+            DataTableOP.responsive.recalc();
+            if (swiper) {
+              swiper.update();
+            }
           }
         }
       }
@@ -101,16 +141,25 @@ $(function () {
           $(".switch_cita2").bootstrapSwitch("state") === true
         ) {
           if (ValidacionesCita()) {
-            if (sessionStorage.DatosUbicacion) {
-              sessionStorage.removeItem("DatosUbicacion");
-            }
             RegistrarLlamadaNP();
           }
         } else {
-          if (sessionStorage.DatosUbicacion) {
-            sessionStorage.removeItem("DatosUbicacion");
+          if (
+            $(".switch_AT1").bootstrapSwitch("state") === true ||
+            $(".switch_AT2").bootstrapSwitch("state") === true
+          ) {
+            let valOferta = ValidarExistenciaDatosOferta();
+            Tipo_Oferta = valOferta.Tipo_Oferta;
+            Oferta = valOferta.Oferta;
+            if (Oferta) {
+              if (!valInicializarInfoAT) {
+                ModalPrevisualizarOferta(Tipo_Oferta);
+              }
+              RegistrarLlamadaNP();
+            }
+          } else {
+            RegistrarLlamadaNP();
           }
-          RegistrarLlamadaNP();
         }
       } else {
         GenerarAlertasToast(3);
@@ -165,174 +214,174 @@ $(function () {
           .removeClass("form-control-danger");
       },
       rules: {
-        // txtRazonSocial: {
-        //   required: true,
-        //   minlength: 2,
-        //   maxlength: 45,
-        //   SoloAlfanumericos: true,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function () {
-        //         return $("#txtRazonSocial").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"Cliente ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        // txtTelefono: {
-        //   required: true,
-        //   SoloNumeros: true,
-        //   minlength: 7,
-        //   maxlength: 7,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function (e) {
-        //         return $("#txtTelefono").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"Teléfono ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        // txtNIT: {
-        //   ValidarNIT: true,
-        //   minlength: 9,
-        //   maxlength: 11,
-        //   remote: {
-        //     url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
-        //     type: "get",
-        //     dataType: "json",
-        //     data: {
-        //       texto: function () {
-        //         return $("#txtNIT").val().trim();
-        //       },
-        //     },
-        //     dataFilter: function (res) {
-        //       var json = JSON.parse(res);
-        //       if (json.data.ok) {
-        //         $("#DetalleEmpresaCard").attr("style", "display:none");
-        //         return '"true"';
-        //       } else {
-        //         MostarCardDetalleEmpresa(json.data.cliente);
-        //         CargarDatosModalDetalles(json.data.cliente);
-        //         let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
-        //         ValidarLlamarCliente(Estado_Cliente);
-        //         return '"NIT ya registrado."';
-        //       }
-        //     },
-        //   },
-        // },
-        // txtPersona_Responde: {
-        //   maxlength: 45,
-        //   SoloLetras: true,
-        // },
-        // txtEncargado: {
-        //   maxlength: 45,
-        //   SoloLetras: true,
-        // },
-        // txtPais: "required",
-        // txtDepartamento: "required",
-        // txtMunicipio: "required",
-        // txtOperador: "required",
-        // txtDetalle_Cantidad_Lineas: {
-        //   required: true,
-        //   maxlength: 3,
-        //   SoloNumeros2: true,
-        // },
-        // txtDetalle_Valor_Mensual: {
-        //   required: true,
-        //   maxlength: 45,
-        //   SoloNumeros2: true,
-        // },
-        // detalleLineasRadios: "required",
-        // txtDetalleNavegacion: {
-        //   maxlength: 45,
-        //   SoloNumeros: true,
-        // },
-        // txtDetalle_Minutos: {
-        //   maxlength: 45,
-        //   SoloNumeros: true,
-        // },
-        // txtDetalle_Mensajes: {
-        //   maxlength: 45,
-        //   SoloNumeros: true,
-        // },
-        // txtDetalle_Cantidad_LDI: {
-        //   maxlength: 45,
-        //   SoloNumeros: true,
-        // },
-        // // txtFecha_inicio: "required",
-        // // txtFecha_fin: "required",
-        // rbtnEnvioOferta: "required",
-        // txtCorreo: {
-        //   required: true,
-        //   maxlength: 45,
-        //   ValidarCorreo: true,
-        // },
-        // txtCodigoPostal: {
-        //   required: true,
-        //   SoloNumeros: true,
-        //   maxlength: 5,
-        //   minlength: 1,
-        // },
-        // txtCelularAT: {
-        //   required: true,
-        //   NumeroMovil: true,
-        //   minlength: 10,
-        //   maxlength: 10,
-        // },
-        // txtOperadorCita: "required",
-        // txtFechaCita: "required",
-        // btnHoraCita: "required",
-        // txtEncargado_Cita: {
-        //   required: true,
-        //   SoloLetras: true,
-        // },
-        // txtCelularCita: {
-        //   required: true,
-        //   NumeroMovil: true,
-        //   minlength: 10,
-        //   maxlength: 10,
-        // },
-        // txtPaisCita: "required",
-        // txtDepartamentoCita: "required",
-        // txtMunicipioCita: "required",
-        // txtSubTipoCita: "required",
-        // txtNombre_LugarCita: "required",
-        // txtDireccion_Cita: "required",
-        // txtPuntoReferencia: {
-        //   required: true,
-        //   SoloAlfanumericos: true,
-        // },
+        txtRazonSocial: {
+          required: true,
+          minlength: 2,
+          maxlength: 45,
+          SoloAlfanumericos: true,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtRazonSocial").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Cliente ya registrado."';
+              }
+            },
+          },
+        },
+        txtTelefono: {
+          required: true,
+          SoloNumeros: true,
+          minlength: 7,
+          maxlength: 7,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function (e) {
+                return $("#txtTelefono").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"Teléfono ya registrado."';
+              }
+            },
+          },
+        },
+        txtNIT: {
+          ValidarNIT: true,
+          minlength: 9,
+          maxlength: 11,
+          remote: {
+            url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+            type: "get",
+            dataType: "json",
+            data: {
+              texto: function () {
+                return $("#txtNIT").val().trim();
+              },
+            },
+            dataFilter: function (res) {
+              var json = JSON.parse(res);
+              if (json.data.ok) {
+                $("#DetalleEmpresaCard").attr("style", "display:none");
+                return '"true"';
+              } else {
+                MostarCardDetalleEmpresa(json.data.cliente);
+                CargarDatosModalDetalles(json.data.cliente);
+                let Estado_Cliente = parseInt(json.data.cliente.Estado_Cliente);
+                ValidarLlamarCliente(Estado_Cliente);
+                return '"NIT ya registrado."';
+              }
+            },
+          },
+        },
+        txtPersona_Responde: {
+          maxlength: 45,
+          SoloLetras: true,
+        },
+        txtEncargado: {
+          maxlength: 45,
+          SoloLetras: true,
+        },
+        txtPais: "required",
+        txtDepartamento: "required",
+        txtMunicipio: "required",
+        txtOperador: "required",
+        txtDetalle_Cantidad_Lineas: {
+          required: true,
+          maxlength: 3,
+          SoloNumeros2: true,
+        },
+        txtDetalle_Valor_Mensual: {
+          required: true,
+          maxlength: 45,
+          SoloNumeros2: true,
+        },
+        detalleLineasRadios: "required",
+        txtDetalleNavegacion: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Minutos: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Mensajes: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        txtDetalle_Cantidad_LDI: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
+        // txtFecha_inicio: "required",
+        // txtFecha_fin: "required",
+        rbtnEnvioOferta: "required",
+        txtCorreo: {
+          required: true,
+          maxlength: 45,
+          ValidarCorreo: true,
+        },
+        txtCodigoPostal: {
+          required: true,
+          SoloNumeros: true,
+          maxlength: 5,
+          minlength: 1,
+        },
+        txtCelularAT: {
+          required: true,
+          NumeroMovil: true,
+          minlength: 10,
+          maxlength: 10,
+        },
+        txtOperadorCita: "required",
+        txtFechaCita: "required",
+        btnHoraCita: "required",
+        txtEncargado_Cita: {
+          required: true,
+          SoloLetras: true,
+        },
+        txtCelularCita: {
+          required: true,
+          NumeroMovil: true,
+          minlength: 10,
+          maxlength: 10,
+        },
+        txtPaisCita: "required",
+        txtDepartamentoCita: "required",
+        txtMunicipioCita: "required",
+        txtSubTipoCita: "required",
+        txtNombre_LugarCita: "required",
+        txtDireccion_Cita: "required",
+        txtPuntoReferencia: {
+          required: true,
+          SoloAlfanumericos: true,
+        },
         txtOperadorOferta: "required",
         txtDestinatarioOferta: {
           required: true,
@@ -341,7 +390,6 @@ $(function () {
         },
       },
     });
-
   // Inicializar elementos:
 
   // tooltip
@@ -688,6 +736,13 @@ $(function () {
     } else {
       $("#ValFinalizarLlamada").removeAttr("style");
     }
+
+    if ($(".switch_AT1").bootstrapSwitch("state")) {
+      $(".switch_AT1").bootstrapSwitch("disabled", true);
+    }
+    if ($(".switch_AT2").bootstrapSwitch("state")) {
+      $(".switch_AT2").bootstrapSwitch("disabled", true);
+    }
   });
 
   // Factura
@@ -888,18 +943,20 @@ let RegistrarLlamadaNP = () => {
 
     // Servicios Moviles
     let arrayLineas = [];
-
     let Cantidad_Total_Lineas = 0;
     let Valor_Total_Mensual = 0;
 
     if (localStorage.ServiciosMoviles) {
-      let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
-      let ServiciosFormateados = FormatearServiciosMoviles(ServiciosMoviles);
+      let ServiciosFormateados = FormatearServiciosMoviles(
+        JSON.parse(localStorage.ServiciosMoviles),
+        false
+      );
       Cantidad_Total_Lineas = ServiciosFormateados.Cantidad_Total_Lineas;
       Valor_Total_Mensual = ServiciosFormateados.Valor_Total_Mensual;
       arrayLineas = ServiciosFormateados.arrayServiciosMoviles;
     }
 
+    // Razones
     let arrayRazones = $("#txtRazones").val();
     let stringRazones = "";
 
@@ -970,10 +1027,10 @@ let RegistrarLlamadaNP = () => {
           : parseInt($("#txtCalificacion").val()),
       Razones: stringRazones === "" ? null : stringRazones,
       Cantidad_Lineas: Cantidad_Total_Lineas,
-      Valor_Mensual: Valor_Total_Mensual.toString(),
+      Valor_Mensual: Valor_Total_Mensual,
       ServiciosFijos: serviciosFijos,
       ServiciosMoviles: arrayLineas,
-
+      Estado_DBL: 3,
       // Validación
       Validacion_DBL: TerminarLlamada ? false : true,
       Validacion_PLan_C: false,
@@ -1025,8 +1082,10 @@ let RegistrarLlamadaNP = () => {
       $(".switch_cita1").bootstrapSwitch("state") === true ||
       $(".switch_cita2").bootstrapSwitch("state") === true
     ) {
+      detenerCronometroVerificar();
       let txtDuracion_Verificacion =
         "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
+
       let switchRL = $("#switchRL").children("label").children("input");
       datos.Validacion_Cita = true;
       // Hora cita
@@ -1109,7 +1168,15 @@ let RegistrarLlamadaNP = () => {
       $(".switch_AT1").bootstrapSwitch("state") === true ||
       $(".switch_AT2").bootstrapSwitch("state") === true
     ) {
+      if (!valInicializarInfoAT) {
+        ModalPrevisualizarOferta();
+      }
       datos.Validacion_AT = true;
+      detenerCronometroVerificar();
+
+      let Tiempo_Post_Llamada =
+        "00:" + $("#txtMinutosV").text() + ":" + $("#txtSegundosV").text();
+
       // Formatear celular
       let codigo = $("#txtCodigoPostal").val();
       let celular = $("#txtCelularAT").val();
@@ -1118,22 +1185,118 @@ let RegistrarLlamadaNP = () => {
       }
       datos.Celular = celular == "" ? null : celular;
       datos.Correo = $("#txtCorreo").val() == "" ? null : $("#txtCorreo").val();
-      let Envio_Oferta = $("input:radio[name='rbtnEnvioOferta']").val();
+
+      // Aclaraciones
+      let arrayAclaraciones = [];
+      $(".opcionAclaraciones ").each(function (index, element, array) {
+        arrayAclaraciones.push($(element).val());
+      });
+      // Notas
+      let arrayNotas = [];
+      $(".opcionNotas").each(function (index, element, array) {
+        arrayNotas.push($(element).val());
+      });
       Object.defineProperties(datos, {
         Tipo_Oferta: {
           value: Tipo_Oferta,
           enumerable: true,
         },
-        Envio_Oferta: {
-          value: Envio_Oferta,
+        Medio_Envio: {
+          value: parseInt(
+            $("input:radio[name='rbtnEnvioOferta']:checked").val()
+          ),
+          enumerable: true,
+        },
+        Estado_Pre_Oferta: {
+          value: 1,
+          enumerable: true,
+        },
+        Id_Operador_Oferta: {
+          value: parseInt($("#txtOperadorOferta").val()),
+          enumerable: true,
+        },
+        Tiempo_Post_Llamada: {
+          value: Tiempo_Post_Llamada,
+          enumerable: true,
+        },
+        Nombre_Cliente: {
+          value: $("#txtDestinatarioOferta").val(),
+          enumerable: true,
+        },
+        Mensaje_Superior: {
+          value:
+            $("#txtMensajeSuperior").val() == ""
+              ? null
+              : $("#txtMensajeSuperior").val(),
+          enumerable: true,
+        },
+        Aclaraciones: {
+          value: arrayAclaraciones.length == 0 ? null : arrayAclaraciones,
+          enumerable: true,
+        },
+        Notas: {
+          value: arrayNotas,
+          enumerable: true,
+        },
+        Nombre_Empleado: {
+          value: Nombre_Empleado,
           enumerable: true,
         },
       });
 
       if (Tipo_Oferta == 1) {
-        Object.defineProperty(datos, "Oferta_Estandar", {
-          value: JSON.parse(),
-          enumerable: true,
+        // OFERTA ESTÁNDAR
+        let Oferta_Estandar_PDF = JSON.parse(
+          localStorage.getItem("ServiciosMovilesOE")
+        );
+        let Oferta_Estandar_BD = FormatearServiciosMoviles(
+          Oferta_Estandar_PDF,
+          true
+        );
+        Object.defineProperties(datos, {
+          Oferta_Estandar_BD: {
+            value: Oferta_Estandar_BD.arrayServiciosMoviles,
+            enumerable: true,
+          },
+          Oferta_Estandar_PDF: {
+            value: Oferta_Estandar_PDF,
+            enumerable: true,
+          },
+        });
+      } else {
+        // OFERTA PERSONALIZADA
+        let Oferta_Personalizada_BD = FormatearServiciosMoviles(
+          JSON.parse(localStorage.getItem("ServiciosMovilesOP")),
+          false
+        );
+        let Cantidad_Total_LineasOP =
+          Oferta_Personalizada_BD.Cantidad_Total_Lineas;
+
+        let Valor_Total_MensualOP = Oferta_Personalizada_BD.Valor_Total_Mensual;
+
+        Oferta_Personalizada_BD = Oferta_Personalizada_BD.arrayServiciosMoviles;
+
+        Object.defineProperties(datos, {
+          Oferta_Personalizada_BD: {
+            value: Oferta_Personalizada_BD,
+            enumerable: true,
+          },
+          Oferta_Personalizada_PDF: {
+            value: Oferta_Personalizada_PDF,
+            enumerable: true,
+          },
+          Ajuste_Financiero: {
+            value: Ajuste_Financiero,
+            enumerable: true,
+          },
+          Cantidad_Total_LineasOP: {
+            value: Cantidad_Total_LineasOP,
+            enumerable: true,
+          },
+          Valor_Total_MensualOP: {
+            value: Valor_Total_MensualOP,
+            enumerable: true,
+          },
         });
       }
     }
@@ -1150,6 +1313,12 @@ let RegistrarLlamadaNP = () => {
           //se envía notifiación a coordinadores y administrador
           localStorage.removeItem("ServiciosMoviles");
           localStorage.removeItem("ServiciosFijos");
+          localStorage.removeItem("ServiciosMovilesOE");
+          localStorage.removeItem("ServiciosMovilesOP");
+          localStorage.removeItem("Comparativo");
+          if (sessionStorage.DatosUbicacion) {
+            sessionStorage.removeItem("DatosUbicacion");
+          }
           clientesSocket.emit("Notificar");
           swal({
             title: "Registro exitoso.",
@@ -1157,6 +1326,19 @@ let RegistrarLlamadaNP = () => {
             showCancelButton: false,
             showConfirmButton: false,
           });
+
+          if (respuesta.data.Envio_WhatsApp) {
+            let info = respuesta.data.info;
+            let infoCelular = FormatearCelular(info.celular);
+            let celular = infoCelular.codigo + infoCelular.celular;
+            // Abrir API WhatsApp
+            window.open(
+              `https://api.whatsapp.com/send?phone=${celular}&text=${info.MensajeInicio}`,
+              "_blank"
+            );
+            // Abrir pdf
+            window.open(`${URL}/Reportes/${info.archivo}`, "_blank");
+          }
           setTimeout(function () {
             location.href = Redireccionar("/Noticias");
           }, 1000);
@@ -1202,71 +1384,6 @@ let RegistrarLlamadaNP = () => {
       },
     });
   });
-};
-
-let FormatearServiciosMoviles = (ServiciosMoviles) => {
-  let arrayLineas = [];
-  let Cantidad_Total_Lineas = 0;
-  let Valor_Total_Mensual = 0;
-  let GrupoLineas = 0;
-  for (let lineaItem of ServiciosMoviles) {
-    let serviciosIlimitados = "";
-    if (lineaItem.serviciosIlimitados.length > 0) {
-      for (let servicioI of lineaItem.serviciosIlimitados) {
-        serviciosIlimitados = serviciosIlimitados + servicioI + ", ";
-        serviciosIlimitados = serviciosIlimitados.trim();
-      }
-    }
-    let minLDI = "";
-    let cantidadLDI = null;
-    if (lineaItem.minutosLDI.length > 0) {
-      for (let pais of lineaItem.minutosLDI) {
-        minLDI = minLDI + pais + ", ";
-        minLDI = minLDI.trim();
-      }
-      cantidadLDI = lineaItem.cantidadLDI;
-    }
-
-    let serviciosAdicionales = "";
-    if (lineaItem.serviciosAdicionales.length > 0) {
-      for (let servicio of lineaItem.serviciosAdicionales) {
-        serviciosAdicionales = serviciosAdicionales + servicio + ", ";
-        serviciosAdicionales = serviciosAdicionales.trim();
-      }
-    }
-
-    // Establecer valor total mensual de la totalidad de lineas.
-    let cargoBasicoMensual = QuitarComas(lineaItem.cargoBasicoMensual);
-    cargoBasicoMensual = parseFloat(cargoBasicoMensual);
-    Valor_Total_Mensual += cargoBasicoMensual;
-
-    GrupoLineas++;
-    for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
-      let linea = {
-        minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
-        navegacion: lineaItem.navegacion === "" ? null : lineaItem.navegacion,
-        mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
-        serviciosIlimitados:
-          serviciosIlimitados === "" ? null : serviciosIlimitados,
-        minutosLDI: minLDI === "" ? null : minLDI,
-        cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
-        serviciosAdicionales:
-          serviciosAdicionales === "" ? null : serviciosAdicionales,
-        cargoBasicoMensual: lineaItem.cargoBasicoMensual,
-        grupo: GrupoLineas,
-      };
-
-      arrayLineas.push(linea);
-    }
-  }
-  Cantidad_Total_Lineas = arrayLineas.length;
-
-  let ServiciosFormateados = {
-    Cantidad_Total_Lineas: Cantidad_Total_Lineas,
-    Valor_Total_Mensual: Valor_Total_Mensual,
-    arrayServiciosMoviles: arrayLineas,
-  };
-  return ServiciosFormateados;
 };
 
 let InicializarFormCitas = () => {
@@ -1591,35 +1708,9 @@ let InicializarFormAT = () => {
   // Modal previsualizar oferta
 
   $("#btnPrevisualizarOferta").click(function () {
-    Tipo_Oferta = null;
-    Oferta = false;
-
-    // Validar que existan servicos registrados
-    if (localStorage.ServiciosMovilesOE || localStorage.ServiciosMovilesOP) {
-      let arrayServiciosOE = [];
-      try {
-        arrayServiciosOE = JSON.parse(localStorage.ServiciosMovilesOE);
-      } catch (error) {
-        arrayServiciosOE = [];
-      }
-      let arrayServiciosOP = [];
-      try {
-        arrayServiciosOP = JSON.parse(localStorage.ServiciosMovilesOP);
-      } catch (error) {
-        arrayServiciosOP = [];
-      }
-      if (arrayServiciosOE.length > 0) {
-        Tipo_Oferta = 1;
-        Oferta = true;
-      } else if (arrayServiciosOP.length > 0) {
-        Tipo_Oferta = 2;
-        Oferta = true;
-      } else {
-        GenerarAlertasToast(1);
-      }
-    } else {
-      GenerarAlertasToast(1);
-    }
+    let valOferta = ValidarExistenciaDatosOferta();
+    Tipo_Oferta = valOferta.Tipo_Oferta;
+    Oferta = valOferta.Oferta;
     let valNotas = true;
     $(".opcionNotas").each(function (index, element) {
       form.validate().settings.ignore = ":disabled, .detalleLinea";
@@ -1640,6 +1731,7 @@ let InicializarFormAT = () => {
 };
 
 let ModalPrevisualizarOferta = (tipoOferta) => {
+  valInicializarInfoAT = true;
   // Información operador oferta
   let Id_Operador = $("#txtOperadorOferta option:selected").val();
   let Color_Operador_O;
@@ -1675,7 +1767,7 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
   });
 
   // Información Empleado
-  let Nombre_Empleado = sessionStorage.getItem("NombreEmpleado");
+  Nombre_Empleado = sessionStorage.getItem("NombreEmpleado");
 
   // Cargar información en el modal previsualizar oferta
   $("#nombreCliente").text(Nombre_Cliente);
@@ -1738,7 +1830,7 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
         </div>
       `);
       $("#ContenidoPropuestas").append(` 
-      <div class="col-md-6 colPropuesta">
+      <div class="col-md-12 colPropuesta">
             <div class="card">
               <div class="card-header" style="background-color:${Color_Operador_O}; color:#fff">
                   <h4 class="tituloPropuesta">Propuesta ${Contador_Propuestas}</h4>
@@ -1849,7 +1941,6 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
         arrayComparativoTabla.push(itemComparativoTabla);
       }
     }
-
     // Información operador cliente
     let Id_Operador_C = $("#txtOperador option:selected").val();
     let Color_Operador_C;
@@ -1866,6 +1957,9 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
     let totalLineas = 0;
     let CargoBasicoNetoSC = 0;
     let CargoBasicoNetoSO = 0;
+
+    Oferta_Personalizada_PDF = [];
+
     for (let itemTabla of arrayComparativoTabla) {
       let cantidadLineas = parseInt(itemTabla.ServiciosCliente.cantidadLineas);
       totalLineas += cantidadLineas;
@@ -1886,24 +1980,32 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
       // Formatear valores tabla
       let cargoBasicoSCTabla = AgregarComas(cargoBasicoSC);
       let cargoBasicoSOTabla = AgregarComas(cargoBasicoSO);
-      let cargoBasicoTotalSCTabla = AgregarComas(CargoBasicoTotalSC);
-      let cargoBasicoTotalSOTabla = AgregarComas(CargoBasicoTotalSO);
+      // let cargoBasicoTotalSCTabla = AgregarComas(CargoBasicoTotalSC);
+      // let cargoBasicoTotalSOTabla = AgregarComas(CargoBasicoTotalSO);
       let fila = `
         <tr>
           <td>${cantidadLineas}</td>
           <td>${itemTabla.ServiciosCliente.navegacion} GB</td>
           <td>${itemTabla.ServiciosCliente.minutos}</td>
-          <td>${itemTabla.ServiciosCliente.mensajes}</td>
           <td>${cargoBasicoSCTabla}</td>
-          <td>${cargoBasicoTotalSCTabla}</td>
           <td>${itemTabla.ServiciosOferta.navegacion} GB</td>
           <td>${itemTabla.ServiciosOferta.minutos}</td>
-          <td>${itemTabla.ServiciosOferta.mensajes}</td>
           <td>${cargoBasicoSOTabla}</td>
-          <td>${cargoBasicoTotalSOTabla}</td>
         </tr>
       `;
       filas = filas + fila;
+
+      // Información PDF
+      let infoOfertaP = {
+        cantidadLineas: cantidadLineas,
+        navegacion1: itemTabla.ServiciosCliente.navegacion,
+        minutos1: itemTabla.ServiciosCliente.minutos,
+        cargoBasico1: cargoBasicoSCTabla,
+        navegacion2: itemTabla.ServiciosOferta.navegacion,
+        minutos2: itemTabla.ServiciosOferta.minutos,
+        cargoBasico2: cargoBasicoSOTabla,
+      };
+      Oferta_Personalizada_PDF.push(infoOfertaP);
     }
 
     // Ajustar propuesta a recursos
@@ -1925,6 +2027,22 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
     reduccionAnual = Math.round10(reduccionAnual, -1);
     let valorMesPromedio = valorNetoSO / 12;
     let ahorroMensualPromedio = CargoBasicoNetoSC - valorMesPromedio;
+
+    // Ajuste financiero
+    let ajuste = {
+      Basico_Neto_Operador1: AgregarComas(CargoBasicoNetoSC),
+      Basico_Neto_Operador2: AgregarComas(CargoBasicoNetoSO),
+      Valor_Neto_Operador1: AgregarComas(valorNetoSC),
+      Valor_Bruto_Operador2: AgregarComas(valorBrutoSC),
+      Bono_Activacion: AgregarComas(valorBonos),
+      Clausula: AgregarComas(valorClausula),
+      Valor_Neto_Operador2: AgregarComas(valorNetoSO),
+      Total_Ahorro: AgregarComas(totalAhorro),
+      Reduccion_Anual: AgregarComas(reduccionAnual),
+      Valor_Mes_Promedio: AgregarComas(valorMesPromedio),
+      Ahorro_Mensual_Promedio: AgregarComas(ahorroMensualPromedio),
+    };
+    Ajuste_Financiero = ajuste;
     $("#ContenidoDinamico").append(`
       <div class="row">
         <div class="col-md-12">
@@ -1934,13 +2052,13 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
               </div>
               <div class="card-body">
                   <div class="row m-b-20">
-                      <div class="col-md-6 text-center">
+                      <div class="col-md-4 text-center">
                           <h1 class="font-weight-bold">${Nombre_Operador_C}</h1>
                       </div>
-                      <div class="col-md-1 text-center">
+                      <div class="col-md-4 text-center">
                           <h1 class="font-weight-bold">VS</h1>
                       </div>
-                      <div class="col-md-5 text-center">
+                      <div class="col-md-4 text-center">
                           <h1 class="font-weight-bold">${Nombre_Operador_O}</h1>
                       </div>
                   </div>
@@ -1951,16 +2069,12 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
                                   <thead>
                                       <tr>
                                           <th style="background-color:${Color_Operador_C}; color:#fff">Líneas</th>
-                                          <th style="background-color:${Color_Operador_C}; color:#fff">Navegación</th>
+                                          <th style="background-color:${Color_Operador_C}; color:#fff">Datos</th>
                                           <th style="background-color:${Color_Operador_C}; color:#fff">Minutos</th>
-                                          <th style="background-color:${Color_Operador_C}; color:#fff">Mensajes</th>
                                           <th style="background-color:${Color_Operador_C}; color:#fff">Cargo básico</th>
-                                          <th style="background-color:${Color_Operador_C}; color:#fff">Cargo básico total</th>
-                                          <th style="background-color:${Color_Operador_O}; color:#fff">Navegación</th>
+                                          <th style="background-color:${Color_Operador_O}; color:#fff">Datos</th>
                                           <th style="background-color:${Color_Operador_O}; color:#fff">Minutos</th>
-                                          <th style="background-color:${Color_Operador_O}; color:#fff">Mensajes</th>
                                           <th style="background-color:${Color_Operador_O}; color:#fff">Cargo básico</th>
-                                          <th style="background-color:${Color_Operador_O}; color:#fff">Cargo básico total</th>
                                       </tr>
                                   </thead>
                                   <tbody>
@@ -1971,7 +2085,7 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
                                           <td>
                                               <h5 class="box-title">Total:  ${totalLineas}</h5>
                                           </td>
-                                          <td colspan="4">
+                                          <td colspan="2">
                                               <h5 class="font-weight-bold">
                                                   Cargo básico neto:
                                               </h5>
@@ -1979,7 +2093,7 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
                                           <td>${AgregarComas(
                                             CargoBasicoNetoSC
                                           )}</td>
-                                          <td colspan="4">
+                                          <td colspan="2">
                                               <h5 class="font-weight-bold">
                                                   Cargo básico neto:
                                               </h5>
@@ -1998,7 +2112,7 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6 colAjuste">
+      <div class="col-md-10 colAjuste">
           <div class="card cardAjuste" style="border-color: ${Color_Operador_O} !important;">
               <div class="card-header titulo_ajuste" style="background-color:${Color_Operador_O};">
                   Propuesta ajustada a recursos
@@ -2164,6 +2278,42 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
 
   // Pie de página
   $("#nombreEmpleado").text(Nombre_Empleado);
+};
+
+let ValidarExistenciaDatosOferta = () => {
+  // Validar que existan servicos registrados
+  let Tipo_Oferta = 0;
+  let Oferta = false;
+  if (localStorage.ServiciosMovilesOE || localStorage.ServiciosMovilesOP) {
+    let arrayServiciosOE = [];
+    try {
+      arrayServiciosOE = JSON.parse(localStorage.ServiciosMovilesOE);
+    } catch (error) {
+      arrayServiciosOE = [];
+    }
+    let arrayServiciosOP = [];
+    try {
+      arrayServiciosOP = JSON.parse(localStorage.ServiciosMovilesOP);
+    } catch (error) {
+      arrayServiciosOP = [];
+    }
+    if (arrayServiciosOE.length > 0) {
+      Tipo_Oferta = 1;
+      Oferta = true;
+    } else if (arrayServiciosOP.length > 0) {
+      Tipo_Oferta = 2;
+      Oferta = true;
+    } else {
+      GenerarAlertasToast(1);
+    }
+  } else {
+    GenerarAlertasToast(1);
+  }
+  let info = {
+    Tipo_Oferta: Tipo_Oferta,
+    Oferta: Oferta,
+  };
+  return info;
 };
 
 // Servicios móviles cliente swipers
@@ -2771,7 +2921,7 @@ let CargarOpcionesPredefinidas = () => {
     success: function (datos) {
       sessionStorage.Opciones = JSON.stringify(datos.data);
       $("#txtRazones").empty();
-      $("#txtDetallle_Redes_Sociales").empty();
+      $("#txtDetalle_Servicios_Ilimitados").empty();
       $("#txtDetalle_Servicios_Adicionales").empty();
       $("#txtRazonesLlamada").empty();
       $("#txtDetalleMinutosLDI").empty();
@@ -2785,7 +2935,7 @@ let CargarOpcionesPredefinidas = () => {
         if (item.Categoria == "Operador") {
           $("#txtRazones").append(opcion);
         } else if (item.Categoria == "Servicios ilimitados") {
-          $("#txtDetallle_Redes_Sociales").append(opcion);
+          $("#txtDetalle_Servicios_Ilimitados").append(opcion);
         } else if (item.Categoria == "Servicios adicionales") {
           $("#txtDetalle_Servicios_Adicionales").append(opcion);
         } else if (item.Categoria == "Llamada") {
@@ -2805,7 +2955,7 @@ let CargarOpcionesPredefinidas = () => {
         tags: true,
         tokenSeparators: [","],
       });
-      $("#txtDetallle_Redes_Sociales").select2({
+      $("#txtDetalle_Servicios_Ilimitados").select2({
         multiple: true,
         tags: true,
         tokenSeparators: [","],

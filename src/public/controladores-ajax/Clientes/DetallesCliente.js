@@ -219,10 +219,10 @@ CargarDatosModalDetalles = (Informacion) => {
     if (dataSet.length > 0) {
       DataTableServiciosDetalle.clear().draw();
       for (let servicio of dataSet) {
-        let arrayStringRedes = servicio.Redes_Sociales;
+        let arrayStringRedes = servicio.Servicios_Ilimitados;
         let arrayStringMinutosLDI = servicio.Minutos_LDI;
         let arrayStringServAd = servicio.Servicios_Adicionales;
-        arrayStringRedes = getArrayStringDetalle(servicio.Redes_Sociales);
+        arrayStringRedes = getArrayStringDetalle(servicio.Servicios_Ilimitados);
         if (arrayStringRedes.length == 0) {
           arrayStringRedes = NA;
         }

@@ -481,6 +481,11 @@
   height: 300px !important;
 }
 
+#ContenidoDinamico {
+  margin-left: 20%;
+  max-width: 793px;
+}
+
 .CardServicios {
   position: relative;
   width: 100%;
@@ -610,7 +615,7 @@
 }
 
 .colAjuste {
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 .titulo_comparativo {

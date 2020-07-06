@@ -352,7 +352,7 @@ $(function () {
     tags: true,
     tokenSeparators: [","],
   });
-  $("#txtDetallle_Redes_Sociales").select2({
+  $("#txtDetallle_Servicios_Ilimitados").select2({
     multiple: true,
     tags: true,
     tokenSeparators: [","],
@@ -538,21 +538,9 @@ $(function () {
   $("#txtCorreo").val(Correo);
   let Celular = obtenerValueValidado(Informacion.Celular);
   if (Celular !== "") {
-    // Código postal
-    let regex = /("[^"]*"|[^ ]*) /g;
-    let arrayStringCodigo = Celular.match(regex);
-    let codigo = arrayStringCodigo[0];
-    // Eliminar +
-    codigo = codigo.substring(1);
-    // Eliminar espacio final.
-    codigo = codigo.trim();
-    // Celular
-    let regex2 = /3[\d]+$/g;
-    let arrayString = Celular.match(regex2);
-    let celular = arrayString[0];
-
-    $("#txtCelular").val(celular);
-    $("#txtCodigoPostal").val(codigo);
+    let info = FormatearCelular(Celular);
+    $("#txtCelular").val(info.celular);
+    $("#txtCodigoPostal").val(info.codigo);
   } else {
     $("#txtEncargado").val(Celular);
   }
@@ -947,6 +935,7 @@ let EditarCliente = (objDocumentos) => {
     Valor_Mensual: Valor_Total_Mensual.toString(),
     ServiciosFijos: serviciosFijos,
     ServiciosMoviles: arrayLineas,
+    Estado_DBL: 3,
 
     // Validacion
     Validacion_PLan_C: false,
@@ -1082,7 +1071,7 @@ let EditarCliente = (objDocumentos) => {
 };
 
 let CrearLineaSession = (lineaBD) => {
-  let redesSociales = getArrayString(lineaBD.Redes_Sociales);
+  let redesSociales = getArrayString(lineaBD.Servicios_Ilimitados);
   let minutosLDI = getArrayString(lineaBD.Minutos_LDI);
   let serviciosAdicionales = getArrayString(lineaBD.Servicios_Adicionales);
 
@@ -1404,7 +1393,9 @@ let CargarOpcionesPredefinidas = () => {
           }
         } else if (item.Categoria == "Servicios ilimitados") {
           let newOption = new Option(data.text, data.id, false, false);
-          $("#txtDetallle_Redes_Sociales").append(newOption).trigger("change");
+          $("#txtDetallle_Servicios_Ilimitados")
+            .append(newOption)
+            .trigger("change");
         } else if (item.Categoria == "Servicios adicionales") {
           let newOption = new Option(data.text, data.id, false, false);
           $("#txtDetalle_Servicios_Adicionales")
