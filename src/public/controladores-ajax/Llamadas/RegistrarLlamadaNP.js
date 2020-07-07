@@ -1,3 +1,4 @@
+MostrarLoaderLlamada();
 // Formulario
 var form = null;
 
@@ -21,8 +22,12 @@ var Nombre_Empleado = "";
 var Oferta_Personalizada_PDF = [];
 var valInicializarInfoAT = false;
 $(function () {
+  setTimeout(function () {
+    OcultarLoaderLlamada();
+    iniciarCronometroLlamada();
+  }, 2000);
+
   controlServicios = 3;
-  iniciarCronometroLlamada();
   // var stepPlanCorp;
   // var stepCita;
   // var stepAT;
@@ -922,6 +927,7 @@ let ValidacionesCita = () => {
 };
 
 let RegistrarLlamadaNP = () => {
+  MostrarLoaderGeneral();
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
 
@@ -1320,6 +1326,7 @@ let RegistrarLlamadaNP = () => {
             sessionStorage.removeItem("DatosUbicacion");
           }
           clientesSocket.emit("Notificar");
+          OcultarLoaderGeneral();
           swal({
             title: "Registro exitoso.",
             type: "success",
@@ -1364,6 +1371,7 @@ let RegistrarLlamadaNP = () => {
         }
       },
       error: function (error) {
+        OcultarLoaderGeneral();
         console.log(error);
         swal(
           {
