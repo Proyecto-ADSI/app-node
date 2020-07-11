@@ -1,3 +1,6 @@
+.navbar-light .navbar-brand {
+  color: #00897b !important;
+}
 /* Login */
 .MyStyle_login_fondo {
   background-color: #272c33;
@@ -164,6 +167,21 @@
   border: 1px solid#ced4da;
 }
 
+/* Modal horas disponibles */
+
+#modalHorasCitas {
+  overflow: hidden !important;
+}
+
+#modalHorasCitas .modal-body {
+  height: 400px !important;
+  overflow: auto !important;
+}
+
+.btn_card_detalle {
+  font-size: 12px;
+  margin: 0 15%;
+}
 /* Card (Atención telefónica, Llamada Pre, LLamada no pre*/
 
 /* Modal Detalles usuarios y empleados */

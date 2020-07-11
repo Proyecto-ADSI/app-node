@@ -28,7 +28,10 @@ router.get('/Llamadas/Control',usuarioLogeado,(req,res)=>{
 });
 
 router.get('/Llamadas/RegistrarNP',usuarioLogeado,(req,res)=>{
-    res.render('llamadas/registrar-llamadas-np',{layout:'ContacLayout.hbs', Registrar_Llamada_NP: true , session: req.session.datos_usuario })
+    res.render('llamadas/registrar-llamadas',{layout:'ContacLayout.hbs', Registrar_Llamada_NP: true , session: req.session.datos_usuario })
+});
+router.get('/Llamadas/RegistrarP',usuarioLogeado,(req,res)=>{
+    res.render('llamadas/registrar-llamadas',{layout:'ContacLayout.hbs', Registrar_Llamada_P: true , session: req.session.datos_usuario })
 });
 
 // Citas

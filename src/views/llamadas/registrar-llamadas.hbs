@@ -77,7 +77,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="txtPersona_Responde">¿Quién responde?:</label>
-                                    {{!-- <span class="text-danger">*</span> --}}
+                                    <span class="text-danger">*</span>
                                     <input type="checkbox" id="txtValEncargado" name="txtValEncargado"
                                         class="MyStyle_Checkbox">
                                     <label for="txtValEncargado" id="lbltxtValEncargado" class="checkbox"
@@ -228,7 +228,7 @@
                                 <div class="form-group d-inline-block m-r-40 ValidacionAT">
                                     <label for="location1">¿Atención telefónica?</label>
                                     <br>
-                                    <input type="checkbox" class="switch_AT1" disabled>
+                                    <input type="checkbox" class="switch_AT1">
                                 </div>
                                 <div class="form-group d-inline-block">
                                     <label for="location1">¿Agenda cita?</label>
@@ -331,9 +331,9 @@
                                     <label class="control-label">Hora:
                                         <span class="text-danger">*</span>
                                     </label>
-                                    <input type="button" name="btnHoraCita" id="btnHoraCita" data-toggle="modal"
-                                        data-target="#modalHorasCitas" class="btn btn-info text-white form-control"
-                                        value="Seleccione...">
+                                    <input type="button" name="btnHoraCita" id="txtHoraCita" data-toggle="modal"
+                                        data-target="#modalHorasCitas" class="form-control" value="Seleccione..."
+                                        disabled>
                                 </div>
                             </div>
 
@@ -356,9 +356,7 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="int1">Celular:
-                                        <span class="text-danger">*</span>
-                                    </label>
+                                    <label>Celular:</label>
                                     <input type="text" class="form-control" id="txtCelularCita" name="txtCelularCita"
                                         placeholder="3123456788">
                                 </div>
@@ -635,7 +633,9 @@
                         <div id="ValFinalizarLlamada" class="row" style="display: none;">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="decisions1">Observación de la llamada:</label>
+                                    <label for="decisions1">Observación de la llamada:
+                                        <span class="text-danger">*</span>
+                                    </label>
                                     <textarea name="txtObservacion" id="txtObservacion" rows="5"
                                         class="form-control"></textarea>
                                 </div>
@@ -1251,7 +1251,6 @@
                     </section>
                 </form>
                 <hr>
-                <a id="btnDescargarPDF" href="#" download hidden></a>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
@@ -1260,12 +1259,49 @@
                                 placeholder="Usa este espacio para agregar información de forma rápida."></textarea>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
     <div class="col-md-2 p-r-0 p-l-0">
+        <div id="DetalleEmpresaPrecargada" class="card" style="display: none;">
+            <div class="card-body">
+                {{!-- <h4 class="d-inline-block m-t-10">Empresa</h4> --}}
+                <button type="button" id="btnClientePrecargado" class="btn btn-verde btn_card_detalle"
+                    data-toggle="modal" data-target=".ModalDetalles">
+                    <i class="fa fa-eye"></i> Info cliente
+                </button>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnEmpresaP" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnTelefonoP" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnNITP" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnOPeradorP" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnCorporativoP" class="card-subtitle"></span>
+                        </div>
+                        <div class="content">
+                            <i class="fa fa-check-circle-o"></i>
+                            <span id="spnLineasP" class="card-subtitle"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title"><i class="fa fa-calendar"></i> Cita:</h4>
@@ -1308,10 +1344,9 @@
         </div>
         <div id="DetalleEmpresaCard" class="card" style="display: none;">
             <div class="card-body">
-                <h4 class="d-inline-block m-t-10">Empresa:</h4>
-                <button type="button" class="btn btn-sm btn-info btn-circle" data-toggle="modal"
+                <button type="button" class="btn btn-danger btn_card_detalle" data-toggle="modal"
                     data-target=".ModalDetalles">
-                    <i class="fa fa-eye"></i>
+                    <i class="fa fa-warning"></i> ¡Ya registrado!
                 </button>
                 <hr>
                 <div class="row">
@@ -1357,18 +1392,34 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myLargeModalLabel">
-                    Horas disponibles para agendar cita:
-                </h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <h2 id="titulo_modal_detalle" class="modal-title font-weight-bold">
+                                <i class="mdi mdi-calendar-clock"></i>
+                                Horas disponibles:
+                            </h2>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <span>Operador: <b id="ModalHD_Nombre_Operador" class="font-weight-bold">Movistar</b></span>
+                            <br>
+                            <span> Fecha: <b id="ModalHD_Fecha_Cita" class="font-weight-bold">13/jul/2020</b></span>
+                        </div>
+                        <div class="col-md-1">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
+                <div id="listaHorasDisponibles" class="row">
 
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar
+                <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Cerrar
                 </button>
-                <button type="submit" class="btn btn-success waves-effect text-left">
+                <button type="button" id="btnAgendarHora" class="btn btn-verde waves-effect" disabled>
                     Agendar hora
                 </button>
             </div>
@@ -1382,7 +1433,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="col-md-5">
-                    <h2 class="modal-title font-weight-bold">
+                    <h2 id="titulo_modal_detalle" class="modal-title font-weight-bold">
                         <i class="fa fa-warning"></i> ¡Cliente ya registrado!
                     </h2>
                 </div>
@@ -1390,7 +1441,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 </div>
             </div>
-            <div class="card m-b-0">
+            <div id="Info_Registrado" class="card m-b-0" style="display: none;">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 text-center">

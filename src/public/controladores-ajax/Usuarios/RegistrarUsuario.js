@@ -4,6 +4,7 @@ SeleccionarEmpleado = false;
 RegistrarEmpleado = true;
 
 let RegistrarUsuario = (imagen) => {
+  MostrarLoaderGeneral();
   let datos = {
     // Usuario
     Usuario: $("#txtUsuario").val(),
@@ -89,6 +90,7 @@ let RegistrarUsuario = (imagen) => {
     cache: false,
     processData: false,
     success: function (respuesta) {
+      OcultarLoaderGeneral();
       if (respuesta.data.ok) {
         swal({
           title: "Registro exitoso.",
@@ -112,12 +114,14 @@ let RegistrarUsuario = (imagen) => {
       }
     },
     error: function (xhr, errmsg, err) {
+      OcultarLoaderGeneral();
       console.log(xhr.status + ": " + xhr.responseText);
     },
   });
 };
 
 let CargarImagenRegistro = () => {
+  MostrarLoaderGeneral();
   let formData = new FormData();
   let files = null;
   if (RegistrarEmpleado) {

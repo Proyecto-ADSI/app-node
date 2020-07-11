@@ -10,7 +10,10 @@ ObtenerSession().then((data) => {
       clientesSocket.on("RecargarDataTableUsuarios", function () {
         RecargarDataTable();
       });
-      //   citasSocket = io("/Citas");
+      citasSocket = io("/Citas");
+      citasSocket.on("ActualizarHorasCita", function (data) {
+        console.log(data);
+      });
       break;
     case 2:
       clientesSocket = io("/Clientes");
@@ -28,7 +31,14 @@ ObtenerSession().then((data) => {
       clientesSocket.on("Notificar", function () {
         GuardarNotificaciones(true, true);
       });
-      //   citasSocket = io("/Citas");
+      citasSocket = io("/Citas");
+      citasSocket.on("ActualizarHorasCita", function (data) {
+        console.log(data);
+        let url = document.location;
+        if (url.pathname == "/App/ContactCenter/Llamadas/RegistrarP") {
+          ActualizarHorasCitaSocket(data);
+        }
+      });
       break;
 
     default:

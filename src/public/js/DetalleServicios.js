@@ -6,33 +6,7 @@ $(function () {
   }
 
   if (localStorage.ServiciosFijos) {
-    serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos"));
-    let pagina = "checkDetalle_Pagina";
-    let correo = "checkDetalle_Correo";
-    let ip = "checkDetalle_IPFija";
-    let dominio = "checkDetalle_dominio";
-    let telefonia = "checkDetalle_telefonia";
-    let television = "checkDetalle_television";
-
-    if (serviciosFijos.pagina) {
-      checkServiciosFijo(pagina);
-    }
-    if (serviciosFijos.correo) {
-      checkServiciosFijo(correo);
-    }
-    if (serviciosFijos.ip) {
-      checkServiciosFijo(ip);
-    }
-    if (serviciosFijos.dominio) {
-      checkServiciosFijo(dominio);
-    }
-    if (serviciosFijos.telefonia) {
-      checkServiciosFijo(telefonia);
-    }
-    if (serviciosFijos.television) {
-      checkServiciosFijo(television);
-    }
-    ListarServiciosFijos();
+    Listar_CheckearServiciosFijos();
   } else {
     $("#ValSiServiciosFijos").css("display", "none");
     $("#ValNoServiciosFijos").removeAttr("style");
@@ -500,17 +474,21 @@ let ListarDetalleLineas = () => {
     ObtenerDataLineasEditar();
     EliminarDetalleLinea();
     DetalleServiciosMoviles();
-    if (
-      $(".switch_AT1").bootstrapSwitch("state") === true ||
-      $(".switch_AT2").bootstrapSwitch("state") === true
-    ) {
-      if (ServiciosMoviles.length == 0) {
-        $("#tabOfertaP").attr("style", "display:none");
-        $("#tabOfertaE a").trigger("click");
-      } else {
-        $("#tabOfertaP").removeAttr("style");
+    if (controlServicios == 3) {
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      $(".switch_cita1").bootstrapSwitch("disabled", false);
+      if (
+        $(".switch_AT1").bootstrapSwitch("state") === true ||
+        $(".switch_AT2").bootstrapSwitch("state") === true
+      ) {
+        if (ServiciosMoviles.length == 0) {
+          $("#tabOfertaP").attr("style", "display:none");
+          $("#tabOfertaE a").trigger("click");
+        } else {
+          $("#tabOfertaP").removeAttr("style");
+        }
+        ListarSwipers();
       }
-      ListarSwipers();
     }
   }
 };
@@ -843,6 +821,37 @@ function ValidarNumerosLineas() {
 }
 
 // Servicios fijos
+
+let Listar_CheckearServiciosFijos = () => {
+  serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos"));
+  let pagina = "checkDetalle_Pagina";
+  let correo = "checkDetalle_Correo";
+  let ip = "checkDetalle_IPFija";
+  let dominio = "checkDetalle_dominio";
+  let telefonia = "checkDetalle_telefonia";
+  let television = "checkDetalle_television";
+
+  if (serviciosFijos.pagina) {
+    checkServiciosFijo(pagina);
+  }
+  if (serviciosFijos.correo) {
+    checkServiciosFijo(correo);
+  }
+  if (serviciosFijos.ip) {
+    checkServiciosFijo(ip);
+  }
+  if (serviciosFijos.dominio) {
+    checkServiciosFijo(dominio);
+  }
+  if (serviciosFijos.telefonia) {
+    checkServiciosFijo(telefonia);
+  }
+  if (serviciosFijos.television) {
+    checkServiciosFijo(television);
+  }
+  ListarServiciosFijos();
+};
+
 let checkServiciosFijo = (name) => {
   if (!$(`input:checkbox[name=${name}]`).is(":checked")) {
     $(`input:checkbox[name=${name}]`).trigger("click");

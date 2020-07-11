@@ -508,6 +508,7 @@ let RegistrarCliente = (objDocumentos) => {
       ServiciosMoviles: arrayLineas,
       Estado_DBL: 3,
       // Validacion
+      Validacion_Cliente: true,
       Validacion_DBL: ValidacionDBL,
       Validacion_PLan_C: false,
       Validacion_Doc_S: false,
