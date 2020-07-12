@@ -1468,6 +1468,8 @@ let RegistrarLlamada = () => {
         localStorage.removeItem("Comparativo");
         sessionStorage.removeItem("Operadores");
         sessionStorage.removeItem("Opciones");
+        sessionStorage.removeItem("ClientePrecargado");
+        sessionStorage.removeItem("InfoAgendamiento");
         if (sessionStorage.DatosUbicacion) {
           sessionStorage.removeItem("DatosUbicacion");
         }
@@ -3486,8 +3488,6 @@ let ValidarHorasCita = () => {
     }
     // Hora antes de que se haga efecto de carga
     let HoraCambio = $("#txtHoraCita").val();
-    console.log("Hora de cambio");
-    console.log(HoraCambio);
     // Validaciones antes de petición
     $("#resumenCitaHora").attr("checked", false);
     $("#txtHoraCita").val("Cargando...");

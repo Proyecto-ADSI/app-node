@@ -63,7 +63,12 @@
     <script src="/controladores-ajax/Clientes/ListarClientes.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
     {{/if}}
+    {{#if Asignacion}}
+    <script src="/controladores-ajax/Clientes/ListarAsignacionContact.js"></script>
+    <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
+    {{/if}}
 
+    
     {{!-- Llamadas --}}
     {{!-- {{#if Llamada_NP}}
     <script src="/controladores-ajax/Llamadas/ListarLlamadas.js"></script>

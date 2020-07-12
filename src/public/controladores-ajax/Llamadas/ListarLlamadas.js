@@ -55,6 +55,13 @@ $(function () {
         },
         {
           data: "Fecha_Llamada",
+          render: function (data, datatype, row) {
+            if (datatype === "display") {
+              return data;
+            } else {
+              return row.Fecha_Filtro;
+            }
+          },
         },
         {
           data: "Usuario",

@@ -30,6 +30,10 @@ router.get('/Directorio/Editar', usuarioLogeado, (req,res)=>{
     res.render('directorio/editar-clientes',{layout:'AdminLayout.hbs', Directorio_Editar: true , session: req.session.datos_usuario })
 });
 
+router.get('/Directorio/Asignacion', usuarioLogeado, (req,res)=>{
+    res.render('directorio/listar-asignacion',{layout:'AdminLayout.hbs', Asignacion: true , session: req.session.datos_usuario })
+});
+
 // Llamadas
 router.get('/Llamadas',usuarioLogeado,(req,res)=>{
     res.render('llamadas/listar-llamadas',{layout:'AdminLayout.hbs', Llamadas: true , session: req.session.datos_usuario })
@@ -50,6 +54,11 @@ router.get('/Citas',usuarioLogeado,(req,res)=>{
 
 router.get('/Agenda',usuarioLogeado,(req,res)=>{
     res.render('citas/agenda',{layout:'AdminLayout.hbs', Agenda_Citas: true , session: req.session.datos_usuario })
+});
+
+// Atención telefónica
+router.get('/AtencionT',usuarioLogeado,(req,res)=>{
+    res.render('atencion_tel/listar-atencion',{layout:'AdminLayout.hbs', AtencionT: true , session: req.session.datos_usuario })
 });
 
 // Usuarios

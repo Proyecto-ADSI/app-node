@@ -1,6 +1,9 @@
 .navbar-light .navbar-brand {
   color: #00897b !important;
 }
+.sidebar-nav > ul > li > a i {
+  line-height: 2 !important;
+}
 /* Login */
 .MyStyle_login_fondo {
   background-color: #272c33;
@@ -177,6 +180,17 @@
   height: 400px !important;
   overflow: auto !important;
 }
+
+#ModalDetallesAsignacion {
+  overflow: hidden !important;
+}
+
+#ModalDetallesAsignacion .modal-body {
+  height: 500px !important;
+  overflow: auto !important;
+}
+
+
 
 .btn_card_detalle {
   font-size: 12px;
@@ -652,4 +666,8 @@
   font-weight: bold;
   text-align: center;
   color: #fff;
+}
+
+.cantidad_empresas{
+  font-size: 18px !important;
 }

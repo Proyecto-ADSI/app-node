@@ -18,6 +18,10 @@ router.get('/Directorio', usuarioLogeado, (req,res)=>{
     res.render('directorio/listar-clientes',{layout:'ContacLayout.hbs', Directorio: true , session: req.session.datos_usuario })
 });
 
+router.get('/Directorio/Asignacion', usuarioLogeado, (req,res)=>{
+    res.render('directorio/listar-asignacion-contact',{layout:'ContacLayout.hbs', Asignacion: true , session: req.session.datos_usuario })
+});
+
 // Llamadas
 router.get('/Llamadas',usuarioLogeado,(req,res)=>{
     res.render('llamadas/listar-llamadas',{layout:'ContacLayout.hbs', Llamada_NP: true , session: req.session.datos_usuario })
