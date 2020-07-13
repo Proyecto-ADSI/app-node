@@ -12,7 +12,9 @@
 
 <body class="fix-header fix-sidebar card-no-border">
 
+    {{>loaders}}
     {{>preloader}}
+
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -74,6 +76,10 @@
     <script src="/js/DetalleServicios.js"></script>
     {{/if}}
 
+    {{#if Asignacion}}
+    <script src="/controladores-ajax/Clientes/ListarAsignacionAdmin.js"></script>
+    {{/if}}
+
     {{#if Estadisticas}}
     <script src="/controladores-ajax/Graficas/Graficas.js"></script>
     {{/if}}
@@ -103,12 +109,21 @@
     <!-- Direccion -->
     <script src="/js/Direccion.js"></script>
     <script src="/controladores-ajax/Llamadas/RegistrarLlamadaNP.js"></script>
+    <script src="/controladores-ajax/Llamadas/FuncionesRegistrarLlamada.js"></script>
     <script src="/controladores-ajax/Llamadas/CRUD_OfertaEstandar.js"></script>
     <script src="/controladores-ajax/Llamadas/CRUD_OfertaPersonalizada.js"></script>
     <script src="/js/DetalleServicios.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
     {{/if}}
 
+
+    {{!-- Atención telefónica --}}
+    {{#if AtencionT}}
+    <script src="/controladores-ajax/AtencionT/ListarAtencionT.js"></script>
+    <script src="/controladores-ajax/AtencionT/DetallesAtencionT.js"></script>
+
+    {{/if}}
+    
     {{!-- Usuarios --}}
     {{#if Usuarios}}
     <script src="/controladores-ajax/Usuarios/ListarUsuarios.js"></script>

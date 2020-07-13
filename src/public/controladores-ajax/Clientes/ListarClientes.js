@@ -193,7 +193,6 @@ $(function () {
 // Detalles - abrir modal y cargar datos
 $(document).on("click", "#btnDetalles", function () {
   let datosCliente = DataTable.row($(this).parents("tr")).data();
-
   CargarDatosModalDetalles(datosCliente);
 });
 

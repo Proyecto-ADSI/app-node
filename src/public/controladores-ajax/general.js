@@ -43,3 +43,18 @@ async function ObtenerSession() {
   const data = await response.json();
   return data;
 }
+
+let MostrarLoaderGeneral = () => {
+  $("#modal_Loader_General").modal("show");
+};
+
+let OcultarLoaderGeneral = () => {
+  $("#modal_Loader_General").modal("hide");
+};
+let MostrarLoaderLlamada = () => {
+  $("#modal_Loader_Llamada").modal("show");
+};
+
+let OcultarLoaderLlamada = () => {
+  $("#modal_Loader_Llamada").modal("hide");
+};

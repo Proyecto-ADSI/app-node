@@ -1,3 +1,9 @@
+.navbar-light .navbar-brand {
+  color: #00897b !important;
+}
+.sidebar-nav > ul > li > a i {
+  line-height: 2 !important;
+}
 /* Login */
 .MyStyle_login_fondo {
   background-color: #272c33;
@@ -167,6 +173,32 @@
   border: 1px solid#ced4da;
 }
 
+/* Modal horas disponibles */
+
+#modalHorasCitas {
+  overflow: hidden !important;
+}
+
+#modalHorasCitas .modal-body {
+  height: 400px !important;
+  overflow: auto !important;
+}
+
+#ModalDetallesAsignacion {
+  overflow: hidden !important;
+}
+
+#ModalDetallesAsignacion .modal-body {
+  height: 500px !important;
+  overflow: auto !important;
+}
+
+
+
+.btn_card_detalle {
+  font-size: 12px;
+  margin: 0 15%;
+}
 /* Card (Atención telefónica, Llamada Pre, LLamada no pre*/
 
 /* Modal Detalles usuarios y empleados */
@@ -484,6 +516,11 @@
   height: 300px !important;
 }
 
+#ContenidoDinamico {
+  margin-left: 20%;
+  max-width: 793px;
+}
+
 .CardServicios {
   position: relative;
   width: 100%;
@@ -613,7 +650,7 @@
 }
 
 .colAjuste {
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 .titulo_comparativo {
@@ -632,4 +669,8 @@
   font-weight: bold;
   text-align: center;
   color: #fff;
+}
+
+.cantidad_empresas{
+  font-size: 18px !important;
 }

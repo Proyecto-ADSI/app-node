@@ -1,4 +1,5 @@
 let Login = () => {
+  MostrarLoaderGeneral();
   let datos = {
     Usuario: $("#Usuario").val(),
     Contrasena: $("#Contrasena").val(),
@@ -75,6 +76,7 @@ let Login = () => {
       }
     })
     .fail((error) => {
+      OcultarLoaderGeneral();
       swal(
         "¡Error en el servidor!",
         "Ponte en contacto con el administrador.",

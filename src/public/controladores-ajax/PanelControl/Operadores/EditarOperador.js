@@ -161,6 +161,7 @@ let CargarModalEditarOperadores = (data) => {
   $("#txtOperador_Editar").val(data.Nombre_Operador);
   $("#Color_Editar").val(`Hexadecimal:${data.Color}`);
   $("#Color_Editar").css("color", data.Color);
+  ColorSeleccionadoEdit = data.Color;
   $("#Color_Editar").css("border-color", data.Color);
 
   if (data.Genera_Oferta == "Si") {

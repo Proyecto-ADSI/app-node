@@ -6,33 +6,7 @@ $(function () {
   }
 
   if (localStorage.ServiciosFijos) {
-    serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos"));
-    let pagina = "checkDetalle_Pagina";
-    let correo = "checkDetalle_Correo";
-    let ip = "checkDetalle_IPFija";
-    let dominio = "checkDetalle_dominio";
-    let telefonia = "checkDetalle_telefonia";
-    let television = "checkDetalle_television";
-
-    if (serviciosFijos.pagina) {
-      checkServiciosFijo(pagina);
-    }
-    if (serviciosFijos.correo) {
-      checkServiciosFijo(correo);
-    }
-    if (serviciosFijos.ip) {
-      checkServiciosFijo(ip);
-    }
-    if (serviciosFijos.dominio) {
-      checkServiciosFijo(dominio);
-    }
-    if (serviciosFijos.telefonia) {
-      checkServiciosFijo(telefonia);
-    }
-    if (serviciosFijos.television) {
-      checkServiciosFijo(television);
-    }
-    ListarServiciosFijos();
+    Listar_CheckearServiciosFijos();
   } else {
     $("#ValSiServiciosFijos").css("display", "none");
     $("#ValNoServiciosFijos").removeAttr("style");
@@ -395,7 +369,7 @@ let ObtenerDataLineasEditar = () => {
       $("#txtDetalle_Cantidad_LDI").val(data[7]);
     }
     if (data[5].length > 0) {
-      $("#txtDetallle_Redes_Sociales").val(data[5]).trigger("change");
+      $("#txtDetalle_Servicios_Ilimitados").val(data[5]).trigger("change");
     }
     if (data[8].length > 0) {
       $("#txtDetalle_Servicios_Adicionales").val(data[8]).trigger("change");
@@ -449,7 +423,7 @@ let ObtenerDatosServiciosMoviles = (registrar, lineas) => {
       navegacion: $("#txtDetalleNavegacion").val(),
       minutos: minutos,
       mensajes: mensajes,
-      redesSociales: $("#txtDetallle_Redes_Sociales").val(),
+      serviciosIlimitados: $("#txtDetalle_Servicios_Ilimitados").val(),
       minutosLDI: minutosLDI,
       cantidadLDI: cantidadLDI,
       serviciosAdicionales: $("#txtDetalle_Servicios_Adicionales").val(),
@@ -465,7 +439,7 @@ let ObtenerDatosServiciosMoviles = (registrar, lineas) => {
       navegacion: $("#txtDetalleNavegacion").val(),
       minutos: minutos,
       mensajes: mensajes,
-      redesSociales: $("#txtDetallle_Redes_Sociales").val(),
+      serviciosIlimitados: $("#txtDetalle_Servicios_Ilimitados").val(),
       minutosLDI: minutosLDI,
       cantidadLDI: cantidadLDI,
       serviciosAdicionales: $("#txtDetalle_Servicios_Adicionales").val(),
@@ -488,7 +462,7 @@ let ListarDetalleLineas = () => {
         servicio.navegacion,
         servicio.minutos,
         servicio.mensajes,
-        servicio.redesSociales,
+        servicio.serviciosIlimitados,
         servicio.minutosLDI,
         servicio.cantidadLDI,
         servicio.serviciosAdicionales,
@@ -500,17 +474,21 @@ let ListarDetalleLineas = () => {
     ObtenerDataLineasEditar();
     EliminarDetalleLinea();
     DetalleServiciosMoviles();
-    if (
-      $(".switch_AT1").bootstrapSwitch("state") === true ||
-      $(".switch_AT2").bootstrapSwitch("state") === true
-    ) {
-      if (ServiciosMoviles.length == 0) {
-        $("#tabOfertaP").attr("style", "display:none");
-        $("#tabOfertaE a").trigger("click");
-      } else {
-        $("#tabOfertaP").removeAttr("style");
+    if (controlServicios == 3) {
+      $(".switch_corporativo").bootstrapSwitch("disabled", false);
+      $(".switch_cita1").bootstrapSwitch("disabled", false);
+      if (
+        $(".switch_AT1").bootstrapSwitch("state") === true ||
+        $(".switch_AT2").bootstrapSwitch("state") === true
+      ) {
+        if (ServiciosMoviles.length == 0) {
+          $("#tabOfertaP").attr("style", "display:none");
+          $("#tabOfertaE a").trigger("click");
+        } else {
+          $("#tabOfertaP").removeAttr("style");
+        }
+        ListarSwipers();
       }
-      ListarSwipers();
     }
   }
 };
@@ -572,7 +550,7 @@ let LimpiarDetalleLinea = () => {
   $("#txtDetalleMinutosLDI").val(null).trigger("change");
   $("#txtDetalle_Cantidad_LDI").val("");
   $("#txtDetalle_Cantidad_LDI").prop("disabled", true);
-  $("#txtDetallle_Redes_Sociales").val(null).trigger("change");
+  $("#txtDetalle_Servicios_Ilimitados").val(null).trigger("change");
   $("#txtDetalle_Servicios_Adicionales").val(null).trigger("change");
 };
 
@@ -843,6 +821,37 @@ function ValidarNumerosLineas() {
 }
 
 // Servicios fijos
+
+let Listar_CheckearServiciosFijos = () => {
+  serviciosFijos = JSON.parse(localStorage.getItem("ServiciosFijos"));
+  let pagina = "checkDetalle_Pagina";
+  let correo = "checkDetalle_Correo";
+  let ip = "checkDetalle_IPFija";
+  let dominio = "checkDetalle_dominio";
+  let telefonia = "checkDetalle_telefonia";
+  let television = "checkDetalle_television";
+
+  if (serviciosFijos.pagina) {
+    checkServiciosFijo(pagina);
+  }
+  if (serviciosFijos.correo) {
+    checkServiciosFijo(correo);
+  }
+  if (serviciosFijos.ip) {
+    checkServiciosFijo(ip);
+  }
+  if (serviciosFijos.dominio) {
+    checkServiciosFijo(dominio);
+  }
+  if (serviciosFijos.telefonia) {
+    checkServiciosFijo(telefonia);
+  }
+  if (serviciosFijos.television) {
+    checkServiciosFijo(television);
+  }
+  ListarServiciosFijos();
+};
+
 let checkServiciosFijo = (name) => {
   if (!$(`input:checkbox[name=${name}]`).is(":checked")) {
     $(`input:checkbox[name=${name}]`).trigger("click");
@@ -1077,7 +1086,7 @@ let GenerarAlertasToast = (categoria) => {
       break;
     case 3:
       $.toast({
-        heading: "¡No se puede enviar!",
+        heading: "¡Acción no permitida!",
         text:
           '<p class="jq-toast-body">Primero debes finalizar la llamada.</p>',
         position: "top-right",
@@ -1122,7 +1131,7 @@ let GenerarAlertasToast = (categoria) => {
         position: "top-right",
         loaderBg: "#ff6849",
         icon: "error",
-        hideAfter: 3000,
+        hideAfter: 5000,
         showHideTransition: "slide",
         stack: 1,
       });
@@ -1153,4 +1162,87 @@ let GenerarAlertasToast = (categoria) => {
       });
       break;
   }
+};
+
+// Formatear Servicios móviles para registro en BD
+
+let FormatearServiciosMoviles = (ServiciosMoviles, esOfertaBD) => {
+  let arrayLineas = [];
+  let Cantidad_Total_Lineas = 0;
+  let Valor_Total_Mensual = 0;
+  let GrupoLineas = 0;
+  for (let lineaItem of ServiciosMoviles) {
+    let serviciosIlimitados = "";
+    if (lineaItem.serviciosIlimitados.length > 0) {
+      for (let servicioI of lineaItem.serviciosIlimitados) {
+        serviciosIlimitados = serviciosIlimitados + servicioI + ", ";
+        serviciosIlimitados = serviciosIlimitados.trim();
+      }
+    }
+    let minLDI = "";
+    let cantidadLDI = null;
+    if (lineaItem.minutosLDI.length > 0) {
+      for (let pais of lineaItem.minutosLDI) {
+        minLDI = minLDI + pais + ", ";
+        minLDI = minLDI.trim();
+      }
+      cantidadLDI = lineaItem.cantidadLDI;
+    }
+
+    let serviciosAdicionales = "";
+    if (lineaItem.serviciosAdicionales.length > 0) {
+      for (let servicio of lineaItem.serviciosAdicionales) {
+        serviciosAdicionales = serviciosAdicionales + servicio + ", ";
+        serviciosAdicionales = serviciosAdicionales.trim();
+      }
+    }
+
+    GrupoLineas++;
+    if (esOfertaBD) {
+      let linea = {
+        cantidadLineasOferta: lineaItem.cantidadLineas,
+        minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
+        navegacion: lineaItem.navegacion === "" ? null : lineaItem.navegacion,
+        mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
+        serviciosIlimitados:
+          serviciosIlimitados === "" ? null : serviciosIlimitados,
+        minutosLDI: minLDI === "" ? null : minLDI,
+        cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
+        serviciosAdicionales:
+          serviciosAdicionales === "" ? null : serviciosAdicionales,
+        cargoBasicoMensual: lineaItem.cargoBasicoMensual,
+        grupo: GrupoLineas,
+      };
+      arrayLineas.push(linea);
+    } else {
+      for (let i = 0; i < parseInt(lineaItem.cantidadLineas); i++) {
+        let linea = {
+          minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
+          navegacion: lineaItem.navegacion === "" ? null : lineaItem.navegacion,
+          mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
+          serviciosIlimitados:
+            serviciosIlimitados === "" ? null : serviciosIlimitados,
+          minutosLDI: minLDI === "" ? null : minLDI,
+          cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
+          serviciosAdicionales:
+            serviciosAdicionales === "" ? null : serviciosAdicionales,
+          cargoBasicoMensual: lineaItem.cargoBasicoMensual,
+          grupo: GrupoLineas,
+        };
+        arrayLineas.push(linea);
+        // Establecer valor total mensual de la totalidad de lineas.
+        let cargoBasicoMensual = QuitarComas(lineaItem.cargoBasicoMensual);
+        cargoBasicoMensual = parseFloat(cargoBasicoMensual);
+        Valor_Total_Mensual += cargoBasicoMensual;
+      }
+      Cantidad_Total_Lineas = arrayLineas.length;
+    }
+  }
+
+  let ServiciosFormateados = {
+    Cantidad_Total_Lineas: Cantidad_Total_Lineas,
+    Valor_Total_Mensual: AgregarComas(Valor_Total_Mensual),
+    arrayServiciosMoviles: arrayLineas,
+  };
+  return ServiciosFormateados;
 };

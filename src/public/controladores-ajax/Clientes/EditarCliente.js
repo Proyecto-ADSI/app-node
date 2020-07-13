@@ -182,158 +182,6 @@ $(function () {
 
   Informacion = JSON.parse(sessionStorage.getItem("DatosEditarCliente"));
 
-  // DataTableServicios = $("#DataTableServicios")
-  //   .DataTable({
-  //     responsive: true,
-  //     columns: [
-  //       {
-  //         render: function (data, type, row) {
-  //           let text = data + " líneas";
-  //           return text;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           return data;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           if (data == NA) {
-  //             return data;
-  //           }
-  //           let text = data + " GB";
-  //           return text;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           return data;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           return data;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           if (type === "display") {
-  //             if (data.length == 0) {
-  //               return NA;
-  //             }
-  //             let html = "";
-  //             for (let item of data) {
-  //               html =
-  //                 html +
-  //                 `
-  //                 <div class="label label-table text-center" style="background-color:#00897b">
-  //                 ${item}
-  //                 </div>
-  //               `;
-  //             }
-  //             return html;
-  //           } else {
-  //             let text = "";
-  //             for (let item of data) {
-  //               text = text + ", " + item;
-  //             }
-  //             return text;
-  //           }
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           if (type === "display") {
-  //             if (data.length == 0) {
-  //               return NA;
-  //             }
-  //             let html = "";
-  //             for (let item of data) {
-  //               html =
-  //                 html +
-  //                 `
-  //                 <div class="label label-table text-center" style="background-color:#00897b">
-  //                 ${item}
-  //                 </div>
-  //               `;
-  //             }
-  //             return html;
-  //           } else {
-  //             return data;
-  //           }
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           return data;
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           if (type === "display") {
-  //             if (data.length == 0) {
-  //               return NA;
-  //             }
-  //             let html = "";
-  //             for (let item of data) {
-  //               html =
-  //                 html +
-  //                 `
-  //                 <div class="label label-table text-center" style="background-color:#00897b">
-  //                 ${item}
-  //                 </div>
-  //               `;
-  //             }
-  //             return html;
-  //           } else {
-  //             return data;
-  //           }
-  //         },
-  //       },
-  //       {
-  //         render: function (data, type, row) {
-  //           if (type === "display") {
-  //             return `
-  //               <button type="button" id="DetallesLineasDetalle" id_linea="${data}"
-  //                 class="btn btn-primary btn-sm"><i class="mdi mdi-cellphone-android"></i>
-  //               </button>
-  //               <button type="button" id="DetallesLineasEditar" id_linea="${data}"
-  //                 class="btn btn-info btn-sm"> <i class="fa fa-pencil"></i>
-  //               </button>
-  //               <button type="button" id="DetallesLineasEliminar" id_linea="${data}"
-  //                 class="btn btn-danger btn-sm"><i class="fa fa-close"></i>
-  //               </button>
-  //             `;
-  //           }
-  //           return data;
-  //         },
-  //       },
-  //     ],
-  //     columnDefs: [
-  //       { responsivePriority: 1, targets: 0 },
-  //       { responsivePriority: 2, targets: -1 },
-  //     ],
-  //     language: {
-  //       lengthMenu: "Mostrar _MENU_ registros",
-  //       zeroRecords: "No se encontraron resultados",
-  //       info:
-  //         "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-  //       infoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
-  //       infoFiltered: "(filtrado de un total de _MAX_ registros)",
-  //       sSearch: "Buscar:",
-  //       oPaginate: {
-  //         sFirst: "Primero",
-  //         sLast: "Último",
-  //         sNext: "Siguiente",
-  //         sPrevious: "Anterior",
-  //       },
-  //       sProcessing: "Procesando...",
-  //     },
-  //   })
-  //   .columns.adjust()
-  //   .responsive.recalc();
-
   // bootstrap-switch
   $(".switch_corporativo").bootstrapSwitch({
     onText: "SI",
@@ -352,7 +200,7 @@ $(function () {
     tags: true,
     tokenSeparators: [","],
   });
-  $("#txtDetallle_Redes_Sociales").select2({
+  $("#txtDetallle_Servicios_Ilimitados").select2({
     multiple: true,
     tags: true,
     tokenSeparators: [","],
@@ -538,21 +386,9 @@ $(function () {
   $("#txtCorreo").val(Correo);
   let Celular = obtenerValueValidado(Informacion.Celular);
   if (Celular !== "") {
-    // Código postal
-    let regex = /("[^"]*"|[^ ]*) /g;
-    let arrayStringCodigo = Celular.match(regex);
-    let codigo = arrayStringCodigo[0];
-    // Eliminar +
-    codigo = codigo.substring(1);
-    // Eliminar espacio final.
-    codigo = codigo.trim();
-    // Celular
-    let regex2 = /3[\d]+$/g;
-    let arrayString = Celular.match(regex2);
-    let celular = arrayString[0];
-
-    $("#txtCelular").val(celular);
-    $("#txtCodigoPostal").val(codigo);
+    let info = FormatearCelular(Celular);
+    $("#txtCelular").val(info.celular);
+    $("#txtCodigoPostal").val(info.codigo);
   } else {
     $("#txtEncargado").val(Celular);
   }
@@ -947,6 +783,7 @@ let EditarCliente = (objDocumentos) => {
     Valor_Mensual: Valor_Total_Mensual.toString(),
     ServiciosFijos: serviciosFijos,
     ServiciosMoviles: arrayLineas,
+    Estado_DBL: 3,
 
     // Validacion
     Validacion_PLan_C: false,
@@ -1082,7 +919,7 @@ let EditarCliente = (objDocumentos) => {
 };
 
 let CrearLineaSession = (lineaBD) => {
-  let redesSociales = getArrayString(lineaBD.Redes_Sociales);
+  let redesSociales = getArrayString(lineaBD.Servicios_Ilimitados);
   let minutosLDI = getArrayString(lineaBD.Minutos_LDI);
   let serviciosAdicionales = getArrayString(lineaBD.Servicios_Adicionales);
 
@@ -1404,7 +1241,9 @@ let CargarOpcionesPredefinidas = () => {
           }
         } else if (item.Categoria == "Servicios ilimitados") {
           let newOption = new Option(data.text, data.id, false, false);
-          $("#txtDetallle_Redes_Sociales").append(newOption).trigger("change");
+          $("#txtDetallle_Servicios_Ilimitados")
+            .append(newOption)
+            .trigger("change");
         } else if (item.Categoria == "Servicios adicionales") {
           let newOption = new Option(data.text, data.id, false, false);
           $("#txtDetalle_Servicios_Adicionales")

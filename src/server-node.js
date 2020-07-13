@@ -108,3 +108,12 @@ usuariosSocket.on("connection", (socket) => {
     socket.broadcast.emit("RecargarDataTableUsuarios");
   });
 });
+const citasSocket = io.of("/Citas");
+citasSocket.on("connection", (socket) => {
+  socket.on("ActualizarHorasCita", function (data) {
+    socket.broadcast.emit("ActualizarHorasCita", { data });
+  });
+  socket.on("ValidarHorasCita_Eliminar", function (data) {
+    socket.broadcast.emit("ValidarHorasCita_Eliminar", { data });
+  });
+});

@@ -1,56 +1,67 @@
-<li><a class="has-arrow waves-effect waves-dark"><i class="fa fa-home"></i><span class="hide-menu">Inicio</span></a>
-    <ul aria-expanded="false" class="collapse">
-        <li><a href="/App/Admin">Estadísticas</a></li>
-        <li><a href="/App/Admin/Noticias">Noticias</a></li>
-    </ul>
+<li>
+    <a class="waves-effect waves-dark" href="/App/Admin" aria-expanded="false"><i class="fa fa-home"></i>
+        <span class="hide-menu">Inicio</span>
+    </a>
 </li>
-<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-book"></i><span
-            class="hide-menu">Directorio</span></a>
+<li>
+    <a class="waves-effect waves-dark" href="/App/Admin/Noticias" aria-expanded="false"> <i class="mdi mdi-comment-multiple-outline"></i>
+        <span class="hide-menu">Noticias</span>
+    </a>
+</li>
+<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+    <i class="fa fa-book"></i><span class="hide-menu">Directorio</span></a>
     <ul aria-expanded="false" class="collapse">
         <li><a href="/App/Admin/Directorio">Gestionar clientes </a></li>
-    </ul>
-    <ul aria-expanded="false" class="collapse">
         <li><a href="/App/Admin/Directorio/Registrar">Registrar clientes </a></li>
+        <li><a href="/App/Admin/Directorio/Asignacion">Asignación de clientes</a></li>
     </ul>
 </li>
-<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa  fa-phone"></i><span
-            class="hide-menu">Llamadas</span></a>
+<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+    <i class="fa fa-phone"></i><span class="hide-menu">Llamadas</span></a>
     <ul aria-expanded="false" class="collapse">
         <li><a href="/App/Admin/LLamadas">Gestionar llamadas</a></li>
+        <li><a href="/App/Admin/Llamadas/Programadas">Programadas</a></li>
         <li><a href="/App/Admin/Llamadas/Control">Control de llamadas</a></li>
     </ul>
 </li>
-<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
-            class="mdi mdi-calendar-clock"></i><span class="hide-menu">Citas</span></a>
+<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+    <i class="mdi mdi-calendar-clock"></i><span class="hide-menu">Citas</span></a>
     <ul aria-expanded="false" class="collapse">
         <li><a href="/App/Admin/Citas">Gestionar citas</a></li>
         <li id="AgendaLink"><a href="/App/Admin/Agenda">Agenda</a></li>
     </ul>
 </li>
 <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
+        <i class="mdi mdi-map-marker-multiple"></i><span class="hide-menu">Visitas</span></a>
+    <ul aria-expanded="false" class="collapse">
+        <li><a href="/App/Admin/Visitas">Gestionar visitas</a></li>
+        <li><a href="/App/Admin/Visitas/Registrar">Registrar visitas</a></li>
+    </ul>
+</li>
+<li>
+    <a class="waves-effect waves-dark" href="/App/Admin/AtencionT" aria-expanded="false"><i class="mdi mdi-headset"></i>
+        <span class="hide-menu">Atención telefónica</span>
+    </a>
+</li>
+<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false">
         <i class="mdi mdi-collage"></i><span class="hide-menu">Ofertas</span></a>
     <ul aria-expanded="false" class="collapse">
-        <li><a href="/App/Admin/Visitas">Visitas</a></li>
-        <li><a href="/App/Admin/AT">Atención telefónica</a></li>
         <li><a href="/App/Admin/PreOfertas">Pre-Ofertas</a></li>
         <li><a href="/App/Admin/Ofertas">Gestión de ofertas</a></li>
     </ul>
 </li>
-<li>
-    <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-bell"></i>
-        <span class="hide-menu">Notificaciones
-            <span id="numNotificaciones2" class="label label-rouded label-themecolor pull-right"
-                style="display: none;">0</span>
-        </span>
-    </a>
-    <ul aria-expanded="false" class="collapse">
-        <li><a href="/App/Admin/Notificaciones">Gestionar notificaciones</a></li>
-    </ul>
-</li>
-<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-user"></i><span
+<li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="fa fa-users"></i><span
             class="hide-menu">Usuarios y empleados</span></a>
     <ul aria-expanded="false" class="collapse">
         <li><a href="/App/Admin/Usuarios">Gestionar usuarios</a></li>
         <li><a href="/App/Admin/Usuarios/Registro">Registrar usuarios</a></li>
     </ul>
+</li>
+<li>
+    <a class="waves-effect waves-dark" href="/App/Admin/Notificaciones" aria-expanded="false"><i class="fa fa-bell"></i>
+        <span class="hide-menu">Notificaciones
+            <span id="numNotificaciones2" class="label label-rouded label-themecolor pull-right"
+                style="display: none;">0</span>
+        </span>
+    </a>
 </li>

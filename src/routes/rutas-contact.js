@@ -18,6 +18,10 @@ router.get('/Directorio', usuarioLogeado, (req,res)=>{
     res.render('directorio/listar-clientes',{layout:'ContacLayout.hbs', Directorio: true , session: req.session.datos_usuario })
 });
 
+router.get('/Directorio/Asignacion', usuarioLogeado, (req,res)=>{
+    res.render('directorio/listar-asignacion-contact',{layout:'ContacLayout.hbs', Asignacion: true , session: req.session.datos_usuario })
+});
+
 // Llamadas
 router.get('/Llamadas',usuarioLogeado,(req,res)=>{
     res.render('llamadas/listar-llamadas',{layout:'ContacLayout.hbs', Llamada_NP: true , session: req.session.datos_usuario })
@@ -28,7 +32,10 @@ router.get('/Llamadas/Control',usuarioLogeado,(req,res)=>{
 });
 
 router.get('/Llamadas/RegistrarNP',usuarioLogeado,(req,res)=>{
-    res.render('llamadas/registrar-llamadas-np',{layout:'ContacLayout.hbs', Registrar_Llamada_NP: true , session: req.session.datos_usuario })
+    res.render('llamadas/registrar-llamadas',{layout:'ContacLayout.hbs', Registrar_Llamada_NP: true , session: req.session.datos_usuario })
+});
+router.get('/Llamadas/RegistrarP',usuarioLogeado,(req,res)=>{
+    res.render('llamadas/registrar-llamadas',{layout:'ContacLayout.hbs', Registrar_Llamada_P: true , session: req.session.datos_usuario })
 });
 
 // Citas

@@ -1,10 +1,10 @@
 $(function () {
-  DataTable = $("#LlamadasDataTable").DataTable({
+  ATDataTable = $("#ATDataTable").DataTable({
     cache: true,
     ajax: {
-      url: `${URL}/Llamadas`,
+      url: `${URL}/AtencionTel`,
       error: function (error) {
-        console.log("Eror al listar clientes " + error);
+        console.log("Eror al listar " + error);
       },
       // success: function(datos){
       //     console.log(datos)
@@ -16,9 +16,6 @@ $(function () {
       },
       {
         data: "Razon_Social",
-      },
-      {
-        data: "Nombre_Municipio",
       },
       {
         data: "Fecha_Llamada",
@@ -34,32 +31,53 @@ $(function () {
         data: "Usuario",
       },
       {
-        data: "Estado_Llamada",
+        data: "Medio_Envio",
         render: function (data, datatype, row) {
           if (datatype === "display") {
-            let color = null;
-            let id = parseInt(row.Id_Estado_Llamada);
-            switch (id) {
+            let texto = null;
+            let medio = parseInt(data);
+            switch (medio) {
               case 1:
-                color = "#ef5350";
+                texto = `
+                    <i class="mdi mdi-email"></i> Correo
+                `;
                 break;
               case 2:
-                color = "#5c4ac7";
+                texto = `
+                <i class="mdi mdi-whatsapp"></i> Whatsapp
+            `;
                 break;
               case 3:
-                color = "#00897b";
+                texto = `
+                    <i class="mdi mdi-email"></i> Correo <i class="mdi mdi-whatsapp"></i> Whatsapp
+                    `;
                 break;
             }
-
+            return `
+                  <div class="text-center">
+                      <div class="label label-table text-center fondo-verde">
+                          ${texto}
+                      </div>
+                  </div>
+                `;
+          } else {
+            return data;
+          }
+        },
+      },
+      {
+        data: "Nombre_Operador",
+        render: function (data, datatype, row) {
+          if (datatype === "display") {
             return `
               <div class="text-center">
-                  <div class="label label-table text-center" style="background-color:${color}">
+                  <div class="label label-table text-center" style="background-color:${row.Color}">
                       ${data}
                   </div>
               </div>
             `;
           } else {
-            return row.Id_Estado_Llamada;
+            return data;
           }
         },
       },
@@ -68,13 +86,13 @@ $(function () {
         render: function (data, datatype) {
           if (datatype === "display") {
             return `
-              <div class="text-center">
-                <button id="btnDetalles" class="btn btn-sm btn-primary" title="Detalles">
-                  <i class="fa  fa-eye"></i>
-                </button>
-              </div>
-              
-            `;
+                  <div class="text-center">
+                    <button id="btnDetalles" class="btn btn-sm btn-primary" title="Detalles">
+                      <i class="fa  fa-eye"></i>
+                    </button>
+                  </div>
+                  
+                `;
           } else {
             return data;
           }
@@ -103,45 +121,42 @@ $(function () {
   InicializarToltips();
 });
 
-// Cargar Modal
-// 1 -> Detalles
-
-// Detalles - abrir modal y cargar datos
 $(document).on("click", "#btnDetalles", function () {
-  let datosCliente = DataTable.row($(this).parents("tr")).data();
+  let datosCliente = ATDataTable.row($(this).parents("tr")).data();
   CargarDatosModalDetalles(datosCliente);
 });
 
 $("#Filtro_NIT").on("keyup", function () {
-  DataTable.columns(0).search(this.value).draw();
+  ATDataTable.columns(0).search(this.value).draw();
 });
 
 $("#Filtro_RazonSocial").on("keyup", function () {
-  DataTable.columns(1).search(this.value).draw();
-});
-
-$("#Filtro_Municipio").on("keyup", function () {
-  DataTable.columns(2).search(this.value).draw();
+  ATDataTable.columns(1).search(this.value).draw();
 });
 
 $("#Filtro_Fecha").on("keyup", function () {
-  DataTable.columns(3).search(this.value).draw();
+  ATDataTable.columns(2).search(this.value).draw();
 });
 
 $("#Filtro_Usuario").on("keyup", function () {
-  DataTable.columns(4).search(this.value).draw();
+  ATDataTable.columns(3).search(this.value).draw();
 });
-$("#Filtro_Estado").on("change", function () {
-  DataTable.columns(5).search(this.value).draw();
+
+$("#Filtro_MedioE").on("change", function () {
+    ATDataTable.columns(4).search(this.value).draw();
+  });
+
+$("#Filtro_Operador").on("keyup", function () {
+  ATDataTable.columns(5).search(this.value).draw();
 });
 
 let LimpiarFiltro = () => {
   $("#Filtro_NIT").val("");
   $("#Filtro_RazonSocial").val("");
-  $("#Filtro_Municipio").val("");
   $("#Filtro_Fecha").val("");
   $("#Filtro_Usuario").val("");
-  $("#Filtro_Estado").val("");
+  $("#Filtro_MedioE").val("");
+  $("#Filtro_Operador").val("");
 
-  DataTable.columns().search("").draw();
+  ATDataTable.columns().search("").draw();
 };

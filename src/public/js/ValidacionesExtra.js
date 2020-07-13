@@ -77,6 +77,17 @@ $.validator.addMethod(
   },
   "Ingrese un NIT válido"
 );
+$.validator.addMethod(
+  "ValidarHoraCita",
+  function (value, element) {
+    if (value == "Seleccione..." || value == "Cargando...") {
+      return false;
+    } else {
+      return true;
+    }
+  },
+  "Seleccione una hora"
+);
 
 $.validator.addMethod(
   "ValidarCantidadLineas",
