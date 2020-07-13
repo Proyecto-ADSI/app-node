@@ -6111,15 +6111,39 @@ File: scss
   background: #ffffff; }
 
 .fc-event {
-  border-radius: 0px;
-  border: none;
-  cursor: move;
-  color: #ffffff !important;
+  /* border-radius: 0px; */
+  border: 1px #67757c;
+  cursor: pointer;
+  /* color: #ffffff !important; */
   font-size: 13px;
   margin: 1px -1px 0 -1px;
   padding: 5px 5px;
   text-align: center;
-  background: #1976d2; }
+  /* background: #1976d2;  */
+}
+
+.Interno_Event {
+  background-color:rgba(2, 133, 120, 0.3);
+}
+.Interno_Event:focus,
+.Interno_Event:hover {
+  background-color:rgba(2, 133, 120, 0.2) !important;
+}
+
+
+/* a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
+  color: inherit;
+  text-decoration: none;
+  background: rgba(2, 133, 120, 0.3);
+} */
+.Externo_Event {
+  background-color:rgba(233, 30, 99, 0.3);
+}
+.Externo_Event:focus,
+.Externo_Event:hover{
+  background-color:rgba(233, 30, 99, 0.2) !important;
+}
+
 
 .calendar-event {
   cursor: move;

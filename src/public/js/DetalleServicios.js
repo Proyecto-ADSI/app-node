@@ -262,6 +262,8 @@ $(function () {
     }
   });
 
+  // Formatear números
+  FormatearNumerosInput("#txtDetalle_Valor_Mensual");
   // Validación minutos ilimitados.
   $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").change(
     function () {
@@ -405,14 +407,15 @@ let ObtenerDataLineasEditar = () => {
 let ObtenerDatosServiciosMoviles = (registrar, lineas) => {
   let arrayDetalleLinea = null;
   let cargobasico = 0;
-  let valorInput = parseFloat($("#txtDetalle_Valor_Mensual").val());
+  let valorInput = QuitarComas($("#txtDetalle_Valor_Mensual").val());
+  valorInput = parseFloat(valorInput);
   let cantidadLineas = parseInt($("#txtDetalle_Cantidad_Lineas").val());
   if ($("input:radio[name=detalleLineasRadios]:checked").val() == 1) {
     cargobasico = valorInput / cantidadLineas;
   } else {
     cargobasico = valorInput;
   }
-  cargobasico = cargobasico.toFixed(2);
+  cargobasico = AgregarComas(cargobasico);
 
   let minutos = "";
   if (
@@ -497,6 +500,18 @@ let ListarDetalleLineas = () => {
     ObtenerDataLineasEditar();
     EliminarDetalleLinea();
     DetalleServiciosMoviles();
+    if (
+      $(".switch_AT1").bootstrapSwitch("state") === true ||
+      $(".switch_AT2").bootstrapSwitch("state") === true
+    ) {
+      if (ServiciosMoviles.length == 0) {
+        $("#tabOfertaP").attr("style", "display:none");
+        $("#tabOfertaE a").trigger("click");
+      } else {
+        $("#tabOfertaP").removeAttr("style");
+      }
+      ListarSwipers();
+    }
   }
 };
 
@@ -1038,9 +1053,9 @@ let GenerarAlertasToast = (categoria) => {
         heading: "¡Advertencia!",
         text: '<p class="jq-toast-body">Primero debes registrar servicios.</p>',
         position: "top-right",
-        bgColor: "#00897b",
-        loaderBg: "#383f48",
-        icon: "warning",
+        // bgColor: "#00897b",
+        loaderBg: "#ff6849",
+        icon: "error",
         hideAfter: 3000,
         showHideTransition: "slide",
         stack: 1,
@@ -1052,9 +1067,9 @@ let GenerarAlertasToast = (categoria) => {
         text:
           '<p class="jq-toast-body">Primero debes validar NIT y dirección.</p>',
         position: "top-right",
-        bgColor: "#00897b",
-        loaderBg: "#383f48",
-        icon: "warning",
+        // bgColor: "#00897b",
+        loaderBg: "#ff6849",
+        icon: "error",
         hideAfter: 3000,
         showHideTransition: "slide",
         stack: 1,
@@ -1067,6 +1082,69 @@ let GenerarAlertasToast = (categoria) => {
           '<p class="jq-toast-body">Primero debes finalizar la llamada.</p>',
         position: "top-right",
         // bgColor: "#ff6849",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 4:
+      $.toast({
+        heading: "¡No se puede eliminar!",
+        text: '<p class="jq-toast-body">Este campo es requerido.</p>',
+        position: "top-right",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 5:
+      $.toast({
+        heading: "¡Notas no válidas!",
+        text:
+          '<p class="jq-toast-body">Las notas son requeridas y tienen un máximo de 255 caracteres.</p>',
+        position: "top-right",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 6:
+      $.toast({
+        heading: "¡No se puede cambiar de oferta!",
+        text:
+          '<p class="jq-toast-body">Debes eliminar los servicios móviles de la oferta actual</p>',
+        position: "top-right",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 7:
+      $.toast({
+        heading: "¡Deshabilitado!",
+        text:
+          '<p class="jq-toast-body">Debes seleccionar un grupo de líneas primero</p>',
+        position: "top-right",
+        loaderBg: "#ff6849",
+        icon: "error",
+        hideAfter: 3000,
+        showHideTransition: "slide",
+        stack: 1,
+      });
+      break;
+    case 8:
+      $.toast({
+        heading: "¡Acción no permitida!",
+        text: '<p class="jq-toast-body">Algunos campos están erróneos</p>',
+        position: "top-right",
         loaderBg: "#ff6849",
         icon: "error",
         hideAfter: 3000,

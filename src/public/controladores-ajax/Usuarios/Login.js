@@ -18,6 +18,7 @@ let Login = () => {
         let session = {
           Usuario: respuesta.data.Usuario,
           Id_Usuario: respuesta.data.Id_Usuario,
+          Nombre: respuesta.data.Nombre,
           Id_Rol: respuesta.data.Id_Rol,
           Rol: respuesta.data.Rol,
           Email: respuesta.data.Email,

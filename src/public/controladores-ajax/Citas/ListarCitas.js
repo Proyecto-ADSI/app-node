@@ -130,7 +130,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
@@ -146,7 +146,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
                     <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
               </div>
@@ -163,7 +163,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
@@ -178,7 +178,7 @@ $(function () {
           <div class="btn-group">
           <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
               <div class="dropdown-menu animated rubberBand">
-                  <a class="dropdown-item"><i class="fa fa-edit"></i> Editar cita</a>
+                  <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
                   <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
                   <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválidar</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
@@ -498,41 +498,6 @@ $(function () {
       stack: false,
     });
   });
-  
-  
-
- 
-
-  // $("#BtnInterna").on("click", function () {
-  //   if (Object.entries(GuardarFilaSeleccionada).length === 0) {
-  //     location.href = "/App/Admin/Agenda";
-  //   } else {
-  //      let ArrayCitasId = [];
-
-  //     GuardarFilaSeleccionada.forEach((element) => {
-  //       if (element.Id_Estado_Cita == "4") {
-
-  //         let Cita = {
-  //           Id: parseInt(element.Id_Cita),
-  //           Estado: 6,
-  //         };
-
-  //         ArrayCitasId.push(Cita);
-  //       } else {
-  //         swal({
-  //           title: "Cita en estado no verficada",
-  //           text: "Solo las citas verificadas pueden agregarse a internas",
-  //           type: "warning",
-  //           confirmButtonClass: "btn-danger",
-  //           confirmButtonText: "Ok",
-  //         });
-  //         RecargarDataTable();
-  //         GuardarFilaSeleccionada = [];
-  //       }
-  //     });
-  //     CambiarEstadoCitas(ArrayCitasId);
-  //   }
-  // });
 });
 
 let RecargarDataTable = () => {
@@ -615,6 +580,135 @@ $(function () {
   });
 });
 
+$("#BtnInterna1").on('click', function(){
+
+  $("#ModalInterna").modal("show");
+
+  DataTableInterna = $("#CitasInternaDataTable").DataTable({
+    destroy:true,
+    data: GuardarFilaSeleccionada,
+    columns: [
+      
+        {data: "Razon_Social"},
+        {data: "Nombre_Operador",
+         render: function(data,type,FullDataa){
+                 if (type == 'display') {
+                  return `<div class="label label-table" style="background:${FullDataa.Color_Operador};">${data}</div>`
+                 }else{
+                   return false
+                 }
+         }},
+        {data: "Fecha_Cita",
+        render: function(data){
+          let Fecha = new Date(data);
+
+          let Mes = Fecha.getMonth() + 1;
+          let Dia = Fecha.getDate();
+          let Año = Fecha.getFullYear();
+
+          for (var i = 1; i < 9; i++) {
+            if (Dia == i) {
+              return "0" + Dia + "/" + "0" + Mes + "/" + Año;
+            }
+          }
+
+          let Fecha1 = Dia + "/" + "0" + Mes + "/" + Año;
+
+          return Fecha1;
+        }},
+        {data: "Fecha_Cita",
+        render: function(data){
+          let Hora = new Date(data);
+
+          let Hora1 = Hora.getHours();
+          let Minutos = Hora.getMinutes();
+          let Segundos = Hora.getSeconds();
+
+          let HoraReal = Hora1 + ":" + Minutos;
+
+          if (Minutos == 0) {
+            return Hora1 + ":" + Minutos + "0";
+          }
+          return HoraReal;
+        }},
+        {data: "Estado_Cita",
+         render: function(data,type,FullDataa){
+               if (type == 'display') {
+                return `<div class="label label-table" style='background:#19C046 ;'>${data}</div>`
+               }
+               else{
+                 return false
+               } 
+         }}
+
+    ],
+
+    language: Español,
+  });
+
+  $("#CitasInternaDataTable").css({"width":"965px"})
+})
+
+$("#BtnInterna").on("click", function () {
+    if (Object.entries(GuardarFilaSeleccionada).length === 0) {
+      swal({
+        title: "No hay datos seleccionados",
+        text: "Selecciona una cita para cambiar el estado",
+        type: "error",
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ok",
+      });
+    } else {
+       let ArrayCitasId = [];
+
+      GuardarFilaSeleccionada.forEach((element) => {
+        if (element.Id_Estado_Cita == "4") {
+
+          let Cita = {
+            Id_Cita: parseInt(element.Id_Cita),
+            Estado: 6,
+          };
+
+          ArrayCitasId.push(Cita);
+        } 
+      });
+
+      $.ajax({
+        url: `${URL}/Citas/Interna/Estado/Multiple`,
+        dataType: "json",
+        type: "patch",
+        contentType: "application/json",
+        data: JSON.stringify(ArrayCitasId),
+        processData: false,
+        success: function (data) {  
+          RecargarDataTable();
+          GuardarFilaSeleccionada = [];
+          DataTableInterna.clear().draw();
+        },
+        error: function (error) {
+          swal({
+            title: "Error",
+            text: "Error en el servidor",
+            type: "error",
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ok",
+          });
+        },
+      }).fail((error) => {
+        swal({
+          title: "Error",
+          text: "Error en el servidor",
+          type: "error",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Ok",
+        });
+      });
+    }
+  });
+
+
+
+
 
 $("#BtnReporte1").on('click', function(){
 
@@ -639,6 +733,30 @@ $("#BtnReporte1").on('click', function(){
     }).fail(error =>{
         // console.log(error);
     });
+    // $("#SelectAsesorEx").select2({
+    //   placeholder: "Seleccione un asesor",
+    //   language: "es",
+    //   allowClear: true,
+    //   maximumInputLength: 20,
+    //   ajax: {
+    //     url: `${URL}/Citas/Asesores/Externos`,
+    //     dataType: "json",
+    //     delay: 250,
+    //     type: "get",
+    //     data: function (params) {
+    //       var query = {
+    //         search: params.term,
+    //       };
+    //       return query;
+    //     },
+    //     processResults: function (respuesta) {
+    //       console.log(respuesta.data)
+    //       return {
+    //         results: respuesta.data,
+    //       };
+    //     },
+    //   },
+    // });
   }
 
   $("#ModalReporte").modal("show");
@@ -731,7 +849,15 @@ $("#BtnReporte1").on('click', function(){
       } 
     });
   }
-
+  swal({
+    title: "¿Desea cambiar estado?",
+    text: "Las citas seleccionadas cambiaran de estado y seran externas",
+    type: "info",
+    showCancelButton: true,
+    closeOnConfirm: false,
+    showLoaderOnConfirm: true
+  }, function () {
+    setTimeout(function () {  
     $.ajax({
       url: `${URL}/Citas/CambioEstado/Multiple`,
       dataType: "json",
@@ -740,7 +866,20 @@ $("#BtnReporte1").on('click', function(){
       data: JSON.stringify(ArrayCitasId),
       processData: false,
       success: function (data) {  
-      let PDF = JSON.stringify(data)  
+          let PDF = JSON.stringify(data) 
+          swal(
+            {
+              title: "Perfecto",
+              text: "Cambio de estado satisfactorio",
+              type: "success",
+              showCancelButton: false,
+              confirmButtonClass: "btn-info",
+              confirmButtonText: "Ok",
+              closeOnConfirm: true,
+            },
+          );
+
+      DataTableReporte.clear().draw(); 
       $("#DescargarPdf").show()  
       $("#DescargarPdf").attr('href',`${URL}/Reportes/${PDF.substr(26,31)}`)
 
@@ -770,6 +909,9 @@ $("#BtnReporte1").on('click', function(){
         confirmButtonText: "Ok",
       });
     });
+  }, 2000);
+});
+
   };
  
   $(function (){
@@ -787,7 +929,6 @@ $("#BtnReporte1").on('click', function(){
             $("#SelectAsesorEx").val("");
           }else{      
                 CambiarEstadoCitas(ArrayCitasId);
-                DataTableReporte.clear().draw();
                 $("#SelectAsesorEx").val("");
           }
         },
@@ -814,10 +955,6 @@ $("#BtnReporte1").on('click', function(){
         
     });
 })
-
-
-
-
 
 
 

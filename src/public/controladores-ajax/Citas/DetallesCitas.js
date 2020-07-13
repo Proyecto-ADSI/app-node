@@ -41,7 +41,12 @@ let DetallesCitass = (DetallesCitas) =>{
         $("#InfoHabeas-Citas").html("No")
     }
     $("#EstadoLlamada-Citas").html(DataCi.Estado_Llamada)
-    $("#ObservacionLlamada-Citas").html(DataCi.Observacion)
+    if (DataCi.Observacion == "") {
+        $("#ObservacionLlamada-Citas").html("N/A")
+    } else {
+        $("#ObservacionLlamada-Citas").html(DataCi.Observacion)
+    }
+ 
 
 
 
@@ -78,24 +83,16 @@ let DetallesCitass = (DetallesCitas) =>{
     $("#Direccion-Cita").html(DataCi.Direccion_Cita)
 
 
-    //Datosvisita
-
-    if(DataCi.Fecha_Visita == null || DataCi.Tipo_Venta == null || DataCi.Id_Estado_Visita == null ){
-
-    
-        $("#ReportVisit").css("display","none")
-        $('#ReporteCitaAsesor').css("display","none")
-       
-
-    }else{
-    $('#ReporteVisita').show()
+    // Datosvisita
     $("#Fecha-Visita").html(DataCi.Fecha_Visita)
     $("#TipoVenta-Citas").html(DataCi.Tipo_Venta)
+    $("#EstadoVisita-Citas").html(DataCi.Estados_Visita)
+    $("#Asesor-Cita").html(DataCi.Nombre_Asesor)
 
     if (DataCi.Id_Estado_Visita == 1) {
-        $("#EstadoVisita-Citas").html("Inicial")
+        $("#EstadoVisita-Citas").html("Sin realizar")
     } else if(DataCi.Id_Estado_Visita == 2) {
-        $("#EstadoVisita-Citas").html("Negociación")
+        $("#EstadoVisita-Citas").html("En negociación")
     }
     else if(DataCi.Id_Estado_Visita == 3){
         $("#EstadoVisita-Citas").html("Efectiva")
@@ -106,15 +103,24 @@ let DetallesCitass = (DetallesCitas) =>{
     else if(DataCi.Id_Estado_Visita == 5){
         $("#EstadoVisita-Citas").html("Cancelada")
     }
+
+
+    //Novedades
+    if (DataCi.Id_Novedad == 'N/A') {
+        $("#Novedades-TabPane").css({"display":"none"})
+        $("#NovedadesLi").css({"display":"none"})
+    } else {
+        $("#Novedades-TabPane").css({"display":"block"})
+        $("#NovedadesLi").css({"display":"block"})
+
+        $("#Fecha-Novedad").html(DataCi.Fecha_Novedad)
+        if (DataCi.Estado_Novedad == 12) {
+            $("#Estado-Novedad").html("Inválida")
+        } else if(DataCi.Estado_Novedad == 16){
+            $("#Estado-Novedad").html("Reagendada")
+        }else if(DataCi.Estado_Novedad == 14){
+            $("#Estado-Novedad").html("Cancelada")
+        }
+        $("#Descripcion-Novedad").html(DataCi.Descripcion_Novedad)
+    }
 }
-// if (DataCi.Descripcion_Novedad == null || DataCi.Fecha_Novedad == null) {
-//     $("#NovedadesLi").css("display","none")
-//     $('#Novedades-TabPane').css("display","none")
-// }
-// else{
-//     $("#NovedadesLi").css("display","block")
-//     $('#Novedades-TabPane').css("display","block")
-//     $("#Fecha-Novedades").html(DataCi.Fecha_Novedad)
-//     $("#Novedades-Descripcion").html(DataCi.Descripcion_Novedad)
-// }
- }

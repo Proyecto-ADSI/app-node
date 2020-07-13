@@ -1,9 +1,13 @@
 var DataTableCitasSinAsignar = null;
-var GuardarFilaSeleccionada = [];
-var NumeroSelec = null;
+var GuardarCitasSinAsignar = [];
+var ArrayCitasInterId = [];
+// var NumeroSelec = null;
+
 
 $(function () {
-    DataTableCitasSinAsginar = $("#SinAsignarDataTable").DataTable({
+
+    
+    DataTableCitasSinAsignar = $("#SinAsignarDataTable").DataTable({
     ajax: {
       url: `${URL}/Citas/SinAsignar`,
       error: function (error) {
@@ -11,6 +15,17 @@ $(function () {
       },
     },
     columns: [
+      {
+        data: null,
+
+        render: function (data, type, FullData) {
+          let Numero = FullData.Id_Cita;
+
+          let Numero1 = Math.random(Numero);
+
+          return `<div class='MyStyle_demo-checkbox' id='CheckboxCitas'><input type='checkbox' class="CheckCitasSinAsignar" id='basic_checkbox_1${Numero1}' hidden /><label for='basic_checkbox_1${Numero1}'></label></div>`;
+        }
+      },
       {data: "Razon_Social"},
       {data: "Fecha_Cita",
          render: function(data){
@@ -49,48 +64,23 @@ $(function () {
             }
             return HoraReal
         }},
-        {data:null,
-         render: function(data,type,fullData){
-             
-
-            $.ajax({
-                url: `${URL}/Citas/Asesores/Internos`,
-                dataType: 'json',
-                type: 'GET',
-            }).done(respuesta =>{
-                $(`.SelectAsesor`).empty();
-                $(`.SelectAsesor`).append(`
-            
-                <option selected disabled value="">Seleccione un asesor</option>
-            
-                    `);
-                respuesta.data.forEach(element => {
-                    
-                    $(`.SelectAsesor`).append(
-            
-                     ` <option value='${element.Id_Usuario}'>${element.Nombre_Completo}</option> `
-                        
-                        );
-                    });
-            }).fail(error =>{
-                console.log(error);
-            });
-            
-             
-
-             return '<select class="form-control SelectAsesor" id="Select-Asesor"></select>'
-            
-         }},
-        { defaultContent: 
-            `
-    
-            <button id="BtnDetallesSinAsignar" data-toggle="modal" data-target="#Detalles"  class="btn btn-warning">
-            <i class="fa fa-eye"></i>
-            </button>
-    `}
+        {data: "Estado_Cita",
+        render: function(data,type,FullDataa){
+              if (type == 'display') {
+               return `<div class="label label-table label-danger">${data}</div>`
+              }
+              else{
+                return false
+              } 
+        }}
     ], 
 
     language: Español, 
+    select: {
+      style: "multi",
+      info: true,
+      selector: `.CheckCitasSinAsignar`,
+    }
   })
  
   $('#SinAsignarDataTable tbody').on( 'click', '#BtnDetallesSinAsignar', function () {
@@ -98,13 +88,208 @@ $(function () {
     var DetallesCitasSinAsignar = DataTableCitasSinAsginar.row($(this).parents('tr')).data();
 
   }); 
+   //Seleccionar citas
+   DataTableCitasSinAsignar.on("select", function () {
+    Filas2 = DataTableCitasSinAsignar.rows(".selected").indexes();
+    GuardarCitasSinAsignar = DataTableCitasSinAsignar.rows(Filas2).data().toArray();
+   
+
+    $.toast({
+      heading: "Perfecto",
+      text: "Cita seleccionada",
+      position: "top-right",
+      loaderBg: "#ff6849",
+      showHideTransition: "plain",
+      icon: "success",
+      hideAfter: 1350,
+      stack: false,
+    });
+
+
+  });
+
+  DataTableCitasSinAsignar.on("deselect", function () {
+    Filas3 = DataTableCitasSinAsignar.rows(".selected").indexes();
+    GuardarCitasSinAsignar = DataTableCitasSinAsignar.rows(Filas3).data().toArray();
+
+    
+    $.toast({
+      heading: "Perfecto",
+      text: "Cita deseleccionada",
+      position: "top-right",
+      loaderBg: "#ff6849",
+      showHideTransition: "plain",
+      icon: "error",
+      hideAfter: 1350,
+      stack: false,
+    });
+  });
 });
 
-let RecargarDataTable = () =>{
-  DataTableCitasSinAsginar.ajax.reload();
+$("#SinAsignar").on('click', function(){
+
+ $.ajax({
+   url: `${URL}/Citas/Asesores/Internos`,
+   dataType: 'json',
+   type: 'GET',
+    }).done(respuesta =>{
+      $(`#SelectAsesorIn`).empty();
+      $(`#SelectAsesorIn`).append(`
+            
+      <option selected disabled value="disabled">Seleccione un asesor</option>
+            
+      `);
+      respuesta.data.forEach(element => {
+                    
+      $(`#SelectAsesorIn`).append(
+            
+      ` <option value='${element.Id_Usuario}'>${element.Nombre_Completo}</option> `
+                        
+       );
+         });
+    }).fail(error =>{
+       console.log(error);
+    });
+  })
+    
+  //  $("#SelectAsesorIn").on('change', function(){
+
+  //    var value = $('select[name="SelectAseInter"] option:selected').text()
+  //    $('#SinAsignarDataTable .selected').find('td:eq(4)').html(value);
+  //  })
+  
+  let AsignarCitasInternas = () => {
+
+    if (Object.entries(GuardarCitasSinAsignar).length === 0) {
+      swal({
+        title: "No hay datos seleccionados",
+        text: "Selecciona una cita para asignar",
+        type: "error",
+        confirmButtonClass: "btn-danger",
+        confirmButtonText: "Ok",
+      });
+    } else {
+      GuardarCitasSinAsignar.forEach((element) => {
+        if (element.Id_Estado_Cita == "6") {
+          let CitaInt = {
+            Id_Cita: parseInt(element.Id_Cita),
+            Estado: 7,
+            TipoVisita:0,
+            Id_Asesor_Interno:parseInt($("#SelectAsesorIn option:selected").val()),
+          };
+          ArrayCitasInterId.push(CitaInt);
+        } 
+      });
+    }
+    swal({
+      title: "¿Desea asignar las citas?",
+      text: "Las citas seleccionadas cambiaran de estado y seran asignadas",
+      type: "info",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+      setTimeout(function () {  
+      $.ajax({
+        url: `${URL}/Citas/Asignar/Internas`,
+        dataType: "json",
+        type: "post",
+        contentType: "application/json",
+        data: JSON.stringify(ArrayCitasInterId),
+        processData: false,
+        success: function (data) { 
+            swal(
+              {
+                title: "Perfecto",
+                text: "Citas asignadas exitosamente",
+                type: "success",
+                showCancelButton: false,
+                confirmButtonClass: "btn-info",
+                confirmButtonText: "Ok",
+                closeOnConfirm: true,
+              },
+            );
+         $("#ModalSinAsignar").modal("hide")  
+         RecargarDataTableSinAsignar();
+        //  ListarVisitas()
+       
+         $("#SelectAsesorIn").val("disabled");
+          GuardarCitasSinAsignar = [];
+        },
+        error: function (error) {
+          console.log(error)
+          swal({
+            title: "Error",
+            text: "Error en el servidor",
+            type: "error",
+            confirmButtonClass: "btn-danger",
+            confirmButtonText: "Ok",
+          });
+        },
+      }).fail((error) => {
+        swal({
+          title: "Error",
+          text: "Error en el servidor",
+          type: "error",
+          confirmButtonClass: "btn-danger",
+          confirmButtonText: "Ok",
+        });
+      });
+    }, 2000);
+  });
+  
+    };
+
+
+
+
+
+  $(function (){
+    $("#FormAsesorInt").validate({
+        submitHandler: function(){
+          if (Object.entries(GuardarCitasSinAsignar).length === 0) {
+            swal({
+              title: "No hay datos seleccionados",
+              text: "Selecciona una cita para asignar",
+              type: "error",
+              confirmButtonClass: "btn-danger",
+              confirmButtonText: "Ok",
+            });
+
+            $("#SelectAsesorIn").val("disabled");
+          }else{      
+                AsignarCitasInternas(ArrayCitasInterId);
+          }
+        },
+        rules:{
+          SelectAseInter: {
+                required:true
+            }
+        },
+        errorClass: "form-control-feedback",
+        errorElement: "div",
+        highlight: function (element) {
+            $(element).parents(".form-group").addClass("has-danger").removeClass("has-success");
+            $(element).addClass("form-control-danger").removeClass("form-control-success");
+        },
+        unhighlight: function (element) {
+
+            $(element).parents(".form-group").addClass("has-success").removeClass("has-danger");
+            $(element).addClass("form-control-success").removeClass("form-control-danger");
+        },
+        errorPlacement: function (error, element) {
+                error.insertAfter(element.parent(".input-group"));
+            
+        }
+        
+    });
+})
+
+
+
+let RecargarDataTableSinAsignar = () =>{
+  DataTableCitasSinAsignar.ajax.reload();
 }
-
-
 
 
 var Español = {
@@ -138,36 +323,6 @@ $("#SinAsignar").on('click', function(){
   $("#ModalSinAsignar").modal('show')
   $("#SinAsignarDataTable").css({"width":"965px"})
 });
-
-// $("#AgendaLink").on('click', function(){
-//   $.ajax({
-//     url: `${URL}/Operador`,
-//     dataType: 'json',
-//     type: 'GET',
-// }).done(respuesta =>{
-//     $("#List-Operadores").empty();
-
-//     respuesta.data.forEach(element => {
-        
-//         $("#List-Operadores").append(
-
-//          `<div class="MyStyle_Calentar_List"><i class="fa fa-circle" style='color:${element.Color};'></i>
-//           ${element.Nombre_Operador}
-//          </div> `
-            
-//             );
-//         });
-// }).fail(error =>{
-//     console.log(error);
-// });
-// })
-
-$(function(){
-    $("#Btn-Pdf-Data").css("border-radius","40px")
-    $("#Btn-Excel-Data").css({"border-radius":"40px","margin-left":"0.2rem","background-color":"#00897b","border-color":"#00897b"})
-    $("#Btn-Helped").css({"border-radius":"40px","margin-left":"0.2rem"})
-//     $(".Cita-Sin-Confirmar").css({"cursor":"poiner"})
-  })
 
 
 

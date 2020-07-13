@@ -1,11 +1,14 @@
-var Citas7 = null;
+var Citas2 = null;
+var EstadoModal = null;
+
+
 
 $("#CitasDataTable tbody").on("click", "#Verificar", function () {
-  let Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
 
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
-    Estadovg: 4,
+    Estado: 4,
   };
 
   $.ajax({
@@ -25,11 +28,12 @@ $("#CitasDataTable tbody").on("click", "#Verificar", function () {
   });
 });
 $("#CitasDataTable tbody").on("click", "#Invalida", function () {
-  let Citas3 = DataTableCitas.row($(this).parents("tr")).data();
+   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+   EstadoModal = 12
 
   let DataCitas = {
-    Id_Cita: parseInt(Citas3.Id_Cita),
-    Estadovg: 13,
+    Id_Cita: parseInt(Citas2.Id_Cita),
+    Estado: 12,
   };
 
   $.ajax({
@@ -51,11 +55,11 @@ $("#CitasDataTable tbody").on("click", "#Invalida", function () {
 });
 
 $("#CitasDataTable tbody").on("click", "#Desarrollo", function () {
-  let Citas4 = DataTableCitas.row($(this).parents("tr")).data();
+   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
 
   let DataCitas = {
-    Id_Cita: parseInt(Citas4.Id_Cita),
-    Estadovg: 8,
+    Id_Cita: parseInt(Citas2.Id_Cita),
+    Estado: 8,
   };
 
   $.ajax({
@@ -76,11 +80,11 @@ $("#CitasDataTable tbody").on("click", "#Desarrollo", function () {
 });
 
 $("#CitasDataTable tbody").on("click", "#Realizada", function () {
-  let Citas5 = DataTableCitas.row($(this).parents("tr")).data();
+   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
 
   let DataCitas = {
-    Id_Cita: parseInt(Citas5.Id_Cita),
-    Estadovg: 9,
+    Id_Cita: parseInt(Citas2.Id_Cita),
+    Estado: 9,
   };
 
   $.ajax({
@@ -101,11 +105,12 @@ $("#CitasDataTable tbody").on("click", "#Realizada", function () {
 });
 
 $("#CitasDataTable tbody").on("click", "#Reagendada", function () {
-  let Citas6 = DataTableCitas.row($(this).parents("tr")).data();
+   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+   EstadoModal = 16
 
   let DataCitas = {
-    Id_Cita: parseInt(Citas6.Id_Cita),
-    Estadovg: 17,
+    Id_Cita: parseInt(Citas2.Id_Cita),
+    Estado: 16,
   };
 
   $.ajax({
@@ -127,11 +132,12 @@ $("#CitasDataTable tbody").on("click", "#Reagendada", function () {
 });
 
 $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
-  Citas7 = DataTableCitas.row($(this).parents("tr")).data();
+  Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+  EstadoModal = 14
 
   let DataCitas = {
-    Id_Cita: parseInt(Citas7.Id_Cita),
-    Estadovg: 14,
+    Id_Cita: parseInt(Citas2.Id_Cita),
+    Estado: 14,
   };
 
   $.ajax({
@@ -157,8 +163,8 @@ let RegistrarNovedad = () =>{
   let Novedades = {
     Id_Novedad: null,
     Descripcion: $("#Novedad").val(),
-    Estado_Novedad: parseInt(1),
-    Id_Cita: parseInt(Citas7.Id_Cita),
+    Estado_Novedad: EstadoModal,
+    Id_Cita: parseInt(Citas2.Id_Cita),
   };
 
   $.ajax({
@@ -186,6 +192,7 @@ $(function (){
   $("#Novedades_Form").validate({
       submitHandler: function(){
               RegistrarNovedad();
+              RecargarDataTable();
 
               $("#Novedad").val("");
 

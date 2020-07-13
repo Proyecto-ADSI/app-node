@@ -509,58 +509,6 @@ $(function () {
     PonerBarrios_Veredas(Id_Municipio, Id_SubTipo);
   });
 
-  // $("#btnLimpiar").click(function () {
-  //   LimpiarDetalleLinea();
-  // });
-
-  // $("#btnGuardarDetalleLineas").click(function () {
-  //   form.validate().settings.ignore = ":disabled,:hidden, .valDetalle";
-  //   if (form.valid()) {
-  //     $("#txtDetalleId").val() == "0"
-  //       ? RegistrarDetalleLinea()
-  //       : EditarDetalleLinea();
-
-  //     // Detalles líneas
-  //     DetalleServiciosMoviles();
-  //     // Editar linea
-  //     ObtenerDataLineasEditar();
-  //     // Eliminar línea.
-  //     EliminarDetalleLinea();
-  //   }
-  // });
-
-  // // Validación minutos ilimitados.
-  // $("input:checkbox[name=txtDetalle_Validacion_Ilimitados]").change(
-  //   function () {
-  //     if ($(this).is(":checked")) {
-  //       $("#txtDetalle_Minutos").prop("disabled", true);
-  //     } else {
-  //       $("#txtDetalle_Minutos").prop("disabled", false);
-  //     }
-  //   }
-  // );
-
-  // // Validación mensajes ilimitados.
-  // $("input:checkbox[name=txtDetalle_Validacion_SMSIlimitados]").change(
-  //   function () {
-  //     if ($(this).is(":checked")) {
-  //       $("#txtDetalle_Mensajes").prop("disabled", true);
-  //     } else {
-  //       $("#txtDetalle_Mensajes").prop("disabled", false);
-  //     }
-  //   }
-  // );
-
-  // // Validación minutos LDI
-  // $("#txtDetalleMinutosLDI").on("change", function (e) {
-  //   let minutosLDI = $("#txtDetalleMinutosLDI").val();
-  //   if (minutosLDI.length > 0) {
-  //     $("#txtDetalle_Cantidad_LDI").removeAttr("disabled");
-  //   } else {
-  //     $("#txtDetalle_Cantidad_LDI").attr("disabled", true);
-  //   }
-  // });
-
   // ************************************ Llenar formulario ********************************************************
   Id_Cliente = Informacion.Id_Cliente;
   Id_DBL = Informacion.Id_DBL;
@@ -643,8 +591,6 @@ $(function () {
   CargarOpcionesPredefinidas();
   let arrayRazones = getArrayString(Informacion.Razones);
   if (arrayRazones.length > 0) {
-    console.log(arrayRazones);
-    // $("#txtRazones").val(arrayRazones).trigger("change");
     for (let item of arrayRazones) {
       let data = {
         id: `${item}`,
@@ -652,7 +598,6 @@ $(function () {
       };
       let newOption = new Option(data.text, data.id, true, true);
       // Append it to the select
-      console.log("apennd 1");
       $("#txtRazones").append(newOption).trigger("change");
     }
   }
@@ -1457,10 +1402,10 @@ let CargarOpcionesPredefinidas = () => {
             let newOption = new Option(data.text, data.id, false, false);
             $("#txtRazones").append(newOption).trigger("change");
           }
-        } else if (item.Categoria == "Redes Sociales") {
+        } else if (item.Categoria == "Servicios ilimitados") {
           let newOption = new Option(data.text, data.id, false, false);
           $("#txtDetallle_Redes_Sociales").append(newOption).trigger("change");
-        } else if (item.Categoria == "Servicios Adicionales") {
+        } else if (item.Categoria == "Servicios adicionales") {
           let newOption = new Option(data.text, data.id, false, false);
           $("#txtDetalle_Servicios_Adicionales")
             .append(newOption)

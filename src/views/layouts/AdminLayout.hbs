@@ -86,8 +86,8 @@
     {{/if}}
 
     {{#if Agenda_Citas}}
-    <script src="/controladores-ajax/Citas/ListarCitasSinAsignar.js"></script>
     <script src="/controladores-ajax/Citas/Calendario.js"></script>
+    <script src="/controladores-ajax/Citas/ListarCitasSinAsignar.js"></script>
     {{/if}}
 
     {{!-- Llamadas --}}
@@ -103,6 +103,8 @@
     <!-- Direccion -->
     <script src="/js/Direccion.js"></script>
     <script src="/controladores-ajax/Llamadas/RegistrarLlamadaNP.js"></script>
+    <script src="/controladores-ajax/Llamadas/CRUD_OfertaEstandar.js"></script>
+    <script src="/controladores-ajax/Llamadas/CRUD_OfertaPersonalizada.js"></script>
     <script src="/js/DetalleServicios.js"></script>
     <script src="/controladores-ajax/Clientes/DetallesCliente.js"></script>
     {{/if}}
@@ -173,7 +175,6 @@
     <!-- Ajax Operadores -->
     <script src="/controladores-ajax/PanelControl/Operadores/RegistrarOperador.js"></script>
     <script src="/controladores-ajax/PanelControl/Operadores/ListarOperador.js"></script>
-    <script src="/controladores-ajax/PanelControl/Operadores/ObtenerOperador.js"></script>
     <script src="/controladores-ajax/PanelControl/Operadores/EditarOperador.js"></script>
     <script src="/controladores-ajax/PanelControl/Operadores/EliminarOperadores.js"></script>
 
@@ -205,10 +206,8 @@
     <!--Ajax OpcionesPredefinidas-->
     <script src="/controladores-ajax/PanelControl/OpcionesPredefinidas/RegistrarOpcionesPredefinidas.js"></script>
     <script src="/controladores-ajax/PanelControl/OpcionesPredefinidas/ListarOpcionesPredefinidas.js"></script>
-    <script src="/controladores-ajax/PanelControl/OpcionesPredefinidas/ObtenerOpcionesPredefinidas.js"></script>
     <script src="/controladores-ajax/PanelControl/OpcionesPredefinidas/EditarOpcionesPredefinidas.js"></script>
     <script src="/controladores-ajax/PanelControl/OpcionesPredefinidas/EliminarOpcionesPredefinidas.js"></script>
-    |
     {{/if}}
 </body>
 

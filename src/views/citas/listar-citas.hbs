@@ -1,110 +1,110 @@
-        <div class="card">
-            <div class="card-header MyStyle_Card_Header">
-                <div class="row">
-                    <div class="col-md-10">
-                        <h4 class="m-b-0 text-white">Lista de citas:</h4>
-                    </div>              
-                </div>
+<div class="card">
+    <div class="card-header MyStyle_Card_Header">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="m-b-0 text-white">Lista de citas:</h4>
             </div>
-            <div class="card-body">
+        </div>
+    </div>
+    <div class="card-body">
 
-                  <div class="card MyStyle_Card_Filtro card-outline-info">
+        <div class="card MyStyle_Card_Filtro card-outline-info">
             <div class="card-header">
                 <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
             </div>
             <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                                <div class="example">
-                                    <label class="m-t-30">Empresa cita</label>
-                                    <input type="text" class="form-control" id="Empresa-Cita" placeholder="Empresa">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Empresa cita</label>
+                            <input type="text" class="form-control" id="Empresa-Cita" placeholder="Empresa">
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="example">
+                            <label class="m-t-30">Fecha cita</label>
+                            <div class="input-daterange input-group" id="Fecha-Cita">
+                                <span class="input-group-addon">Inicio</span>
+                                <input type="text" class="input-sm form-control" id="Fecha-Cita-Inicio"
+                                    placeholder="dd/mm/yyyy" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Hora cita</label>
+                            <div class="input-group clockpicker" data-placement="bottom" data-align="top"
+                                data-autoclose="true">
+                                <div class="input-group-append"><span class="input-group-text"><i
+                                            class="fa fa-clock-o"></i></span>
                                 </div>
-                            </div>
-                        <div class="col-md-7">
-                            <div class="example">
-                                <label class="m-t-30">Fecha cita</label>
-                                 <div class="input-daterange input-group" id="Fecha-Cita">
-                                        <span class="input-group-addon">Inicio</span>
-                                        <input type="text" class="input-sm form-control" 
-                                            id="Fecha-Cita-Inicio" placeholder="dd/mm/yyyy" />
-                                    </div>
+                                <input type="text" id="Hora-Cita-Filtro" class="form-control" placeholder="Hora">
+
                             </div>
                         </div>
                     </div>
-                    <div class="row">  
-                           <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Hora cita</label>
-                                 <div class="input-group clockpicker" data-placement="bottom"
-                                 data-align="top" data-autoclose="true">
-                                  <div class="input-group-append"><span class="input-group-text"><i
-                                class="fa fa-clock-o"></i></span>
-                              </div>
-                                <input type="text" id="Hora-Cita-Filtro" class="form-control"    placeholder="Hora">
-                                
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Operador cita</label>
-                                <input class="form-control" type="text" id="Cita-Operador-Filtro"
-                                 placeholder="Operador">
-                            </div>
-                        </div>
-                          <div class="col-md-4">
-                            <div class="example">
-                                <label class="m-t-30">Estado cita</label>
-                                <input class="form-control" type="text" id="Cita-Estado-Filtro"
-                                 placeholder="Estado">
-                            </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Operador cita</label>
+                            <input class="form-control" type="text" id="Cita-Operador-Filtro" placeholder="Operador">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                                <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-info">
-                                    Limpiar filtro avanzado <i class="fa fa-trash"></i></button>
-                            </div>
+                    <div class="col-md-4">
+                        <div class="example">
+                            <label class="m-t-30">Estado cita</label>
+                            <input class="form-control" type="text" id="Cita-Estado-Filtro" placeholder="Estado">
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
+                            <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-info">
+                                Limpiar filtro avanzado <i class="fa fa-trash"></i></button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-             
 
-                <!--************** DataTable ***************************** -->
 
-                <div class="table-responsive">
-                    <table id="CitasDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
-                       <thead>
-                            <tr>
-                                <th><i class="fa fa-check-circle"></i></th>
-                                <th><i class="fa fa-building-o"></i> Empresa</th>
-                                <th><i class="fa fa-phone-square"></i> Operador</th>
-                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
-                                <th><i class="fa fa-clock-o"></i> Hora</th>
-                                <th><i class="fa fa-list-ul"></i> Estado</th>
-                                <th class="MyStyle_Table_Opciones"><i class="fa fa-sliders"></i> Opciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <div class="form-group m-t-30">
-                    <button type="button" class="btn btn-info mr-3" id="BtnReporte1"  title="Agregar citas a reporte"><i class="fa  fa-file-pdf-o"></i> Citas en reporte</button>
+        <!--************** DataTable ***************************** -->
 
-                     <button type="button" class="btn btn-danger" id="BtnInterna" title="Agregar citas a internas"><i class="fa  fa-calendar"></i> Citas internas</button>             
-                </div>
-                
-                </div>
+        <div class="table-responsive">
+            <table id="CitasDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-check-circle"></i></th>
+                        <th><i class="fa fa-building-o"></i> Empresa</th>
+                        <th><i class="fa fa-phone-square"></i> Operador</th>
+                        <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                        <th><i class="fa fa-clock-o"></i> Hora</th>
+                        <th><i class="fa fa-list-ul"></i> Estado</th>
+                        <th class="MyStyle_Table_Opciones"><i class="fa fa-sliders"></i> Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <div class="form-group m-t-30">
+                <button type="button" class="btn btn-info mr-3" id="BtnReporte1" title="Agregar citas a reporte"><i
+                        class="fa  fa-file-pdf-o"></i> Citas en reporte</button>
+
+                <button type="button" class="btn btn-danger" id="BtnInterna1" title="Agregar citas a internas"><i
+                        class="fa  fa-calendar"></i> Citas internas</button>
             </div>
+
         </div>
     </div>
 </div>
+</div>
+</div>
 <!--Modal reporte -->
-<div class="modal fade" id="ModalReporte" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
-    style="display: none;" id="myModal">
+<div class="modal fade" id="ModalReporte" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;" id="myModal">
     <div class="modal-dialog " style="max-width: 1000px">
         <div class="modal-content">
             <div class="modal-header">
@@ -113,10 +113,11 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="table-responsive">
-                    <table id="CitasReporteDataTable" class="table table-bordered table-striped MyStyle_Color-Table" style="width:965px;">
-                       <thead>
+                    <table id="CitasReporteDataTable" class="table table-bordered table-striped MyStyle_Color-Table"
+                        style="width:965px;">
+                        <thead>
                             <tr>
                                 <th><i class="fa fa-building-o"></i> Empresa</th>
                                 <th><i class="fa fa-phone-square"></i> Operador</th>
@@ -129,40 +130,78 @@
                         </tbody>
                     </table>
 
-                  <form id="FormAsesores">
-                     <div class="form-group m-t-30">
-                         <div class="form-group col-sm-3 m-t-30 float-right">
-                          <a type="button" class="btn btn-info float-right" target="_blank" id="DescargarPdf"><i class="fa fa-file-pdf-o"></i> Ver PDF</a>
-                        </div>
-                          <div class="form-group row col-md-4" style="left:-0.7rem;">
-                          <label>Asesores externos</label>
-                          <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text" id="basic-addon1">
-                                             <i class="ti-user"></i>
-                                                </span>
+                    <form id="FormAsesores">
+                        <div class="form-group m-t-30">
+                            <div class="form-group col-sm-3 m-t-30 float-right">
+                                <a type="button" class="btn btn-info float-right" target="_blank" id="DescargarPdf"><i
+                                        class="fa fa-file-pdf-o"></i> Ver PDF</a>
+                            </div>
+                            <div class="form-group row col-md-4" style="left:-0.7rem;">
+                                <label>Asesores externos</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="ti-user"></i>
+                                        </span>
                                     </div>
-                           <select id="SelectAsesorEx" class="custom-select form-control col-12" name="SelectAseExt">
+                                    <select id="SelectAsesorEx" class="custom-select form-control col-12"
+                                        name="SelectAseExt"></select>
                                 </div>
-                          </select> 
-                           
-                          </div>
-                </div>  
+                            </div>
+                        </div>
                 </div>
             </div>
 
-        <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-in"></i> Salir</button>
-                    <button type="submit" id="BtnReporte" class="btn btn-info">Asignar</button>
-                    </form>
-                </div>
-            </div>
-
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-in"></i>
+                    Salir</button>
+                <button type="submit" id="BtnReporte" class="btn btn-info">Asignar</button>
+                </form>
             </div>
         </div>
-        <!-- /.modal-content -->
+
     </div>
-    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal-content -->
+<!--Modal interna -->
+<div class="modal fade" id="ModalInterna" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;" id="myModal">
+    <div class="modal-dialog " style="max-width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                    Citas seleccionadas</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+
+                <div class="table-responsive">
+                    <table id="CitasInternaDataTable" class="table table-bordered table-striped MyStyle_Color-Table"
+                        style="width:965px;">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-building-o"></i> Empresa</th>
+                                <th><i class="fa fa-phone-square"></i> Operador</th>
+                                <th><i class="fa fa-calendar-o"></i> Fecha </th>
+                                <th><i class="fa fa-clock-o"></i> Hora</th>
+                                <th><i class="fa fa-list-ul"></i> Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-in"></i>
+                    Salir</button>
+                <button type="button" id="BtnInterna" class="btn btn-info">Agregar a interna</button>
+               
+            </div>
+        </div>
+
+    </div>
 </div>
 
 
@@ -182,8 +221,8 @@
                         <!-- Nav tabs -->
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="DateBasic" data-toggle="tab" href="#DatosBasicos" role="tab"><span
-                                        class="hidden-sm-up"><i class="ti-home"></i></span>
+                                <a class="nav-link active" id="DateBasic" data-toggle="tab" href="#DatosBasicos"
+                                    role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span>
                                     <span class="hidden-xs-down">
                                         Información contacto
                                     </span>
@@ -208,7 +247,7 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item" id="ReportVisit" >
+                            <li class="nav-item" id="ReportVisit">
                                 <a class="nav-link" data-toggle="tab" href="#ReporteCitaAsesor" role="start"><span
                                         class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">
@@ -216,15 +255,14 @@
                                     </span>
                                 </a>
                             </li>
-                              {{!-- <li class="nav-item" id="NovedadesLi" >
+                            <li class="nav-item" id="NovedadesLi">
                                 <a class="nav-link" data-toggle="tab" href="#Novedades-TabPane" role="start"><span
                                         class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">
                                         Novedades
                                     </span>
                                 </a>
-                            </li> --}}
-
+                            </li>
                         </ul>
 
 
@@ -249,7 +287,7 @@
                                                                 NIT:
                                                             </label>
                                                             <p class="form-control-static" id="Nit-Citas">
-                                                              
+
                                                             </p>
 
                                                         </div>
@@ -274,7 +312,7 @@
                                                                 Teléfono:
                                                             </label>
                                                             <p class="form-control-static" id="Telefono-Citas">
-                                                            
+
                                                             </p>
 
                                                         </div>
@@ -283,7 +321,7 @@
 
                                                 </div>
                                                 <!--/row-->
-            
+
                                                 <!--/row-->
                                                 <!-- /Row -->
                                             </div>
@@ -326,7 +364,7 @@
                                                                 :
                                                             </label>
                                                             <p class="form-control-static" id="DueñoEmpresa-Citas">
-                                                              
+
                                                             </p>
 
                                                         </div>
@@ -338,7 +376,7 @@
                                                                 Fecha llamada:
                                                             </label>
                                                             <p class="form-control-static" id="FechaLlamada-Citas">
-                                                               
+
                                                             </p>
                                                         </div>
                                                     </div>
@@ -356,7 +394,7 @@
                                                                 :
                                                             </label>
                                                             <p class="form-control-static" id="HoraLlamada-Cita">
-                                                             
+
                                                             </p>
 
                                                         </div>
@@ -370,7 +408,7 @@
                                                                 :
                                                             </label>
                                                             <p class="form-control-static" id="InfoHabeas-Citas">
-                                                                
+
                                                             </p>
 
                                                         </div>
@@ -383,7 +421,7 @@
                                                                 :
                                                             </label>
                                                             <p class="form-control-static" id="EstadoLlamada-Citas">
-                                                                
+
                                                             </p>
 
                                                         </div>
@@ -394,8 +432,9 @@
                                                                 Observación
                                                                 :
                                                             </label>
-                                                            <p class="form-control-static" id="ObservacionLlamada-Citas">
-                                                               
+                                                            <p class="form-control-static"
+                                                                id="ObservacionLlamada-Citas">
+
                                                             </p>
 
                                                         </div>
@@ -434,7 +473,7 @@
                                                                 Fecha cita:
                                                             </label>
                                                             <p class="form-control-static" id="Fecha-Citass">
-                                                               
+
                                                             </p>
 
                                                         </div>
@@ -447,7 +486,7 @@
                                                                 :
                                                             </label>
                                                             <p class="form-control-static" id="Hora-Cita">
-                                                               
+
                                                             </p>
 
                                                         </div>
@@ -459,7 +498,7 @@
                                                                 Departamento:
                                                             </label>
                                                             <p class="form-control-static" id="Departamento-Cita">
-                                                               
+
                                                             </p>
 
                                                         </div>
@@ -476,7 +515,7 @@
                                                                 Municipio:
                                                             </label>
                                                             <p class="form-control-static" id="Municipio-Cita">
-                                                               
+
                                                             </p>
 
                                                         </div>
@@ -488,7 +527,7 @@
                                                                 Barrio:
                                                             </label>
                                                             <p class="form-control-static" id="Barrio-Cita">
-                                                                
+
                                                             </p>
 
                                                         </div>
@@ -500,7 +539,7 @@
                                                                 Nomenclatura:
                                                             </label>
                                                             <p class="form-control-static" id="Direccion-Cita">
-                                                                
+
                                                             </p>
 
                                                         </div>
@@ -536,29 +575,29 @@
                                                                 Fecha visita:
                                                             </label>
                                                             <p class="form-control-static" id="Fecha-Visita">
-                                                                
+
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                     <div class="col-md-4">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
                                                                 Tipo de venta:
                                                             </label>
                                                             <p class="form-control-static" id="TipoVenta-Citas">
-                                                                
+
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                     <div class="col-md-4">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
                                                                 Estado visita:
                                                             </label>
                                                             <p class="form-control-static" id="EstadoVisita-Citas">
-                                                                
+
                                                             </p>
                                                         </div>
                                                     </div>
@@ -571,7 +610,7 @@
                                                                 Asesor:
                                                             </label>
                                                             <p class="form-control-static" id="Asesor-Cita">
-                                                                
+
                                                             </p>
 
                                                         </div>
@@ -580,7 +619,7 @@
 
                                                 </div>
 
-                                     
+
 
 
 
@@ -598,47 +637,52 @@
                                 </div>
                             </div>
 
-                             {{!-- <div class="tab-pane" id="Novedades-TabPane" role="tabpanel">
+                            <div class="tab-pane" id="Novedades-TabPane" role="tabpanel">
                                 <div class="card MyStyle_Card_Detalle">
                                     <div class="card-body">
                                         <!-- Formulario -->
                                         <form class="form-horizontal" role="form">
                                             <div class="form-body">
                                                 <h3 class="box-title">
-                                                    Novedades
+                                                    Novedad
                                                 </h3>
                                                 <hr class="m-t-0 m-b-40">
                                                 <div class="row">
-                                                     <div class="col-md-4">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                Fecha de novedad:
+                                                                Fecha novedad:
                                                             </label>
-                                                            <p class="form-control-static" id="Fecha-Novedades">
-                                                                
+                                                            <p class="form-control-static" id="Fecha-Novedad">
+
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                      <div class="col-md-12">
+                                                    <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="control-label text-right">
-                                                                Descripción
-                                                                :
+                                                                Estado novedad:
                                                             </label>
-                                                            <p class="form-control-static" id="Novedades-Descripcion">
-                                                               
+                                                            <p class="form-control-static" id="Estado-Novedad">
+
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                    
-                                        
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Descripción novedad:
+                                                            </label>
+                                                            <p class="form-control-static" id="Descripcion-Novedad">
 
-                                     
+                                                            </p>
 
-
-
+                                                        </div>
+                                                    </div>
+                                                    <!--/col-->
+                                                </div>
                                                 <!--/row-->
 
                                                 <!--/row-->
@@ -651,9 +695,7 @@
                                         <!-- /Formulario -->
                                     </div>
                                 </div>
-                            </div> --}}
-
-
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -675,34 +717,40 @@
     <!-- /.modal-dialog -->
 </div>
 
-
-
-
-
-<div class="modal fade" data-backdrop="static" data-keyboard="false"  id="Novedades-Modal"  role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Novedades <i class="fa fa-info-circle"></i></h5>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form id="Novedades_Form">
-          <label for="message-text" class="col-form-label">Escribe tú novedad:</label>
-          <div class="form-group">
-               <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text" id="basic-addon1">
-                                             <i class="fa fa-info-circle"></i>
-                                                </span>
-                                    </div>
-            <textarea rows="4" cols="10" class="form-control" name="Novedadd" placeholder="Copiar descripción" id="Novedad"></textarea>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-info" id="Novedades-Enviar">Enviar</button>
-      </div>
-       </form>
-    </div>
-  </div>
+<!-- /.modal-content -->
 </div>
+<!-- /.modal-dialog -->
+</div>
+
+
+
+
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="Novedades-Modal" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Novedades <i class="fa fa-info-circle"></i></h5>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="Novedades_Form">
+                    <label for="message-text" class="col-form-label">Escribe tú novedad:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-info-circle"></i>
+                                </span>
+                            </div>
+                            <textarea rows="4" cols="10" class="form-control" name="Novedadd"
+                                placeholder="Copiar descripción" id="Novedad"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" id="Novedades-Enviar">Enviar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
