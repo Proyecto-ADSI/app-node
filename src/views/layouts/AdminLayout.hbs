@@ -117,10 +117,12 @@
 
 
     {{!-- Atención telefónica --}}
-    {{#if Llamadas}}
+    {{#if AtencionT}}
     <script src="/controladores-ajax/AtencionT/ListarAtencionT.js"></script>
-    {{/if}}
+    <script src="/controladores-ajax/AtencionT/DetallesAtencionT.js"></script>
 
+    {{/if}}
+    
     {{!-- Usuarios --}}
     {{#if Usuarios}}
     <script src="/controladores-ajax/Usuarios/ListarUsuarios.js"></script>
