@@ -552,7 +552,19 @@ let LimpiarDetalleLinea = () => {
   $("#txtDetalle_Cantidad_LDI").prop("disabled", true);
   $("#txtDetalle_Servicios_Ilimitados").val(null).trigger("change");
   $("#txtDetalle_Servicios_Adicionales").val(null).trigger("change");
+
+  EliminarClasesSuccessValidate("#txtDetalle_Cantidad_Lineas");
+  EliminarClasesSuccessValidate("#txtDetalle_Valor_Mensual");
+  EliminarClasesSuccessValidate("#txtDetalleNavegacion");
+  EliminarClasesSuccessValidate("#txtDetalle_Minutos");
+  EliminarClasesSuccessValidate("#txtDetalle_Mensajes");
+  EliminarClasesSuccessValidate("#txtDetalle_Cantidad_LDI");
 };
+
+let EliminarClasesSuccessValidate = (element) =>{
+  $(element).removeClass("form-control-success");
+  $(element).parents(".form-group").removeClass("has-success");
+} 
 
 let EliminarDetalleLinea = () => {
   $(document).on("click", "#DetallesLineasEliminar", function () {

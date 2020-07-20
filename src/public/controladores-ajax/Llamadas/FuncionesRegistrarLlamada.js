@@ -1082,7 +1082,7 @@ let RegistrarLlamada = () => {
   // Servicios Moviles
   let arrayLineas = [];
   let Cantidad_Total_Lineas = 0;
-  let Valor_Total_Mensual = 0;
+  let Valor_Total_Mensual = "0";
 
   if (localStorage.ServiciosMoviles) {
     let ServiciosFormateados = FormatearServiciosMoviles(
@@ -1161,7 +1161,7 @@ let RegistrarLlamada = () => {
         : parseInt($("#txtCalificacion").val()),
     Razones: stringRazones === "" ? null : stringRazones,
     Cantidad_Lineas: Cantidad_Total_Lineas,
-    Valor_Mensual: AgregarComas(Valor_Total_Mensual),
+    Valor_Mensual: Valor_Total_Mensual,
     ServiciosFijos: serviciosFijos,
     ServiciosMoviles: arrayLineas,
     Estado_DBL: 3,
@@ -1356,7 +1356,7 @@ let RegistrarLlamada = () => {
         value: parseInt($("input:radio[name='rbtnEnvioOferta']:checked").val()),
         enumerable: true,
       },
-      Estado_Pre_Oferta: {
+      Estado_Oferta: {
         value: 1,
         enumerable: true,
       },

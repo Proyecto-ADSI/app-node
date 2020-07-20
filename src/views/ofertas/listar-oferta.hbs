@@ -9,49 +9,56 @@
             </div>
             <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">NIT</label>
-                            <input type="text" class="form-control" id="Filtro_NIT">
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">NIT</label>
+                        <input type="text" class="form-control" id="Filtro_NIT">
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Razón social</label>
-                            <input class="form-control" type="text" id="Filtro_RazonSocial">
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Razón social</label>
+                        <input class="form-control" type="text" id="Filtro_RazonSocial">
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Fecha</label>
-                            <input class="form-control" type="text" id="Filtro_Fecha">
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Fecha</label>
+                        <input class="form-control" type="text" id="Filtro_Fecha">
+                    </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Operador</label>
+                        <select id="Filtro_Operador" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Usuario</label>
-                            <input class="form-control" type="text" id="Filtro_Usuario">
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Tipo pre oferta</label>
+                        <select id="Filtro_Tipo" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                            <option value="1">Estándar</option>
+                            <option value="2">Personalizada</option>
+                        </select>
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Medio de envío</label>
-                            <select name="txtCalificacion" id="Filtro_MedioE"
-                                class="select2 form-control custom-select valDetalle">
-                                <option selected disabled>Seleccione...</option>
-                                <option value="1">Correo</option>
-                                <option value="2">WhatsApp</option>
-                                <option value="3">Correo y WhatsApp</option>
-                            </select>
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Estado</label>
+                        <select id="Filtro_Estado" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                            <option value="1">Sin realizar</option>
+                            <option value="2">Aceptada</option>
+                            <option value="3">No contestada</option>
+                            <option value="4">Aceptada</option>
+                            <option value="5">Inválida</option>
+                        </select>
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Operador</label>
-                            <input class="form-control" type="text" id="Filtro_Operador">
-                        </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Usuario negociación</label>
+                        <select id="Filtro_Negociacion" style="width:100%">
+                            <option selected disabled value=""></option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="m-t-30">Usuario registro</label>
+                        <select id="Filtro_Registro" style="width:100%">
+                            <option selected disabled value=""></option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
@@ -65,15 +72,17 @@
             </div>
         </div>
         <div class="table-responsive m-t-40">
-            <table id="ATDataTable" class="table stylish-table MyStyle_Color-Table">
+            <table id="OfertaDataTable" class="table stylish-table MyStyle_Color-Table">
                 <thead>
                     <tr>
                         <th><i class="fa fa-address-card"></i> NIT</th>
                         <th><i class="fa fa-building-o"></i> Empresa</th>
-                        <th><i class="fa fa-clock-o"></i> Fecha </th>
-                        <th><i class="fa fa-user"></i> Usuario</th>
-                        <th><i class="fa fa-list-ul"></i> Medio envío</th>
+                        <th><i class="fa fa-clock-o"></i> Fecha registro</th>
                         <th><i class="mdi mdi-cellphone-android"></i> Operador</th>
+                        <th><i class="fa fa-list-ul"></i> Tipo</th>
+                        <th><i class="fa fa-list-ul"></i> Estado</th>
+                        <th><i class="fa fa-user"></i> Negociación</th>
+                        <th><i class="fa fa-user"></i> Registro</th>
                         <th><i class="fa fa-sliders"></i> Opciones</th>
                     </tr>
                 </thead>
@@ -84,14 +93,14 @@
     </div>
 </div>
 
-<!-- Detalles llamada -->
+<!-- Detalles oferta -->
 <div class="modal fade ModalDetalles" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true"
     style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                    Detalle atención telefónica</h4>
+                    Detalle oferta</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -119,7 +128,7 @@
                                 <a class="nav-link" data-toggle="tab" href="#AT" role="tab"><span
                                         class="hidden-sm-up"><i class="ti-email"></i></span>
                                     <span class="hidden-xs-down">
-                                        Atención telefónica
+                                        Registro
                                     </span>
                                 </a>
                             </li>
@@ -355,62 +364,43 @@
                             <!-- /Informaciòn Llamada -->
                             <div class="tab-pane" id="AT" role="tabpanel">
                                 <div class="card MyStyle_Card_Detalle">
-                                    <div class="card-body" id="Card-Body-Llamadas2-Modal">
-                                        <!-- Formulario -->
-                                        <form class="form-horizontal" role="form">
-                                            <div class="form-body">
-                                                <h3 class="box-title">
-                                                    Información atención telefónica
-                                                </h3>
-                                                <hr class="m-t-0 m-b-40">
-                                                <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="font-weight-bold text-right">
-                                                                Operador:
-                                                            </label>
-                                                            <p id="txtOperador_D" class="form-control-static">
+                                    <div id="TabRegistro" class="card-body">
+                                        <h3 class="box-title">
+                                            Información atención telefónica
+                                        </h3>
+                                        <hr class="m-t-0 m-b-40">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-right">
+                                                        Operador:
+                                                    </label>
+                                                    <p id="txtOperador_D" class="form-control-static">
 
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="font-weight-bold text-right">
-                                                                Medio de envío
-                                                            </label>
-                                                            <p id="txtMedioEnvio_D" class="form-control-static">
-
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label class="font-weight-bold text-right">
-                                                                Tiempo diseño de oferta
-                                                            </label>
-                                                            <p id="txtTiempoDO_D" class="form-control-static">
-
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                                    </p>
                                                 </div>
-                                                {{!-- <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="font-weight-bold text-right">
-                                                                Respuesta del cliente:
-                                                            </label>
-                                                            <p id="txtRespuestaCliente_D" class="form-control-static">
-
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </div> --}}
                                             </div>
-                                            <!-- Form-Body -->
-                                        </form>
-                                        <!-- /Formulario -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-right">
+                                                        Medio de envío
+                                                    </label>
+                                                    <p id="txtMedioEnvio_D" class="form-control-static">
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label class="font-weight-bold text-right">
+                                                        Tiempo diseño de oferta
+                                                    </label>
+                                                    <p id="txtTiempoDO_D" class="form-control-static">
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

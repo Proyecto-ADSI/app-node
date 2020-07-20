@@ -421,6 +421,7 @@ $(function () {
     placeholder: "Seleccione un empleado",
     language: "es",
     allowClear: true,
+    containerCssClass: "form-control custom-select",
     maximumInputLength: 20,
     ajax: {
       url: `${URL}/Empleados`,

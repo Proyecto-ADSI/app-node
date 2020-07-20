@@ -68,17 +68,18 @@
                 </div>
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Operador</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioOp" placeholder="Operador">
-                        </div>
+                        <label class="m-t-30">Operador</label>
+                        <select id="Filtro_Operador" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Coporativo</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioCorpo"
-                                placeholder="Corporativo">
-                        </div>
+                        <label class="m-t-30">Coporativo</label>
+                        <select id="Filtro-DirectorioCorpo" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
@@ -89,8 +90,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                            <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-info">
+                        <div class="form-group m-t-30">
+                            <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-verde">
                                 Limpiar filtro avanzado</button>
                         </div>
                     </div>

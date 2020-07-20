@@ -23,18 +23,21 @@ CargarDatosModalDetalles = (Informacion) => {
   $("#txtHabeasData_D").text(Informacion.Info_Habeas_Data);
   $("#txtEstado_D").text(Informacion.Estado_Llamada);
   $("#txtObservacion_D").text(Informacion.Observacion);
-  $("#txtOperador_D").text(Informacion.Nombre_Operador);
-  let texto = "";
-  if (Informacion.Medio_Envio == 1) {
-    texto = "Correo";
-  } else if (Informacion.Medio_Envio == 2) {
-    texto = "WhatsApp";
+
+  if (Informacion.Id_AT != null) {
+    $("#txtOperador_D").text(Informacion.Nombre_Operador_O);
+    let texto = "";
+    if (Informacion.Medio_Envio == 1) {
+      texto = "Correo";
+    } else if (Informacion.Medio_Envio == 2) {
+      texto = "WhatsApp";
+    } else {
+      texto = "Correo y WhatsApp";
+    }
+    $("#txtMedioEnvio_D").text(texto);
+    $("#txtTiempoDO_D").text(Informacion.Tiempo_Post_Llamada);
   } else {
-    texto = "Correo y WhatsApp";
   }
-  $("#txtMedioEnvio_D").text(texto);
-  $("#txtTiempoDO_D").text(Informacion.Tiempo_Post_Llamada);
-  // $("#txtRespuestaCliente_D").text(Informacion.Respuesta_Cliente);
 
   // Mostrar Modal con formulario para editar
   $(".ModalDetalles").modal("show");

@@ -184,6 +184,32 @@ $(function () {
   InicializarToltips();
   // Importar archivo de clientes.
   $("#archivoClientes").dropify();
+
+  // Inicializar filtros
+  $("#Filtro_Operador").select2({
+    placeholder: "Seleccione un operador...",
+    allowClear: true,
+    containerCssClass: "form-control custom-select",
+    minimumInputLength: 2,
+    ajax: {
+      url: `${URL}/Empleados`,
+      dataType: "json",
+      delay: 250,
+      type: "get",
+      data: function (params) {
+        var query = {
+          texto: params.term,
+        };
+        return query;
+      },
+      processResults: function (respuesta) {
+        return {
+          results: respuesta.data.results,
+        };
+      },
+      cache: true,
+    },
+  });
 });
 
 // Cargar Modal
