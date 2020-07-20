@@ -189,3 +189,7 @@ $(document).on("click", "#btnDetalles", function () {
 //     let id_notificacion = parseInt($(this).attr("id_notificacion"));
 //     EliminarNotificacion(id_notificacion);
 //   });
+
+RecargarDataTable = () => {
+  DataTableAsignacion.ajax.reload();
+};

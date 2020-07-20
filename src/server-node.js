@@ -101,6 +101,9 @@ clientesSocket.on("connection", (socket) => {
   socket.on("Notificar", function () {
     socket.broadcast.emit("Notificar");
   });
+  socket.on("Asignacion", function () {
+    socket.broadcast.emit("Asignacion");
+  });
 });
 const usuariosSocket = io.of("/Usuarios");
 usuariosSocket.on("connection", (socket) => {

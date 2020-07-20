@@ -58,7 +58,7 @@ $(function () {
                 </div>
               `;
             } else {
-              return data;
+              return row.Id_Operador;
             }
           },
         },
@@ -88,6 +88,13 @@ $(function () {
         },
         {
           data: "Nombre_Municipio",
+          render: function (data, datatype, row) {
+            if (datatype === "display") {
+              return data;
+            } else {
+              return row.Id_Municipio;
+            }
+          },
         },
         {
           data: "Id_Cliente",
@@ -187,27 +194,80 @@ $(function () {
 
   // Inicializar filtros
   $("#Filtro_Operador").select2({
-    placeholder: "Seleccione un operador...",
+    width: '100%',
+    placeholder: "Ingrese operador y seleccione...",
     allowClear: true,
     containerCssClass: "form-control custom-select",
     minimumInputLength: 2,
-    ajax: {
-      url: `${URL}/Empleados`,
-      dataType: "json",
-      delay: 250,
-      type: "get",
-      data: function (params) {
-        var query = {
-          texto: params.term,
-        };
-        return query;
-      },
-      processResults: function (respuesta) {
-        return {
-          results: respuesta.data.results,
-        };
-      },
-      cache: true,
+    // ajax: {
+    //   url: function (params) {
+    //     return `${URL}/Operador/Filtro/` + params.term;
+    //   },
+    //   dataType: "json",
+    //   delay: 250,
+    //   type: "get",
+    //   cache: true,
+    //   processResults: function (respuesta) {
+    //     return {
+    //       results: respuesta.data,
+    //     };
+    //   },
+    // },
+    data: [],
+    query: function (query) {
+      let key = query.term;
+      let cacheKey = key + "_Operador";
+      if (typeof key === "undefined" || key == "") {
+        query.callback({ results: [] });
+        return;
+      }
+      let cachedData = window[cacheKey];
+      if (cachedData) {
+        query.callback({results: cachedData});
+        return;
+      } else {
+        $.ajax({
+          url: `${URL}/Operador/Filtro/` + key,
+          dataType: "json",
+          type: "GET",
+          success: function (res) {
+            window[cacheKey] = res.data;
+  
+            query.callback({results: res.data});
+          },
+        });
+      }
+    },
+  });
+
+  $("#Filtro_Municipio").select2({
+    width: '100%',
+    placeholder: "Ingrese municipio y seleccione...",
+    allowClear: true,
+    containerCssClass: "form-control custom-select",
+    data: [],
+    query: function (query) {
+      let key = query.term;
+      let cacheKey = key + "_Municipio";
+      if (typeof key === "undefined" || key == "") {
+        query.callback({ results: [] });
+        return;
+      }
+      let cachedData = window[cacheKey];
+      if (cachedData) {
+        query.callback({ results: cachedData });
+        return;
+      } else {
+        $.ajax({
+          url: `${URL}/Municipio/Filtro/` + key,
+          dataType: "json",
+          type: "GET",
+          success: function (res) {
+            window[cacheKey] = res.data;
+            query.callback({ results: res.data });
+          },
+        });
+      }
     },
   });
 });
@@ -283,14 +343,14 @@ $("#Filtro-DirectorioTele").on("keyup", function () {
   DataTable.columns(2).search(this.value).draw();
 });
 
-$("#Filtro-DirectorioOp").on("keyup", function () {
+$("#Filtro_Operador").on("change", function () {
   DataTable.columns(3).search(this.value).draw();
 });
 
-$("#Filtro-DirectorioCorpo").on("keyup", function () {
+$("#Filtro-DirectorioCorpo").on("change", function () {
   DataTable.columns(4).search(this.value).draw();
 });
-$("#Filtro-DirectorioMuni").on("keyup", function () {
+$("#Filtro_Municipio").on("change", function () {
   DataTable.columns(5).search(this.value).draw();
 });
 

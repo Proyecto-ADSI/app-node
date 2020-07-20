@@ -92,6 +92,7 @@ let RegistrarUsuario = (imagen) => {
     success: function (respuesta) {
       OcultarLoaderGeneral();
       if (respuesta.data.ok) {
+        clientesSocket.emit("Asignacion");
         swal({
           title: "Registro exitoso.",
           type: "success",

@@ -339,6 +339,7 @@ CargarDatosModalDetalles = (Informacion) => {
     $("#Menu_Comp").css("display", "none");
   }
   // Mostrar Modal
+  $("#Menu_Info").trigger("click");
   $(".ModalDetalles").modal("show");
 };
 

@@ -116,3 +116,7 @@ $(document).on("click", "#btnLlamar", function () {
   sessionStorage.ClientePrecargado = JSON.stringify(datosCliente);
   Redireccionar("/Llamadas/RegistrarP");
 });
+
+RecargarDataTable = () => {
+  DataTableAsignacionC.ajax.reload();
+};

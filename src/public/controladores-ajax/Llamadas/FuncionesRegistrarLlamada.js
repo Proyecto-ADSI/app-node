@@ -2808,31 +2808,6 @@ let ModificarConclusionLlamada = (valSelect) => {
   }
 };
 
-let FormatearFecha = (fecha, tiempo) => {
-  let fechaFormateada = null;
-  let fechaCitaInput = new Date(fecha);
-  let anio = fechaCitaInput.getFullYear();
-  let mes = fechaCitaInput.getMonth() + 1;
-  let dia = fechaCitaInput.getDate();
-
-  mes > 10 ? (mes = "0" + mes) : (mes = mes);
-  dia > 10 ? (dia = "0" + dia) : (dia = dia);
-
-  if (tiempo) {
-    let horas = fechaCitaInput.getHours();
-    let minutos = fechaCitaInput.getMinutes();
-
-    horas < 10 ? (horas = "0" + horas) : (horas = horas);
-    minutos < 10 ? (minutos = "0" + minutos) : (minutos = minutos);
-
-    fechaFormateada = `${anio}-${mes}-${dia} ${horas}:${minutos}:00`;
-  } else {
-    fechaFormateada = `${anio}-${mes}-${dia}`;
-  }
-
-  return fechaFormateada;
-};
-
 let ValidarBtnTerminarLlamada = () => {
   if (
     $(".switch_corporativo").bootstrapSwitch("state") == true ||
