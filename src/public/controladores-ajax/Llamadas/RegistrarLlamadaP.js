@@ -18,6 +18,7 @@ let InicializarFormP = () => {
           if (res.data.ok) {
             Informacion = res.data.info;
             CargarDatosFormulario(Informacion);
+            clientesSocket.emit("Asignacion");
           } else {
             location.href = Redireccionar("/Noticias");
           }

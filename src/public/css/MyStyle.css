@@ -193,8 +193,6 @@
   overflow: auto !important;
 }
 
-
-
 .btn_card_detalle {
   font-size: 12px;
   margin: 0 15%;
@@ -671,6 +669,18 @@
   color: #fff;
 }
 
-.cantidad_empresas{
+.cantidad_empresas {
   font-size: 18px !important;
+}
+
+.form-control > .select2-selection__arrow b {
+  display: none !important;
+}
+
+.form-control > .select2-selection__rendered {
+  padding-right: 5px !important;
+}
+
+.form-control > .select2-selection__rendered > .select2-selection__clear {
+  font-size: 21px;
 }

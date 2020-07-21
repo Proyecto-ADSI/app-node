@@ -71,6 +71,11 @@ router.get('/AtencionT',usuarioLogeado,(req,res)=>{
     res.render('atencion_tel/listar-atencion',{layout:'AdminLayout.hbs', AtencionT: true , session: req.session.datos_usuario })
 });
 
+// Oferta
+router.get('/Ofertas',usuarioLogeado,(req,res)=>{
+    res.render('ofertas/listar-oferta',{layout:'AdminLayout.hbs', Oferta: true , session: req.session.datos_usuario })
+});
+
 // Usuarios
 router.get('/Usuarios',usuarioLogeado,(req,res)=>{
     res.render('usuarios/listar-usuarios',{layout:'AdminLayout.hbs', Usuarios: true , session: req.session.datos_usuario })

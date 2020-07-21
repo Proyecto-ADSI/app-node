@@ -46,51 +46,47 @@
             </div>
             <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-4 form-group">
                         <div class="example">
-                            <label class="m-t-30">NIT</label>
+                            <label class="font-weight-bold">NIT</label>
                             <input type="text" class="form-control" id="Filtro-DirectorioNit" placeholder="Nit">
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Razón social</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioRazon"
-                                placeholder="Razón social">
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Razón social</label>
+                        <input class="form-control" type="text" id="Filtro-DirectorioRazon" placeholder="Razón social">
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Teléfono</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioTele" placeholder="Teléfono">
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Teléfono</label>
+                        <input class="form-control" type="text" id="Filtro-DirectorioTele" placeholder="Teléfono">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Operador</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioOp" placeholder="Operador">
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Operador</label>
+                        <select id="Filtro_Operador" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                        </select>
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Coporativo</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioCorpo"
-                                placeholder="Corporativo">
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Corporativo</label>
+                        <select id="Filtro-DirectorioCorpo" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione una opción...</option>
+                            <option value="Si">Si</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
-                    <div class="col-md-4">
-                        <div class="example">
-                            <label class="m-t-30">Municipio</label>
-                            <input class="form-control" type="text" id="Filtro-DirectorioMuni" placeholder="Municipio">
-                        </div>
+                    <div class="col-md-4 form-group">
+                        <label class="font-weight-bold">Municipio</label>
+                        <select id="Filtro_Municipio" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                        </select>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                            <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-info">
+                        <div class="form-group">
+                            <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-verde">
                                 Limpiar filtro avanzado</button>
                         </div>
                     </div>

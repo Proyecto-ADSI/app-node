@@ -1,3 +1,4 @@
+MostrarLoaderGeneral();
 // Iterador registrar línea.
 var id = 0;
 form = null;
@@ -215,15 +216,19 @@ $(function () {
         txtDetalle_Cantidad_Lineas: {
           required: true,
           maxlength: 3,
-          SoloNumeros: true,
+          SoloNumeros2: true,
           ValidarCantidadLineas: true,
         },
         txtDetalle_Valor_Mensual: {
           required: true,
           maxlength: 45,
-          SoloNumeros: true,
+          SoloNumeros2: true,
         },
         detalleLineasRadios: "required",
+        txtDetalleNavegacion: {
+          maxlength: 45,
+          SoloNumeros: true,
+        },
         txtDetalle_Minutos: {
           maxlength: 45,
           SoloNumeros: true,
@@ -407,6 +412,7 @@ let SubirDocumentos = () => {
 };
 
 let RegistrarCliente = (objDocumentos) => {
+  MostrarLoaderGeneral();
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
     let ValidacionDBL = false;
@@ -579,6 +585,7 @@ let RegistrarCliente = (objDocumentos) => {
           localStorage.removeItem("ServiciosMoviles");
           localStorage.removeItem("ServiciosFijos");
           clientesSocket.emit("Notificar");
+          OcultarLoaderGeneral();
           swal({
             title: "Registro exitoso.",
             type: "success",
@@ -623,9 +630,9 @@ let CargarDatosUbicacion = () => {
     datatype: "json",
     success: function (datos) {
       sessionStorage.DatosUbicacion = JSON.stringify(datos.data);
-
       CargarPaises(datos.data.Paises);
       CargarSubTipos(datos.data.Subtipos);
+      OcultarLoaderGeneral();
     },
     error: function (error) {
       console.log(error);
@@ -928,7 +935,7 @@ let CargarOpcionesPredefinidas = () => {
     datatype: "json",
     success: function (datos) {
       $("#txtRazones").empty();
-      $("#txtDetallle_Servicios_Ilimitados").empty();
+      $("#txtDetalle_Servicios_Ilimitados").empty();
       $("#txtDetalle_Servicios_Adicionales").empty();
       $("#txtDetalleMinutosLDI").empty();
 
@@ -941,7 +948,7 @@ let CargarOpcionesPredefinidas = () => {
         if (item.Categoria == "Operador") {
           $("#txtRazones").append(opcion);
         } else if (item.Categoria == "Servicios ilimitados") {
-          $("#txtDetallle_Servicios_Ilimitados").append(opcion);
+          $("#txtDetalle_Servicios_Ilimitados").append(opcion);
         } else if (item.Categoria == "Servicios adicionales") {
           $("#txtDetalle_Servicios_Adicionales").append(opcion);
         } else if (item.Categoria == "País LDI") {
@@ -959,7 +966,7 @@ let CargarOpcionesPredefinidas = () => {
         tags: true,
         tokenSeparators: [","],
       });
-      $("#txtDetallle_Servicios_Ilimitados").select2({
+      $("#txtDetalle_Servicios_Ilimitados").select2({
         multiple: true,
         tags: true,
         tokenSeparators: [","],

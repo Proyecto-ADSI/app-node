@@ -27,6 +27,8 @@ $(function () {
 });
 
 let ImportarClientes = () => {
+  $(".importarClientes").modal("hide");
+  MostrarLoaderGeneral();
   ObtenerSession().then((data) => {
     let Id_Usuario = parseInt(data.session.Id_Usuario);
 
@@ -41,16 +43,14 @@ let ImportarClientes = () => {
       contentType: false,
       processData: false,
       success: function (res) {
+        OcultarLoaderGeneral();
         if (res.data.Importacion) {
           if (res.data.Errores) {
             // Manipular errores de importación.
           } else {
             // Notificar
             clientesSocket.emit("Notificar");
-            $(".importarClientes").modal("hide");
-
             DataTable.ajax.reload();
-
             swal({
               title: "Importación de clientes satisfactoria.",
               type: "success",
@@ -63,8 +63,7 @@ let ImportarClientes = () => {
         } else {
           swal({
             title: "Error al importar clientes.",
-            text:
-              "Ha ocurrido un error al importar, revisa el archivo e intenta de nuevo",
+            text: res.data.Mensaje,
             type: "error",
             showCancelButton: false,
             confirmButtonColor: "#2F6885",
@@ -74,6 +73,7 @@ let ImportarClientes = () => {
         }
       },
       error: function (error) {
+        OcultarLoaderGeneral();
         console.log(error);
       },
     });

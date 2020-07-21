@@ -6,8 +6,14 @@ ObtenerSession().then((data) => {
       clientesSocket.on("Notificar", function () {
         GuardarNotificaciones(true, true);
       });
-      clientesSocket = io("/Usuarios");
-      clientesSocket.on("RecargarDataTableUsuarios", function () {
+      clientesSocket.on("Asignacion", function () {
+        let url = document.location;
+        if (url.pathname == "/App/Admin/Directorio/Asignacion") {
+          RecargarDataTable();
+        }
+      });
+      usuariosSocket = io("/Usuarios");
+      usuariosSocket.on("RecargarDataTableUsuarios", function () {
         RecargarDataTable();
       });
       citasSocket = io("/Citas");
@@ -20,6 +26,13 @@ ObtenerSession().then((data) => {
       clientesSocket.on("Notificar", function () {
         GuardarNotificaciones(true, true);
       });
+      clientesSocket.on("Asignacion", function () {
+        let url = document.location;
+        if (url.pathname == "/App/Coordinador/Directorio/Asignacion") {
+          RecargarDataTable();
+        }
+      });
+
       clientesSocket = io("/Usuarios");
       clientesSocket.on("RecargarDataTableUsuarios", function () {
         RecargarDataTable();
@@ -31,9 +44,15 @@ ObtenerSession().then((data) => {
       clientesSocket.on("Notificar", function () {
         GuardarNotificaciones(true, true);
       });
+      clientesSocket.on("Asignacion", function () {
+        let url = document.location;
+        if (url.pathname == "/App/ContactCenter/Directorio/Asignacion") {
+          RecargarDataTable();
+        }
+      });
+
       citasSocket = io("/Citas");
       citasSocket.on("ActualizarHorasCita", function (data) {
-        console.log(data);
         let url = document.location;
         if (url.pathname == "/App/ContactCenter/Llamadas/RegistrarP") {
           ActualizarHorasCitaSocket(data);

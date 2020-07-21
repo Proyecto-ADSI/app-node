@@ -46,8 +46,8 @@ let ValidarToken = (token) => {
           success: function (res) {
             if (res.data) {
               // Recargar data tables de usuarios
-              clientesSocket = io("/Usuarios");
-              clientesSocket.emit("RecargarDataTableUsuarios");
+              usuariosSocket = io("/Usuarios");
+              usuariosSocket.emit("RecargarDataTableUsuarios");
               swal({
                 title: "¡Correo validado!",
                 text:

@@ -92,6 +92,7 @@ let RegistrarUsuario = (imagen) => {
     success: function (respuesta) {
       OcultarLoaderGeneral();
       if (respuesta.data.ok) {
+        clientesSocket.emit("Asignacion");
         swal({
           title: "Registro exitoso.",
           type: "success",
@@ -421,6 +422,7 @@ $(function () {
     placeholder: "Seleccione un empleado",
     language: "es",
     allowClear: true,
+    containerCssClass: "form-control custom-select",
     maximumInputLength: 20,
     ajax: {
       url: `${URL}/Empleados`,

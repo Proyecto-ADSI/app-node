@@ -12,6 +12,7 @@ var id = 0;
 var form = null;
 
 $(function () {
+  MostrarLoaderGeneral();
   controlServicios = 2;
   var stepPlanCorp;
   var stepDoc;
@@ -28,13 +29,6 @@ $(function () {
       stepDoc = form.steps("getStep", 3);
       form.steps("remove", 2);
       form.steps("remove", 2);
-
-      // Inicializar selects del formulario
-      CargarDatosUbicacion();
-
-      if (sessionStorage.DetalleLineas) {
-        sessionStorage.removeItem("DetalleLineas");
-      }
     },
     onStepChanging: function (event, currentIndex, newIndex) {
       return (
@@ -57,9 +51,7 @@ $(function () {
       );
     },
     onFinished: function (event, currentIndex) {
-      if (sessionStorage.DatosUbicacion) {
-        sessionStorage.removeItem("DatosUbicacion");
-      }
+      MostrarLoaderGeneral();
       if (valDocSoporte) {
         SubirDocumentos();
       } else {
@@ -69,6 +61,15 @@ $(function () {
     },
   }),
     form.validate({
+      onkeyup: function (element) {
+        if (
+          element.id == "txtRazonSocial" ||
+          element.id == "txtTelefono" ||
+          element.id == "txtNIT"
+        ) {
+          return false;
+        }
+      },
       ignore: "input[type=hidden]",
       successClass: "text-success",
       errorClass: "form-control-feedback",
@@ -109,12 +110,64 @@ $(function () {
           minlength: 2,
           maxlength: 45,
           SoloAlfanumericos: true,
+          remote: function (element) {
+            let value = $(element).val().trim();
+            if (value.toLowerCase() == Razon_Social) {
+              $("#txtRazonSocial-error").remove();
+              return true;
+            }
+            let res = {
+              url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+              type: "get",
+              dataType: "json",
+              data: {
+                texto: function () {
+                  return $("#txtRazonSocial").val().trim();
+                },
+              },
+              dataFilter: function (res) {
+                var json = JSON.parse(res);
+                if (json.data.ok) {
+                  return '"true"';
+                } else {
+                  return '"Cliente ya registrado."';
+                }
+              },
+            };
+            return res;
+          },
         },
         txtTelefono: {
           required: true,
           SoloNumeros: true,
           minlength: 7,
           maxlength: 7,
+          remote: function (element) {
+            let value = $(element).val().trim();
+            if (value.toLowerCase() == Telefono) {
+              $("#txtTelefono-error").remove();
+              return true;
+            }
+            let res = {
+              url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+              type: "get",
+              dataType: "json",
+              data: {
+                texto: function () {
+                  return $("#txtTelefono").val().trim();
+                },
+              },
+              dataFilter: function (res) {
+                var json = JSON.parse(res);
+                if (json.data.ok) {
+                  return '"true"';
+                } else {
+                  return '"Teléfono ya registrado."';
+                }
+              },
+            };
+            return res;
+          },
         },
         txtExtension: {
           SoloNumeros: true,
@@ -125,6 +178,32 @@ $(function () {
           ValidarNIT: true,
           minlength: 9,
           maxlength: 11,
+          remote: function (element) {
+            let value = $(element).val().trim();
+            if (value.toLowerCase() == NIT_CDV) {
+              $("#txtNIT-error").remove();
+              return true;
+            }
+            let res = {
+              url: `${URL}/Cliente/ValidarCliente/Disponibilidad`,
+              type: "get",
+              dataType: "json",
+              data: {
+                texto: function () {
+                  return $("#txtNIT").val().trim();
+                },
+              },
+              dataFilter: function (res) {
+                var json = JSON.parse(res);
+                if (json.data.ok) {
+                  return '"true"';
+                } else {
+                  return '"NIT ya registrado."';
+                }
+              },
+            };
+            return res;
+          },
         },
         txtEncargado: {
           SoloLetras: true,
@@ -361,6 +440,10 @@ $(function () {
   Id_Cliente = Informacion.Id_Cliente;
   Id_DBL = Informacion.Id_DBL;
 
+  Razon_Social = Informacion.Razon_Social.toLowerCase();
+  Telefono = Informacion.Telefono;
+  NIT_CDV = Informacion.NIT_CDV;
+
   if (typeof Informacion.Id_Plan_Corporativo !== "undefined") {
     Id_Plan_Corporativo = parseInt(Informacion.Id_Plan_Corporativo);
   } else {
@@ -378,8 +461,8 @@ $(function () {
   $("#txtTelefono").val(Informacion.Telefono);
   let Extension = obtenerValueValidado(Informacion.Extension);
   $("#txtExtension").val(Extension);
-  let NIT_CDV = obtenerValueValidado(Informacion.NIT_CDV);
-  $("#txtNIT").val(NIT_CDV);
+  let NIT_CDVFormateado = obtenerValueValidado(Informacion.NIT_CDV);
+  $("#txtNIT").val(NIT_CDVFormateado);
   let Encargado = obtenerValueValidado(Informacion.Encargado);
   $("#txtEncargado").val(Encargado);
   let Correo = obtenerValueValidado(Informacion.Correo);
@@ -394,28 +477,16 @@ $(function () {
   }
 
   // Ubicación.
-  setTimeout(function () {
-    let DatosUbicacion = JSON.parse(sessionStorage.getItem("DatosUbicacion"));
-    CargarPaises(DatosUbicacion.Paises, Informacion.Id_Pais);
-    CargarDepartamentos(
-      DatosUbicacion.Departamentos,
-      Informacion.Id_Pais,
-      Informacion.Id_Departamento
-    );
-    CargarMunicipios(
-      DatosUbicacion.Municipios,
-      Informacion.Id_Departamento,
-      Informacion.Id_Municipio
-    );
-    CargarSubTipos(
-      DatosUbicacion.Subtipos,
-      Informacion.Id_SubTipo_Barrio_Vereda
-    );
-    CargarBarrios_Veredas(
-      DatosUbicacion.Barrios_Veredas,
-      Informacion.Id_Barrios_Veredas
-    );
-  }, 2000);
+  let ubicacion = {
+    Id_Pais: Informacion.Id_Pais,
+    Id_Departamento: Informacion.Id_Departamento,
+    Id_Municipio: Informacion.Id_Municipio,
+    Id_SubTipo_Barrio_Vereda: Informacion.Id_SubTipo_Barrio_Vereda,
+    Id_Barrios_Veredas: Informacion.Id_Barrios_Veredas,
+  };
+
+  CargarDatosUbicacion(ubicacion);
+
   let Direccion = obtenerValueValidado(Informacion.Direccion);
   $("#txtDireccion").val(Direccion);
 
@@ -503,11 +574,11 @@ $(function () {
   let CargarInformacionPlan = () => {
     $("#Fecha_Corporativo #txtFecha_inicio").datepicker(
       "setDate",
-      Informacion.Fecha_Inicio
+      FormatearFecha(Informacion.Fecha_Inicio)
     );
     $("#Fecha_Corporativo #txtFecha_fin").datepicker(
       "setDate",
-      Informacion.Fecha_Fin
+      FormatearFecha(Informacion.Fecha_Fin)
     );
   };
 
@@ -696,11 +767,11 @@ let EditarCliente = (objDocumentos) => {
     let ServiciosMoviles = JSON.parse(localStorage.ServiciosMoviles);
 
     for (let lineaItem of ServiciosMoviles) {
-      let redes = "";
-      if (lineaItem.redesSociales.length > 0) {
-        for (let red of lineaItem.redesSociales) {
-          redes = redes + red + ", ";
-          redes = redes.trim();
+      let serviciosIlimitados = "";
+      if (lineaItem.serviciosIlimitados.length > 0) {
+        for (let servicioI of lineaItem.serviciosIlimitados) {
+          serviciosIlimitados = serviciosIlimitados + servicioI + ", ";
+          serviciosIlimitados = serviciosIlimitados.trim();
         }
       }
 
@@ -730,7 +801,8 @@ let EditarCliente = (objDocumentos) => {
           minutos: lineaItem.minutos === "" ? null : lineaItem.minutos,
           navegacion: lineaItem.navegacion === "" ? null : lineaItem.navegacion,
           mensajes: lineaItem.mensajes === "" ? null : lineaItem.mensajes,
-          redes: redes === "" ? null : redes,
+          serviciosIlimitados:
+            serviciosIlimitados === "" ? null : serviciosIlimitados,
           minutosLDI: minLDI === "" ? null : minLDI,
           cantidadLDI: cantidadLDI === "" ? null : cantidadLDI,
           serviciosAdicionales:
@@ -881,9 +953,12 @@ let EditarCliente = (objDocumentos) => {
   })
     .done((respuesta) => {
       console.log(respuesta);
+      OcultarLoaderGeneral();
       if (respuesta.data.ok) {
         localStorage.removeItem("ServiciosMoviles");
         localStorage.removeItem("ServiciosFijos");
+        sessionStorage.removeItem("DatosEditarCliente");
+        sessionStorage.removeItem("DatosUbicacion");
         swal({
           title: "¡Cliente modificado correctamente!",
           type: "success",
@@ -906,6 +981,7 @@ let EditarCliente = (objDocumentos) => {
       }
     })
     .fail((error) => {
+      OcultarLoaderGeneral();
       swal({
         title: "Error al registrar.",
         text: "Ha ocurrido un error al registrar, intenta de nuevo",
@@ -915,11 +991,12 @@ let EditarCliente = (objDocumentos) => {
         confirmButtonText: "Continuar",
         closeOnConfirm: true,
       });
+      console.log(error);
     });
 };
 
 let CrearLineaSession = (lineaBD) => {
-  let redesSociales = getArrayString(lineaBD.Servicios_Ilimitados);
+  let serviciosIlimitados = getArrayString(lineaBD.Servicios_Ilimitados);
   let minutosLDI = getArrayString(lineaBD.Minutos_LDI);
   let serviciosAdicionales = getArrayString(lineaBD.Servicios_Adicionales);
 
@@ -947,7 +1024,7 @@ let CrearLineaSession = (lineaBD) => {
     navegacion: lineaBD.Navegacion,
     minutos: lineaBD.Minutos,
     mensajes: lineaBD.Mensajes,
-    redesSociales: redesSociales,
+    serviciosIlimitados: serviciosIlimitados,
     minutosLDI: minutosLDI,
     cantidadLDI: lineaBD.Cantidad_LDI,
     serviciosAdicionales: serviciosAdicionales,
@@ -956,13 +1033,21 @@ let CrearLineaSession = (lineaBD) => {
   return linea;
 };
 
-let CargarDatosUbicacion = () => {
+let CargarDatosUbicacion = (ubicacion) => {
   $.ajax({
     url: `${URL}/Cliente/Datos/Ubicacion`,
     type: "get",
     datatype: "json",
     success: function (datos) {
       sessionStorage.DatosUbicacion = JSON.stringify(datos.data);
+      CargarPaises(datos.data.Paises, ubicacion.Id_Pais);
+      CargarDepartamentos(datos.data.Departamentos, ubicacion.Id_Departamento);
+      CargarMunicipios(datos.data.Municipios, ubicacion.Id_Municipio);
+      CargarSubTipos(datos.data.Subtipos, ubicacion.Id_SubTipo_Barrio_Vereda);
+      CargarBarrios_Veredas(
+        datos.data.Barrios_Veredas,
+        ubicacion.Id_Barrios_Veredas
+      );
     },
     error: function (error) {
       console.log(error);
@@ -1254,6 +1339,7 @@ let CargarOpcionesPredefinidas = () => {
           $("#txtDetalleMinutosLDI").append(newOption).trigger("change");
         }
       }
+      OcultarLoaderGeneral();
     },
     error: function (error) {
       console.log(error);
