@@ -51,6 +51,15 @@ let MostrarLoaderGeneral = () => {
 let OcultarLoaderGeneral = () => {
   $("#modal_Loader_General").modal("hide");
 };
+
+let MostrarLoaderPuntos = () => {
+  $("#card-loading").addClass("show");
+};
+
+let OcultarLoaderPuntos = () => {
+  $("#card-loading").removeClass("show");
+};
+
 let MostrarLoaderLlamada = () => {
   $("#modal_Loader_Llamada").modal("show");
 };
@@ -58,7 +67,6 @@ let MostrarLoaderLlamada = () => {
 let OcultarLoaderLlamada = () => {
   $("#modal_Loader_Llamada").modal("hide");
 };
-
 
 let FormatearFecha = (fecha, tiempo) => {
   let fechaFormateada = null;
