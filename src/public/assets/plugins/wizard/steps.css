@@ -72,14 +72,14 @@ File: css
 }
 
 .wizard-content .wizard>.steps>ul>li.current>a {
-    color: #b5b5b5;
+    color: #00897b;
     cursor: default
 }
 
 .wizard-content .wizard>.steps>ul>li.current .step {
     border-color: #009efb ;
-    background-color: #333333;
-    color: #009efb 
+    /* background-color: #333333; */
+    /* color: #333333 !important;  */
 }
 
 .wizard-content .wizard>.steps>ul>li.disabled a,
@@ -236,8 +236,8 @@ File: css
     width: 50px;
     height: 50px;
     line-height: 45px;
-    border: 3px solid grey;
-    background-color: #333333;
+    border: 3px solid #00897b !important;
+    /* background-color: #333333; */
     font-size: 1.3rem;
     border-radius: 50%
 }

@@ -84,11 +84,20 @@
     <script src="/controladores-ajax/Graficas/Graficas.js"></script>
     {{/if}}
 
+     {{#if Visitas}}
+    <script src="/controladores-ajax/Visitas/ListarVisitas.js"></script>
+    <script src="/controladores-ajax/Visitas/DetallesVisitas.js"></script>
+    {{/if}}
+
+     {{#if Visitas_Registrar}}
+    <script src="/controladores-ajax/Visitas/RegistrarVisita.js"></script>
+    {{/if}}
 
     {{#if Llamada_NP}}
     <script src="/controladores-ajax/Citas/ListarCitas.js"></script>
     <script src="/controladores-ajax/Citas/DetallesCitas.js"></script>
     <script src="/controladores-ajax/Citas/CambiarEstados.js"></script>
+    <script src="/controladores-ajax/Citas/EditarCitas.js"></script>
     {{/if}}
 
     {{#if Agenda_Citas}}

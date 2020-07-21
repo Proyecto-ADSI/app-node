@@ -336,8 +336,8 @@
 }
 .wizard-content .wizard > .steps > ul > li.current .step {
   border-color: #00897b !important;
-  background-color: #333333 !important;
-  color: #00897b !important;
+  /* background-color: #333333 !important; */
+  /* color: #00897b !important; */
 }
 .wizard-content .wizard > .actions > ul > li > a {
   background: #00897b !important;

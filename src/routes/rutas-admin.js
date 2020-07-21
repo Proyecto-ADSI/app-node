@@ -56,6 +56,16 @@ router.get('/Agenda',usuarioLogeado,(req,res)=>{
     res.render('citas/agenda',{layout:'AdminLayout.hbs', Agenda_Citas: true , session: req.session.datos_usuario })
 });
 
+//Visitas
+router.get('/Visitas',usuarioLogeado,(req,res)=>{
+    res.render('visitas/listar-visitas',{layout:'AdminLayout.hbs', Visitas: true , session: req.session.datos_usuario })
+});
+
+router.get('/Visitas/RegistrarVI',usuarioLogeado,(req,res)=>{
+    res.render('visitas/registrar-visitas',{layout:'AdminLayout.hbs', Visitas_Registrar: true , session: req.session.datos_usuario })
+});
+
+
 // Atención telefónica
 router.get('/AtencionT',usuarioLogeado,(req,res)=>{
     res.render('atencion_tel/listar-atencion',{layout:'AdminLayout.hbs', AtencionT: true , session: req.session.datos_usuario })

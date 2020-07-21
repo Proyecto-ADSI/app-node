@@ -130,7 +130,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"  id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
@@ -146,7 +146,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
                     <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
               </div>
@@ -163,7 +163,7 @@ $(function () {
           <div class="btn-group">
             <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
                 <div class="dropdown-menu animated rubberBand">
-                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
+                    <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
@@ -178,7 +178,7 @@ $(function () {
           <div class="btn-group">
           <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
               <div class="dropdown-menu animated rubberBand">
-                  <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"><i class="fa fa-edit"></i> Editar cita</a>
+                  <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                   <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
                   <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválidar</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
@@ -659,6 +659,15 @@ $("#BtnInterna").on("click", function () {
         confirmButtonText: "Ok",
       });
     } else {
+      swal({
+        title: "¿Desea cambiar estado a las citas?",
+        text: "Las citas seleccionadas cambiaran de estado",
+        type: "info",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, function () {
+        setTimeout(function () {  
        let ArrayCitasId = [];
 
       GuardarFilaSeleccionada.forEach((element) => {
@@ -680,7 +689,9 @@ $("#BtnInterna").on("click", function () {
         contentType: "application/json",
         data: JSON.stringify(ArrayCitasId),
         processData: false,
-        success: function (data) {  
+        success: function (data) { 
+          swal("Excelente", 
+            "Cambio de estado exitoso", "success"); 
           RecargarDataTable();
           GuardarFilaSeleccionada = [];
           DataTableInterna.clear().draw();
@@ -703,7 +714,9 @@ $("#BtnInterna").on("click", function () {
           confirmButtonText: "Ok",
         });
       });
-    }
+    }, 2000);
+    })
+  }
   });
 
 
@@ -841,9 +854,10 @@ $("#BtnReporte1").on('click', function(){
       if (element.Id_Estado_Cita == "4") {
         let Cita = {
           Id_Cita: parseInt(element.Id_Cita),
-          Estado: 5,
+          Estado_Cita: 5,
           TipoVisita:1,
           Id_Asesor_Externoo:parseInt($("#SelectAsesorEx option:selected").val()),
+          Id_Estado_Visitaa:1
         };
         ArrayCitasId.push(Cita);
       } 

@@ -6,12 +6,11 @@
             </div>
         </div>
     </div>
-    <div class="card-body">
-
-        <div class="card MyStyle_Card_Filtro card-outline-info">
-            <div class="card-header">
+    <div class="card-body" id="Card-Body-Directorio">
+       <div class="card">
+        <div class="card-header MyStyle_Card_Header">
                 <h4 class="m-b-0 text-white">Filtro avanzado :</h4>
-            </div>
+        </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
@@ -67,7 +66,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+    </div>
 
 
 
@@ -723,6 +722,151 @@
 </div>
 
 
+  <div class="modal fade ModalEditarCitas" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" style="display: none;" id="myModal">
+    <div class="modal-dialog " style="max-width: 1000px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myLargeModalLabel">
+                    Editar citas <i class="fa fa-pencil-square"></i></h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <form id="EditarCitas_Form">
+                <div class="row">
+                    <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Encargado cita:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-address-book"></i>
+                                </span>
+                            </div>
+                            
+                            <input type="text" name="Encargado_Cita" id="Encargado_Cita" placeholder="Encargado" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Telefono emergente:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-phone-square"></i>
+                                </span>
+                            </div>
+                            
+                            <input type="text" name="Ext_Tel_Contacto_Cita" id="Ext_Tel_Contacto_Cita" placeholder="3892843" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                                    <label for="location1" class="col-form-label"> Representante legal
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                     <div class="form-group">
+                                    <div id="switchCitas1" class="switch">
+                                        <label>
+                                            <strong> NO</strong>
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                            <strong>SI</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                                </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Fecha cita:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-calendar-o"></i>
+                                </span>
+                            </div>
+                            
+                            <input type="text" name="Fecha_Cita" id="Fecha_Cita" placeholder="00/00/00" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Dirección</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="mdi mdi-map-marker"></i>
+                                </span>
+                            </div>
+                            
+                            <input type="text" class="form-control" id="txtDireccion" name="txtDireccion"
+                                        readonly data-toggle="modal" data-target="#modalDireccion"
+                                        placeholder="Dirección">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Barrios o veredas:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-road"></i>
+                                </span>
+                            </div>
+                            
+                            <select class="custom-select"  id="EditCitas_Barrios_Veredas" name="Barrios_Veredas">
+                            </select> 
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Lugar referencia:</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="mdi mdi-map-marker"></i>
+                                </span>
+                            </div>
+                            
+                            <input type="text" name="Lugar_Referencia" id="Lugar_Referencia" placeholder="Poblado" class="form-control">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="message-text" class="col-form-label">Operador</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">
+                                    <i class="fa fa-phone-square"></i>
+                                </span>
+                            </div>
+                            
+                             <select class="custom-select" name="Operadores_EditCit" id="Operadores_EditCit">
+                            </select> 
+                        </div>
+                    </div>
+                  </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-info" id="Editar_Cita">Editar <i class="fa fa-pencil-square"></i></button></button>
+                    </div>
+                </form>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
 
 
 <div class="modal fade" data-backdrop="static" data-keyboard="false" id="Novedades-Modal" role="dialog"
@@ -754,3 +898,6 @@
             </div>
         </div>
     </div>
+</div>
+
+{{>direccion}}

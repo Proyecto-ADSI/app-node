@@ -102,12 +102,9 @@ $(function(){
         <h4>Operadores</h4>
         </div> `
                       
-                      );
-
-        // let MinutosAdd = new Date(respuesta.data.TiempoFin.Duracion_Cita)
-        // let MinutosAdd = respuesta.data.TiempoFin.Duracion_Cita
-
+                      );        
         respuesta.data.OperadoresCitas.forEach(element => {
+
           $("#List-Operadores").append(
            
             `<div class="MyStyle_Calentar_List">
@@ -117,13 +114,14 @@ $(function(){
                           );
         });
 
-        respuesta.data.VisitasSinFin.forEach(element => {
+        respuesta.data.Visitas.forEach(element => {
 
             if (element.Tipo_Visita == 0) {
                 Calendar.addEvent({
                     id: element.Id_Visita,
                     title: element.Razon_Social,
                     start: element.Fecha_Cita,
+                    end: element.Fecha_Fin_Cita,
                     allDay: false,
                     color: element.Color,
                     className: ["event", "Interno_Event"],
@@ -166,6 +164,7 @@ $(function(){
                     id: element.Id_Visita,
                     title: element.Razon_Social,
                     start: element.Fecha_Cita,
+                    end: element.Fecha_Fin_Cita,
                     allDay: false,
                     color: element.Color,
                     className: ["event", "Externo_Event"],

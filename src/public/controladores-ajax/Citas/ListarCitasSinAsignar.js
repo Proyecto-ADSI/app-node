@@ -152,12 +152,6 @@ $("#SinAsignar").on('click', function(){
     });
   })
     
-  //  $("#SelectAsesorIn").on('change', function(){
-
-  //    var value = $('select[name="SelectAseInter"] option:selected').text()
-  //    $('#SinAsignarDataTable .selected').find('td:eq(4)').html(value);
-  //  })
-  
   let AsignarCitasInternas = () => {
 
     if (Object.entries(GuardarCitasSinAsignar).length === 0) {
@@ -173,9 +167,10 @@ $("#SinAsignar").on('click', function(){
         if (element.Id_Estado_Cita == "6") {
           let CitaInt = {
             Id_Cita: parseInt(element.Id_Cita),
-            Estado: 7,
+            Estado_Cita: 7,
             TipoVisita:0,
             Id_Asesor_Interno:parseInt($("#SelectAsesorIn option:selected").val()),
+            Id_Estado_Visitaa:1
           };
           ArrayCitasInterId.push(CitaInt);
         } 
@@ -198,21 +193,18 @@ $("#SinAsignar").on('click', function(){
         data: JSON.stringify(ArrayCitasInterId),
         processData: false,
         success: function (data) { 
-            swal(
-              {
-                title: "Perfecto",
-                text: "Citas asignadas exitosamente",
-                type: "success",
-                showCancelButton: false,
-                confirmButtonClass: "btn-info",
-                confirmButtonText: "Ok",
-                closeOnConfirm: true,
-              },
-            );
+          swal({
+            title: "Excelente",
+            text: "Cambio de estado exitoso y se asignaron las citas como internas",
+            type: "success",
+            confirmButtonClass: "btn-success",
+            confirmButtonText: "Ok",
+          },
+          function(){
+            window.location.reload()
+          });
          $("#ModalSinAsignar").modal("hide")  
          RecargarDataTableSinAsignar();
-        //  ListarVisitas()
-       
          $("#SelectAsesorIn").val("disabled");
           GuardarCitasSinAsignar = [];
         },
