@@ -92,3 +92,45 @@ let FormatearFecha = (fecha, tiempo) => {
 
   return fechaFormateada;
 };
+
+let getArrayString = (string) => {
+  let regex = /("[^"]*"|[^,]*),/g;
+  let arrayString = string.match(regex);
+
+  let arrayStringFormatiado = [];
+
+  for (let string of arrayString) {
+    if (string !== ",") {
+      let nuevoString = string.trim();
+      nuevoString = nuevoString.replace(/,/g, "");
+      arrayStringFormatiado.push(nuevoString);
+    }
+  }
+
+  return arrayStringFormatiado;
+};
+
+let getStringMinutosLDI = (arrayMinutos, cantidadLDI) => {
+  let Paises_MLDI = "";
+  for (let itemMinutos of arrayMinutos) {
+    if (Paises_MLDI == "") {
+      Paises_MLDI = itemMinutos;
+    } else {
+      Paises_MLDI = Paises_MLDI + ", " + itemMinutos;
+    }
+  }
+  let Minutos_LDI = Paises_MLDI + " (" + cantidadLDI + " min)";
+  return Minutos_LDI;
+};
+
+let getItemsLabel = (arrayItems,color) =>{
+  let divLista = "";
+  for (let item of arrayItems) {
+    let div = `
+    <div class="label label-table text-center" style="background-color:${color}; color:#fff">
+        ${item}
+    </div>`;
+    divLista = divLista + div;
+  }
+  return divLista;
+}
