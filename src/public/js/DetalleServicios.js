@@ -1001,23 +1001,6 @@ let ValidarBtnServicosFijos = () => {
   }
 };
 
-let getArrayString = (string) => {
-  let regex = /("[^"]*"|[^,]*),/g;
-  let arrayString = string.match(regex);
-
-  let arrayStringFormatiado = [];
-
-  for (let string of arrayString) {
-    if (string !== ",") {
-      let nuevoString = string.trim();
-      nuevoString = nuevoString.replace(/,/g, "");
-      arrayStringFormatiado.push(nuevoString);
-    }
-  }
-
-  return arrayStringFormatiado;
-};
-
 // Alertas Toast
 let EnlazarClickAdvertencias = () => {
   $(".bootstrap-switch-label").click(function () {

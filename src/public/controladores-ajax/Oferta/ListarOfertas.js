@@ -319,6 +319,12 @@ $(function () {
     });
   });
 
+  $("#tabOferta a").on("shown.bs.tab",function(){
+    if(typeof swipersOferta != "undefined"){
+      swipersOferta.update();
+    }
+  });
+
   // Habilitar los tooltips
   InicializarToltips();
 });
@@ -341,7 +347,6 @@ $(document).on("click", "#btnCambiarEstado", function () {
       Id_Oferta: data.Id_Oferta,
       Id_Estado: Id_Estado,
     };
-    console.log(dataCambioEstado);
     $.ajax({
       url: `${URL}/Ofertas`,
       type: "patch",

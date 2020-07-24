@@ -1449,7 +1449,7 @@ let RegistrarLlamada = () => {
       });
     }
   }
-  console.log(datos);
+  // console.log(datos);
   $.ajax({
     url: `${URL}/Llamadas`,
     dataType: "json",
@@ -2019,54 +2019,28 @@ let ModalPrevisualizarOferta = (tipoOferta) => {
     let arrayServicios = JSON.parse(localStorage.ServiciosMovilesOE);
     for (let item of arrayServicios) {
       Contador_Propuestas++;
-      let Paises_MLDI = "";
-      let Minutos_LDI;
+      let Minutos_LDI = NA;
       if (item.minutosLDI.length > 0) {
-        for (let itemMinutos of item.minutosLDI) {
-          if (Paises_MLDI == "") {
-            Paises_MLDI = itemMinutos;
-          } else {
-            Paises_MLDI = Paises_MLDI + ", " + itemMinutos;
-          }
-        }
-        Minutos_LDI = Paises_MLDI + " (" + item.cantidadLDI + " min)";
-      } else {
-        Minutos_LDI = "N/A";
+        Minutos_LDI = getStringMinutosLDI(item.minutosLDI,item.cantidadLDI);
       }
 
-      let ServiciosIlimitados = "";
+      let ServiciosIlimitados = NA;
       if (item.serviciosIlimitados.length > 0) {
-        for (let itemServicioI of item.serviciosIlimitados) {
-          let servicio = `
-          <div class="label label-table text-center" style="background-color:${Color_Operador_O}; color:#fff">
-              ${itemServicioI}
-          </div>`;
-          ServiciosIlimitados = ServiciosIlimitados + servicio;
-        }
-      } else {
-        ServiciosIlimitados = "N/A";
-      }
+        ServiciosIlimitados = getItemsLabel(item.serviciosIlimitados,Color_Operador_O);
+      } 
 
-      let ServiciosAdicionales = "";
+      let ServiciosAdicionales = NA;
       if (item.serviciosAdicionales.length > 0) {
-        for (let itemServicioA of item.serviciosAdicionales) {
-          let servicio = `
-          <div class="label label-table text-center" style="background-color:${Color_Operador_O}; color:#fff">
-              ${itemServicioA}
-          </div>`;
-          ServiciosAdicionales = ServiciosAdicionales + servicio;
-        }
-      } else {
-        ServiciosAdicionales = "N/A";
-      }
-
+        ServiciosAdicionales = getItemsLabel(item.serviciosAdicionales,Color_Operador_O);
+      } 
+      
       $("#ContenidoDinamico").append(`
         <div id="ContenidoPropuestas" class="row cardPropuesta">
 
         </div>
       `);
       $("#ContenidoPropuestas").append(` 
-      <div class="col-md-12 colPropuesta">
+        <div class="col-md-12 colPropuesta">
             <div class="card">
               <div class="card-header" style="background-color:${Color_Operador_O}; color:#fff">
                   <h4 class="tituloPropuesta">Propuesta ${Contador_Propuestas}</h4>
@@ -2554,21 +2528,21 @@ let ValidarExistenciaDatosOferta = () => {
 
 // Servicios móviles cliente swipers
 let ListarSwipers = () => {
-  $("#swipers").empty();
+  $("#swipersLlamada").empty();
   let arrayServiciosMoviles = JSON.parse(
     localStorage.getItem("ServiciosMoviles")
   );
   if (arrayServiciosMoviles.length > 0) {
-    $("#swipers").append(`
+    $("#swipersLlamada").append(`
     <div class="swiper-container">
-      <div id="lista_swipers" class="swiper-wrapper"></div>
+      <div id="lista_swipersLlamada" class="swiper-wrapper"></div>
       <div class="swiper-pagination"></div>
     </div>
   `);
     let contadorID = 0;
     for (let item of arrayServiciosMoviles) {
       contadorID++;
-      $("#lista_swipers").append(`
+      $("#lista_swipersLlamada").append(`
       <div class="swiper-slide">
         <div class="CardServicios">
             <div id="poster" class="poster">
