@@ -88,7 +88,10 @@ let DetallesCitass = (DetallesCitas) =>{
     $("#TipoVenta-Citas").html(DataCi.Tipo_Venta)
     $("#Asesor-Cita").html(DataCi.Nombre_Asesor)
 
-    if (DataCi.Estados_Visita == 1) {
+    if(DataCi.Estados_Visita == "N/A"){
+        $("#EstadoVisita-Citas").html("N/A")
+    }
+    else if (DataCi.Estados_Visita == 1) {
         $("#EstadoVisita-Citas").html("Sin realizar")
     } else if(DataCi.Estados_Visita == 2) {
         $("#EstadoVisita-Citas").html("En negociación")
