@@ -10,7 +10,6 @@ $("#CitasDataTable tbody").on("click", "#EditarCita", function () {
 
      $("#Encargado_Cita").val(Editar.Encargado_Cita)
      $("#Ext_Tel_Contacto_Cita").val(Editar.Ext_Tel_Contacto_Cita)
-     $("#Representante_Legal").val(Editar.Representante_Legal)
      $("#Fecha_Cita").val(Editar.Fecha_Cita)
      $("#txtDireccion").val(Editar.Direccion_Cita)
      $('#EditCitas_Barrios_Veredas').val(Editar.Id_Barrios_Veredas);
@@ -18,6 +17,11 @@ $("#CitasDataTable tbody").on("click", "#EditarCita", function () {
      $("#Operadores_EditCit").val(Editar.Id_Operador)
 
 
+    if (parseInt(Editar.Representante_Legal) == 1 ) {
+        $("#switchCitas1").children("label").children("input").trigger("click")
+        $("#switchCitas2").val(1)
+    }
+     
     //  Editar.Representante_Legal == 1 ? $("#switchCitas2").prop("checked", true)  
     //  : EditarCita.Representante_Legal == 0 , $("#switchCitas2").prop("checked", false)
 
@@ -73,17 +77,13 @@ let EditarCita = () =>{
         Id_Cita: Editar.Id_Cita,
         Encargado:  $("#Encargado_Cita").val(),
         Ext_Tel:   $("#Ext_Tel_Contacto_Cita").val(),
-        Representante:  parseInt($("#Representante_Legal").val()),
+        Representante: parseInt($("#switchCitas2").val()),
         Fecha_Cita:  $("#Fecha_Cita").val(),
         Direccion: $("#txtDireccion").val(),
         Id_Barrios_Vereda: parseInt($("#EditCitas_Barrios_Veredas  option:selected").val()),
         Lugar_Referencia:   $("#Lugar_Referencia").val(),
         Id_Operador: parseInt($("#Operadores_EditCit  option:selected").val())
     }
-
-    // let Test = switchCitas[0].checked ? 1 : 0
-
-    // console.log(Test)
 
     $.ajax({
         url: `${URL}/Citas/Editar`,
@@ -109,9 +109,6 @@ let EditarCita = () =>{
 
 
 $(function (){
-
-
-
     $("#EditarCitas_Form").validate({
         submitHandler: function(){
                 EditarCita();

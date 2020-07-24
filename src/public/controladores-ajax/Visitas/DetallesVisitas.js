@@ -24,4 +24,29 @@ let DetallesVisitas = (DetalleVisitas) =>{
     } else if(InfoVisitas.Id_Estado_Cita == "7") {
         $("#Estado_Cita_VI_V2").html("Asignada")
     }
+
+    //Informacion visita
+    $("#Fecha_Visita_VI").html(InfoVisitas.Fecha_Visita)
+    $("#TipoVenta_VI").html(InfoVisitas.Tipo_Venta)
+    $("#Calificacion_VI").html(InfoVisitas.Calificacion)
+    $("#AsesorCita_VI").html(InfoVisitas.Usuario)
+    $("#Observacion_VI").html(InfoVisitas.Observacion_Visita)
+    $("#Sugerencias_VI").html(InfoVisitas.Sugerencias)
+
+    if (InfoVisitas.Estado_Visita == "1") {
+        $("#EstadoVisita_VI").html("Sin realizar")
+    } else if(InfoVisitas.Estado_Visita == "2") {
+        $("#EstadoVisita_VI").html("En negociación")
+    }
+    else if(InfoVisitas.Estado_Visita == "3"){
+        $("#EstadoVisita_VI").html("Efectiva")
+    }
+    else if(InfoVisitas.Estado_Visita == "4"){
+        $("#EstadoVisita_VI").html("No efectiva")
+    }
+    else if(InfoVisitas.Estado_Visita == "5"){
+        $("#EstadoVisita_VI").html("Cancelada")
+    }
+  
+
 }

@@ -128,14 +128,14 @@ $(function () {
             return `
 
           <div class="btn-group">
-            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-                <div class="dropdown-menu animated rubberBand">
+            <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated flipInX" id='Action'>
                     <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas"  id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -144,15 +144,15 @@ $(function () {
             return `
 
           <div class="btn-group">
-            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-                <div class="dropdown-menu animated rubberBand">
+            <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated flipInX" id='Action'>
                     <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
                     <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
               </div>
               </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -161,14 +161,14 @@ $(function () {
             return `
 
           <div class="btn-group">
-            <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-                <div class="dropdown-menu animated rubberBand">
+            <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+                <div class="dropdown-menu animated flipInX" id='Action'>
                     <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                     <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
               </div>
               </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -176,8 +176,8 @@ $(function () {
           } else if (FullData.Estado_Cita == "Sin gestionar") {
             return `
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX" id='Action'>
                   <a class="dropdown-item" data-toggle="modal" data-target=".ModalEditarCitas" id="EditarCita"><i class="fa fa-edit"></i> Editar cita</a>
                   <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
                   <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválidar</a>
@@ -185,41 +185,22 @@ $(function () {
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
     `;
           }
-          //       else if (FullData.Estado_Cita == "No recordada") {
-          //         return `
-
-          //       <div class="btn-group">
-          //       <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-          //           <div class="dropdown-menu animated rubberBand">
-
-          //               <a class="dropdown-item"><i class="fa fa-phone-square"></i> Llamada <br>(No recordada)</a>
-          //               <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelada</a>
-
-          //         </div>
-          //         </div>
-
-          //      <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
-          //         data-target=".ModalDetalles">
-          //         <i class="fa  fa-eye"></i>
-          //     </button>
-          // `;
-          //       }
           else if (FullData.Estado_Cita == "Verificada") {
             return `
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
             </div>
             </div>
   
-         <button type="button"  id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button"  id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -227,15 +208,15 @@ $(function () {
           } else if (FullData.Estado_Cita == "Inválida") {
             return `
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='SinGestionar' class="dropdown-item"><i class="fa fa-phone-square"></i> Llamar</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
                   
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -244,8 +225,8 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
               <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválidar</a>
               <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
               <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
@@ -253,7 +234,7 @@ $(function () {
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -262,14 +243,14 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Realizada' class="dropdown-item"><i class="fa fa-star-half-o"></i> Realizar</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -278,13 +259,13 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -293,14 +274,14 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Desarrollo' class="dropdown-item"><i class="fa fa-handshake-o"></i> Atender</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -309,13 +290,13 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-primary dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -324,15 +305,15 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-primary dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Realizada' class="dropdown-item"><i class="fa fa-star-half-o"></i> Realizada</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
                   
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -341,15 +322,15 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
                   <a id='Reagendada' class="dropdown-item"><i class="fa fa-calendar"></i> Reagendar</a>
                   <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
                   
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -357,7 +338,7 @@ $(function () {
           } else if (FullData.Estado_Cita == "Realizada") {
             return `
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -366,8 +347,8 @@ $(function () {
             return `
 
           <div class="btn-group">
-          <button type="button" id='BtnOpciones' class="btn btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
-              <div class="dropdown-menu animated rubberBand">
+          <button type="button" id='BtnOpciones' class="btn btn-sm btn-info dropdown-toggle mr-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-spin fa-gear"></i></button>
+              <div class="dropdown-menu animated flipInX">
               <a id='Verificar' class="dropdown-item"><i class="fa fa-check-square-o"></i> Verificar</a>
               <a id='Invalida' class="dropdown-item"><i class="fa fa-frown-o"></i> Inválidar</a>
               <a id='Cancelada' class="dropdown-item"><i class="fa fa-times-rectangle"></i> Cancelar</a>
@@ -375,7 +356,7 @@ $(function () {
             </div>
             </div>
   
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -383,7 +364,7 @@ $(function () {
           } else if (FullData.Estado_Cita == "Cancelada") {
             return `
 
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -391,7 +372,7 @@ $(function () {
           } else if (FullData.Estado_Cita == "Cliente no agendó") {
             return `
 
-         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-warning"
+         <button type="button" id="BtnCitasDetalle" data-toggle="modal" class="btn btn-sm btn-primary"
             data-target=".ModalDetalles">
             <i class="fa  fa-eye"></i>
         </button>
@@ -501,7 +482,9 @@ $(function () {
 });
 
 let RecargarDataTable = () => {
-  DataTableCitas.ajax.reload();
+  DataTableCitas.ajax.reload(function(){
+      OcultarLoaderPuntos();
+  });
 };
 
 var Español = {
@@ -738,9 +721,9 @@ $("#BtnReporte1").on('click', function(){
         $("#SelectAsesorEx").append(`
         <option selected disabled value="">Seleccione un asesor</option>
             `);
-            respuesta.data.forEach(element => {
+            respuesta.data.results.forEach(element => {
               $("#SelectAsesorEx").append(`
-              <option value="${element.Id_Usuario}">${element.Usuario}</option>
+              <option value="${element.id}">${element.text}</option>
                   `);
             }); 
     }).fail(error =>{
@@ -927,7 +910,70 @@ $("#BtnReporte1").on('click', function(){
 });
 
   };
- 
+
+  // $("#Asesor_Ext").select2({
+  //   language: "es",
+  //   containerCssClass: "form-control custom-select",
+  //   maximumInputLength: 20,
+  //   ajax: {
+  //     url: `${URL}/Citas/Asesores/Externos`,
+  //     dataType: "json",
+  //     delay: 250,
+  //     type: "get",
+  //     data: function (params) {
+  //       var query = {
+  //         palabra: params.term,
+  //       };
+  //       console.log(query)
+  //       return query;
+       
+  //     },
+  //     processResults: function (respuesta) {
+  //       var data = {
+  //         results: respuesta.data.results
+  //       };
+
+  //       return data
+  //     },
+  //     cache: true,
+  //   },
+  //   placeholder: 'Search for a repository',
+  //   minimumInputLength: 1,
+  //   templateResult: formatRepo,
+  //   templateSelection: formatRepoSelection
+  // });
+  
+  // function formatRepo (repo) {
+  //   console.log(repo)
+  //   if (repo.loading) {
+  //     return repo.text;
+  //   }
+  
+  //   var $container = $(
+  //     "<div class='select2-result-repository clearfix'>" +
+  //     `<div class='select2-result-repository__avatar'><img src="${URL}/Images/Usuarios/${repo.Imagen}"/></div>` +
+  //       "<div class='select2-result-repository__meta'>" +
+  //         "<div class='select2-result-repository__title'></div>" +
+  //         "<div class='select2-result-repository__description'></div>" +
+  //         "<div class='select2-result-repository__statistics'>" +
+  //           "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> </div>" +
+  //           "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> </div>" +
+  //           "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> </div>" +
+  //         "</div>" +
+  //       "</div>" +
+  //     "</div>"
+  //   );
+  
+  //   $container.find(".select2-result-repository__title").text(repo.text);
+  //   $container.find(".select2-result-repository__description").text(repo.Rol);
+  
+  //   return $container;
+  // }
+  
+  // function formatRepoSelection (repo) {
+  //   return repo.text;
+  // }
+
   $(function (){
     $("#FormAsesores").validate({
         submitHandler: function(){

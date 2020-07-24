@@ -16,13 +16,20 @@
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Empresa</label>
-                            <input type="text" class="form-control" id="Empresa-VI" placeholder="Empresa">
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                    </div>
+                            <input type="text" class="form-control" id="Empresa_VI" placeholder="Empresa">
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Fecha visita</label>
-                            <div class="input-daterange input-group" id="Fecha-Visita">
+                            <div class="input-daterange input-group" id="Fecha_VI">
                                 <span class="input-group-addon">Inicio</span>
                                 <input type="text" class="input-sm form-control" id="Fecha-Cita-Inicio"
                                     placeholder="dd/mm/yyyy" />
@@ -33,7 +40,14 @@
                       <div class="col-md-4">
                          <div class="example">
                             <label class="m-t-30">Estado visita</label>
-                            <input type="text" class="form-control" id="Estado-VI" placeholder="Estado">
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-list-ul"></i>
+                                        </span>
+                                    </div>
+                            <input type="text" class="form-control" id="Estado_VI" placeholder="Estado">
+                             </div>
                         </div>
                     </div>
                 </div>
@@ -41,27 +55,48 @@
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">NIT</label>
-                             <input type="text" class="form-control" id="NIT" placeholder="1234567-6">
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-address-card"></i>
+                                        </span>
+                                    </div>
+                             <input type="text" class="form-control" id="NIT_VI" placeholder="1234567-6">
                         </div>
+                    </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Operador cita</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="mdi mdi-cellphone-android"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="OP_Cita_VI" placeholder="Operador">
+                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Asesor</label>
+                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-user-circle"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Asesor_VI" placeholder="Asesor">
                         </div>
+                    </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                            <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-info">
-                                Limpiar filtro avanzado <i class="fa fa-trash"></i></button>
+                            <button type="button" onclick="LimpiarFiltroVisitas();" class="btn btn-verde">
+                               <i class="fa fa-spin fa-refresh"></i> Limpiar filtro avanzado </button>
                         </div>
                     </div>
                 </div>
@@ -411,7 +446,7 @@
                                                             <label class="control-label text-right">
                                                                 Fecha visita:
                                                             </label>
-                                                            <p class="form-control-static" id="Fecha-Visita">
+                                                            <p class="form-control-static" id="Fecha_Visita_VI">
 
                                                             </p>
 
@@ -422,7 +457,7 @@
                                                             <label class="control-label text-right">
                                                                 Tipo de venta:
                                                             </label>
-                                                            <p class="form-control-static" id="TipoVenta-Citas">
+                                                            <p class="form-control-static" id="TipoVenta_VI">
 
                                                             </p>
 
@@ -433,7 +468,7 @@
                                                             <label class="control-label text-right">
                                                                 Estado visita:
                                                             </label>
-                                                            <p class="form-control-static" id="EstadoVisita-Citas">
+                                                            <p class="form-control-static" id="EstadoVisita_VI">
 
                                                             </p>
                                                         </div>
@@ -446,16 +481,60 @@
                                                             <label class="control-label text-right">
                                                                 Asesor:
                                                             </label>
-                                                            <p class="form-control-static" id="Asesor-Cita">
+                                                            <p class="form-control-static" id="AsesorCita_VI">
 
                                                             </p>
 
                                                         </div>
                                                     </div>
-                                                    <!--/col-->
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Calificación:
+                                                            </label>
+                                                            <p class="form-control-static" id="Calificacion_VI">
 
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
 
+                                                    <div>
+                                                        <hr class="m-t-0 m-b-40">
+                                                    </div>
+                                                    <!--/col-->
+                                                    <div class="row">
+                                                     <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Observación
+                                                                :
+                                                            </label>
+                                                            <p class="form-control-static"
+                                                                id="Observacion_VI">
+
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+
+                                                     <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="control-label text-right">
+                                                                Sugerencias
+                                                                :
+                                                            </label>
+                                                            <p class="form-control-static"
+                                                                id="Sugerencias_VI">
+
+                                                            </p>
+
+                                                        </div>
+                                                    </div>
+                                                    </div>
+
+                                                
 
 
 

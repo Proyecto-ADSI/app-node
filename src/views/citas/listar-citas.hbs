@@ -16,7 +16,15 @@
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Empresa cita</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                    </div>
+                               
                             <input type="text" class="form-control" id="Empresa-Cita" placeholder="Empresa">
+                          </div>   
                         </div>
                     </div>
                     <div class="col-md-7">
@@ -47,21 +55,35 @@
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Operador cita</label>
+                               <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-phone-square"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Cita-Operador-Filtro" placeholder="Operador">
+                             </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
                             <label class="m-t-30">Estado cita</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-list-ul"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Cita-Estado-Filtro" placeholder="Estado">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                            <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-info">
-                                Limpiar filtro avanzado <i class="fa fa-trash"></i></button>
+                            <button type="button" onclick="LimpiarFiltroCitas();" class="btn btn-verde">
+                               <i class="fa fa-spin fa-refresh"></i>  Limpiar filtro avanzado</button>
                         </div>
                     </div>
                 </div>
@@ -72,6 +94,7 @@
 
         <!--************** DataTable ***************************** -->
 
+  
         <div class="table-responsive">
             <table id="CitasDataTable" class="table table-bordered table-striped MyStyle_Color-Table">
                 <thead>
@@ -95,6 +118,13 @@
                 <button type="button" class="btn btn-danger" id="BtnInterna1" title="Agregar citas a internas"><i
                         class="fa  fa-calendar"></i> Citas internas</button>
             </div>
+{{!-- 
+                <div class="col-md-12 form-group">
+                        <label class="font-weight-bold">Asesor externo</label>
+                        <select id="Asesor_Ext" class="select2 form-control custom-select">
+                            <option selected disabled value="">Seleccione...</option>
+                        </select>
+                    </div> --}}
 
         </div>
     </div>
@@ -108,7 +138,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                    Citas seleccionadas</h4>
+                    Citas seleccionadas <i class="fa fa-check-circle"></i></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -154,7 +184,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-in"></i>
                     Salir</button>
-                <button type="submit" id="BtnReporte" class="btn btn-info">Asignar</button>
+                <button type="submit" id="BtnReporte" class="btn btn-verde"><i class="fa fa-plus-square"></i> Externa</button>
                 </form>
             </div>
         </div>
@@ -169,7 +199,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myLargeModalLabel">
-                    Citas seleccionadas</h4>
+                    Citas seleccionadas <i class="fa fa-check-circle"></i></h4>
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
             </div>
             <div class="modal-body">
@@ -195,7 +225,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-sign-in"></i>
                     Salir</button>
-                <button type="button" id="BtnInterna" class="btn btn-info">Agregar a interna</button>
+                <button type="button" id="BtnInterna" class="btn btn-verde"><i class="fa fa-plus-square"></i> Interna</button>
                
             </div>
         </div>
@@ -770,7 +800,7 @@
                                     <div id="switchCitas1" class="switch">
                                         <label>
                                             <strong> NO</strong>
-                                            <input type="checkbox">
+                                            <input type="checkbox" id="switchCitas2">
                                             <span class="lever"></span>
                                             <strong>SI</strong>
                                         </label>

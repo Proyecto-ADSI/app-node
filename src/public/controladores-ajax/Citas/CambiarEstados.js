@@ -5,6 +5,9 @@ var EstadoModal = null;
 
 $("#CitasDataTable tbody").on("click", "#Verificar", function () {
    Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+   MostrarLoaderPuntos();
+
+   
 
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
@@ -27,9 +30,13 @@ $("#CitasDataTable tbody").on("click", "#Verificar", function () {
     },
   });
 });
+
+
 $("#CitasDataTable tbody").on("click", "#Invalida", function () {
    Citas2 = DataTableCitas.row($(this).parents("tr")).data();
    EstadoModal = 12
+
+   MostrarLoaderPuntos();
 
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
@@ -57,6 +64,8 @@ $("#CitasDataTable tbody").on("click", "#Invalida", function () {
 $("#CitasDataTable tbody").on("click", "#Desarrollo", function () {
    Citas2 = DataTableCitas.row($(this).parents("tr")).data();
 
+   MostrarLoaderPuntos();
+
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
     Estado: 8,
@@ -81,6 +90,8 @@ $("#CitasDataTable tbody").on("click", "#Desarrollo", function () {
 
 $("#CitasDataTable tbody").on("click", "#Realizada", function () {
    Citas2 = DataTableCitas.row($(this).parents("tr")).data();
+
+   MostrarLoaderPuntos();
 
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
@@ -107,6 +118,8 @@ $("#CitasDataTable tbody").on("click", "#Realizada", function () {
 $("#CitasDataTable tbody").on("click", "#Reagendada", function () {
    Citas2 = DataTableCitas.row($(this).parents("tr")).data();
    EstadoModal = 16
+
+   MostrarLoaderPuntos();
 
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
@@ -135,6 +148,8 @@ $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
   Citas2 = DataTableCitas.row($(this).parents("tr")).data();
   EstadoModal = 14
 
+   MostrarLoaderPuntos();
+
   let DataCitas = {
     Id_Cita: parseInt(Citas2.Id_Cita),
     Estado: 14,
@@ -159,6 +174,8 @@ $("#CitasDataTable tbody").on("click", "#Cancelada", function () {
 });
 
 let RegistrarNovedad = () =>{
+
+  MostrarLoaderPuntos();
 
   let Novedades = {
     Id_Novedad: null,
@@ -193,7 +210,6 @@ $(function (){
       submitHandler: function(){
               RegistrarNovedad();
               RecargarDataTable();
-
               $("#Novedad").val("");
 
               $("#Novedades_Form .form-group").removeClass("has-success")

@@ -86,21 +86,20 @@ let DetallesCitass = (DetallesCitas) =>{
     // Datosvisita
     $("#Fecha-Visita").html(DataCi.Fecha_Visita)
     $("#TipoVenta-Citas").html(DataCi.Tipo_Venta)
-    $("#EstadoVisita-Citas").html(DataCi.Estados_Visita)
     $("#Asesor-Cita").html(DataCi.Nombre_Asesor)
 
-    if (DataCi.Id_Estado_Visita == 1) {
+    if (DataCi.Estados_Visita == 1) {
         $("#EstadoVisita-Citas").html("Sin realizar")
-    } else if(DataCi.Id_Estado_Visita == 2) {
+    } else if(DataCi.Estados_Visita == 2) {
         $("#EstadoVisita-Citas").html("En negociación")
     }
-    else if(DataCi.Id_Estado_Visita == 3){
+    else if(DataCi.Estados_Visita == 3){
         $("#EstadoVisita-Citas").html("Efectiva")
     }
-    else if(DataCi.Id_Estado_Visita == 4){
+    else if(DataCi.Estados_Visita == 4){
         $("#EstadoVisita-Citas").html("No efectiva")
     }
-    else if(DataCi.Id_Estado_Visita == 5){
+    else if(DataCi.Estados_Visita == 5){
         $("#EstadoVisita-Citas").html("Cancelada")
     }
 

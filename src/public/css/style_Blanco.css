@@ -737,7 +737,8 @@ Table Cell
 .table-responsive {
   display: block;
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
 
 /*******************
