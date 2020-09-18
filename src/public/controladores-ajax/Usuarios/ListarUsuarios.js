@@ -25,6 +25,7 @@ $(function () {
     Id_Rol = parseInt(data.session.Id_Usuario);
     DataTableUsuarios = $("#UsuariosDataTable").DataTable({
       // stateSave: true,
+      responsive:true,
       ajax: {
         url: `${URL}/Usuarios`,
         error: function (error) {
@@ -97,11 +98,11 @@ $(function () {
                   break;
               }
               return `
-                            <div class="text-center">
+                         
                                 <div class="label label-table text-center" style="background-color:${color}">
                                     ${data}
                                 </div>
-                            </div>
+                           
                             `;
             } else {
               return data;

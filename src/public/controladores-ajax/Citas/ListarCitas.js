@@ -3,11 +3,15 @@ var GuardarFilaSeleccionada = [];
 var NumeroSelec = null;
 var DataTableReporte = null;
 var ArrayCitasId = [];
+let NombrePDF;
+let InformacionPDF;
 
 $("#DescargarPdf").hide()
 
+
 $(function () {
   DataTableCitas = $("#CitasDataTable").DataTable({
+    responsive:true,
     ajax: {
       url: `${URL}/Citas`,
       deferRender: true,
@@ -440,7 +444,7 @@ $(function () {
     ],
   });
   $("#CitasDataTable tbody").on("click", "#BtnCitasDetalle", function () {
-    var DetallesCitas = DataTableCitas.row($(this).parents("tr")).data();
+     DetallesCitas = DataTableCitas.row($(this).parents("tr")).data();
 
     DetallesCitass(DetallesCitas);
   });
@@ -451,13 +455,13 @@ $(function () {
     GuardarFilaSeleccionada = DataTableCitas.rows(Filas).data().toArray();
 
     $.toast({
-      heading: "Perfecto",
-      text: "Cita seleccionada",
+      heading: "¡Perfecto!",
+      text: '<p class="jq-toast-body">Cita seleccionada</p>',
       position: "top-right",
       loaderBg: "#ff6849",
       showHideTransition: "plain",
       icon: "success",
-      hideAfter: 1350,
+      hideAfter: 2500,
       stack: false,
     });
 
@@ -469,13 +473,13 @@ $(function () {
     GuardarFilaSeleccionada = DataTableCitas.rows(Filas1).data().toArray();
 
     $.toast({
-      heading: "Perfecto",
-      text: "Cita deseleccionada",
+      heading: "¡Perfecto!",
+      text: '<p class="jq-toast-body">Cita deseleccionada</p>',
       position: "top-right",
       loaderBg: "#ff6849",
       showHideTransition: "plain",
       icon: "error",
-      hideAfter: 1350,
+      hideAfter: 2500,
       stack: false,
     });
   });
@@ -833,14 +837,16 @@ $("#BtnReporte1").on('click', function(){
       confirmButtonText: "Ok",
     });
   } else {
+    let Cita = {};
     GuardarFilaSeleccionada.forEach((element) => {
       if (element.Id_Estado_Cita == "4") {
-        let Cita = {
+          Cita = {
           Id_Cita: parseInt(element.Id_Cita),
           Estado_Cita: 5,
           TipoVisita:1,
           Id_Asesor_Externoo:parseInt($("#SelectAsesorEx option:selected").val()),
-          Id_Estado_Visitaa:1
+          Id_Estado_Visitaa:1,
+          InformacionPDF: element
         };
         ArrayCitasId.push(Cita);
       } 
@@ -864,6 +870,7 @@ $("#BtnReporte1").on('click', function(){
       processData: false,
       success: function (data) {  
           let PDF = JSON.stringify(data) 
+          NombrePDF = PDF.substr(26,31)
           swal(
             {
               title: "Perfecto",
@@ -882,6 +889,7 @@ $("#BtnReporte1").on('click', function(){
 
       $("#DescargarPdf").on('click', function(){
         $("#DescargarPdf").hide()
+        EliminarPDF(NombrePDF);
       })
 
         RecargarDataTable();
@@ -910,6 +918,30 @@ $("#BtnReporte1").on('click', function(){
 });
 
   };
+
+
+  const EliminarPDF = NombrePDF =>{
+
+    let PDF = {
+      NombrePDF: NombrePDF
+    }
+
+    $.ajax({
+      url:`${URL}/Citas/EliminarPDF`,
+      type:'post',
+      dataType:'json',
+      contentType:'application/json',
+      processData:false,
+      data: JSON.stringify(PDF),
+      success: function(Response){
+
+        console.log(Response.data.Ok)
+
+      }
+
+    })
+
+  }
 
   // $("#Asesor_Ext").select2({
   //   language: "es",

@@ -48,46 +48,74 @@
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <div class="example">
-                            <label class="font-weight-bold">NIT</label>
+                            <label class="font-weight-bold m-t-30">NIT</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-address-card"></i>
+                                        </span>
+                                    </div>
                             <input type="text" class="form-control" id="Filtro-DirectorioNit" placeholder="Nit">
                         </div>
+                      </div>
                     </div>
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold">Razón social</label>
+                        <label class="font-weight-bold  m-t-30">Razón social</label>
+                         <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                    </div>
                         <input class="form-control" type="text" id="Filtro-DirectorioRazon" placeholder="Razón social">
                     </div>
+                 </div>
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold">Teléfono</label>
+                        <label class="font-weight-bold  m-t-30">Teléfono</label>
+                         <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa  fa-phone"></i>
+                                        </span>
+                                    </div>
                         <input class="form-control" type="text" id="Filtro-DirectorioTele" placeholder="Teléfono">
                     </div>
+                  </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold">Operador</label>
+                        <label class="font-weight-bold  m-t-30">Operador</label>    
                         <select id="Filtro_Operador" class="select2 form-control custom-select">
                             <option selected disabled value="">Seleccione...</option>
                         </select>
-                    </div>
+                </div>
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold">Corporativo</label>
+                        <label class="font-weight-bold  m-t-30">Corporativo</label>
+                         <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="mdi mdi-account-multiple"></i>
+                                        </span>
+                                    </div>
                         <select id="Filtro-DirectorioCorpo" class="select2 form-control custom-select">
                             <option selected disabled value="">Seleccione una opción...</option>
                             <option value="Si">Si</option>
                             <option value="No">No</option>
                         </select>
                     </div>
+                </div>
                     <div class="col-md-4 form-group">
-                        <label class="font-weight-bold">Municipio</label>
+                        <label class="font-weight-bold  m-t-30">Municipio</label>
                         <select id="Filtro_Municipio" class="select2 form-control custom-select">
                             <option selected disabled value="">Seleccione...</option>
                         </select>
-                    </div>
+                  </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
                             <button type="button" onclick="LimpiarFiltroDirec();" class="btn btn-verde">
-                                Limpiar filtro avanzado</button>
+                                 <i class="fa fa-spin fa-refresh"></i> Limpiar filtro avanzado</button>
                         </div>
                     </div>
                 </div>
@@ -132,7 +160,7 @@
 
         <!--************** DataTable ***************************** -->
         <div class="table-responsive">
-            <table id="ClientesDataTable" class="table stylish-table MyStyle_Color-Table">
+            <table id="ClientesDataTable" class="table table-bordered table-striped MyStyle_Color-Table display nowrap" style="width: 100%;">
                 <thead>
                     <tr>
                         <th><i class="fa fa-address-card"></i> NIT</th>
@@ -141,7 +169,7 @@
                         <th><i class="mdi mdi-cellphone-android"></i> Operador</th>
                         <th><i class="mdi mdi-account-multiple"></i> Corporativo</th>
                         <th><i class="mdi mdi-map-marker"></i> Municipio</th>
-                        <th> <i class="fa fa-sliders"></i> Opciones</th>
+                        <th data-priority="2"> <i class="fa fa-sliders"></i> Opciones</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -11,278 +11,533 @@
                     <section>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                             <div class="col-md-4">
-                                <div class="form-group">
-                                    <label class="control-label">
-                                        NIT:
+                            <div class="col-md-5">
+                                <label class="control-label">
+                                    NIT:
+                                </label>
+                                <div id="NITInput" class="form-group">
+                                    <div class="input-group">
+                                        <input type="text" id="txtNITVI" name="txtNITVI" class="form-control"
+                                            placeholder="12345678-9">
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <label class="control-label">
+                                    Información:
+                                </label>
+                                <div class="form-group" style='position:relative; top:-5px;'>
+
+                                    <p class="form-control-static">Digite el NIT de la empresa a la que le quiera
+                                        asociar datos de la visita.<strong> Además esta empresa debe de estar en visitas
+                                            sin realizar</strong></p>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </section>
+                    <h6>Plan corporativo</h6>
+                    <section>
+                        <hr class="m-t-0 m-b-20">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group ">
+                                    <label class="control-label">¿Claúsula permanencia?:
+                                        <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="txtNIT" name="txtNIT" class="form-control"
-                                        placeholder="12345678-9">
+                                    <br>
+                                    <div id="switchClausulaVI" class="switch">
+                                        <label>
+                                            <strong> NO</strong>
+                                            <input type="checkbox">
+                                            <span class="lever"></span>
+                                            <strong>SI</strong>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    <label for="txtFecha_inicio">
+                                        Fecha del corporativo:
+                                    </label>
+                                    <div class="input-daterange input-group" id="Fecha_CorporativoVI">
+                                        <span class="input-group-addon">Inicio</span>
+                                        <input type="text" class="input-sm form-control" name="txtFechaInicioVI"
+                                            id="FechaInicioVI" placeholder="yyyy/mm/dd" />
+                                        <span class="input-group-addon">Fin</span>
+                                        <input type="text" class="input-sm form-control" name="txtFechaFinVI"
+                                            id="FechaFinVI" placeholder="yyyy/mm/dd" />
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="participants1">Descripción del corporativo:</label>
+                                    <div class="input-group">
+                                        <textarea name="txtDescripcionVI" id="DescripcionVI" rows="5"
+                                            class="form-control" placeholder="Ingresa una descripción"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                      <h6>Información datos visita</h6>
+                    <h6>Oferta</h6>
+                    <section>
+                        <hr class="m-t-0 m-b-20">
+                        <div class="tab-pane  p-20" id="tabPane2" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Destinatario oferta
+                                            <span class="text-danger">*</span>
+                                        </label>
+                                          <div class="input-group">
+                                        <input type="text" name="txtDestinatarioOfertaVI" id="DestinatarioOfertaVI"
+                                            class="form-control OFVI" placeholder="Ingresa un nombre">
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Información
+                                        </label>
+                                        <p class="form-control-static" style='position:relative; top:-7px;'>Ingrese el
+                                            nombre que se mostrara en la oferta presentada al cliente</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="d-inline-block">Servicios móviles del cliente:</h3>
+                            <span class="text-muted">(Seleccione un grupo de líneas)</span>
+                            <hr class="m-t-0 m-b-20">
+                            <div class="row">
+                                <div id="swipersVI" class="col-md-12"></div>
+                            </div>
+                            <h3 class="m-t-20 d-inline-block">Registrar servicios móviles:</h3>
+                            <span class="text-muted">(Comparativo)</span>
+                            <hr class="m-t-0 m-b-20">
+                            <div id="valSiComparativo">
+                                <div class="row">
+                                    <input type="hidden" id="Group" class="Group" value="">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="control-label"> Cantidad de líneas:
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="number" class="form-control detalleLinea OfertaPClick"
+                                                id="CantidadLineas_VI" name="txtDetalle_Cantidad_Lineas_OP"
+                                                placeholder="Cantidad: 10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Cargo básico por <strong>cada línea:</strong> <span
+                                                    class="text-danger">*</span>
+                                            </label>
+                                            <div class="input-group">
+                                                <input id="CargoBasico_VI" type="text"
+                                                    name="txtDetalle_Valor_Mensual_OP"
+                                                    class="form-control detalleLinea OfertaPClick"
+                                                    placeholder="Valor: $55,000">
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text">COP</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Navegación:
+                                                <span class="font-weight-bold">GB</span>
+                                            </label>
+                                            <input type="number" class="form-control detalleLinea OfertaPClick"
+                                                id="NavegacionVI" name="txtDetalleNavegacion_OP"
+                                                placeholder="Cantidad: 10">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="int1 ">Minutos a todo destino:</label>
+                                            <input type="checkbox" id="MinutoTDVI"
+                                                name="txtDetalle_Validacion_Ilimitados_OP"
+                                                class="MyStyle_Checkbox detalleLinea OfertaPClick">
+
+                                            <label class="checkbox" for="MinutoTDVI" data-toggle="tooltip"
+                                                data-original-title="Ilimitados"></label>
+                                            <input type="number" class="form-control detalleLinea OfertaPClick"
+                                                id="MinutosVI" name="txtDetalle_Minutos_OP"
+                                                placeholder="Cantidad: 3000">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="int1 ">SMS todo destino:</label>
+                                            <input type="checkbox" id="SMSTDVI"
+                                                name="txtDetalle_Validacion_SMSIlimitados_OP"
+                                                class="MyStyle_Checkbox detalleLinea OfertaPClick">
+
+                                            <label class="checkbox" for="SMSTDVI" data-toggle="tooltip"
+                                                data-original-title="Ilimitados"></label>
+                                            <input type="number" class="form-control detalleLinea OfertaPClick"
+                                                id="DetalleSMSVI" name="txtDetalle_Mensajes_OP" placeholder="SMS: 3000">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Minutos LDI:
+                                                <i class="fa fa-question-circle" data-toggle="tooltip"
+                                                    data-original-title="Utilice punto y coma o enter para guardar la entrada.">
+                                                </i>
+                                            </label>
+                                            <select id="MinutosLDIVI" class="select2-multiple m-b-10 OfertaPClick"
+                                                style="width: 100%" multiple="multiple"
+                                                data-placeholder="Seleccione o escriba">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Cantidad LDI:</label>
+                                            <input type="number" class="form-control detalleLinea OfertaPClick"
+                                                name="txtDetalle_Cantidad_LDI_OP" id="CantidadLDIVI"
+                                                placeholder="Cantidad: 3000" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Servicios ilimitados:
+                                                <i class="fa fa-question-circle" data-toggle="tooltip"
+                                                    data-original-title="Utilice punto y coma o enter para guardar la entrada.">
+                                                </i>
+                                            </label>
+                                            <select id="ServiciosILVI" class="select2-multiple m-b-10 OfertaPClick"
+                                                style="width: 100%" multiple="multiple"
+                                                data-placeholder="Seleccione o escriba">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">
+                                                Servicios adicionales:
+                                                <i class="fa fa-question-circle" data-toggle="tooltip"
+                                                    data-original-title="Utilice punto y coma o enter para guardar la entrada.">
+                                                </i>
+                                            </label>
+                                            <select id="ServiciosADVI" class="select2-multiple m-b-10 OfertaPClick"
+                                                style="width: 100%" multiple="multiple"
+                                                data-placeholder="Seleccione o escriba">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 text-right">
+                                        <button type="button" id="btnLimpiar_OPVI" class="btn btn-primary">
+                                            <i class="fa fa-pencil-square-o"></i> Limpiar
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6 text-left">
+                                        <button type="button" id="btnGuardar_OPVI" class="btn btn-info OfertaPClick">
+                                            <i class="fa fa-save"></i> Guardar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <h3 class="m-t-20 d-inline-block">Gestionar servicios móviles:</h3>
+                            <span class="text-muted">(Comparativo)</span>
+                            <hr class="m-t-0 m-b-20">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="table-responsive">
+                                        <table id="DataTableOPVI" class="table MyStyle_Color-Table display nowrap"
+                                            style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">Cantidad líneas</th>
+                                                    <th class="text-center">Cargo básico</th>
+                                                    <th class="text-center">Navegación</th>
+                                                    <th class="text-center">Minutos</th>
+                                                    <th class="text-center">Mensajes</th>
+                                                    <th class="text-center">Servicios ilimitados</th>
+                                                    <th class="text-center">Minutos LDI</th>
+                                                    <th class="text-center">Cantidad LDI</th>
+                                                    <th class="text-center">Serivicios adicionales</th>
+                                                    <th data-priority="2" class="text-center">Opciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-t-20 m-b-20">
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h3 class="font-weight-bold"> <i class="fa fa-file-text"></i> Textos</h3>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="opciones-collapse">
+                                        <a class="btn btn-sm btn-verde" data-toggle="collapse" data-target="#FormTextos"
+                                            aria-expanded="true" aria-controls="FormTextos">
+                                            <i class="ti-minus"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="m-t-10 m-b-20">
+                            <div id="FormTextos" class="row collapse">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>
+                                                    Mensaje superior:
+                                                </label>
+                                                <textarea class="form-control" name="MensajeSuVI"
+                                                    id="txtMensajeSuperior" rows="3"
+                                                    placeholder="Texto que se muestra encima de las propuestas."></textarea>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row m-b-20">
+                                        <div class="col-md-12">
+                                            <div class="row m-b-10">
+                                                <div class="col-md-6">
+                                                    <label class="m-t-10">Aclaraciones:</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="input-group-append float-right">
+                                                        <button type="button" class="btn btn-verde"
+                                                            id="AddAclaraciones">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="listaAclaracionesVI">
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
+                                                            <textarea class="form-control opcionAclaracionesVI"
+                                                                name="txtAclaracionesVI" id="txtOpcionAclaracion" rows="3"
+                                                                >El precio está sin IVA debido al
+nuevo decreto 540 del 13 de abril de 2020 que dice: todas las líneas de celulares cuyo valor sea inferior a $71.214 quedan exentos del IVA (19%) durante
+4 meses a partir de la fecha</textarea>
+                                                            <div class="input-group-append">
+                                                                <button class="btn btn-danger" type="button"
+                                                                    id='EliminarInputs'>
+                                                                    <i class="fa fa-minus"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="row m-b-10">
+                                                <div class="col-md-6">
+                                                    <label class="m-t-10">Notas:
+                                                        <span class="text-danger">*</span>
+                                                    </label>
+
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="input-group-append float-right">
+                                                        <button type="button" class="btn btn-verde" id="AddNotas">
+                                                            <i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="listaNotasVI">
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="input-group">
+                                                            <textarea name="txtNotasVI" class="form-control opcionNotasVI OFVI" rows="3">Se realizará el proceso de portabilidad, es decir ninguno de los números actuales cambiará, solo 
+cambiará el operador que presta el servicio</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <button type="button" id="BtnVerOferta" class="btn btn-verde" >
+                                    <i class="fa fa-eye"></i> Previsualizar oferta
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+                    <h6>Información datos visita</h6>
                     <section>
                         <hr class="m-t-0 m-b-20">
                         <div class="row">
-                             <div class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">
                                         Tipo de venta:
-                                         <span class="text-danger">*</span>
+                                        <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" id="txtTipoVenta" name="Tipo_Venta" class="form-control"
-                                        placeholder="Tipo de venta">
+                                    <div class="input-group">
+                                     <select name="txtTipoVentaVI" id="txtTipoVentaVI"
+                                        class="select2 form-control custom-select valDetalle">
+                                        <option selected disabled>Seleccione...</option>
+
+                                    </select>
+                                </div>
                                 </div>
                             </div>
-                               <div class="col-md-4">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label class="control-label">Calificacion:
                                         <span class="text-danger">*</span></label>
+                                        <div class="input-group">
                                     <select name="txtCalificacionVI" id="txtCalificacionVI"
                                         class="select2 form-control custom-select valDetalle">
                                         <option selected disabled>Seleccione...</option>
 
                                     </select>
                                 </div>
+                                </div>
                             </div>
-                               <div class="col-md-4">
+                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="control-label">Sugerencias:
+                                    <label class="control-label">Estado visita:
                                         <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" name="txtSugerenciasVI" id="txtSugerenciasVI" placeholder="Sugerencias">
+                                        <div class="input-group">
+                                    <select name="txtEstadoVI" id="txtEstadoVI"
+                                        class="select2 form-control custom-select valDetalle">
+                                        <option selected disabled>Seleccione...</option>
 
                                     </select>
                                 </div>
+                              </div>
                             </div>
                         </div>
                         <div class="row">
-                              <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="decisions1">Observación datos visita:
                                         <span class="text-danger">*</span>
                                     </label>
+                                      <div class="input-group">
                                     <textarea name="txtObservacionVI" id="txtObservacionVI" rows="5"
                                         class="form-control" placeholder="Escribe una observación"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Sugerencias:
+                                        <span class="text-danger">*</span></label>
+                                         <div class="input-group">
+                                         <select id="SugerenciasVI" name="txtSugerenciasVI" class="select2-multiple m-b-10 OfertaPClick"
+                                                style="width: 100%" multiple="multiple"
+                                                data-placeholder="Seleccione o escriba">
+
+                                            </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-                     <h6>Oferta</h6>
-                    <section>
-                        <hr class="m-t-0 m-b-20">
-                        <div class="tab-pane  p-20" id="tabPane2" role="tabpanel">
-                                    <h3 class="d-inline-block">Servicios móviles del cliente:</h3>
-                                    <span class="text-muted">(Seleccione un grupo de líneas)</span>
-                                    <hr class="m-t-0 m-b-20">
-                                    <div class="row">
-                                        <div id="swipers" class="col-md-12"></div>
-                                    </div>
-                                    <h3 class="m-t-20 d-inline-block">Registrar servicios móviles:</h3>
-                                    <span class="text-muted">(Comparativo)</span>
-                                    <hr class="m-t-0 m-b-20">
-                                    <div id="valSiComparativo">
-                                        <div class="row">
-                                            <input type="hidden" id="txtDetalleId_OP" value="0">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label class="control-label"> Cantidad de líneas:
-                                                        <span class="text-danger">*</span>
-                                                    </label>
-                                                    <input type="number" class="form-control detalleLinea OfertaPClick"
-                                                        id="txtDetalle_Cantidad_Lineas_OP"
-                                                        name="txtDetalle_Cantidad_Lineas_OP" placeholder="Cantidad: 10">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Cargo básico por <strong>cada línea:</strong> <span
-                                                            class="text-danger">*</span>
-                                                    </label>
-                                                    <div class="input-group">
-                                                        <input id="txtDetalle_Valor_Mensual_OP" type="text"
-                                                            name="txtDetalle_Valor_Mensual_OP"
-                                                            class="form-control detalleLinea OfertaPClick"
-                                                            placeholder="Valor: $55,000">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">COP</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Navegación:
-                                                        <span class="font-weight-bold">GB</span>
-                                                    </label>
-                                                    <input type="number" class="form-control detalleLinea OfertaPClick"
-                                                        id="txtDetalleNavegacion_OP" name="txtDetalleNavegacion_OP"
-                                                        placeholder="Cantidad: 10">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="int1 ">Minutos a todo destino:</label>
-                                                    <input type="checkbox" id="txtDetalle_Validacion_Ilimitados_OP"
-                                                        name="txtDetalle_Validacion_Ilimitados_OP"
-                                                        class="MyStyle_Checkbox detalleLinea OfertaPClick">
-
-                                                    <label class="checkbox" for="txtDetalle_Validacion_Ilimitados_OP"
-                                                        data-toggle="tooltip" data-original-title="Ilimitados"></label>
-                                                    <input type="number" class="form-control detalleLinea OfertaPClick"
-                                                        id="txtDetalle_Minutos_OP" name="txtDetalle_Minutos_OP"
-                                                        placeholder="Cantidad: 3000">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="int1 ">SMS todo destino:</label>
-                                                    <input type="checkbox" id="txtDetalle_Validacion_SMSIlimitados_OP"
-                                                        name="txtDetalle_Validacion_SMSIlimitados_OP"
-                                                        class="MyStyle_Checkbox detalleLinea OfertaPClick">
-
-                                                    <label class="checkbox" for="txtDetalle_Validacion_SMSIlimitados_OP"
-                                                        data-toggle="tooltip" data-original-title="Ilimitados"></label>
-                                                    <input type="number" class="form-control detalleLinea OfertaPClick"
-                                                        id="txtDetalle_Mensajes_OP" name="txtDetalle_Mensajes_OP"
-                                                        placeholder="SMS: 3000">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Minutos LDI:
-                                                        <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                            data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                                        </i>
-                                                    </label>
-                                                    <select id="txtDetalleMinutosLDI_OP"
-                                                        class="select2-multiple m-b-10 OfertaPClick" style="width: 100%"
-                                                        multiple="multiple" data-placeholder="Seleccione o escriba">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">Cantidad LDI:</label>
-                                                    <input type="number" class="form-control detalleLinea OfertaPClick"
-                                                        name="txtDetalle_Cantidad_LDI_OP"
-                                                        id="txtDetalle_Cantidad_LDI_OP" placeholder="Cantidad: 3000"
-                                                        disabled>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Servicios ilimitados:
-                                                        <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                            data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                                        </i>
-                                                    </label>
-                                                    <select id="txtDetalle_ServiciosI_OP"
-                                                        class="select2-multiple m-b-10 OfertaPClick" style="width: 100%"
-                                                        multiple="multiple" data-placeholder="Seleccione o escriba">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">
-                                                        Servicios adicionales:
-                                                        <i class="fa fa-question-circle" data-toggle="tooltip"
-                                                            data-original-title="Utilice punto y coma o enter para guardar la entrada.">
-                                                        </i>
-                                                    </label>
-                                                    <select id="txtDetalle_ServiciosA_OP"
-                                                        class="select2-multiple m-b-10 OfertaPClick" style="width: 100%"
-                                                        multiple="multiple" data-placeholder="Seleccione o escriba">
-
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6 text-right">
-                                                <button type="button" id="btnLimpiar_OP"
-                                                    class="btn btn-primary OfertaPClick">
-                                                    <i class="fa fa-pencil-square-o"></i> Limpiar
-                                                </button>
-                                            </div>
-                                            <div class="col-md-6 text-left">
-                                                <button type="button" id="btnGuardar_OP"
-                                                    class="btn btn-info OfertaPClick">
-                                                    <i class="fa fa-save"></i> Guardar
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div id="valNoComparativo" style="display: none;" class="row">
-                                        <div class="col-md-12">
-                                            <h5 class="text-center text-danger font-weight-bold">
-                                                <i class="fa fa-warning"></i> ¡No hay un grupo de líneas seleccionado!
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <h3 class="m-t-20 d-inline-block">Gestionar servicios móviles:</h3>
-                                    <span class="text-muted">(Comparativo)</span>
-                                    <hr class="m-t-0 m-b-20">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="table-responsive">
-                                                <table id="DataTableOP" class="table MyStyle_Color-Table display nowrap"
-                                                    style="width:100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">Cantidad líneas</th>
-                                                            <th class="text-center">Cargo básico</th>
-                                                            <th class="text-center">Navegación</th>
-                                                            <th class="text-center">Minutos</th>
-                                                            <th class="text-center">Mensajes</th>
-                                                            <th class="text-center">Servicios ilimitados</th>
-                                                            <th class="text-center">Minutos LDI</th>
-                                                            <th class="text-center">Cantidad LDI</th>
-                                                            <th class="text-center">Serivicios adicionales</th>
-                                                            <th class="text-center">Opciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <h3 class="m-t-20 d-inline-block">Ajuste de propuesta:</h3>
-                                    <span class="text-muted">(Comparativo)</span>
-                                    <hr class="m-t-0 m-b-20">
-                                    <div class="row">
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Bonos de activación:</label>
-                                                <input type="text" class="form-control" id="txtValorBonos"
-                                                    name="txtValorBonos" placeholder="Valor: 55,000">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label>Cancelación de cláusula:</label>
-                                                <input type="text" class="form-control" id="txtValorClausula"
-                                                    name="txtValorClausula" placeholder="Valor: 55,000">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                    </section>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- Previsualizar oferta --}}
+<div id="modalPrevisualizaroferta" class="modal modalFullScreen fade" tabindex="-1" role="dialog"
+    aria-labelledby="myLargeModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="font-weight-bold" id="myLargeModalLabel">
+                    Previsualizar oferta
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div id="ContenidoOferta" class="modal-body">
+                <div class="row m-b-20">
+                    <div class="col-md-12 text-center font-weight-bold">
+                        <h1 class="font-weight-bold">Hola, <span id="nombreClienteVI"></span></h1>
+                        <h4>Esta es la oferta que tenemos actualmente:</h4>
+                        <h4 id="textoSuperiorVI"></h4>
+                    </div>
+                </div>
+                <div id="ContenidoDinamicoVI">
+
+                </div>
+                <div id="filaAclaraciones_Notas" class="row">
+                    <div id="columnaNotasVI" class="col-md-12">
+                        <div class="sectionNotas">
+                            <h2 class="SubTituloOferta"> <i class="fa fa-file-text"></i> Notas:</h2>
+                            <ul id="listaNotasModalVI">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="sectionIndicaciones">
+                            <h4 class="SubTituloOferta">
+                                <span id="nombreClienteVI1"></span>, en caso de que desee iniciar plan corporativo,
+                                los documentos que se necesitan para continuar con el proceso son:
+                            </h4>
+                            <ul>
+                                <li>Cámara de comercio.</li>
+                                <li>Foto por lado y lado de la cédula del representante legal de la empresa.</li>
+                                <li>Un soporte de ingresos que puede ser solo uno de estas opciones:
+                                    <ul>
+                                        <li>Declaración de renta del año anterior</li>
+                                        <li>Extractos bancarios de los 2 últimos meses.</li>
+                                        <li>Factura del operador actual (solo si cuenta con plan corporativo)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4>Cordialmente,</h4>
+                        <h4>Ejecutivo comercial,</h4>
+                        <h4 id="NombreEmpleadoVI"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

@@ -24,9 +24,11 @@ $(document).ready(function () {
             store("Tema_Aplicacion", tema);
             $("#Tema").attr({ href: "/css/colors/Tema_" + tema + ".css" });
             $("#Style_Tema").attr({ href: "/css/style_" + tema + ".css" });
-          } else {
+          }
+           else {
             let tema = "Blanco";
             store("Tema_Aplicacion", tema);
+        
             $("#Tema").attr({ href: "/css/colors/Tema_" + tema + ".css" });
             $("#Style_Tema").attr({ href: "/css/style_" + tema + ".css" });
           }
@@ -38,3 +40,26 @@ $(document).ready(function () {
     e.stopPropagation();
   });
 });
+
+
+$(document).ready(function(){
+
+  if (localStorage.Tema_Aplicacion == "Blanco") {    
+
+    let tema = "Blanco";
+            
+    $("#Tema").attr({ href: "/css/colors/Tema_" + tema + ".css" });
+    $("#Style_Tema").attr({ href: "/css/style_" + tema + ".css" });
+
+    }
+    else if (localStorage.Tema_Aplicacion == "Oscuro"){
+
+      let tema = "Oscuro";
+
+       $("#switch_input").children("label").children("input").prop("checked");
+            
+      $("#Tema").attr({ href: "/css/colors/Tema_" + tema + ".css" });
+      $("#Style_Tema").attr({ href: "/css/style_" + tema + ".css" });
+
+    }
+})

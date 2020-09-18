@@ -1423,6 +1423,8 @@ let RegistrarLlamada = () => {
 
       let Valor_Total_MensualOP = Oferta_Personalizada_BD.Valor_Total_Mensual;
 
+      console.log(Valor_Total_MensualOP)
+
       Oferta_Personalizada_BD = Oferta_Personalizada_BD.arrayServiciosMoviles;
 
       Object.defineProperties(datos, {

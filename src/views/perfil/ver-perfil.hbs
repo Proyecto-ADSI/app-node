@@ -1,0 +1,103 @@
+<div class="card">
+    <div class="card-header MyStyle_Card_Header">
+        <div class="row">
+            <div class="col-md-10">
+                <h4 class="m-b-0 text-white">Perfil:</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30"> <img id="Img_Perfil" class="img-circle" width="150" />
+                        <h4 class="card-title m-t-10" id="Nombre_Perfil"></h4>
+                        <h6 class="card-subtitle" id="Rol_Perfil"></h6>
+                    </center>
+                </div>
+                <div>
+                    <hr>
+                </div>
+                <div class="card-body"> <small class="text-muted">Correo electronico </small>
+                    <h6 id="Correo_Perfil"></h6> <small class="text-muted p-t-30 db">Celular</small>
+                    <h6 id="Celular_Perfil"></h6> <small class="text-muted p-t-30 db">Tipo de documento</small>
+                    <h6 id="Tipo_Documento_Perfil"></h6>
+                    <small class="text-muted p-t-30 db">Numero de documento</small>
+                    <h6 id="Documento_Perfil"></h6>
+                      <small class="text-muted p-t-30 db">Tipo de turno</small>
+                    <h6 id="Turno_Perfil"></h6>
+                     <small class="text-muted p-t-30 db">Sexo</small>
+                    <h6 id="Sexo_Perfil"></h6>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class="card-body">
+                <center class="m-t-20">
+                    <h1>Cambiar contraseña.</h1>
+                </center>
+                <h5 class="card-subtitle m-t-10">
+                    <font>Un formulario te brindara la opción de cambiar tu contraseña como requisito tendras que digitar la que tienes actualmente.</font>
+                </h5>
+
+                 {{!-- <div>
+                    <hr>
+                </div>
+                 --}}
+                 <form id="Form_Cambiar_Contraseña" class="m-t-20">
+                    <div class="row">
+                          <div class="col-md-11">
+                                <div class="form-group">
+                                    <label class="control-label">Contraseña actual:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                      <div class="input-group">
+                                    <input type="password" name="ContrasenaAc" id="ContrasenaAc"
+                                        class="form-control form-control-danger" >
+                                </div>
+                              </div> 
+                            </div>
+                    </div>
+
+                    <div class="row">
+                          <div class="col-md-11">
+                                <div class="form-group">
+                                    <label class="control-label">Nueva contraseña:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                    <input type="password" name="NuevaContra" id="NuevaContra"
+                                        class="form-control form-control-danger">
+                                </div>
+                              </div>
+                            </div>
+                    </div>
+                    <div class="row">
+                         <div class="col-md-11">
+                                <div class="form-group">
+                                    <label class="control-label">Confirmar nueva contraseña:
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                    <input type="password" name="ConfirNuevaContra" id="ConfirNuevaContra"
+                                        class="form-control form-control-danger">
+                                </div>
+                               </div> 
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                        <button class="btn btn-verde" type="submit">Cambiar contraseña</button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
