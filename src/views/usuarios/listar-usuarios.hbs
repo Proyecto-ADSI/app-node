@@ -10,35 +10,38 @@
             </div>
             <div class="card-body" id="Card-Body-Filtrar-Llamadas2">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Usuario</label>
+                            <label class="font-weight-bold m-t-30">Usuario</label>
                             <input type="text" class="form-control" id="Filtro-Usuario" placeholder="Usuario">
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <label class="m-t-30">Rol</label>
+                    <div class="col-md-4">
+                        <label class="font-weight-bold m-t-30">Rol</label>
                         <select class="form-control" id="Select-Rol">
                         </select>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Nombre</label>
+                            <label class="font-weight-bold m-t-30">Nombre</label>
                             <input class="form-control" type="text" id="Filtro-Nombre" placeholder="Nombre">
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    </div>
+                    <div class="row">
+                    <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Correo</label>
+                            <label class="font-weight-bold m-t-30">Correo</label>
                             <input class="form-control" type="text" id="Filtro-Correo" placeholder="Correo">
                         </div>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group m-t-30">
-                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
-                                Limpiar filtro avanzado</button>
+                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-verde">
+                                 <i class="fa fa-spin fa-refresh"></i> Limpiar filtro avanzado</button>
                         </div>
                     </div>
                 </div>
@@ -70,14 +73,14 @@
             </div>
             <div class="card-body" id="Card-Body-Gestion-Usuarios2">
                 <div class="table-responsive">
-                    <table id="UsuariosDataTable" class="table stylish-table MyStyle_Color-Table">
+                    <table id="UsuariosDataTable" class="table table-bordered table-striped MyStyle_Color-Table display nowrap" style="width:100%;">
                         <thead>
                             <tr>
-                                <th><i class="fa fa-user"></i> Usuario</th>
+                                <th data-priority="1"><i class="fa fa-user"></i> Usuario</th>
                                 <th><i class="fa fa-tag"></i> Rol</th>
                                 <th><i class="fa fa-id-card"></i> Nombre </th>
                                 <th><i class="mdi mdi-gmail"></i> Correo</th>
-                                <th><i class="fa fa-sliders"></i> Opciones</th>
+                                <th data-priority="2"><i class="fa fa-sliders"></i> Opciones</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -97,6 +97,8 @@ $(document).ready(function () {
       <option value="País LDI">País LDI</option>
       <option value="Servicios ilimitados">Servicios ilimitados</option>
       <option value="Servicios adicionales">Servicios adicionales</option>
+      <option value="Calificación visita">Calificación visita</option>
+      <option value="Tipo de venta visitas">Tipo de venta visitas</option>
       <option value="Aclaraciones oferta">Aclaraciones oferta</option>
       <option value="Notas oferta">Notas oferta</option>
   `;

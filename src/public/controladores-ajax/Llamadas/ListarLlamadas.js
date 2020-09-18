@@ -1,6 +1,7 @@
 $(function () {
   DataTable = $("#LlamadasDataTable").DataTable({
     cache: true,
+    responsive:true,
     ajax: {
       url: `${URL}/Llamadas`,
       error: function (error) {
@@ -52,11 +53,11 @@ $(function () {
             }
 
             return `
-              <div class="text-center">
+         
                   <div class="label label-table text-center" style="background-color:${color}">
                       ${data}
                   </div>
-              </div>
+        
             `;
           } else {
             return row.Id_Estado_Llamada;

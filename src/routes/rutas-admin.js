@@ -85,6 +85,11 @@ router.get('/Usuarios/Registro',usuarioLogeado,(req,res)=>{
     res.render('usuarios/registrar-usuarios',{layout:'AdminLayout.hbs', Registrar_Usuarios: true , session: req.session.datos_usuario })
 });
 
+//Perfil
+router.get('/Perfil',usuarioLogeado,(req,res)=>{
+    res.render('perfil/ver-perfil',{layout:'AdminLayout.hbs', Ver_Perfil: true , session: req.session.datos_usuario })
+});
+
 // Notificaciones
 router.get('/Notificaciones',usuarioLogeado,(req,res)=>{
     res.render('notificaciones/listar-notifiaciones',{layout:'AdminLayout.hbs', Notificaciones: true , session: req.session.datos_usuario })

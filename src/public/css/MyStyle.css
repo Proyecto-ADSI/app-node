@@ -315,8 +315,13 @@
 }
 
 .CargandoGif {
-  background-image: url(/assets/images/icon/cargando.gif) !important;
+  background-image: url(/assets/images/icon/cargando.gif) !important; 
 }
+
+.Loading {
+border-color:#ffb22b  !important;
+}
+
 
 .titulo_header_llamadas {
   pointer-events: none;
@@ -512,7 +517,7 @@
   /* padding-bottom: 50px !important; */
 }
 
-#lista_swipersLlamada > .swiper-slide {
+#Lista_SwipersVI > .swiper-slide,  #lista_swipersLlamada > .swiper-slide {
   background-position: center !important;
   background-size: cover !important;
   width: 300px !important;
@@ -540,6 +545,10 @@
 
 
 #ContenidoDinamico {
+  margin-left: 20%;
+  max-width: 793px;
+}
+#ContenidoDinamicoVI {
   margin-left: 20%;
   max-width: 793px;
 }

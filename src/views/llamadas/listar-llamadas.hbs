@@ -11,39 +11,80 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">NIT</label>
+                            <label class="font-weight-bold m-t-30">NIT</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-address-card"></i>
+                                        </span>
+                                    </div>
                             <input type="text" class="form-control" id="Filtro_NIT" placeholder="NIT">
                         </div>
+                      </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Razón social</label>
+                            <label class="font-weight-bold m-t-30">Razón social</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-building-o"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Filtro_RazonSocial" placeholder="Razón social">
                         </div>
+                      </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Municipio</label>
+                            <label class="font-weight-bold m-t-30">Municipio</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="ti-location-pin"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Filtro_Municipio" placeholder="Municipio">
                         </div>
+                      </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Fecha</label>
+                            <label class="font-weight-bold m-t-30">Fecha</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-clock-o"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Filtro_Fecha" placeholder="Fecha">
+                          </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Usuario</label>
+                            <label class="font-weight-bold m-t-30">Usuario</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-user"></i>
+                                        </span>
+                                    </div>
                             <input class="form-control" type="text" id="Filtro_Usuario" placeholder="Usuario">
+                          </div>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="example">
-                            <label class="m-t-30">Estado</label>
+                            <label class="font-weight-bold m-t-30">Estado</label>
+                             <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">
+                                            <i class="fa fa-list-ul"></i>
+                                        </span>
+                                    </div>
                             <select name="txtCalificacion" id="Filtro_Estado"
                                 class="select2 form-control custom-select valDetalle">
                                 <option selected disabled>Seleccione...</option>
@@ -51,21 +92,22 @@
                                 <option value="2">Llamar nuevamente</option>
                                 <option value="3">Efectiva</option>
                             </select>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group m-t-30 MyStyle_Btn_Filtro ">
-                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-info">
-                                Limpiar filtro avanzado</button>
+                            <button type="button" onclick="LimpiarFiltro();" class="btn btn-verde">
+                                 <i class="fa fa-spin fa-refresh"></i> Limpiar filtro avanzado</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="table-responsive m-t-40">
-            <table id="LlamadasDataTable" class="table stylish-table MyStyle_Color-Table">
+            <table id="LlamadasDataTable" class="table table-bordered table-striped MyStyle_Color-Table display nowrap" style="width: 100%;">
                 <thead>
                     <tr>
                         <th><i class="fa fa-address-card"></i> NIT</th>
@@ -74,7 +116,7 @@
                         <th><i class="fa fa-clock-o"></i> Fecha </th>
                         <th><i class="fa fa-user"></i> Usuario</th>
                         <th><i class="fa fa-list-ul"></i> Estado</th>
-                        <th><i class="fa fa-sliders"></i> Opciones</th>
+                        <th data-priority="2" ><i class="fa fa-sliders"></i> Opciones</th>
                     </tr>
                 </thead>
                 <tbody>

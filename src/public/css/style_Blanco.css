@@ -6661,7 +6661,7 @@ File: scss
   background-image: url(../../assets/images/icon/warning.svg); }
 
 .has-warning .form-control {
-  border-color: #ffb22b; }
+  border-color: #ffb22b ; }
 
 .has-danger .col-form-label, .has-danger .custom-control, .has-danger .form-check-label, .has-danger .form-control-feedback, .has-danger .form-control-label {
   color: #ef5350; }

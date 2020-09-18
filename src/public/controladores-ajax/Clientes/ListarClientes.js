@@ -27,6 +27,7 @@ $(function () {
       CambiarEstadoVisitaNotificacion();
     }
     DataTable = $("#ClientesDataTable").DataTable({
+      responsive: true,
       ajax: {
         url: `${URL}/Cliente`,
         error: function (error) {
@@ -51,12 +52,9 @@ $(function () {
           render: function (data, datatype, row) {
             if (datatype === "display") {
               return `
-                <div class="text-center">
                     <div class="label label-table text-center" style="background-color:${row.Color}">
                         ${data}
-                    </div>
-                </div>
-              `;
+                    </div>            `;
             } else {
               return row.Id_Operador;
             }
@@ -75,11 +73,10 @@ $(function () {
               }
 
               return `
-                <div class="text-center">
                     <div class="label label-table text-center" style="background-color:${color}">
                         ${data}
                     </div>
-                </div>
+             
               `;
             } else {
               return data;
@@ -184,8 +181,16 @@ $(function () {
           }
         });
       },
-    });
+      // columnDefs: [
+      //   { responsivePriority: 1, targets: 0 },
+      //   { responsivePriority: 2, targets: -1 },
+      // ],
+    })
+    // .columns.adjust()
+    // .responsive.recalc();
+
   });
+  
 
   // Habilitar los tooltips
   InicializarToltips();
