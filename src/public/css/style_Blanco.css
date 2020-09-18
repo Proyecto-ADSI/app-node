@@ -737,7 +737,7 @@ Table Cell
 .table-responsive {
   display: block;
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: hidden;
   -ms-overflow-style: -ms-autohiding-scrollbar; }
 
@@ -4124,7 +4124,7 @@ Timeline page
   margin-left: -25px;
   border-radius: 50% 50% 50% 50%;
   text-align: center;
-  font-size: 1.4em;
+  font-size: 0.4em;
   line-height: 50px;
   color: #fff;
   overflow: hidden; }

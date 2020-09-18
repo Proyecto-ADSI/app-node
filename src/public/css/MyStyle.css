@@ -392,7 +392,7 @@
   padding: 20px 20px;
 }
 
-.cardPropuesta.cardOferta{
+.cardPropuesta.cardOferta {
   padding: 20px 50px;
 }
 
@@ -527,8 +527,7 @@
   cursor: grab;
 }
 
-.swiper-container.swiper-oferta:active 
-{
+.swiper-container.swiper-oferta:active {
   cursor: grabbing;
 }
 
@@ -537,7 +536,6 @@
   font-size: 18px;
   background: #fff;
 }
-
 
 #ContenidoDinamico {
   margin-left: 20%;
@@ -708,4 +706,20 @@
 
 .form-control > .select2-selection__rendered > .select2-selection__clear {
   font-size: 21px;
+}
+
+.cd-horizontal-timeline .events a {
+  padding-bottom: 6px;
+  color: #00897b;
+}
+
+.MyStyle_TimeLineRolDate {
+  font-size: 60%;
+  font-weight: 400;
+}
+
+@media only screen and (min-width: 1100px) {
+  .cd-horizontal-timeline {
+    margin: 0 auto;
+  }
 }

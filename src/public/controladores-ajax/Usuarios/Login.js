@@ -68,6 +68,7 @@ let Login = () => {
             }
           });
       } else {
+        OcultarLoaderGeneral();
         swal(
           "¡Usuario o contraseña no válido!",
           "Verifica los datos e intenta nuevamente",

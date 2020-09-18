@@ -219,6 +219,8 @@ CargarDatosModalDetalles = (Informacion) => {
 
       arrayComparativo.push(comparativo);
     }
+    
+    console.log(arrayComparativo);
 
     let filas = "";
 
@@ -488,6 +490,49 @@ CargarDatosModalDetalles = (Informacion) => {
       </div>
     `
     );
+  }
+
+  // Acciones
+  $("#Linea_Tiempo").empty();
+  let arrayAcciones = Informacion.Acciones;
+  for (let accion of arrayAcciones) {
+    $("#Linea_Tiempo").append(` 
+      <li>
+        <div class="timeline-badge">
+          <img class="img-responsive" alt="user" src="${URL}/Images/Usuarios/${accion.Imagen}" alt="img">
+        </div>
+        <div class="timeline-panel">
+          <div class="container">
+            <div class="timeline-heading m-b-10">
+              <div class="row"> 
+                <div class="col-md-12"> 
+                  <h4 class="timeline-title m-b-0">${accion.Usuario}</h4>
+                </div>
+              </div>
+              <div class="row"> 
+                <div class="col-md-12"> 
+                  <small class="text-muted m-r-5">
+                    <i class="fa fa-user"></i>
+                      ${accion.Rol}
+                  </small>
+                  <small class="text-muted">
+                    <i class="fa fa-clock-o"></i>
+                    ${accion.Fecha_Accion}
+                  </small>
+                </div>
+              </div>
+            </div>
+            <div class="timeline-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <p>${accion.Mensaje}</p>
+                <div>
+              <div>
+            <div>
+          </div>
+        </div>
+      </li>
+    `);
   }
 
   // Mostrar Modal con formulario para editar
