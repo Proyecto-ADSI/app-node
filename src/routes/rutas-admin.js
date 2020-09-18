@@ -8,10 +8,6 @@ router.get('/', usuarioLogeado,(req,res)=>{
     res.render('inicio/estadisticas',{layout:'AdminLayout.hbs', Estadisticas: true, session: req.session.datos_usuario })
 });
 
-router.get('/Noticias', usuarioLogeado, (req,res)=>{
-    res.render('inicio/listar-noticias',{layout:'AdminLayout.hbs', Noticias: true , session: req.session.datos_usuario })
-});
-
 // Configuración
 router.get('/Configuracion',usuarioLogeado, (req,res)=>{
     res.render('configuracion/configuracion',{layout:'AdminLayout.hbs', Configuracion: true , session: req.session.datos_usuario })
